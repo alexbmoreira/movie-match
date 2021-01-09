@@ -1,0 +1,8 @@
+[flake8]
+count = True
+
+exclude = 
+	*migrations*,
+	test_*
+
+max-line-length = 119
