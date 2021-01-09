@@ -6,3 +6,6 @@ install:
 
 migrate:
 	python manage.py makemigrations $(app) && python manage.py migrate $(app)
+
+lint:
+	scripts/lint.sh
