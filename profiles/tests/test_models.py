@@ -1,4 +1,4 @@
-from django.test import TestCase, TransactionTestCase
+from django.test import TestCase
 
 from ..models import User, Profile, Friendship
 
