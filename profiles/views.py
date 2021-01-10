@@ -27,8 +27,8 @@ class ProfileDetailAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, user_id):
-        profile = get_object_or_404(Profile, id=user_id)
+    def get(self, request, username):
+        profile = get_object_or_404(Profile, user__username=username)
         serializer = ProfileDetailSerializer(profile)
 
         return Response(data=serializer.data)

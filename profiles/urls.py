@@ -7,5 +7,5 @@ profile_detail_api = ProfileDetailAPIView.as_view()
 
 urlpatterns = [
     path("profiles/", profile_api, name="profiles"),
-    path("profiles/<int:user_id>", profile_detail_api, name="profile_detail"),
+    path("profiles/<str:username>", profile_detail_api, name="profile_detail"),
 ]
