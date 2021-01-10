@@ -43,6 +43,7 @@ class ProfileFriendshipSerializer(serializers.ModelSerializer):
     def get_sent_requests(self, obj):
         return UserSerializer(obj.get_sent_requests(), many=True).data
 
+
 class FriendshipSerializer(serializers.ModelSerializer):
 
     creator = serializers.StringRelatedField(read_only=True)
