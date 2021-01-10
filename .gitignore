@@ -1,3 +1,7 @@
+.DS_Store
+node_modules
+/dist
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -79,6 +83,12 @@ target/
 .ipynb_checkpoints
 
 # Editor Settings
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 .vscode
 
 # IPython
@@ -139,3 +149,12 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Webpack stats
+webpack-stats.json
