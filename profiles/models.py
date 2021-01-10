@@ -7,7 +7,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def get_friends(self):
-        friendship_set = Friendship.objects.filter(accepted=True).filter(Q(creator=self.user)|Q(friend=self.user))
+        friendship_set = Friendship.objects.filter(accepted=True).filter(Q(creator=self.user) | Q(friend=self.user))
 
         return [fshp.creator if fshp.friend == self.user else fshp.friend for fshp in friendship_set]
 
@@ -18,6 +18,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
 
 class Friendship(models.Model):
     creator = models.ForeignKey(User, related_name='friendship_creator_set', on_delete=models.CASCADE)
