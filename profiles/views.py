@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Profile
-from .serializers import ProfileSerializer, ProfileDetailSerializer
+from .serializers import ProfileSerializer, ProfileDetailSerializer, ProfileFriendshipSerializer
 
 
 class ProfileAPIView(APIView):
@@ -30,5 +30,16 @@ class ProfileDetailAPIView(APIView):
     def get(self, request, username):
         profile = get_object_or_404(Profile, user__username=username)
         serializer = ProfileDetailSerializer(profile)
+
+        return Response(data=serializer.data)
+
+
+class ProfileFriendshipsAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, username):
+        profile = get_object_or_404(Profile, user__username=username)
+        serializer = ProfileFriendshipSerializer(profile)
 
         return Response(data=serializer.data)
