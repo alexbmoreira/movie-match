@@ -12,7 +12,7 @@ class Profile(models.Model):
         return [fshp.creator if fshp.friend == self.user else fshp.friend for fshp in friendship_set]
 
     def get_friend_requests(self):
-        friendship_set = Friendship.objects.filter(accepted=False).filter(Q(creator=self.user)|Q(friend=self.user))
+        friendship_set = Friendship.objects.filter(accepted=False).filter(Q(creator=self.user) | Q(friend=self.user))
 
         return [fshp.creator if fshp.friend == self.user else fshp.friend for fshp in friendship_set]
 
