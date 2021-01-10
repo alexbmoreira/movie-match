@@ -11,10 +11,15 @@ class Profile(models.Model):
 
         return [fshp.creator if fshp.friend == self.user else fshp.friend for fshp in friendship_set]
 
-    def get_friend_requests(self):
-        friendship_set = Friendship.objects.filter(accepted=False).filter(Q(creator=self.user) | Q(friend=self.user))
+    def get_incoming_requests(self):
+        friendship_set = Friendship.objects.filter(accepted=False).filter(friend=self.user)
 
-        return [fshp.creator if fshp.friend == self.user else fshp.friend for fshp in friendship_set]
+        return [fshp.creator for fshp in friendship_set]
+
+    def get_sent_requests(self):
+        friendship_set = Friendship.objects.filter(accepted=False).filter(creator=self.user)
+
+        return [fshp.friend for fshp in friendship_set]
 
     def __str__(self):
         return self.user.username

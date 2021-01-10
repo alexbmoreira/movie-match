@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -21,3 +21,14 @@ class ProfileAPIView(APIView):
         serializer = ProfileSerializer(profiles, many=True)
 
         return Response(serializer.data)
+
+
+# class ProfileDetailAPIView(APIView):
+
+#     permission_classes = (IsAuthenticated,)
+
+#     def get(self, request, username):
+#         profile = get_object_or_404(Profile, username=username)
+#         serializer = ProfileSerializer(profile)
+
+#         return Response(data=serializer.data)
