@@ -60,7 +60,8 @@ INSTALLED_APPS = [
 
     'webpack_loader',
 
-    'profiles'
+    'profiles',
+    'movies'
 ]
 
 MIDDLEWARE = [
@@ -158,3 +159,5 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json')
     }
 }
+
+TMDB_API = os.environ.get('TMDB_API')
