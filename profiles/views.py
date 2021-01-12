@@ -3,8 +3,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Profile
-from .serializers import ProfileSerializer  # , ProfileDetailSerializer, ProfileFriendshipSerializer
+from .models import Profile, FriendsList
+from .serializers import ProfileSerializer, FriendsListSerializer
 
 
 class ProfileAPIView(APIView):
@@ -23,15 +23,15 @@ class ProfileAPIView(APIView):
         return Response(serializer.data)
 
 
-# class ProfileDetailAPIView(APIView):
+class ProfileFriendsAPIView(APIView):
 
-#     permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
-#     def get(self, request, username):
-#         profile = get_object_or_404(Profile, user__username=username)
-#         serializer = ProfileDetailSerializer(profile)
+    def get(self, request, username):
+        friends_list = get_object_or_404(FriendsList, user__username=username)
+        serializer = FriendsListSerializer(friends_list)
 
-#         return Response(data=serializer.data)
+        return Response(data=serializer.data)
 
 
 # class ProfileFriendshipsAPIView(APIView):

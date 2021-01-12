@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, User
+from .models import User, Profile, FriendsList
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -9,6 +9,18 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['user']
+
+
+class FriendsListSerializer(serializers.ModelSerializer):
+
+    friends = serializers.SerializerMethodField()
+
+    class Meta:
+        model = FriendsList
+        fields = ['friends']
+
+    def get_friends(self, obj):
+        return UserSerializer(obj.friends, many=True).data
 
 
 # class ProfileDetailSerializer(serializers.ModelSerializer):
@@ -54,8 +66,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 #         fields = ['creator', 'friend']
 
 
-# class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = User
-#         fields = ['id', 'username']
+    class Meta:
+        model = User
+        fields = ['id', 'username']
