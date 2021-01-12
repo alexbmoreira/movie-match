@@ -14,7 +14,6 @@
 <script>
 export default {
     methods: {
-        /*
         async logout() {
             try {
                 await this.$store.dispatch("logoutUser");
@@ -23,10 +22,9 @@ export default {
                 console.error(err);
             }
         }
-        */
     }
 }
 </script>
 
 
-<style src="./assets/css/tailwind.css"></style>
+<!--style src="./assets/css/tailwind.css"></style-->
