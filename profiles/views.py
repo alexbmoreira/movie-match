@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Profile
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, ProfileDetailSerializer, ProfileFriendshipSerializer
 
 
 class ProfileAPIView(APIView):
@@ -21,3 +21,25 @@ class ProfileAPIView(APIView):
         serializer = ProfileSerializer(profiles, many=True)
 
         return Response(serializer.data)
+
+
+class ProfileDetailAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, username):
+        profile = get_object_or_404(Profile, user__username=username)
+        serializer = ProfileDetailSerializer(profile)
+
+        return Response(data=serializer.data)
+
+
+class ProfileFriendshipsAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, username):
+        profile = get_object_or_404(Profile, user__username=username)
+        serializer = ProfileFriendshipSerializer(profile)
+
+        return Response(data=serializer.data)
