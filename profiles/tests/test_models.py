@@ -3,7 +3,7 @@ from django.test import TestCase
 from ..models import User, Profile, FriendsList, FriendRequest
 
 
-class FriendshipTests(TestCase):
+class FriendsListTests(TestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -52,3 +52,52 @@ class FriendshipTests(TestCase):
         self.assertEqual(user1_friends, [user2, user3]) # Joey's friends are Carl and Suzy
         self.assertEqual(user2_friends, [user1]) # Carl's friend is Joey
         self.assertEqual(user3_friends, [user1]) # Suzy's friend is Joey
+
+    def test_UnfriendOneFriend(self):
+        # Arrange
+        user1 = User.objects.get(id=1)
+        user2 = User.objects.get(id=2)
+        user3 = User.objects.get(id=3)
+        
+        frlst1 = FriendsList.objects.get(user=user1)
+        frlst2 = FriendsList.objects.get(user=user2)
+        frlst3 = FriendsList.objects.get(user=user3)
+
+        frlst1.friends.add(user2, user3)
+        frlst2.friends.add(user1, user3)
+        frlst3.friends.add(user1, user2)
+
+        # Act
+        frlst1.unfriend(user2) # Joey unfriends Carl
+
+        # Assert
+        user1_friends = list(frlst1.friends.all())
+        user2_friends = list(frlst2.friends.all())
+        self.assertEqual(user1_friends, [user3]) # Joey's only friend is now Suzy
+        self.assertEqual(user2_friends, [user3]) # Carl's only friend is now Suzy
+
+    def test_UnfriendTwoFriends(self):
+        # Arrange
+        user1 = User.objects.get(id=1)
+        user2 = User.objects.get(id=2)
+        user3 = User.objects.get(id=3)
+        
+        frlst1 = FriendsList.objects.get(user=user1)
+        frlst2 = FriendsList.objects.get(user=user2)
+        frlst3 = FriendsList.objects.get(user=user3)
+
+        frlst1.friends.add(user2, user3)
+        frlst2.friends.add(user1, user3)
+        frlst3.friends.add(user1, user2)
+
+        # Act
+        frlst1.unfriend(user2) # Joey unfriends Carl
+        frlst1.unfriend(user3) # Joey unfriends Suzy
+
+        # Assert
+        user1_friends = list(frlst1.friends.all())
+        user2_friends = list(frlst2.friends.all())
+        user3_friends = list(frlst3.friends.all())
+        self.assertEqual(user1_friends, []) # Joey now has no friends
+        self.assertEqual(user2_friends, [user3]) # Carl's only friend is now Suzy
+        self.assertEqual(user3_friends, [user2]) # Suzy's only friend is now Carl
