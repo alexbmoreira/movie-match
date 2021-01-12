@@ -112,7 +112,6 @@ class FriendRequestTests(TestCase):
         User.objects.create(username="carl", email="carl@test.com")
         User.objects.create(username="suzy", email="suzy@test.com")
 
-
     def test_AcceptRequest(self):
         # Arrange
         user1 = User.objects.get(username="joey")
@@ -131,3 +130,22 @@ class FriendRequestTests(TestCase):
         self.assertEqual(req1.active, False)
         self.assertEqual(user1_friends, [user3]) # Joey's friend is Suzy
         self.assertEqual(user3_friends, [user1]) # Suzy's friend is Joey
+
+    def test_DeclineRequest(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        FriendRequest.objects.create(creator=user1, receiver=user2)
+        req2 = FriendRequest.objects.get(creator=user1, receiver=user2) # Joey sends a request to Carl
+
+        # Act
+        req2.decline()
+
+        # Assert
+        user1_friends = list(FriendsList.objects.get(user=user1).friends.all())
+        user3_friends = list(FriendsList.objects.get(user=user3).friends.all())
+        self.assertEqual(req2.active, False)
+        self.assertEqual(user1_friends, []) # Joey has no friends
+        self.assertEqual(user3_friends, []) # Carl has no friends
