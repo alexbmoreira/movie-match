@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Profile
-from .serializers import ProfileSerializer# , ProfileDetailSerializer, ProfileFriendshipSerializer
+from .serializers import ProfileSerializer  # , ProfileDetailSerializer, ProfileFriendshipSerializer
 
 
 class ProfileAPIView(APIView):
@@ -43,7 +43,7 @@ class ProfileAPIView(APIView):
 #         serializer = ProfileFriendshipSerializer(profile)
 
 #         return Response(data=serializer.data)
-    
+
 #     def post(self, request):
 #         serializer = ProfileFriendshipSerializer(data=request.data)
 

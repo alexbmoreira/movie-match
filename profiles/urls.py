@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import ProfileAPIView#, ProfileDetailAPIView, ProfileFriendshipsAPIView
+from .views import ProfileAPIView  # , ProfileDetailAPIView, ProfileFriendshipsAPIView
 
 profile_api = ProfileAPIView.as_view()
 # profile_detail_api = ProfileDetailAPIView.as_view()

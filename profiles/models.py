@@ -8,6 +8,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class FriendsList(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
@@ -47,9 +48,9 @@ class FriendRequest(models.Model):
         creator_list = FriendsList.objects.get(user=self.creator)
         creator_list.friend(self.receiver)
         self.active = False
-    
+
     def decline(self):
         self.active = False
-    
+
     def cancel(self):
         self.active = False
