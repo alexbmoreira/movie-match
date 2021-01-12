@@ -4,9 +4,15 @@ import router from "./router";
 
 import "./assets/css/tailwind.css";
 
+import store from "./store";
+import VueCookies from 'vue-cookies';
+
+Vue.use(VueCookies)
+
 Vue.config.productionTip = false;
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount("#app");
