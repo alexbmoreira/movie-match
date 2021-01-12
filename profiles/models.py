@@ -41,15 +41,15 @@ class FriendRequest(models.Model):
 
     creator = models.ForeignKey(User, related_name='request_creator', on_delete=models.CASCADE)
     receiver = models.ForeignKey(User, related_name='request_friend', on_delete=models.CASCADE)
-    accepted = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
 
     def accept(self):
-        sender_list = FriendsList.objects.get(user=self.sender)
-        sender_list.friend(receiver)
-        self.accepted = True
+        creator_list = FriendsList.objects.get(user=self.creator)
+        creator_list.friend(self.receiver)
+        self.active = False
     
     def decline(self):
-        self.delete()
+        self.active = False
     
     def cancel(self):
-        self.delete()
+        self.active = False

@@ -14,9 +14,9 @@ class FriendsListTests(TestCase):
 
     def test_AddOneFriend(self):
         # Arrange
-        user1 = User.objects.get(id=1)
-        user2 = User.objects.get(id=2)
-        user3 = User.objects.get(id=3)
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
         
         frlst1 = FriendsList.objects.get(user=user1)
         frlst2 = FriendsList.objects.get(user=user2)
@@ -33,9 +33,9 @@ class FriendsListTests(TestCase):
 
     def test_AddTwoFriends(self):
         # Arrange
-        user1 = User.objects.get(id=1)
-        user2 = User.objects.get(id=2)
-        user3 = User.objects.get(id=3)
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
         
         frlst1 = FriendsList.objects.get(user=user1)
         frlst2 = FriendsList.objects.get(user=user2)
@@ -55,9 +55,9 @@ class FriendsListTests(TestCase):
 
     def test_UnfriendOneFriend(self):
         # Arrange
-        user1 = User.objects.get(id=1)
-        user2 = User.objects.get(id=2)
-        user3 = User.objects.get(id=3)
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
         
         frlst1 = FriendsList.objects.get(user=user1)
         frlst2 = FriendsList.objects.get(user=user2)
@@ -78,9 +78,9 @@ class FriendsListTests(TestCase):
 
     def test_UnfriendTwoFriends(self):
         # Arrange
-        user1 = User.objects.get(id=1)
-        user2 = User.objects.get(id=2)
-        user3 = User.objects.get(id=3)
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
         
         frlst1 = FriendsList.objects.get(user=user1)
         frlst2 = FriendsList.objects.get(user=user2)
@@ -101,3 +101,33 @@ class FriendsListTests(TestCase):
         self.assertEqual(user1_friends, []) # Joey now has no friends
         self.assertEqual(user2_friends, [user3]) # Carl's only friend is now Suzy
         self.assertEqual(user3_friends, [user2]) # Suzy's only friend is now Carl
+
+
+class FriendRequestTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        # Set up non-modified objects used by all test methods
+        User.objects.create(username="joey", email="joey@test.com")
+        User.objects.create(username="carl", email="carl@test.com")
+        User.objects.create(username="suzy", email="suzy@test.com")
+
+
+    def test_AcceptRequest(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        FriendRequest.objects.create(creator=user1, receiver=user3)
+        req1 = FriendRequest.objects.get(creator=user1, receiver=user3) # Joey sends a request to Suzy
+
+        # Act
+        req1.accept()
+
+        # Assert
+        user1_friends = list(FriendsList.objects.get(user=user1).friends.all())
+        user3_friends = list(FriendsList.objects.get(user=user3).friends.all())
+        self.assertEqual(req1.active, False)
+        self.assertEqual(user1_friends, [user3]) # Joey's friend is Suzy
+        self.assertEqual(user3_friends, [user1]) # Suzy's friend is Joey
