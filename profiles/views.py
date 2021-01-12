@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Profile
-from .serializers import ProfileSerializer, ProfileDetailSerializer, ProfileFriendshipSerializer
+from .serializers import ProfileSerializer# , ProfileDetailSerializer, ProfileFriendshipSerializer
 
 
 class ProfileAPIView(APIView):
@@ -23,23 +23,32 @@ class ProfileAPIView(APIView):
         return Response(serializer.data)
 
 
-class ProfileDetailAPIView(APIView):
+# class ProfileDetailAPIView(APIView):
 
-    permission_classes = (IsAuthenticated,)
+#     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, username):
-        profile = get_object_or_404(Profile, user__username=username)
-        serializer = ProfileDetailSerializer(profile)
+#     def get(self, request, username):
+#         profile = get_object_or_404(Profile, user__username=username)
+#         serializer = ProfileDetailSerializer(profile)
 
-        return Response(data=serializer.data)
+#         return Response(data=serializer.data)
 
 
-class ProfileFriendshipsAPIView(APIView):
+# class ProfileFriendshipsAPIView(APIView):
 
-    permission_classes = (IsAuthenticated,)
+#     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, username):
-        profile = get_object_or_404(Profile, user__username=username)
-        serializer = ProfileFriendshipSerializer(profile)
+#     def get(self, request, username):
+#         profile = get_object_or_404(Profile, user__username=username)
+#         serializer = ProfileFriendshipSerializer(profile)
 
-        return Response(data=serializer.data)
+#         return Response(data=serializer.data)
+    
+#     def post(self, request):
+#         serializer = ProfileFriendshipSerializer(data=request.data)
+
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(status=status.HTTP_201_CREATED)
+
+#         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)

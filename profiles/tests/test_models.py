@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..models import User, Profile, Friendship
+from ..models import User, Profile, FriendsList, FriendRequest
 
 
 class FriendshipTests(TestCase):
@@ -12,104 +12,43 @@ class FriendshipTests(TestCase):
         User.objects.create(username="carl", email="carl@test.com")
         User.objects.create(username="suzy", email="suzy@test.com")
 
-    def test_GetFriendsList_TwoAccepted(self):
+    def test_AddOneFriend(self):
         # Arrange
         user1 = User.objects.get(id=1)
         user2 = User.objects.get(id=2)
         user3 = User.objects.get(id=3)
-        profile1 = Profile.objects.get(id=1)
-        profile2 = Profile.objects.get(id=2)
-        profile3 = Profile.objects.get(id=3)
-
-        friendship = Friendship.objects.create(creator=user1, friend=user2, accepted=True)
-        friendship = Friendship.objects.create(creator=user2, friend=user3, accepted=True)
+        
+        frlst1 = FriendsList.objects.get(user=user1)
+        frlst2 = FriendsList.objects.get(user=user2)
+        frlst3 = FriendsList.objects.get(user=user3)
 
         # Act
+        frlst1.friend(user2)
 
         # Assert
-        self.assertEqual(profile2.get_friends(), [user1, user3]) # Get carl's friends; gets joey and suzy
+        user1_friends = list(frlst1.friends.all())
+        user2_friends = list(frlst2.friends.all())
+        self.assertEqual(user1_friends, [user2]) # Joey's friend is Carl
+        self.assertEqual(user2_friends, [user1]) # Carl's friend is Joey
 
-    def test_GetFriendsList_OneAccepted(self):
+    def test_AddTwoFriends(self):
         # Arrange
         user1 = User.objects.get(id=1)
         user2 = User.objects.get(id=2)
         user3 = User.objects.get(id=3)
-        profile1 = Profile.objects.get(id=1)
-        profile2 = Profile.objects.get(id=2)
-        profile3 = Profile.objects.get(id=3)
-
-        friendship = Friendship.objects.create(creator=user1, friend=user2, accepted=True)
-        friendship = Friendship.objects.create(creator=user2, friend=user3, accepted=False)
+        
+        frlst1 = FriendsList.objects.get(user=user1)
+        frlst2 = FriendsList.objects.get(user=user2)
+        frlst3 = FriendsList.objects.get(user=user3)
 
         # Act
+        frlst1.friend(user2) # Joey and Carl are friends
+        frlst1.friend(user3) # Joey and Suzy are friends
 
         # Assert
-        self.assertEqual(profile2.get_friends(), [user1]) # Get carl's friends; gets joey
-
-    def test_GetIncomingRequests_OneAccepted(self):
-        # Arrange
-        user1 = User.objects.get(id=1)
-        user2 = User.objects.get(id=2)
-        user3 = User.objects.get(id=3)
-        profile1 = Profile.objects.get(id=1)
-        profile2 = Profile.objects.get(id=2)
-        profile3 = Profile.objects.get(id=3)
-
-        friendship = Friendship.objects.create(creator=user1, friend=user2, accepted=True)
-        friendship = Friendship.objects.create(creator=user3, friend=user2, accepted=False)
-
-        # Act
-
-        # Assert
-        self.assertEqual(profile2.get_incoming_requests(), [user3]) # Get carl's friend requests; gets suzy
-
-    def test_GetIncomingRequests_NoneAccepted(self):
-        # Arrange
-        user1 = User.objects.get(id=1)
-        user2 = User.objects.get(id=2)
-        user3 = User.objects.get(id=3)
-        profile1 = Profile.objects.get(id=1)
-        profile2 = Profile.objects.get(id=2)
-        profile3 = Profile.objects.get(id=3)
-
-        friendship = Friendship.objects.create(creator=user1, friend=user2, accepted=False)
-        friendship = Friendship.objects.create(creator=user3, friend=user2, accepted=False)
-
-        # Act
-
-        # Assert
-        self.assertEqual(profile2.get_incoming_requests(), [user1, user3]) # Get carl's friend requests; gets joey and suzy
-
-    def test_GetSentRequests_OneAccepted(self):
-        # Arrange
-        user1 = User.objects.get(id=1)
-        user2 = User.objects.get(id=2)
-        user3 = User.objects.get(id=3)
-        profile1 = Profile.objects.get(id=1)
-        profile2 = Profile.objects.get(id=2)
-        profile3 = Profile.objects.get(id=3)
-
-        friendship = Friendship.objects.create(creator=user2, friend=user1, accepted=True)
-        friendship = Friendship.objects.create(creator=user2, friend=user3, accepted=False)
-
-        # Act
-
-        # Assert
-        self.assertEqual(profile2.get_sent_requests(), [user3]) # Get carl's friend requests; gets suzy
-
-    def test_GetSentRequests_NoneAccepted(self):
-        # Arrange
-        user1 = User.objects.get(id=1)
-        user2 = User.objects.get(id=2)
-        user3 = User.objects.get(id=3)
-        profile1 = Profile.objects.get(id=1)
-        profile2 = Profile.objects.get(id=2)
-        profile3 = Profile.objects.get(id=3)
-
-        friendship = Friendship.objects.create(creator=user2, friend=user1, accepted=False)
-        friendship = Friendship.objects.create(creator=user2, friend=user3, accepted=False)
-
-        # Act
-
-        # Assert
-        self.assertEqual(profile2.get_sent_requests(), [user1, user3]) # Get carl's friend requests; gets joey and suzy
+        user1_friends = list(frlst1.friends.all())
+        user2_friends = list(frlst2.friends.all())
+        user3_friends = list(frlst3.friends.all())
+        self.assertEqual(user1_friends, [user2, user3]) # Joey's friends are Carl and Suzy
+        self.assertEqual(user2_friends, [user1]) # Carl's friend is Joey
+        self.assertEqual(user3_friends, [user1]) # Suzy's friend is Joey

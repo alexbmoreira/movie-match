@@ -1,34 +1,55 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import Q
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    def get_friends(self):
-        friendship_set = Friendship.objects.filter(accepted=True).filter(Q(creator=self.user) | Q(friend=self.user))
+    def __str__(self):
+        return self.user.username
 
-        return [fshp.creator if fshp.friend == self.user else fshp.friend for fshp in friendship_set]
+class FriendsList(models.Model):
 
-    def get_incoming_requests(self):
-        friendship_set = Friendship.objects.filter(accepted=False).filter(friend=self.user)
-
-        return [fshp.creator for fshp in friendship_set]
-
-    def get_sent_requests(self):
-        friendship_set = Friendship.objects.filter(accepted=False).filter(creator=self.user)
-
-        return [fshp.friend for fshp in friendship_set]
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
+    friends = models.ManyToManyField(User, blank=True, related_name='friends')
 
     def __str__(self):
         return self.user.username
 
+    def add_friend(self, new_friend):
+        if new_friend not in self.friends.all():
+            self.friends.add(new_friend)
 
-class Friendship(models.Model):
-    creator = models.ForeignKey(User, related_name='friendship_creator_set', on_delete=models.CASCADE)
-    friend = models.ForeignKey(User, related_name='friendship_friend_set', on_delete=models.CASCADE)
+    def friend(self, new_friend):
+        self.add_friend(new_friend)
+
+        other_list = FriendsList.objects.get(user=new_friend)
+        other_list.add_friend(self.user)
+
+    def remove_friend(self, friend):
+        if friend in self.friends.all():
+            self.friends.remove(friend)
+
+    def unfriend(self, friend):
+        self.remove_friend(friend)
+
+        other_list = FriendsList.objects.get(user=friend)
+        other_list.remove_friend(self.user)
+
+
+class FriendRequest(models.Model):
+
+    creator = models.ForeignKey(User, related_name='request_creator', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name='request_friend', on_delete=models.CASCADE)
     accepted = models.BooleanField(default=False)
 
-    def __str__(self):
-        return f"{self.creator} and {self.friend}"
+    def accept(self):
+        sender_list = FriendsList.objects.get(user=self.sender)
+        sender_list.friend(receiver)
+        self.accepted = True
+    
+    def decline(self):
+        self.delete()
+    
+    def cancel(self):
+        self.delete()
