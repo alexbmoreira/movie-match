@@ -1,19 +1,4 @@
 <template>
-<!--
-    <form @submit.prevent="register">  
-        <div class="container">   
-            <label>Email Address : </label>   
-            <input v-model="email" type="text" placeholder="Enter Email" name="email" required>
-            <label>Username : </label>   
-            <input v-model="username" type="text" placeholder="Enter Username" name="username" required>  
-            <label>Password : </label>   
-            <input v-model="password1" type="password" placeholder="Enter Password" name="password1" required>  
-            <label>Confirm Password : </label>   
-            <input v-model="password2" type="password" placeholder="Enter Password Again" name="password2" required>
-            <button type="submit">Register</button>    
-        </div>   
-    </form>
-    -->
 
     <body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
     <header class="max-w-lg mx-auto">
@@ -50,6 +35,13 @@
                     <input v-model="password2" type="password" id="password2" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
                 </div>
 
+                <div class="mb-3">
+                    <li class="ml-6 pt-2 text-red-500" v-if="password1.length < 8">Password must contain at least 8 characters!</li>
+                    <li class="ml-6 pt-2 text-red-500">Password can't be similiar to username!</li>
+                    <li class="ml-6 pt-2 text-red-500" >Password must contain both numbers and letters!</li>
+                    <li class="ml-6 pt-2 text-red-500" v-if="password1 !== password2">Passwords must be the same!</li>
+                </div>
+
                 <div class="flex justify-end">
                     <a href="#" class="text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6">Forgot your password?</a>
                 </div>
@@ -80,71 +72,64 @@ export default {
             username: '',
             password1: '',
             password2: '',
+            passwordLength: false,
+            passwordNum: false,
+            passwordLet: false,
+            passwordStrong: false,
+            passwordUser: false,
+            passwordConfirmed: false
         }
     },
     methods: {
-    async register() {
-        try {
-            const payload = {
-                username: this.username,
-                email: this.email,
-                password1: this.password1,
-                password2: this.password2
-            };
-            await this.$store.dispatch("registerUser", payload);
-            this.$router.push({ name: "Home" });
-        } catch (err) {
-            console.error(err);
+        async register() {
+            try {
+                const payload = {
+                    username: this.username,
+                    email: this.email,
+                    password1: this.password1,
+                    password2: this.password2
+                };
+                await this.$store.dispatch("registerUser", payload);
+                this.$router.push({ name: "Home" });
+            } catch (err) {
+                console.error(err);
+            }
+        },
+        pwStrength(){
+
+            if(this.password1.length > 7) {
+                this.passwordLength = true
+            }
+            this.passwordNum = /\d/.test(this.password1);
+            this.passwordLet = /[a-z]/.test(this.password1);
+            console.log(this.passwordNum)
+            console.log(this.passwordLet)
+
+            if(this.passwordNum && this.passwordLet) {
+                this.passwordStrong = true
+            }
+
+            if(this.username === this.password1) {
+                this.passwordUser = false
+            } else {
+                this.passwordUser = true
+            }
+
+            if(this.passwordLength && this.passwordStrong && this.passwordUser) {
+                this.passwordConfirmed = true
+            }
+
         }
+    
     }
-}
 }
 </script>
 
 <style scoped>
 
-.body-bg {
+    .body-bg {
             background-color: #9921e8;
             background-image: linear-gradient(315deg, #9921e8 0%, #5f72be 74%);
-        }
-
-
-/*
-
-Body {  
-  font-family: Calibri, Helvetica, sans-serif;  
-  background-color: pink;  
-}  
-button {   
-       background-color: #4CAF50;   
-       width: 100%;  
-        color: orange;   
-        padding: 15px;   
-        margin: 10px 0px;   
-        border: none;   
-        cursor: pointer;   
-         }   
- form {   
-        border: 3px solid #f1f1f1;   
-    }   
- input[type=text], input[type=password] {   
-        width: 100%;   
-        margin: 8px 0;  
-        padding: 12px 20px;   
-        display: inline-block;   
-        border: 2px solid green;   
-        box-sizing: border-box;   
-    }  
- button:hover {   
-        opacity: 0.7;   
-    }   
-  
- .container {   
-        padding: 25px;   
-        background-color: lightblue;  
-        width: 50%;
-        margin: auto;
-    }   
-*/
+    }
 
 </style>
