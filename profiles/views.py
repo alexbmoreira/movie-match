@@ -23,12 +23,24 @@ class ProfileAPIView(APIView):
         return Response(serializer.data)
 
 
+class ProfileDetailAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, user_id):
+        profile = get_object_or_404(Profile, id=user_id)
+        serializer = ProfileSerializer(profile)
+
+        return Response(data=serializer.data)
+
+
 class ProfileFriendsAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, username):
-        friends_list = get_object_or_404(FriendsList, user__username=username)
+    def get(self, request, user_id):
+        # friends_list = FriendsList.objects.all()
+        friends_list = get_object_or_404(FriendsList, user__id=user_id)
         serializer = FriendsListSerializer(friends_list)
 
         return Response(data=serializer.data)
