@@ -15,12 +15,11 @@ class ProfileAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request):
+    def get(self, request, search=""):
         profiles = Profile.objects.all()
-        item = self.request.query_params.get("item", "")
-
-        if item != "":
-            profiles = profiles.filter(name=item)
+        
+        if search != "":
+            profiles = profiles.filter(user__username=search)
 
         serializer = ProfileSerializer(profiles, many=True)
 

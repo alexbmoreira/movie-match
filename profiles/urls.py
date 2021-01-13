@@ -11,6 +11,7 @@ request_action_api = RequestActionAPIView.as_view()
 
 urlpatterns = [
     path("profiles/", profile_api, name="profiles"),
+    path("profiles/<str:search>", profile_api, name="profiles_search"),
     path("profiles/<int:user_id>/", profile_detail_api, name="profile_detail_api"),
     path("profiles/<int:user_id>/friends/", profile_friends_api, name="profile_friends_detail"),
     path("profiles/<int:user_id>/friends/", profile_friends_api, name="profile_friends_detail"),
