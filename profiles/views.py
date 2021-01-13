@@ -3,7 +3,6 @@ import io
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from rest_framework import status
-from rest_framework.decorators import permission_classes
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -20,7 +19,7 @@ class ProfileAPIView(APIView):
 
     def get(self, request, search=""):
         profiles = Profile.objects.all()
-        
+
         if search != "":
             profiles = profiles.filter(user__username=search)
 
@@ -60,15 +59,13 @@ class FriendRequestsAPIView(APIView):
         serializer = FriendRequestSerializer(friend_reqs, many=True)
 
         return Response(data=serializer.data)
-    
+
     def post(self, request):
         try:
             send_to_user = User.objects.get(**request.data)
-
             FriendRequest.objects.create(creator=request.user, receiver=send_to_user)
-
             return Response(status=status.HTTP_201_CREATED)
-        except:
+        except Exception:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -85,7 +82,7 @@ class FriendActionAPIView(APIView):
         elif operation == 'remove':
             friends_list.unfriend(friend)
             return Response(status=status.HTTP_202_ACCEPTED)
-        
+
         return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -103,5 +100,5 @@ class RequestActionAPIView(APIView):
         elif operation == 'cancel' and friend_request.creator == request.user:
             friend_request.cancel()
             return Response(status=status.HTTP_202_ACCEPTED)
-        
+
         return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
