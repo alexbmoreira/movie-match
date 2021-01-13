@@ -17,7 +17,11 @@ module.exports = {
 
       'sm': {'max': '639px'},
       // => @media (max-width: 639px) { ... }
-    }
+    },
+    fontFamily: {
+      'nunito': ['Nunito', 'sans-serif'],
+      'roboto-slab': ['Roboto Slab', 'serif'],
+    },
   },
   variants: {
       extend: {},
