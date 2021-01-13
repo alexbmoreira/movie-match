@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from rest_framework import status
+from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -31,7 +32,7 @@ class ProfileDetailAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, user_id):
-        profile = get_object_or_404(Profile, id=user_id)
+        profile = get_object_or_404(Profile, user__id=user_id)
         serializer = ProfileSerializer(profile)
 
         return Response(data=serializer.data)
@@ -42,59 +43,53 @@ class ProfileFriendsAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, user_id):
-        # friends_list = FriendsList.objects.all()
         friends_list = get_object_or_404(FriendsList, user__id=user_id)
         serializer = FriendsListSerializer(friends_list)
 
         return Response(data=serializer.data)
 
-    def post(self, request, user_id):
-        add_to_users_friends = User.objects.get(id=user_id)
-        friends_list = FriendsList.objects.get(user=add_to_users_friends)
 
-        add_user_username = request.data['username']
-        add_user = User.objects.get(username=add_user_username)
-        friends_list.friend(add_user)
-            
-        return Response(status=status.HTTP_201_CREATED)
-
-    def delete(self, request, user_id):
-        remove_from_users_friends = User.objects.get(id=user_id)
-        friends_list = FriendsList.objects.get(user=remove_from_users_friends)
-
-        remove_user_username = request.data['username']
-        remove_user = User.objects.get(username=remove_user_username)
-        friends_list.unfriend(remove_user)
-            
-        return Response(status=status.HTTP_201_CREATED)
-
-
-class FriendAPIView(APIView):
+class FriendRequestsAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def delete(self, request, user_id, friend_id):
-        remove_from_users_friends = User.objects.get(id=user_id)
-        friends_list = FriendsList.objects.get(user=remove_from_users_friends)
-
-        remove_user = User.objects.get(id=friend_id)
-        friends_list.unfriend(remove_user)
-            
-        return Response(status=status.HTTP_202_ACCEPTED)
-
-
-class ProfileFriendRequestsAPIView(APIView):
-
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, user_id):
-        # friends_list = FriendsList.objects.all()
-        friend_reqs = FriendRequest.objects.filter(Q(creator__id=user_id) | Q(receiver__id=user_id))
+    def get(self, request):
+        friend_reqs = FriendRequest.objects.filter(Q(creator=request.user) | Q(receiver=request.user), active=True)
         serializer = FriendRequestSerializer(friend_reqs, many=True)
 
         return Response(data=serializer.data)
 
-    
-class FriendRequestsAPIView(APIView):
 
-    permission_classes = (IsAuthenticated,)
+class FriendActionAPIView(APIView):
+
+    def get(self, request, operation, user_id):
+        friend = User.objects.get(id=user_id)
+
+        friends_list = FriendsList.objects.get(user=request.user)
+
+        if operation == 'add':
+            friends_list.friend(friend)
+            return Response(status=status.HTTP_201_CREATED)
+        elif operation == 'remove':
+            friends_list.unfriend(friend)
+            return Response(status=status.HTTP_202_ACCEPTED)
+        
+        return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RequestActionAPIView(APIView):
+
+    def get(self, request, operation, request_id):
+        friend_request = FriendRequest.objects.get(id=request_id)
+
+        if operation == 'accept' and friend_request.receiver == request.user:
+            friend_request.accept()
+            return Response(status=status.HTTP_201_CREATED)
+        elif operation == 'decline' and friend_request.receiver == request.user:
+            friend_request.decline()
+            return Response(status=status.HTTP_202_ACCEPTED)
+        elif operation == 'cancel' and friend_request.creator == request.user:
+            friend_request.cancel()
+            return Response(status=status.HTTP_202_ACCEPTED)
+        
+        return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)

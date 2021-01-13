@@ -48,9 +48,12 @@ class FriendRequest(models.Model):
         creator_list = FriendsList.objects.get(user=self.creator)
         creator_list.friend(self.receiver)
         self.active = False
+        self.save()
 
     def decline(self):
         self.active = False
+        self.save()
 
     def cancel(self):
         self.active = False
+        self.save()
