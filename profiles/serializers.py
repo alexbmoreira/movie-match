@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import User, Profile, FriendsList, FriendRequest
+
+from .models import FriendRequest, FriendsList, Profile, User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -37,6 +38,6 @@ class FriendRequestSerializer(serializers.ModelSerializer):
     receiver = UserSerializer(read_only=True)
 
     class Meta:
-        model = FriendsList
+        model = FriendRequest
         fields = ['creator', 'receiver', 'active']
 

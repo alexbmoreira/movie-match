@@ -5,8 +5,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import FriendsList, Profile, User
-from .serializers import FriendsListSerializer, ProfileSerializer
+from .models import FriendRequest, FriendsList, Profile, User
+from .serializers import (FriendRequestSerializer, FriendsListSerializer,
+                          ProfileSerializer)
 
 
 class ProfileAPIView(APIView):
@@ -82,22 +83,18 @@ class FriendAPIView(APIView):
         return Response(status=status.HTTP_202_ACCEPTED)
 
 
+class ProfileFriendRequestsAPIView(APIView):
 
-# class ProfileFriendshipsAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
 
-#     permission_classes = (IsAuthenticated,)
+    def get(self, request, user_id):
+        # friends_list = FriendsList.objects.all()
+        friend_reqs = FriendRequest.objects.filter(Q(creator__id=user_id) | Q(receiver__id=user_id))
+        serializer = FriendRequestSerializer(friend_reqs, many=True)
 
-#     def get(self, request, username):
-#         profile = get_object_or_404(Profile, user__username=username)
-#         serializer = ProfileFriendshipSerializer(profile)
+        return Response(data=serializer.data)
 
-#         return Response(data=serializer.data)
+    
+class FriendRequestsAPIView(APIView):
 
-#     def post(self, request):
-#         serializer = ProfileFriendshipSerializer(data=request.data)
-
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(status=status.HTTP_201_CREATED)
-
-#         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    permission_classes = (IsAuthenticated,)
