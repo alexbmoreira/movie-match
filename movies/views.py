@@ -8,7 +8,6 @@ class MovieSearchAPIView(APIView):
 
     def get(self, request, search, page=1):
         api_key = settings.TMDB_API
-
         query = f"https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}&page={page}"
 
         response = requests.get(query)
