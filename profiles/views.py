@@ -56,6 +56,31 @@ class ProfileFriendsAPIView(APIView):
             
         return Response(status=status.HTTP_201_CREATED)
 
+    def delete(self, request, user_id):
+        remove_from_users_friends = User.objects.get(id=user_id)
+        friends_list = FriendsList.objects.get(user=remove_from_users_friends)
+
+        remove_user_username = request.data['username']
+        remove_user = User.objects.get(username=remove_user_username)
+        friends_list.unfriend(remove_user)
+            
+        return Response(status=status.HTTP_201_CREATED)
+
+
+class FriendAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def delete(self, request, user_id, friend_id):
+        remove_from_users_friends = User.objects.get(id=user_id)
+        friends_list = FriendsList.objects.get(user=remove_from_users_friends)
+
+        remove_user = User.objects.get(id=friend_id)
+        friends_list.unfriend(remove_user)
+            
+        return Response(status=status.HTTP_202_ACCEPTED)
+
+
 
 # class ProfileFriendshipsAPIView(APIView):
 
