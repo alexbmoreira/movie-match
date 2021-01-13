@@ -1,14 +1,17 @@
+import io
+
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from rest_framework import status
 from rest_framework.decorators import permission_classes
+from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import FriendRequest, FriendsList, Profile, User
 from .serializers import (FriendRequestSerializer, FriendsListSerializer,
-                          ProfileSerializer)
+                          ProfileSerializer, UserSerializer)
 
 
 class ProfileAPIView(APIView):
@@ -57,6 +60,16 @@ class FriendRequestsAPIView(APIView):
         serializer = FriendRequestSerializer(friend_reqs, many=True)
 
         return Response(data=serializer.data)
+    
+    def post(self, request):
+        try:
+            send_to_user = User.objects.get(**request.data)
+
+            FriendRequest.objects.create(creator=request.user, receiver=send_to_user)
+
+            return Response(status=status.HTTP_201_CREATED)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class FriendActionAPIView(APIView):
