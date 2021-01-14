@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import FriendRequest, FriendsList, Profile, User
+from .models import FriendRequest, FriendsList, Profile, User, Watchlist
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -40,3 +40,12 @@ class FriendRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = FriendRequest
         fields = ['id', 'creator', 'receiver', 'active']
+
+
+class WatchListSerializer(serializers.ModelSerializer):
+
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Watchlist
+        fields = ['user', 'watchlist']

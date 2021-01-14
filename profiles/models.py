@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
@@ -11,8 +12,8 @@ class Profile(models.Model):
 
 class FriendsList(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
-    friends = models.ManyToManyField(User, blank=True, related_name='friends')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='friends_list_user')
+    friends = models.ManyToManyField(User, blank=True, related_name='friends_list_friends')
 
     def __str__(self):
         return self.user.username
@@ -57,3 +58,20 @@ class FriendRequest(models.Model):
     def cancel(self):
         self.active = False
         self.save()
+
+
+class Watchlist(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='watch_list_user')
+    watchlist = ArrayField(models.IntegerField(), blank=True, default=list)
+
+    def add_movie(self, movie_id):
+        if movie_id not in self.watchlist:
+            self.watchlist.append(movie_id)
+
+    def remove_movie(self, movie_id):
+        if movie_id in self.watchlist:
+            self.watchlist.remove(movie_id)
+
+    def __str__(self):
+        return f"{self.user}'s watchlist"
