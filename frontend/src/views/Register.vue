@@ -27,6 +27,8 @@
                     <input v-model="email" type="text" id="email" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
                 </div>
 
+                <li class="ml-6 pt-0 mb-6 text-red-500" v-if="!validateEmail()">Please enter a valid email!</li>
+
                 <div class="mb-6 pt-3 rounded bg-gray-200">
                     <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password1">Password</label>
                     <input v-model="password1" type="password" id="password1" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
@@ -71,6 +73,7 @@ export default {
     data() {
         return {
             email: '',
+            validEmail: false,
             username: '',
             usernameLength: false,
             password1: '',
@@ -170,8 +173,15 @@ export default {
             }
 
         },
+        validateEmail(){
+
+            //checking to make sure inputted string for email fits email structure
+            var re = /\S+@\S+\.\S+/;
+            return re.test(this.email);
+
+        },
         async register() {
-            if(this.makeNewUser === true){
+            if(this.makeNewUser === true){ //adding if so register function is only fired when all inputted info fits validation
                 try {
                     const payload = {
                         username: this.username,
