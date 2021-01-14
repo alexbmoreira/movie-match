@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..models import User, Profile, FriendsList, FriendRequest
+from ..models import User, Profile, FriendsList, FriendRequest, Watchlist
 
 
 class FriendsListTests(TestCase):
@@ -149,3 +149,42 @@ class FriendRequestTests(TestCase):
         self.assertEqual(req2.active, False)
         self.assertEqual(user1_friends, []) # Joey has no friends
         self.assertEqual(user3_friends, []) # Carl has no friends
+
+class WatchListTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        # Set up non-modified objects used by all test methods
+        User.objects.create(username="joey", email="joey@test.com")
+        User.objects.create(username="carl", email="carl@test.com")
+        User.objects.create(username="suzy", email="suzy@test.com")
+
+    def test_AddOneToWatchlist(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list1 = Watchlist.objects.get(user=user1)
+
+        # Act
+        w_list1.add_movie(4995) # Add Boogie Nights by TMDB movie id
+
+        # Assert
+        self.assertEqual(w_list1.watchlist, [4995]) # Boogie Nights is in Joey's watchlist
+
+    def test_RemoveOneFromWatchlist(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list1 = Watchlist.objects.get(user=user1)
+        w_list1.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list1.watchlist.append(68718) # Add Django Unchained by TMDB movie id
+
+        # Act
+        w_list1.remove_movie(68718) # Remove Django Unchained by TMDB movie id
+
+        # Assert
+        self.assertEqual(w_list1.watchlist, [4995]) # Only Boogie Nights is left in Joey's watchlist
