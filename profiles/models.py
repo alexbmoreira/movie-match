@@ -57,3 +57,20 @@ class FriendRequest(models.Model):
     def cancel(self):
         self.active = False
         self.save()
+
+
+class Watchlist(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
+    watchlist = ArrayField(models.IntegerField(), blank=True, null=False)
+
+    def add_movie(self, movie):
+        if movie not in self.watchlist.all():
+            self.watchlist.add(movie)
+
+    def remove_movie(self, movie)
+        if movie in self.watchlist.all():
+            self.watchlist.remove(movie)
+
+    def __str__(self):
+        return f"{self.user}'s watchlist"
