@@ -39,7 +39,7 @@
 
                 <div class="mb-3">
                     <li class="ml-6 pt-2 text-red-500" v-if="password1.length < 8">Password must contain at least 8 characters!</li>
-                    <li class="ml-6 pt-2 text-red-500" v-if="username === password1">Password can't be similiar to username!</li>
+                    <li class="ml-6 pt-2 text-red-500" v-if="!simPwUsername()">Password can't be similiar to username!</li>
                     <li class="ml-6 pt-2 text-red-500" v-if="!pwNumLet(password1)">Password must contain both a number & capital letter!</li>
                     <li class="ml-6 pt-2 text-red-500" v-if="(password1 !== password2)">Passwords must be the same!</li>
                 </div>
@@ -85,53 +85,48 @@ export default {
         }
     },
     methods: {
-        async register() {
-            try {
-                const payload = {
-                    username: this.username,
-                    email: this.email,
-                    password1: this.password1,
-                    password2: this.password2
-                };
-                await this.$store.dispatch("registerUser", payload);
-                this.$router.push({ name: "Home" });
-            } catch (err) {
-                console.error(err);
-            }
-        },
         pwStrength(){
 
+            //validate username minimum 3 characters
+            if(this.username.length > 2) {
+                this.usernameLength = true;
+            }
+
+            //check if password is minimum 8 characters
             if(this.password1.length > 7) {
                 this.passwordLength = true
             }
+
+            //check if password contains an uppercase character and a numeric
             this.passwordNum = /\d/.test(this.password1);
             this.passwordLet = /[A-Z]/.test(this.password1);
 
-            if(this.username.length > 2) {
-                this.usernameLength = true;
-                this.username = this.username.toLowerCase()
-            }
-
+            //if it does set passwordStrong to true
             if(this.passwordNum && this.passwordLet) {
                 this.passwordStrong = true
             }
 
+            //check to see if the password has the username included in or equal to it (NOT CASE SENSITIVE)
             if(this.username === this.password1 || this.password1.includes(this.username)) {
                 this.passwordUser = false
             } else {
                 this.passwordUser = true
             }
 
+            //if the pw satisfies all above conditions set passwordConfirmed to true
             if(this.passwordLength && this.passwordStrong && this.passwordUser) {
                 this.passwordConfirmed = true
             }
 
+            //if password is valid and username is valid set makeNewUser to true 
             if(this.passwordConfirmed && this.usernameLength) {
                 this.makeNewUser = true;
             }
 
         },
         pwNumLet(pw){
+
+            //Function to add li item for error handling when pw doesnt have both capital and numeric
 
             this.passwordNum = /\d/.test(pw)
             this.passwordLet = /[A-Z]/.test(pw)
@@ -144,6 +139,52 @@ export default {
                 return false
             }
 
+        },
+        simPwUsername(){
+
+            //Function to add li item when pw includes or equals username
+
+            var u = this.username.toLowerCase()
+            var p = this.password1.toLowerCase()
+
+            if(u === p || p.includes(u)) {
+                this.passwordUser = false
+                return false
+            } else {
+                this.passwordUser = true
+                return true
+            }
+
+        },
+        validUsername() {
+
+            //Function to add li item when username length is less than 3 chars
+
+            if(this.username.length > 2){
+                this.username = this.username.toLowerCase()
+                this.usernameLength = true
+                return true
+            } else {
+                this.usernameLength = false
+                return false
+            }
+
+        },
+        async register() {
+            if(this.makeNewUser === true){
+                try {
+                    const payload = {
+                        username: this.username,
+                        email: this.email,
+                        password1: this.password1,
+                        password2: this.password2
+                    };
+                    await this.$store.dispatch("registerUser", payload);
+                    this.$router.push({ name: "Home" });
+                } catch (err) {
+                    console.error(err);
+                }
+            }
         }
     
     }
