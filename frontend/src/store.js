@@ -12,7 +12,7 @@ const store = new Vuex.Store({
   mutations: {
     success(state, token) {
       state.token = token
-      Cookies.set('access_token', token)
+      Cookies.set('access_token', token, { sameSite: 'Lax' })
     },
     logout(state) {
       state.token = ''
