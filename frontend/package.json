@@ -40,14 +40,28 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
+      "plugin:vue/recommended",
       "eslint:recommended",
       "@vue/prettier"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "prettier/prettier": [
+        "warn", {
+          "singleQuote": true,
+          "semi": false,
+          "trailingComma": "none",
+          "quoteProps": "consistent",
+          "printWidth": 250
+        }
+      ],
+      "quotes": ["warn", "single"],
+      "semi": ["warn", "never"],
+      "indent": ["warn", 2],
+      "no-multi-spaces": ["warn"]
+    }
   },
   "browserslist": [
     "> 1%",
