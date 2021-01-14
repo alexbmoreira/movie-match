@@ -5,9 +5,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import FriendRequest, FriendsList, Profile, User
+from .models import FriendRequest, FriendsList, Profile, User, Watchlist
 from .serializers import (FriendRequestSerializer, FriendsListSerializer,
-                          ProfileSerializer, UserSerializer)
+                          ProfileSerializer, UserSerializer,
+                          WatchListSerializer)
 
 
 class ProfileAPIView(APIView):
@@ -99,3 +100,14 @@ class RequestActionAPIView(APIView):
             return Response(status=status.HTTP_202_ACCEPTED)
 
         return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileWatchlistAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, user_id):
+        watchlist = get_object_or_404(Watchlist, user__id=user_id)
+        serializer = WatchListSerializer(watchlist)
+
+        return Response(data=serializer.data)
