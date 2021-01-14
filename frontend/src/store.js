@@ -1,23 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import VueCookies from 'vue-cookies'
+import Cookies from 'js-cookie'
 import authAPI from './api/auth'
 
 Vue.use(Vuex)
-Vue.use(VueCookies)
 
 const store = new Vuex.Store({
   state: {
-    token: Vue.$cookies.get('access_token') || ''
+    token: Cookies.get('access_token') || ''
   },
   mutations: {
     success(state, token) {
       state.token = token
-      Vue.$cookies.set('access_token', token)
+      Cookies.set('access_token', token)
     },
     logout(state) {
       state.token = ''
-      Vue.$cookies.remove('access_token')
+      Cookies.remove('access_token')
     }
   },
   actions: {

@@ -12,7 +12,6 @@
     "core-js": "^3.6.5",
     "js-cookie": "^2.2.1",
     "vue": "^2.6.11",
-    "vue-cookies": "^1.7.4",
     "vue-router": "^3.2.0",
     "vuex": "^3.6.0",
     "webpack-bundle-tracker": "^0.4.3"
@@ -49,7 +48,8 @@
     },
     "rules": {
       "prettier/prettier": [
-        "warn", {
+        "warn",
+        {
           "singleQuote": true,
           "semi": false,
           "trailingComma": "none",
@@ -57,10 +57,21 @@
           "printWidth": 250
         }
       ],
-      "quotes": ["warn", "single"],
-      "semi": ["warn", "never"],
-      "indent": ["warn", 2],
-      "no-multi-spaces": ["warn"]
+      "quotes": [
+        "warn",
+        "single"
+      ],
+      "semi": [
+        "warn",
+        "never"
+      ],
+      "indent": [
+        "warn",
+        2
+      ],
+      "no-multi-spaces": [
+        "warn"
+      ]
     }
   },
   "browserslist": [
