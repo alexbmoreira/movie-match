@@ -63,7 +63,7 @@ class FriendRequest(models.Model):
 class Watchlist(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='watch_list_user')
-    watchlist = ArrayField(models.IntegerField(), blank=True, null=False)
+    watchlist = ArrayField(models.IntegerField(), blank=True)
 
     def add_movie(self, movie_id):
         if movie_id not in self.watchlist.all():
