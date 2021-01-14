@@ -1,19 +1,19 @@
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
 
-import "./assets/css/tailwind.css";
-import "./assets/css/fonts.css";
+import './assets/css/tailwind.css'
+import './assets/css/fonts.css'
 
-import store from "./store";
-import VueCookies from 'vue-cookies';
+import store from './store'
+import VueCookies from 'vue-cookies'
 
 Vue.use(VueCookies)
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount("#app");
+}).$mount('#app')
