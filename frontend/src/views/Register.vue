@@ -74,7 +74,10 @@ export default {
           await this.$store.dispatch('registerUser', payload)
           this.$router.push({ name: 'Home' })
         } catch (err) {
-          console.error(err)
+          console.log(Object.entries(err.response.data))
+          Object.entries(err.response.data).forEach(err => {
+            this.formErrors = this.formErrors.concat(err[1])
+          })
         }
       }
     },
