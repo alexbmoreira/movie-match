@@ -2,8 +2,8 @@
   <div class="bg-app-bg min-h-screen pt-12 pb-6 px-2 md:px-0 md:pt-20">
     <div class="bg-app-bg-light max-w-lg mx-auto p-8 my-10 rounded-lg shadow-2xl md:p-12">
       <div>
-        <h3 class="text-app-typeface font-bold text-2xl">Welcome to Match Cut</h3>
-        <p class="text-app-typeface-alt pt-2">Sign in to your account.</p>
+        <h3 class="text-app-typeface font-bold text-2xl">Join Match Cut</h3>
+        <p class="text-app-typeface-alt pt-2">Create your account</p>
       </div>
 
       <div class="mt-10">
@@ -52,7 +52,7 @@
 
           <div v-if="formErrors.length > 0" class="mb-3">
             <div v-for="(error, index) in formErrors" :key="index" class="flex w-full bg-app-error-bg content-center rounded">
-              <i class="fas fa-exclamation-triangle"></i><span class="ml-6 py-1 text-app-error-text">{{ error }}</span>
+              <span class="mx-2 py-1 text-app-error-text"><i class="fas fa-exclamation-triangle"></i> {{ error }}</span>
             </div>
           </div>
 
@@ -62,7 +62,7 @@
     </div>
 
     <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-      <p class="text-white">Already have an account? <router-link to="/login" class="font-bold hover:underline">Log in</router-link>.</p>
+      <p class="text-white">Already have an account? <router-link to="/login" class="font-bold hover:underline">Log in</router-link></p>
     </div>
   </div>
 </template>
