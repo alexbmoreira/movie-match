@@ -1,18 +1,12 @@
 <template>
-  <body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0">
-    <header class="max-w-lg mx-auto">
-      <a href="#">
-        <h1 class="text-4xl font-bold text-white text-center">Match Cut</h1>
-      </a>
-    </header>
-
-    <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
-      <section>
+  <div class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0">
+    <div class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+      <div>
         <h3 class="font-bold text-2xl">Welcome to Match Cut</h3>
         <p class="text-gray-600 pt-2">Sign in to your account.</p>
-      </section>
+      </div>
 
-      <section class="mt-10">
+      <div class="mt-10">
         <form class="flex flex-col" @submit.prevent="login">
           <div class="mb-6 pt-3 rounded bg-gray-200">
             <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="username">Email / Username</label>
@@ -27,19 +21,13 @@
           </div>
           <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Sign In</button>
         </form>
-      </section>
-    </main>
-
-    <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-      <p class="text-white">Don't have an account? <a href="#" class="font-bold hover:underline">Sign up</a>.</p>
+      </div>
     </div>
 
-    <footer class="max-w-lg mx-auto flex justify-center text-white">
-      <a href="#" class="hover:underline">Contact</a>
-      <span class="mx-3">•</span>
-      <a href="#" class="hover:underline">Privacy</a>
-    </footer>
-  </body>
+    <div class="max-w-lg mx-auto text-center mt-12 mb-6">
+      <p class="text-white">Don't have an account? <router-link to="/register" class="font-bold hover:underline">Sign up</router-link>.</p>
+    </div>
+  </div>
 </template>
 
 <script>

@@ -1,11 +1,5 @@
 <template>
   <div class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0">
-    <div class="max-w-lg mx-auto">
-      <a href="#">
-        <h1 class="text-4xl font-bold text-white text-center">Match Cut</h1>
-      </a>
-    </div>
-
     <div class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
       <div>
         <h3 class="font-bold text-2xl">Welcome to Match Cut</h3>
@@ -48,7 +42,7 @@
     </div>
 
     <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-      <p class="text-white">Don't have an account? <a href="#" class="font-bold hover:underline">Sign up</a>.</p>
+      <p class="text-white">Already have an account? <router-link to="/login" class="font-bold hover:underline">Log in</router-link>.</p>
     </div>
   </div>
 </template>
