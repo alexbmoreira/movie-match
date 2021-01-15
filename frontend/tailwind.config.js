@@ -25,29 +25,34 @@ module.exports = {
       },
       colors: {
         'app-bg': {
-          light: '#707070',
-          DEFAULT: '#616161',
-          dark: '#5C5C5C'
+          light: '#666666',
+          DEFAULT: '#2E2E2E',
+          dark: '#050505'
         },
         'app-bg-sec': {
-          light: '#D6D6D6',
-          DEFAULT: '#CBCBCB',
-          dark: '#C2C2C2'
+          light: '#CCCCCC',
+          DEFAULT: '#969696',
+          dark: '#666666'
         },
         'app-primary': {
-          dark: '#60548C',
-          DEFAULT: '#534879',
-          light: '#4F4573'
+          light: '#6791E0',
+          DEFAULT: '#4D7FDB',
+          dark: '#2A62CB'
         },
         'app-accent': {
-          dark: '#E9CD5D',
-          DEFAULT: '#E5C442',
-          light: '#E4C23A'
+          light: '#F7DB8D',
+          DEFAULT: '#F2C649',
+          dark: '#E5AC10'
         },
         'app-typeface': {
-          dark: '#EBEBEB',
           DEFAULT: '#F0F0F0',
-          light: '#FFFFFF'
+          alt: '#D6D6D6',
+          dark: '#474747',
+          muted: '#F0F0F088'
+        },
+        'app-error': {
+          bg: '#CC7676',
+          text: '#9C4343'
         }
       }
     }
