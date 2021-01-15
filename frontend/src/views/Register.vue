@@ -53,8 +53,8 @@ import utils from '../utils.js'
 export default {
   data() {
     return {
-      email: '',
       username: '',
+      email: '',
       password1: '',
       password2: '',
       formErrors: []
@@ -62,6 +62,9 @@ export default {
   },
   methods: {
     async register() {
+      if ((this.username.length === 0 || this.email.length === 0 || this.password1.length === 0 || this.password2.length === 0) && !this.formErrors.includes('Oops! You missed a field')) {
+        this.formErrors = this.formErrors.concat(['Oops! You missed a field'])
+      }
       if (this.formErrors.length === 0) {
         //adding if so register function is only fired when all inputted info fits validation
         try {
@@ -74,7 +77,6 @@ export default {
           await this.$store.dispatch('registerUser', payload)
           this.$router.push({ name: 'Home' })
         } catch (err) {
-          console.log(Object.entries(err.response.data))
           Object.entries(err.response.data).forEach(err => {
             this.formErrors = this.formErrors.concat(err[1])
           })
