@@ -54,7 +54,10 @@ module.exports = {
           bg: '#CC7676',
           text: '#9C4343'
         }
-      }
+      },
+      backgroundImage: () => ({
+        'poster-collage': "linear-gradient(#2E2E2EE5, #050505E5), url('../images/backdrop.png')"
+      })
     }
   },
   variants: {
