@@ -45,7 +45,7 @@ module.exports = {
           dark: '#E5AC10'
         },
         'app-typeface': {
-          DEFAULT: '#F0F0F0',
+          DEFAULT: '#F4F4F4',
           alt: '#D6D6D6',
           dark: '#474747',
           muted: '#F0F0F088'

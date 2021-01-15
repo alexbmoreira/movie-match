@@ -8,32 +8,21 @@
 
       <div class="mt-10">
         <form class="flex flex-col" @submit.prevent="login">
-          <div class="mb-6 pt-3 rounded bg-app-bg-sec">
+          <div class="mb-6 pt-3">
             <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="username">Username</label>
-            <input
-              id="username"
-              v-model="username"
-              type="text"
-              class="rounded bg-app-bg-sec rounded w-full text-app-typeface focus:outline-none border-b-4 border-app-bg-sec-light focus:border-app-primary transition duration-500 px-3 pb-3"
-              @blur="clearFields"
-            />
+            <input id="username" v-model="username" type="text" class="bg-transparent w-full px-3 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="clearFields" />
           </div>
-          <div class="mb-6 pt-3 rounded rounded bg-app-bg-sec">
+
+          <div class="mb-6 pt-3">
             <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="password">Password</label>
-            <input
-              id="password"
-              v-model="password"
-              type="password"
-              class="rounded bg-app-bg-sec rounded w-full text-app-typeface focus:outline-none border-b-4 border-app-bg-sec-light focus:border-app-primary transition duration-500 px-3 pb-3"
-              @blur="clearFields"
-            />
+            <input id="password" v-model="password" type="password" class="bg-transparent w-full px-3 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="clearFields" />
           </div>
           <div class="flex justify-end">
             <a href="#" class="text-sm mb-6 text-app-accent hover:text-app-accent-light hover:underline">Forgot your password?</a>
           </div>
 
-          <div v-if="formErrors.length > 0" class="mb-3">
-            <div v-for="(error, index) in formErrors" :key="index" class="flex w-full bg-app-error-bg content-center rounded">
+          <div v-if="formErrors.length > 0" class="mb-3 space-y-2">
+            <div v-for="(error, index) in formErrors" :key="index" class="flex w-full bg-app-error-bg content-center rounded text-sm">
               <span class="mx-2 py-1 text-app-error-text"><i class="fas fa-exclamation-triangle"></i> {{ error }}</span>
             </div>
           </div>
