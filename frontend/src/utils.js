@@ -27,11 +27,11 @@ function validPassword(password1, password2) {
     errors.push('Password is too short')
   }
 
-  var numericPass = /\d/.test(password1)
-  var passwordCapLetter = /[A-Z]/.test(password1)
+  var nonNumericPass = /\D/.test(password1)
+  // var passwordCapLetter = /[A-Z]/.test(password1)
 
-  if (!numericPass || !passwordCapLetter) {
-    errors.push('Password needs an uppercase letter')
+  if (!nonNumericPass) {
+    errors.push('Password cannot be entirely numeric')
   }
 
   if (password1 !== password2) {
