@@ -1,175 +1,69 @@
 <template>
-  <body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0">
-    <header class="max-w-lg mx-auto">
-      <a href="#">
-        <h1 class="text-4xl font-bold text-white text-center">Match Cut</h1>
-      </a>
-    </header>
+  <div class="bg-poster-collage bg-center min-h-screen pt-12 pb-6 px-2 md:px-0 md:pt-20">
+    <div class="bg-app-bg-light max-w-lg mx-auto p-8 my-10 rounded-lg shadow-2xl md:p-12">
+      <div>
+        <h3 class="text-app-typeface font-bold text-2xl">Join Match Cut</h3>
+        <p class="text-app-typeface-alt pt-2">Create your account</p>
+      </div>
 
-    <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
-      <section>
-        <h3 class="font-bold text-2xl">Welcome to Match Cut</h3>
-        <p class="text-gray-600 pt-2">Sign in to your account.</p>
-      </section>
-
-      <section class="mt-10">
-        <form class="flex flex-col" method="POST" action="#" @submit.prevent="register">
-          <div class="mb-6 pt-3 rounded bg-gray-200">
-            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="username">Username</label>
-            <input id="username" v-model="username" type="text" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3" />
+      <div class="mt-10">
+        <form class="flex flex-col" @submit.prevent="register">
+          <div class="mb-6 pt-3">
+            <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="username">Username</label>
+            <input id="username" v-model="username" type="text" class="bg-transparent w-full px-3 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="validateForm" />
           </div>
 
-          <li v-if="username.length < 3" class="ml-6 pt-0 mb-6 text-red-500">Username must be longer!</li>
-
-          <div class="mb-6 pt-3 rounded bg-gray-200">
-            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">Email</label>
-            <input id="email" v-model="email" type="text" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3" />
+          <div class="mb-6 pt-3">
+            <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="email">Email</label>
+            <input id="email" v-model="email" type="text" class="bg-transparent w-full px-3 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="validateForm" />
           </div>
 
-          <li v-if="!validateEmail()" class="ml-6 pt-0 mb-6 text-red-500">Please enter a valid email!</li>
-
-          <div class="mb-6 pt-3 rounded bg-gray-200">
-            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password1">Password</label>
-            <input id="password1" v-model="password1" type="password" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3" />
+          <div class="mb-6 pt-3">
+            <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="password1">Password</label>
+            <input id="password1" v-model="password1" type="password" class="bg-transparent w-full px-3 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="validateForm" />
           </div>
 
-          <div class="mb-6 pt-3 rounded bg-gray-200">
-            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password2">Re-enter Password</label>
-            <input id="password2" v-model="password2" type="password" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3" />
+          <div class="mb-6 pt-3">
+            <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="password2">Re-enter Password</label>
+            <input id="password2" v-model="password2" type="password" class="bg-transparent w-full px-3 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="validateForm" />
           </div>
 
-          <div class="mb-3">
-            <li v-if="password1.length < 8" class="ml-6 pt-2 text-red-500">Password must contain at least 8 characters!</li>
-            <li v-if="!simPwUsername()" class="ml-6 pt-2 text-red-500">Password can't be similiar to username!</li>
-            <li v-if="!pwNumLet(password1)" class="ml-6 pt-2 text-red-500">Password must contain both a number & capital letter!</li>
-            <li v-if="password1 !== password2" class="ml-6 pt-2 text-red-500">Passwords must be the same!</li>
+          <div v-if="formErrors.length > 0" class="mb-3 space-y-2">
+            <div v-for="(error, index) in formErrors" :key="index" class="flex w-full bg-app-error-bg content-center rounded text-sm">
+              <span class="mx-2 py-1 text-app-error-text"><i class="fas fa-exclamation-triangle"></i> {{ error }}</span>
+            </div>
           </div>
 
-          <div class="flex justify-end">
-            <a href="#" class="text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6">Forgot your password?</a>
-          </div>
-
-          <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit" @click="pwStrength">Register</button>
+          <button class="text-app-typeface-dark bg-app-accent font-bold py-2 rounded shadow-lg hover:shadow-xl hover:bg-app-accent-light transition duration-200" type="submit">Register</button>
         </form>
-      </section>
-    </main>
-
-    <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-      <p class="text-white">Don't have an account? <a href="#" class="font-bold hover:underline">Sign up</a>.</p>
+      </div>
     </div>
 
-    <footer class="max-w-lg mx-auto flex justify-center text-white">
-      <a href="#" class="hover:underline">Contact</a>
-      <span class="mx-3">•</span>
-      <a href="#" class="hover:underline">Privacy</a>
-    </footer>
-  </body>
+    <div class="max-w-lg mx-auto text-center mt-12 mb-6">
+      <p class="text-app-typeface">Already have an account? <router-link to="/login" class="font-bold hover:underline">Log in</router-link></p>
+    </div>
+  </div>
 </template>
 
 <script>
+import utils from '../utils.js'
+
 export default {
   data() {
     return {
-      email: '',
-      validEmail: false,
       username: '',
-      usernameLength: false,
+      email: '',
       password1: '',
       password2: '',
-      passwordLength: false,
-      passwordNum: false,
-      passwordLet: false,
-      passwordStrong: false,
-      passwordUser: false,
-      passwordConfirmed: false,
-      makeNewUser: false
+      formErrors: []
     }
   },
   methods: {
-    pwStrength() {
-      //validate username minimum 3 characters
-      if (this.username.length > 2) {
-        this.usernameLength = true
-      }
-
-      //check if password is minimum 8 characters
-      if (this.password1.length > 7) {
-        this.passwordLength = true
-      }
-
-      //check if password contains an uppercase character and a numeric
-      this.passwordNum = /\d/.test(this.password1)
-      this.passwordLet = /[A-Z]/.test(this.password1)
-
-      //if it does set passwordStrong to true
-      if (this.passwordNum && this.passwordLet) {
-        this.passwordStrong = true
-      }
-
-      //check to see if the password has the username included in or equal to it (NOT CASE SENSITIVE)
-      if (this.username === this.password1 || this.password1.includes(this.username)) {
-        this.passwordUser = false
-      } else {
-        this.passwordUser = true
-      }
-
-      //if the pw satisfies all above conditions set passwordConfirmed to true
-      if (this.passwordLength && this.passwordStrong && this.passwordUser) {
-        this.passwordConfirmed = true
-      }
-
-      //if password is valid and username is valid set makeNewUser to true
-      if (this.passwordConfirmed && this.usernameLength) {
-        this.makeNewUser = true
-      }
-    },
-    pwNumLet(pw) {
-      //Function to add li item for error handling when pw doesnt have both capital and numeric
-
-      this.passwordNum = /\d/.test(pw)
-      this.passwordLet = /[A-Z]/.test(pw)
-
-      if (this.passwordNum && this.passwordLet) {
-        this.passwordStrong = true
-        return true
-      } else {
-        this.passwordStrong = false
-        return false
-      }
-    },
-    simPwUsername() {
-      //Function to add li item when pw includes or equals username
-
-      var u = this.username.toLowerCase()
-      var p = this.password1.toLowerCase()
-
-      if (u === p || p.includes(u)) {
-        this.passwordUser = false
-        return false
-      } else {
-        this.passwordUser = true
-        return true
-      }
-    },
-    validUsername() {
-      //Function to add li item when username length is less than 3 chars
-
-      if (this.username.length > 2) {
-        this.username = this.username.toLowerCase()
-        this.usernameLength = true
-        return true
-      } else {
-        this.usernameLength = false
-        return false
-      }
-    },
-    validateEmail() {
-      //checking to make sure inputted string for email fits email structure
-      var re = /\S+@\S+\.\S+/
-      return re.test(this.email)
-    },
     async register() {
-      if (this.makeNewUser === true) {
+      if ((this.username.length === 0 || this.email.length === 0 || this.password1.length === 0 || this.password2.length === 0) && !this.formErrors.includes('Oops! You missed a field')) {
+        this.formErrors = this.formErrors.concat(['Oops! You missed a field'])
+      }
+      if (this.formErrors.length === 0) {
         //adding if so register function is only fired when all inputted info fits validation
         try {
           const payload = {
@@ -181,17 +75,15 @@ export default {
           await this.$store.dispatch('registerUser', payload)
           this.$router.push({ name: 'Home' })
         } catch (err) {
-          console.error(err)
+          Object.entries(err.response.data).forEach(err => {
+            this.formErrors = this.formErrors.concat(err[1])
+          })
         }
       }
+    },
+    validateForm() {
+      this.formErrors = utils.validateAll(this.username, this.email, this.password1, this.password2)
     }
   }
 }
 </script>
-
-<style scoped>
-.body-bg {
-  background-color: #9921e8;
-  background-image: linear-gradient(315deg, #9921e8 0%, #5f72be 74%);
-}
-</style>

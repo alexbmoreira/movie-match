@@ -28,7 +28,6 @@ const store = new Vuex.Store({
     },
     async registerUser(context, payload) {
       const response = await authAPI.register(payload)
-      console.log(response)
       const token = response.key
 
       context.commit('success', token)

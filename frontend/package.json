@@ -57,10 +57,6 @@
           "printWidth": 250
         }
       ],
-      "quotes": [
-        "warn",
-        "single"
-      ],
       "semi": [
         "warn",
         "never"
