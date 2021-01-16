@@ -18,6 +18,11 @@ module.exports = {
     //   'sm': { max: '639px' }
     //   // => @media (max-width: 639px) { ... }
     // },
+    placeholderColor: {
+
+      'primary': '#ffffff',
+
+    },
     extend: {
       fontFamily: {
         'nunito': ['Nunito', 'sans-serif'],
