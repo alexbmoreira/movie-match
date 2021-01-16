@@ -5,9 +5,7 @@
       <!--router-link to="/">Home</router-link> | <router-link to="/about">About</router-link> | <router-link to="/register">Register</router-link> | <router-link to="/login">Login</router-link> |
       <button @click.prevent="logout">Logout</button-->
     </div>
-    <div class="bg-poster-collage bg-center min-h-screen pt-12 pb-6 px-2 md:px-0 md:pt-20">
-        <router-view />
-    </div>
+    <router-view />
   </div>
 </template>
 
