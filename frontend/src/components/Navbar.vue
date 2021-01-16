@@ -20,19 +20,19 @@
         </div>
 
         <!-- Search field -->
-        <form class="w-full md:mb-0 md:w-1/3 ">
-            <label class="hidden" for="search-form">Search</label>
+        <form class="w-full md:mb-0 md:w-2/4">
+            <label class="hidden" for="search-form">Search...</label>
             <input class="placeholder-primary text-white bg-app-accent border-2 shadow-lg p-2 rounded w-full focus:shadow-inner transition duration-500 hover:opacity-25 hover:border-app-primary transition duration-500" placeholder="Search" type="text">
              <button class="hidden">Submit</button>
         </form>
 
         <!-- Nav Bar -->
-        <nav class="pl-2 inline-block">
+        <nav>
             <button class="invisible md:visible cursor-pointer text-white border-2 border-solid hover:border-double font-medium md:py-2 rounded shadow-lg hover:shadow-xl hover:bg-white hover:font-bold hover:text-app-accent transition duration-200" type="submit">
             <a class="m-6"> Login </a>
             </button>
 
-            <a class="invisible md:visible text-white font-semibold md:py-2 md:m-4 hover:text-app-primary"> Register </a>
+            <a class="invisible md:visible text-white font-semibold md:py-2 m-4 hover:text-app-primary"> Register </a>
             
         </nav>
 
