@@ -19,9 +19,7 @@ module.exports = {
     //   // => @media (max-width: 639px) { ... }
     // },
     placeholderColor: {
-
-      'primary': '#ffffff',
-
+      primary: '#ffffff'
     },
     extend: {
       fontFamily: {
