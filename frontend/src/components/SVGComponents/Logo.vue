@@ -117,7 +117,7 @@ export default {}
 
 <style scoped type="text/css">
 .st0 {
-  fill: #2e2e2e;
+  fill: #f4f4f4;
 }
 .st1 {
   fill: #4d7fdb;

@@ -18,10 +18,10 @@ module.exports = {
     //   'sm': { max: '639px' }
     //   // => @media (max-width: 639px) { ... }
     // },
-    placeholderColor: {
-      primary: '#ffffff'
-    },
     extend: {
+      backgroundImage: () => ({
+        'poster-collage': "linear-gradient(#2E2E2EE5, #050505E5), url('../images/backdrop.png')"
+      }),
       fontFamily: {
         'nunito': ['Nunito', 'sans-serif'],
         'roboto-slab': ['Roboto Slab', 'serif']
@@ -58,9 +58,10 @@ module.exports = {
           text: '#9C4343'
         }
       },
-      backgroundImage: () => ({
-        'poster-collage': "linear-gradient(#2E2E2EE5, #050505E5), url('../images/backdrop.png')"
-      })
+      transitionProperty: {
+        height: 'height',
+        width: 'width'
+      }
     }
   },
   variants: {
