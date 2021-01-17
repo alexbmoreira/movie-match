@@ -1,5 +1,5 @@
 <template>
-  <header class="opacity-100 bg-app-accent md:flex md:items-center md:justify-between p-4 pb-0 shadow-xl md:pb-4">
+  <header class="bg-app-accent md:flex md:items-center md:justify-between p-4 pb-0 shadow-xl md:pb-4">
     <!-- Logo text or image -->
     <div class="flex items-center justify-between mb-4 md:mb-0">
       <!--h1 class="leading-none text-2xl text-white">
@@ -8,12 +8,12 @@
                 </a>
             </h1-->
 
-      <a class="">
-        <img class="w-9/12 p-0 shadow-large hover:cursor-pointer" src="@/assets/images/logos/inline-text-cut.svg" alt="" />
+      <a class="w-9/12">
+        <Logo />
       </a>
 
-      <a class="md:hidden" href="#">
-        <i class="fa fa-2x fa-bars" style="color:white"></i>
+      <a class="text-3xl md:hidden" href="#">
+        <i class="fa fa-bars" style="color:white"></i>
       </a>
     </div>
 
@@ -39,7 +39,14 @@
 </template>
 
 <script>
-export default {}
-</script>
+import Logo from './SVGComponents/Logo'
 
-<style></style>
+export default {
+  components: {
+    Logo
+  },
+  data() {
+    return {}
+  }
+}
+</script>
