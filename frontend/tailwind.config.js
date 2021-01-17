@@ -61,6 +61,9 @@ module.exports = {
       transitionProperty: {
         height: 'height',
         width: 'width'
+      },
+      zIndex: {
+        '-10': '-10'
       }
     }
   },
