@@ -17,7 +17,7 @@
 
     <!-- Search field -->
     <div class="flex h-0 opacity-0 transition-all duration-600 ease-in-out" :class="{ 'h-12': show_search, 'opacity-100': show_search }">
-      <input v-model="search" type="text" placeholder="Search for a movie..." class="bg-transparent w-full px-3 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" />
+      <input v-model="search" type="text" placeholder="Search for a movie..." class="bg-transparent w-full px-3 pb-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" />
       <button class="w-auto flex justify-end items-center pl-4 transition duration-400 ease-in-out hover:text-app-primary"><i class="fas fa-search"></i></button>
     </div>
 
@@ -29,6 +29,16 @@
       </div>
     </div>
   </div>
+  <!-- <div class="flex ml-5 w-full invisible md:visible">
+        <input v-model="search" type="text" placeholder="Search for a movie..." class="bg-transparent w-full px-3 py-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" />
+        <button class="w-auto flex justify-end items-center pl-4 transition duration-400 ease-in-out hover:text-app-primary"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="flex ml-5 invisible md:visible">
+        <div class="flex my-auto space-x-4">
+          <button class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click="login()">Log In</button>
+          <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click="register()">Register</button>
+        </div>
+      </div> -->
 </template>
 
 <script>

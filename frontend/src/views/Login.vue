@@ -10,12 +10,18 @@
         <form class="flex flex-col" @submit.prevent="login">
           <div class="mb-6 pt-3">
             <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="username">Username</label>
-            <input id="username" v-model="username" type="text" class="bg-transparent w-full px-3 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="clearFields" />
+            <input id="username" v-model="username" type="text" class="bg-transparent w-full px-3 pb-2 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="clearFields" />
           </div>
 
           <div class="mb-6 pt-3">
             <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="password">Password</label>
-            <input id="password" v-model="password" type="password" class="bg-transparent w-full px-3 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="clearFields" />
+            <input
+              id="password"
+              v-model="password"
+              type="password"
+              class="bg-transparent w-full px-3 pb-2 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none"
+              @blur="clearFields"
+            />
           </div>
           <div class="flex justify-end">
             <a href="#" class="text-sm mb-6 text-app-accent hover:text-app-accent-light hover:underline">Forgot your password?</a>
