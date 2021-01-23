@@ -5,11 +5,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import (FriendRequest, FriendsList, JointWatchlist, Profile, User,
-                     Watchlist)
+from .models import (FriendRequest, FriendsList, JointWatchlist, Matchlist,
+                     Profile, User, Watchlist)
 from .serializers import (FriendRequestSerializer, FriendsListSerializer,
-                          JointWatchListSerializer, ProfileSerializer,
-                          UserSerializer, WatchListSerializer)
+                          JointWatchListSerializer, MatchListSerializer,
+                          ProfileSerializer, UserSerializer,
+                          WatchListSerializer)
 
 
 class ProfileAPIView(APIView):
@@ -141,5 +142,17 @@ class JointWatchlistAPIView(APIView):
         query = Q(user1__id=user_id, user2__id=request.user.id) | Q(user1__id=request.user.id, user2__id=user_id)
         joint_watchlist = get_object_or_404(JointWatchlist, query)
         serializer = JointWatchListSerializer(joint_watchlist)
+
+        return Response(data=serializer.data)
+
+
+class MatchlistAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, user_id):
+        query = Q(user__id=request.user.id, friend__id=user_id)
+        matchlist = get_object_or_404(Matchlist, query)
+        serializer = MatchListSerializer(matchlist)
 
         return Response(data=serializer.data)
