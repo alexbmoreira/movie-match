@@ -130,5 +130,3 @@ class WatchlistActionAPIView(APIView):
             return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-        return
