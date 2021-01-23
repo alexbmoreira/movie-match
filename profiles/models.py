@@ -1,10 +1,10 @@
-import random
+from datetime import timedelta
 
-from django.dispatch import Signal
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
-
+from django.dispatch import Signal
+from django.utils import timezone
 
 friendslist_updated = Signal()
 watchlist_updated = Signal()
@@ -112,6 +112,19 @@ class JointWatchlist(models.Model):
         return f"{self.user1}'s and {self.user2}'s watchlist"
 
 
+class MovieLike(models.Model):
+
+    movie = models.IntegerField()
+    datetime_added = models.DateTimeField(default=timezone.now)
+
+    def get_hours_since_adding(self):
+        td = timezone.now() - self.datetime_added
+        return (td.days * 24) + (td.seconds // 3600)
+
+    def __str__(self):
+        return f"{self.movie} added on {self.datetime_added}"
+
+
 class Matchlist(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_list_user')
@@ -119,7 +132,7 @@ class Matchlist(models.Model):
     dislikes = ArrayField(models.IntegerField(), blank=True, default=list)
     friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_list_friend')
     matches = ArrayField(models.IntegerField(), blank=True, default=list)
-    
+
     def like_movie(self, movie_id):
         if movie_id not in self.likes:
             self.likes.append(movie_id)

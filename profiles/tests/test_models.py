@@ -1,7 +1,10 @@
+from datetime import timedelta
+
 from django.test import TestCase
+from django.utils import timezone
 
 from ..models import (FriendRequest, FriendsList, JointWatchlist, Matchlist,
-                      Profile, User, Watchlist)
+                      MovieLike, Profile, User, Watchlist)
 
 
 class FriendsListTests(TestCase):
@@ -284,6 +287,8 @@ class MatchlistTests(TestCase):
         User.objects.create(username="joey", email="joey@test.com")
         User.objects.create(username="carl", email="carl@test.com")
         User.objects.create(username="suzy", email="suzy@test.com")
+        Matchlist.objects.create(user=User.objects.get(username="joey"), friend=User.objects.get(username="carl"))
+        Matchlist.objects.create(user=User.objects.get(username="carl"), friend=User.objects.get(username="joey"))
 
     def test_MatchlistMatch(self):
         # Arrange
@@ -291,8 +296,8 @@ class MatchlistTests(TestCase):
         user2 = User.objects.get(username="carl")
         user3 = User.objects.get(username="suzy")
 
-        m_list1 = Matchlist.objects.create(user=user1, friend=user2)
-        m_list2 = Matchlist.objects.create(user=user2, friend=user1)
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
+        m_list2 = Matchlist.objects.get(user=user2, friend=user1)
 
         m_list1.likes.append(4995) # Add Boogie Nights by TMDB movie id
         m_list1.likes.append(68718) # Add Django Unchained by TMDB movie id
@@ -316,7 +321,7 @@ class MatchlistTests(TestCase):
         user2 = User.objects.get(username="carl")
         user3 = User.objects.get(username="suzy")
 
-        m_list1 = Matchlist.objects.create(user=user1, friend=user2)
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
 
         #Act
         m_list1.like_movie(4995) # Like Boogie Nights by TMDB movie id
@@ -332,7 +337,7 @@ class MatchlistTests(TestCase):
         user2 = User.objects.get(username="carl")
         user3 = User.objects.get(username="suzy")
 
-        m_list1 = Matchlist.objects.create(user=user1, friend=user2)
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
 
         #Act
         m_list1.like_movie(4995) # Like Boogie Nights by TMDB movie id
@@ -349,7 +354,7 @@ class MatchlistTests(TestCase):
         user2 = User.objects.get(username="carl")
         user3 = User.objects.get(username="suzy")
 
-        m_list1 = Matchlist.objects.create(user=user1, friend=user2)
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
 
         #Act
         m_list1.dislike_movie(13223) # Dislike Gran Torino by TMDB movie id
@@ -365,7 +370,7 @@ class MatchlistTests(TestCase):
         user2 = User.objects.get(username="carl")
         user3 = User.objects.get(username="suzy")
 
-        m_list1 = Matchlist.objects.create(user=user1, friend=user2)
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
 
         #Act
         m_list1.dislike_movie(13223) # Like Gran Torino by TMDB movie id
@@ -375,3 +380,22 @@ class MatchlistTests(TestCase):
 
         #Assert
         self.assertEqual(m_list1.dislikes, [464052]) # Only WW84 is in Joey's likes
+
+
+class MovieLikeTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        # Set up non-modified objects used by all test methods
+        MovieLike.objects.create(movie=4995)
+
+    def test_MovieLikeTimeAdded(self):
+        # Arrange
+        ml = MovieLike.objects.get(movie=4995)
+        ml.datetime_added = timezone.now() - timedelta(1)
+
+        #Act
+        hours_since = ml.get_hours_since_adding()
+
+        #Assert
+        self.assertEqual(hours_since, 24) # Only WW84 is in Joey's likes
