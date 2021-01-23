@@ -6,7 +6,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
-friend_request_accepted = Signal()
+friendslist_updated = Signal()
 watchlist_updated = Signal()
 
 
@@ -34,6 +34,7 @@ class FriendsList(models.Model):
 
         other_list = FriendsList.objects.get(user=new_friend)
         other_list.add_friend(self.user)
+        friendslist_updated.send(sender=self.__class__, user=self.user, friend=new_friend, action='add')
 
     def remove_friend(self, friend):
         if friend in self.friends.all():
@@ -44,6 +45,7 @@ class FriendsList(models.Model):
 
         other_list = FriendsList.objects.get(user=friend)
         other_list.remove_friend(self.user)
+        friendslist_updated.send(sender=self.__class__, user=self.user, friend=friend, action='remove')
 
 
 class FriendRequest(models.Model):
@@ -57,7 +59,6 @@ class FriendRequest(models.Model):
         creator_list.friend(self.receiver)
         self.active = False
         self.save()
-        friend_request_accepted.send(sender=self.__class__, creator=self.creator, receiver=self.receiver)
 
     def decline(self):
         self.active = False
