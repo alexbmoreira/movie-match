@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from .models import (FriendRequest, FriendsList, JointWatchlist, Profile,
-                     Watchlist, friend_request_accepted, movie_updated)
+                     Watchlist, friend_request_accepted, watchlist_updated)
 
 
 @receiver(post_save, sender=User)
@@ -18,14 +18,13 @@ def create_profile(sender, instance, created, **kwargs):
 
 
 @receiver(friend_request_accepted, sender=FriendRequest)
-def my_receiver(creator, receiver, **kwargs):
+def accept_friend_request(creator, receiver, **kwargs):
     j_w = JointWatchlist.objects.create(user1=creator, user2=receiver)
     j_w.save()
 
 
-@receiver(movie_updated, sender=Watchlist)
-def my_receiver(user, **kwargs):
+@receiver(watchlist_updated, sender=Watchlist)
+def update_watchlist(user, **kwargs):
     watchlists = JointWatchlist.objects.filter(Q(user1=user) | Q(user2=user))
     for j_w in watchlists:
         j_w.save()
-

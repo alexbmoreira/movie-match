@@ -7,7 +7,7 @@ from django.db import models
 
 
 friend_request_accepted = Signal()
-movie_updated = Signal()
+watchlist_updated = Signal()
 
 
 class Profile(models.Model):
@@ -77,13 +77,13 @@ class Watchlist(models.Model):
         if movie_id not in self.watchlist:
             self.watchlist.append(movie_id)
             self.save()
-            movie_updated.send(sender=self.__class__, user=self.user)
+            watchlist_updated.send(sender=self.__class__, user=self.user)
 
     def remove_movie(self, movie_id):
         if movie_id in self.watchlist:
             self.watchlist.remove(movie_id)
             self.save()
-            movie_updated.send(sender=self.__class__, user=self.user)
+            watchlist_updated.send(sender=self.__class__, user=self.user)
 
     def __str__(self):
         return f"{self.user}'s watchlist"
