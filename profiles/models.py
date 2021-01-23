@@ -8,6 +8,7 @@ from django.db import models
 
 friendslist_updated = Signal()
 watchlist_updated = Signal()
+matchlist_updated = Signal()
 
 
 class Profile(models.Model):
@@ -123,21 +124,25 @@ class Matchlist(models.Model):
         if movie_id not in self.likes:
             self.likes.append(movie_id)
             self.save()
+            matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
 
     def unlike_movie(self, movie_id):
         if movie_id in self.likes:
             self.likes.remove(movie_id)
             self.save()
+            matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
 
     def dislike_movie(self, movie_id):
         if movie_id not in self.dislikes:
             self.dislikes.append(movie_id)
             self.save()
+            matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
 
     def undislike_movie(self, movie_id):
         if movie_id in self.dislikes:
             self.dislikes.remove(movie_id)
             self.save()
+            matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
 
     def get_matches(self):
         other_likes = Matchlist.objects.get(user=self.friend, friend=self.user)
