@@ -71,3 +71,13 @@ class PersonMetadataAPIView(APIView):
             reverse=True)[0:10]
 
         return person_credits
+
+
+class PopularMoviesAPIView(APIView):
+
+    def get(self, request, page=1):
+        query = f"https://api.themoviedb.org/3/movie/popular?api_key={api_key}&page={page}"
+
+        response = requests.get(query)
+        movies = response.json()
+        return Response(movies)
