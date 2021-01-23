@@ -109,3 +109,44 @@ class JointWatchlist(models.Model):
 
     def __str__(self):
         return f"{self.user1}'s and {self.user2}'s watchlist"
+
+
+class Matchlist(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_list_user')
+    likes = ArrayField(models.IntegerField(), blank=True, default=list)
+    dislikes = ArrayField(models.IntegerField(), blank=True, default=list)
+    friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_list_friend')
+    matches = ArrayField(models.IntegerField(), blank=True, default=list)
+    
+    def like_movie(self, movie_id):
+        if movie_id not in self.likes:
+            self.likes.append(movie_id)
+            self.save()
+
+    def unlike_movie(self, movie_id):
+        if movie_id in self.likes:
+            self.likes.remove(movie_id)
+            self.save()
+
+    def dislike_movie(self, movie_id):
+        if movie_id not in self.dislikes:
+            self.dislikes.append(movie_id)
+            self.save()
+
+    def undislike_movie(self, movie_id):
+        if movie_id in self.dislikes:
+            self.dislikes.remove(movie_id)
+            self.save()
+
+    def get_matches(self):
+        other_likes = Matchlist.objects.get(user=self.friend, friend=self.user)
+
+        for like in other_likes.likes:
+            if like in self.likes:
+                self.matches.append(like)
+
+        self.save()
+
+    def __str__(self):
+        return f"{self.user}'s matchlist with {self.friend}"
