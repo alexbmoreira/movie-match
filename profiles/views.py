@@ -5,10 +5,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import FriendRequest, FriendsList, Profile, User, Watchlist
+from .models import (FriendRequest, FriendsList, JointWatchlist, Profile, User,
+                     Watchlist)
 from .serializers import (FriendRequestSerializer, FriendsListSerializer,
-                          ProfileSerializer, UserSerializer,
-                          WatchListSerializer)
+                          JointWatchListSerializer, ProfileSerializer,
+                          UserSerializer, WatchListSerializer)
 
 
 class ProfileAPIView(APIView):
@@ -69,7 +70,7 @@ class FriendRequestsAPIView(APIView):
 
 class FriendActionAPIView(APIView):
 
-    def get(self, request, operation, user_id):
+    def post(self, request, operation, user_id):
         friend = User.objects.get(id=user_id)
 
         friends_list = FriendsList.objects.get(user=request.user)
@@ -86,7 +87,7 @@ class FriendActionAPIView(APIView):
 
 class RequestActionAPIView(APIView):
 
-    def get(self, request, operation, request_id):
+    def post(self, request, operation, request_id):
         friend_request = FriendRequest.objects.get(id=request_id)
 
         if operation == 'accept' and friend_request.receiver == request.user:
@@ -109,5 +110,36 @@ class ProfileWatchlistAPIView(APIView):
     def get(self, request, user_id):
         watchlist = get_object_or_404(Watchlist, user__id=user_id)
         serializer = WatchListSerializer(watchlist)
+
+        return Response(data=serializer.data)
+
+
+class WatchlistActionAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, operation):
+        try:
+            watchlist = get_object_or_404(Watchlist, user=request.user)
+            if operation == 'add':
+                watchlist.add_movie(request.data['id'])
+                return Response(status=status.HTTP_201_CREATED)
+            elif operation == 'remove':
+                watchlist.remove_movie(request.data['id'])
+                return Response(status=status.HTTP_202_ACCEPTED)
+
+            return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class JointWatchlistAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, user_id):
+        query = Q(user1__id=user_id, user2__id=request.user.id) | Q(user1__id=request.user.id, user2__id=user_id)
+        joint_watchlist = get_object_or_404(JointWatchlist, query)
+        serializer = JointWatchListSerializer(joint_watchlist)
 
         return Response(data=serializer.data)

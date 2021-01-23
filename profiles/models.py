@@ -1,6 +1,13 @@
+import random
+
+from django.dispatch import Signal
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+
+
+friendslist_updated = Signal()
+watchlist_updated = Signal()
 
 
 class Profile(models.Model):
@@ -27,6 +34,7 @@ class FriendsList(models.Model):
 
         other_list = FriendsList.objects.get(user=new_friend)
         other_list.add_friend(self.user)
+        friendslist_updated.send(sender=self.__class__, user=self.user, friend=new_friend, action='add')
 
     def remove_friend(self, friend):
         if friend in self.friends.all():
@@ -37,6 +45,7 @@ class FriendsList(models.Model):
 
         other_list = FriendsList.objects.get(user=friend)
         other_list.remove_friend(self.user)
+        friendslist_updated.send(sender=self.__class__, user=self.user, friend=friend, action='remove')
 
 
 class FriendRequest(models.Model):
@@ -68,10 +77,35 @@ class Watchlist(models.Model):
     def add_movie(self, movie_id):
         if movie_id not in self.watchlist:
             self.watchlist.append(movie_id)
+            self.save()
+            watchlist_updated.send(sender=self.__class__, user=self.user)
 
     def remove_movie(self, movie_id):
         if movie_id in self.watchlist:
             self.watchlist.remove(movie_id)
+            self.save()
+            watchlist_updated.send(sender=self.__class__, user=self.user)
 
     def __str__(self):
         return f"{self.user}'s watchlist"
+
+
+class JointWatchlist(models.Model):
+
+    user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='joint_watch_list_user1')
+    user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='joint_watch_list_user2')
+    shared_watchlist = ArrayField(models.IntegerField(), blank=True, default=list)
+    indiv_watchlist = ArrayField(models.IntegerField(), blank=True, default=list)
+
+    def save(self, *args, **kwargs):
+        user1_wlist = Watchlist.objects.get(user=self.user1).watchlist
+        user2_wlist = Watchlist.objects.get(user=self.user2).watchlist
+
+        self.shared_watchlist = [movie for movie in user1_wlist if movie in user2_wlist]
+        self.indiv_watchlist = [movie for movie in user1_wlist if movie not in user2_wlist] + \
+            [movie for movie in user2_wlist if movie not in user1_wlist]
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.user1}'s and {self.user2}'s watchlist"
