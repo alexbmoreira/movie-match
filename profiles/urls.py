@@ -2,12 +2,14 @@ from django.urls import path
 
 from .views import (FriendActionAPIView, FriendRequestsAPIView, ProfileAPIView,
                     ProfileDetailAPIView, ProfileFriendsAPIView,
-                    ProfileWatchlistAPIView, RequestActionAPIView)
+                    ProfileWatchlistAPIView, RequestActionAPIView,
+                    WatchlistActionAPIView)
 
 profile_api = ProfileAPIView.as_view()
 profile_detail_api = ProfileDetailAPIView.as_view()
 profile_friends_api = ProfileFriendsAPIView.as_view()
 profile_watchlist_api = ProfileWatchlistAPIView.as_view()
+watchlist_action_api = WatchlistActionAPIView.as_view()
 friend_action_api = FriendActionAPIView.as_view()
 user_requests_api = FriendRequestsAPIView.as_view()
 request_action_api = RequestActionAPIView.as_view()
@@ -21,4 +23,5 @@ urlpatterns = [
     path("user/friends/<str:operation>/<int:user_id>/", friend_action_api, name="update_friends"),
     path("user/requests/", user_requests_api, name="update_requests"),
     path("user/requests/<str:operation>/<int:request_id>/", request_action_api, name="update_requests"),
+    path("user/watchlist/<str:operation>/", watchlist_action_api, name="update_watchlist"),
 ]

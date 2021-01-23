@@ -111,3 +111,25 @@ class ProfileWatchlistAPIView(APIView):
         serializer = WatchListSerializer(watchlist)
 
         return Response(data=serializer.data)
+
+
+class WatchlistActionAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, operation):
+        try:
+            watchlist = get_object_or_404(Watchlist, user=request.user)
+            if operation == 'add':
+                watchlist.add_movie(request.data['id'])
+                return Response(status=status.HTTP_201_CREATED)
+            elif operation == 'remove':
+                watchlist.remove_movie(request.data['id'])
+                return Response(status=status.HTTP_202_ACCEPTED)
+
+            return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        return
+
