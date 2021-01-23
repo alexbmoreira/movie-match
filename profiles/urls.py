@@ -1,10 +1,10 @@
 from django.urls import path
 
 from .views import (FriendActionAPIView, FriendRequestsAPIView,
-                    JointWatchlistAPIView, MatchlistAPIView, ProfileAPIView,
-                    ProfileDetailAPIView, ProfileFriendsAPIView,
-                    ProfileWatchlistAPIView, RequestActionAPIView,
-                    WatchlistActionAPIView)
+                    JointWatchlistAPIView, MatchlistActionAPIView,
+                    MatchlistAPIView, ProfileAPIView, ProfileDetailAPIView,
+                    ProfileFriendsAPIView, ProfileWatchlistAPIView,
+                    RequestActionAPIView, WatchlistActionAPIView)
 
 profile_api = ProfileAPIView.as_view()
 profile_detail_api = ProfileDetailAPIView.as_view()
@@ -15,7 +15,8 @@ joint_watchlist_api = JointWatchlistAPIView.as_view()
 friend_action_api = FriendActionAPIView.as_view()
 user_requests_api = FriendRequestsAPIView.as_view()
 request_action_api = RequestActionAPIView.as_view()
-match_list_api = MatchlistAPIView.as_view()
+matchlist_api = MatchlistAPIView.as_view()
+matchlist_action_api = MatchlistActionAPIView.as_view()
 
 urlpatterns = [
     path("profiles/search/", profile_api, name="profiles"),
@@ -28,5 +29,6 @@ urlpatterns = [
     path("user/requests/<str:operation>/<int:request_id>/", request_action_api, name="update_requests"),
     path("user/watchlist/<str:operation>/", watchlist_action_api, name="update_watchlist"),
     path("user/joint-watchlist/<int:user_id>/", joint_watchlist_api, name="joint_watchlist"),
-    path("user/matchlist/<int:user_id>/", match_list_api, name="matchlist"),
+    path("user/matchlist/<int:user_id>/", matchlist_api, name="matchlist"),
+    path("user/matchlist/<str:operation>/<int:user_id>/", matchlist_action_api, name="update_matchlist"),
 ]

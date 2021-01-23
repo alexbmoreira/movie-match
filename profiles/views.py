@@ -156,3 +156,27 @@ class MatchlistAPIView(APIView):
         serializer = MatchListSerializer(matchlist)
 
         return Response(data=serializer.data)
+
+
+class MatchlistActionAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, operation, user_id):
+        query = Q(user__id=request.user.id, friend__id=user_id)
+        matchlist = get_object_or_404(Matchlist, query)
+
+        if operation == 'like':
+            matchlist.like_movie(request.data['id'])
+            return Response(status=status.HTTP_201_CREATED)
+        elif operation == 'unlike':
+            matchlist.unlike_movie(request.data['id'])
+            return Response(status=status.HTTP_202_ACCEPTED)
+        elif operation == 'dislike':
+            matchlist.dislike_movie(request.data['id'])
+            return Response(status=status.HTTP_201_CREATED)
+        elif operation == 'undislike':
+            matchlist.undislike_movie(request.data['id'])
+            return Response(status=status.HTTP_202_ACCEPTED)
+
+        return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
