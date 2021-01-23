@@ -69,7 +69,7 @@ class FriendRequestsAPIView(APIView):
 
 class FriendActionAPIView(APIView):
 
-    def get(self, request, operation, user_id):
+    def post(self, request, operation, user_id):
         friend = User.objects.get(id=user_id)
 
         friends_list = FriendsList.objects.get(user=request.user)
@@ -86,7 +86,7 @@ class FriendActionAPIView(APIView):
 
 class RequestActionAPIView(APIView):
 
-    def get(self, request, operation, request_id):
+    def post(self, request, operation, request_id):
         friend_request = FriendRequest.objects.get(id=request_id)
 
         if operation == 'accept' and friend_request.receiver == request.user:
