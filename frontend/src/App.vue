@@ -12,15 +12,6 @@ export default {
   components: {
     Navbar
   },
-  methods: {
-    async logout() {
-      try {
-        await this.$store.dispatch('logoutUser')
-        this.$router.push({ name: 'Login' })
-      } catch (err) {
-        console.error(err)
-      }
-    }
-  }
+  methods: {}
 }
 </script>

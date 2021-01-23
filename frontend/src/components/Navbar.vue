@@ -24,22 +24,15 @@
 
       <!-- Nav Bar -->
       <div class="flex h-0 opacity-0 transition-all duration-600 ease-in-out" :class="{ 'h-12': show_menu, 'opacity-100': show_menu }">
-        <div class="flex my-auto mx-auto space-x-4">
-          <button class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click="login()">Log In</button>
-          <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click="register()">Register</button>
+        <div v-show="!isLoggedIn" class="flex my-auto mx-auto space-x-4">
+          <button class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click="goLogin()">Log In</button>
+          <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click="goRegister()">Register</button>
+        </div>
+        <div v-show="isLoggedIn" class="flex my-auto mx-auto space-x-4">
+          <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click="logout()">Log Out</button>
         </div>
       </div>
     </div>
-    <!-- <div class="flex ml-5 w-full invisible md:visible">
-        <input v-model="search" type="text" placeholder="Search for a movie..." class="bg-transparent w-full px-3 py-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" />
-        <button class="w-auto flex justify-end items-center pl-4 transition duration-400 ease-in-out hover:text-app-primary"><i class="fas fa-search"></i></button>
-      </div>
-      <div class="flex ml-5 invisible md:visible">
-        <div class="flex my-auto space-x-4">
-          <button class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click="login()">Log In</button>
-          <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click="register()">Register</button>
-        </div>
-      </div> -->
   </div>
 </template>
 
@@ -47,6 +40,7 @@
 import Logo from './SVGComponents/Logo'
 
 export default {
+  name: 'Navbar',
   components: {
     Logo
   },
@@ -55,6 +49,11 @@ export default {
       search: '',
       show_search: false,
       show_menu: false
+    }
+  },
+  computed: {
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn
     }
   },
   methods: {
@@ -66,11 +65,19 @@ export default {
       this.show_menu = !this.show_menu
       this.show_search = false
     },
-    login() {
+    goLogin() {
       this.$router.push({ name: 'Login' })
     },
-    register() {
+    goRegister() {
       this.$router.push({ name: 'Register' })
+    },
+    async logout() {
+      try {
+        await this.$store.dispatch('logoutUser')
+        this.$router.push({ name: 'Login' })
+      } catch (err) {
+        console.error(err)
+      }
     }
   }
 }
