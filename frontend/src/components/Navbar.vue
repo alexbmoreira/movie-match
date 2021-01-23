@@ -17,19 +17,27 @@
       </div>
 
       <!-- Search field -->
-      <div class="flex h-0 opacity-0 transition-all duration-600 ease-in-out" :class="{ 'h-12': show_search, 'opacity-100': show_search }">
+      <div class="flex h-0 space-x-3 opacity-0 transition-all duration-600 ease-in-out" :class="{ 'h-12': show_search, 'opacity-100': show_search }">
         <input v-model="search" type="text" placeholder="Search for a movie..." class="bg-transparent w-full px-3 pb-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" />
-        <button class="w-auto flex justify-end items-center pl-4 transition duration-400 ease-in-out hover:text-app-primary"><i class="fas fa-search"></i></button>
+        <button class="w-auto flex justify-end items-center transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="makeSearch"><i class="fas fa-search"></i></button>
+        <div class="flex flex-col">
+          <label for="searchType" class="text-xs">Search for:</label>
+          <select id="searchType" v-model="search_type" class="bg-app-bg rounded">
+            <option value="movies">Movies</option>
+            <option value="actors">Actors</option>
+            <option value="crew">Crew</option>
+          </select>
+        </div>
       </div>
 
       <!-- Nav Bar -->
       <div class="flex h-0 opacity-0 transition-all duration-600 ease-in-out" :class="{ 'h-12': show_menu, 'opacity-100': show_menu }">
         <div v-show="!isLoggedIn" class="flex my-auto mx-auto space-x-4">
-          <button class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click="goLogin()">Log In</button>
-          <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click="goRegister()">Register</button>
+          <button class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click.prevent="goLogin()">Log In</button>
+          <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="goRegister()">Register</button>
         </div>
         <div v-show="isLoggedIn" class="flex my-auto mx-auto space-x-4">
-          <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click="logout()">Log Out</button>
+          <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="logout()">Log Out</button>
         </div>
       </div>
     </div>
@@ -38,6 +46,7 @@
 
 <script>
 import Logo from './SVGComponents/Logo'
+import searchAPI from '../api/movies'
 
 export default {
   name: 'Navbar',
@@ -47,6 +56,7 @@ export default {
   data() {
     return {
       search: '',
+      search_type: 'movies',
       show_search: false,
       show_menu: false
     }
@@ -57,6 +67,12 @@ export default {
     }
   },
   methods: {
+    async makeSearch() {
+      if (this.search.length > 0 && this.search_type.length > 0) {
+        var data = await searchAPI.searchMovie(this.search_type, this.search)
+        console.log(data)
+      }
+    },
     showSearch() {
       this.show_search = !this.show_search
       this.show_menu = false
