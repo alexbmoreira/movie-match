@@ -148,7 +148,7 @@ class Matchlist(models.Model):
         other_likes = Matchlist.objects.get(user=self.friend, friend=self.user)
 
         for like in other_likes.likes:
-            if like in self.likes:
+            if like in self.likes and like not in self.matches:
                 self.matches.append(like)
 
         self.save()
