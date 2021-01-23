@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import (FriendActionAPIView, FriendRequestsAPIView, ProfileAPIView,
+from .views import (FriendActionAPIView, FriendRequestsAPIView,
+                    JointWatchlistAPIView, ProfileAPIView,
                     ProfileDetailAPIView, ProfileFriendsAPIView,
                     ProfileWatchlistAPIView, RequestActionAPIView,
                     WatchlistActionAPIView)
@@ -10,6 +11,7 @@ profile_detail_api = ProfileDetailAPIView.as_view()
 profile_friends_api = ProfileFriendsAPIView.as_view()
 profile_watchlist_api = ProfileWatchlistAPIView.as_view()
 watchlist_action_api = WatchlistActionAPIView.as_view()
+joint_watchlist_api = JointWatchlistAPIView.as_view()
 friend_action_api = FriendActionAPIView.as_view()
 user_requests_api = FriendRequestsAPIView.as_view()
 request_action_api = RequestActionAPIView.as_view()
@@ -24,4 +26,5 @@ urlpatterns = [
     path("user/requests/", user_requests_api, name="update_requests"),
     path("user/requests/<str:operation>/<int:request_id>/", request_action_api, name="update_requests"),
     path("user/watchlist/<str:operation>/", watchlist_action_api, name="update_watchlist"),
+    path("user/joint-watchlist/<int:user_id>/", joint_watchlist_api, name="joint_watchlist"),
 ]
