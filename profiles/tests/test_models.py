@@ -224,3 +224,53 @@ class JointWatchlistTests(TestCase):
         #Assert
         self.assertEqual(j_w.shared_watchlist, [4995])
         self.assertEqual(j_w.indiv_watchlist, [68718, 278])
+
+    def test_JointWatchlistsAllMatch(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list1 = Watchlist.objects.get(user=user1)
+        w_list1.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list1.watchlist.append(278) # Add Django Unchained by TMDB movie id
+        w_list1.save()
+
+        w_list2 = Watchlist.objects.get(user=user2)
+        w_list2.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list2.watchlist.append(278) # Add Shawshank Redemption by TMDB movie id
+        w_list2.save()
+
+        j_w = JointWatchlist.objects.create(user1=user1, user2=user2)
+
+        #Act
+        j_w.save()
+
+        #Assert
+        self.assertEqual(j_w.shared_watchlist, [4995, 278])
+        self.assertEqual(j_w.indiv_watchlist, [])
+
+    def test_JointWatchlistsNoneMatch(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list1 = Watchlist.objects.get(user=user1)
+        w_list1.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list1.watchlist.append(68718) # Add Django Unchained by TMDB movie id
+        w_list1.save()
+
+        w_list2 = Watchlist.objects.get(user=user2)
+        w_list2.watchlist.append(508442) # Add Soul by TMDB movie id
+        w_list2.watchlist.append(278) # Add Shawshank Redemption by TMDB movie id
+        w_list2.save()
+
+        j_w = JointWatchlist.objects.create(user1=user1, user2=user2)
+
+        #Act
+        j_w.save()
+
+        #Assert
+        self.assertEqual(j_w.shared_watchlist, [])
+        self.assertEqual(j_w.indiv_watchlist, [4995, 68718, 508442, 278])
