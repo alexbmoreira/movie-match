@@ -44,9 +44,9 @@ def update_watchlist(user, **kwargs):
 
 
 @receiver(matchlist_updated, sender=Matchlist)
-def update_watchlist(user, friend, **kwargs):
+def update_matchlist(user, friend, **kwargs):
     m_list1 = Matchlist.objects.get(user=user, friend=friend)
     m_list2 = Matchlist.objects.get(user=friend, friend=user)
-    
+
     m_list1.get_matches()
     m_list2.get_matches()
