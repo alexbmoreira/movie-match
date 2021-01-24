@@ -66,7 +66,7 @@ class JointWatchListSerializer(serializers.ModelSerializer):
         indiv = [movie for movie in obj.indiv_watchlist]
         shuffle(shared)
         shuffle(indiv)
-        
+
         return shared + indiv
 
 
