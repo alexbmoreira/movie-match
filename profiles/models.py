@@ -131,6 +131,8 @@ class Matchlist(models.Model):
     likes = ArrayField(models.IntegerField(), blank=True, default=list)
     dislikes = ArrayField(models.IntegerField(), blank=True, default=list)
     friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_list_friend')
+    shared_watchlist = ArrayField(models.IntegerField(), blank=True, default=list)
+    indiv_watchlist = ArrayField(models.IntegerField(), blank=True, default=list)
     matches = ArrayField(models.IntegerField(), blank=True, default=list)
 
     def like_movie(self, movie_id):
@@ -165,6 +167,16 @@ class Matchlist(models.Model):
                 self.matches.append(like)
 
         self.save()
+
+    def save(self, *args, **kwargs):
+        user_wlist = Watchlist.objects.get(user=self.user).watchlist
+        friend_wlist = Watchlist.objects.get(user=self.friend).watchlist
+
+        self.shared_watchlist = [movie for movie in user_wlist if movie in friend_wlist]
+        self.indiv_watchlist = [movie for movie in user_wlist if movie not in friend_wlist] + \
+            [movie for movie in friend_wlist if movie not in user_wlist]
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.user}'s matchlist with {self.friend}"
