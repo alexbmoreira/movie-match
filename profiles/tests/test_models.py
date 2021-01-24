@@ -256,8 +256,8 @@ class MatchlistTests(TestCase):
         m_list1 = Matchlist.objects.get(user=user1, friend=user2)
 
         #Act
-        m_list1.like_movie(4995) # Like Boogie Nights by TMDB movie id
-        m_list1.like_movie(68718) # Like Django Unchained by TMDB movie id
+        m_list1.likes.append(4995) # Like Boogie Nights by TMDB movie id
+        m_list1.likes.append(68718) # Like Django Unchained by TMDB movie id
         m_list1.unlike_movie(4995) # Unliked Boogie Nights
         m_list1.save()
 
@@ -289,8 +289,8 @@ class MatchlistTests(TestCase):
         m_list1 = Matchlist.objects.get(user=user1, friend=user2)
 
         #Act
-        m_list1.dislike_movie(13223) # Like Gran Torino by TMDB movie id
-        m_list1.dislike_movie(464052) # Like WW84 by TMDB movie id
+        m_list1.dislikes.append(13223) # Like Gran Torino by TMDB movie id
+        m_list1.dislikes.append(464052) # Like WW84 by TMDB movie id
         m_list1.undislike_movie(13223) # Unliked Gran Torino
         m_list1.save()
 
@@ -383,6 +383,93 @@ class MatchlistTests(TestCase):
         self.assertEqual(m_list1.indiv_watchlist, [4995, 68718, 508442, 278])
         self.assertEqual(m_list2.shared_watchlist, [])
         self.assertEqual(m_list2.indiv_watchlist, [508442, 278, 4995, 68718])
+
+    def test_MatchlistLikeRemoveFromLists(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list = Watchlist.objects.get(user=user1)
+        w_list.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list.watchlist.append(68718) # Add Django Unchained by TMDB movie id
+        w_list.save()
+
+        m_list = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list.save()
+        m_list.like_movie(4995)
+
+        #Assert
+        self.assertEqual(m_list.likes, [4995])
+        self.assertEqual(m_list.indiv_watchlist, [68718])
+
+    def test_MatchlistLikeUnlikeReturnToLists(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list = Watchlist.objects.get(user=user1)
+        w_list.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list.watchlist.append(68718) # Add Django Unchained by TMDB movie id
+        w_list.save()
+
+        m_list = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list.save()
+        m_list.likes.append(4995)
+        m_list.unlike_movie(4995)
+
+        #Assert
+        self.assertEqual(m_list.likes, [])
+        self.assertEqual(m_list.indiv_watchlist, [4995, 68718])
+
+    def test_MatchlistDislikeRemoveFromLists(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list = Watchlist.objects.get(user=user1)
+        w_list.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list.watchlist.append(68718) # Add Django Unchained by TMDB movie id
+        w_list.save()
+
+        m_list = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list.save()
+        m_list.dislike_movie(4995)
+
+        #Assert
+        self.assertEqual(m_list.dislikes, [4995])
+        self.assertEqual(m_list.indiv_watchlist, [68718])
+
+    def test_MatchlistDislikeUndislikeReturnToLists(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list = Watchlist.objects.get(user=user1)
+        w_list.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list.watchlist.append(68718) # Add Django Unchained by TMDB movie id
+        w_list.save()
+
+        m_list = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list.save()
+        m_list.dislikes.append(4995)
+        m_list.undislike_movie(4995)
+
+        #Assert
+        self.assertEqual(m_list.dislikes, [])
+        self.assertEqual(m_list.indiv_watchlist, [4995, 68718])
+
 
 
 class MovieLikeTests(TestCase):

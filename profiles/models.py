@@ -117,24 +117,28 @@ class Matchlist(models.Model):
     def like_movie(self, movie_id):
         if movie_id not in self.likes:
             self.likes.append(movie_id)
+            self.remove_from_joint_watchlist(movie_id)
             self.save()
             matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
 
     def unlike_movie(self, movie_id):
         if movie_id in self.likes:
             self.likes.remove(movie_id)
+            self.return_to_joint_watchlist(movie_id)
             self.save()
             matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
 
     def dislike_movie(self, movie_id):
         if movie_id not in self.dislikes:
             self.dislikes.append(movie_id)
+            self.remove_from_joint_watchlist(movie_id)
             self.save()
             matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
 
     def undislike_movie(self, movie_id):
         if movie_id in self.dislikes:
             self.dislikes.remove(movie_id)
+            self.return_to_joint_watchlist(movie_id)
             self.save()
             matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
 
@@ -147,13 +151,30 @@ class Matchlist(models.Model):
 
         self.save()
 
+    def remove_from_joint_watchlist(self, movie_id):
+        if movie_id in self.indiv_watchlist:
+            self.indiv_watchlist.remove(movie_id)
+        if movie_id in self.shared_watchlist:
+            self.shared_watchlist.remove(movie_id)
+
+    def return_to_joint_watchlist(self, movie_id):
+        if movie_id not in self.indiv_watchlist:
+            self.indiv_watchlist.insert(0, movie_id)
+        if movie_id not in self.shared_watchlist:
+            self.shared_watchlist.insert(0, movie_id)
+
     def save(self, *args, **kwargs):
         user_wlist = Watchlist.objects.get(user=self.user).watchlist
         friend_wlist = Watchlist.objects.get(user=self.friend).watchlist
 
-        self.shared_watchlist = [movie for movie in user_wlist if movie in friend_wlist]
-        self.indiv_watchlist = [movie for movie in user_wlist if movie not in friend_wlist] + \
-            [movie for movie in friend_wlist if movie not in user_wlist]
+        all_likes_dislikes = [movie for movie in self.likes] + [movie for movie in self.dislikes]
+
+        shared_wl_with_likes = [movie for movie in user_wlist if movie in friend_wlist]
+        indiv_wl_with_likes = [movie for movie in user_wlist if movie not in friend_wlist]
+        indiv_wl_with_likes += [movie for movie in friend_wlist if movie not in user_wlist]
+
+        self.shared_watchlist = [movie for movie in shared_wl_with_likes if movie not in all_likes_dislikes]
+        self.indiv_watchlist =  [movie for movie in indiv_wl_with_likes if movie not in all_likes_dislikes]
 
         super().save(*args, **kwargs)
 
