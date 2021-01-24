@@ -116,6 +116,7 @@ class Matchlist(models.Model):
 
     def like_movie(self, movie_id):
         if movie_id not in self.likes:
+            self.undislike_movie(movie_id)
             self.likes.append(movie_id)
             self.remove_from_joint_watchlist(movie_id)
             self.save()
@@ -125,11 +126,15 @@ class Matchlist(models.Model):
         if movie_id in self.likes:
             self.likes.remove(movie_id)
             self.return_to_joint_watchlist(movie_id)
+            if movie_id in self.matches:
+                self.matches.remove(movie_id)
+
             self.save()
             matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
 
     def dislike_movie(self, movie_id):
         if movie_id not in self.dislikes:
+            self.unlike_movie(movie_id)
             self.dislikes.append(movie_id)
             self.remove_from_joint_watchlist(movie_id)
             self.save()
