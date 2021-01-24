@@ -165,9 +165,12 @@ class MatchlistActionAPIView(APIView):
     def post(self, request, operation, user_id):
         query = Q(user__id=request.user.id, friend__id=user_id)
         matchlist = get_object_or_404(Matchlist, query)
+        other_matchlist = get_object_or_404(Matchlist, user__id=user_id, friend__id=request.user.id)
 
         if operation == 'like':
             matchlist.like_movie(request.data['id'])
+            if request.data['id'] in other_matchlist.likes:
+                return Response(data={'match': request.data['id']}, status=status.HTTP_201_CREATED)
             return Response(status=status.HTTP_201_CREATED)
         elif operation == 'unlike':
             matchlist.unlike_movie(request.data['id'])
