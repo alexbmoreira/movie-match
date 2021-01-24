@@ -54,12 +54,12 @@ class WatchListSerializer(serializers.ModelSerializer):
 
 class JointWatchListSerializer(serializers.ModelSerializer):
 
-    user1 = UserSerializer(read_only=True)
-    user2 = UserSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
+    friend = UserSerializer(read_only=True)
 
     class Meta:
-        model = JointWatchlist
-        fields = ['user1', 'user2', 'shared_watchlist', 'indiv_watchlist']
+        model = Matchlist
+        fields = ['user', 'friend', 'shared_watchlist', 'indiv_watchlist']
 
 
 class MatchListSerializer(serializers.ModelSerializer):
@@ -69,4 +69,4 @@ class MatchListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Matchlist
-        fields = ['user', 'likes', 'dislikes', 'friend', 'matches']
+        fields = ['user', 'likes', 'dislikes', 'friend', 'shared_watchlist', 'indiv_watchlist', 'matches']

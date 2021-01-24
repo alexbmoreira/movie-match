@@ -139,8 +139,8 @@ class JointWatchlistAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, user_id):
-        query = Q(user1__id=user_id, user2__id=request.user.id) | Q(user1__id=request.user.id, user2__id=user_id)
-        joint_watchlist = get_object_or_404(JointWatchlist, query)
+        query = Q(user__id=request.user.id, friend__id=user_id)
+        joint_watchlist = get_object_or_404(Matchlist, query)
         serializer = JointWatchListSerializer(joint_watchlist)
 
         return Response(data=serializer.data)

@@ -38,9 +38,9 @@ def update_friendslist(user, friend, action, **kwargs):
 
 @receiver(watchlist_updated, sender=Watchlist)
 def update_watchlist(user, **kwargs):
-    watchlists = JointWatchlist.objects.filter(Q(user1=user) | Q(user2=user))
-    for j_w in watchlists:
-        j_w.save()
+    m_lists = Matchlist.objects.filter(Q(user=user) | Q(friend=user))
+    for m_l in m_lists:
+        m_l.save()
 
 
 @receiver(matchlist_updated, sender=Matchlist)
