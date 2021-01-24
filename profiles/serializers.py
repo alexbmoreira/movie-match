@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from random import shuffle
 
 from .models import (FriendRequest, FriendsList, Matchlist, Profile, User,
                      Watchlist)
@@ -54,12 +55,19 @@ class WatchListSerializer(serializers.ModelSerializer):
 
 class JointWatchListSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer(read_only=True)
-    friend = UserSerializer(read_only=True)
+    joint_watchlist = serializers.SerializerMethodField()
 
     class Meta:
         model = Matchlist
-        fields = ['user', 'friend', 'shared_watchlist', 'indiv_watchlist']
+        fields = ['joint_watchlist']
+
+    def get_joint_watchlist(self, obj):
+        shared = [movie for movie in obj.shared_watchlist]
+        indiv = [movie for movie in obj.indiv_watchlist]
+        shuffle(shared)
+        shuffle(indiv)
+        
+        return shared + indiv
 
 
 class MatchListSerializer(serializers.ModelSerializer):
@@ -69,4 +77,4 @@ class MatchListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Matchlist
-        fields = ['user', 'likes', 'dislikes', 'friend', 'shared_watchlist', 'indiv_watchlist', 'matches']
+        fields = ['user', 'likes', 'dislikes', 'friend', 'matches']
