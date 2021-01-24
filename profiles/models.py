@@ -174,7 +174,7 @@ class Matchlist(models.Model):
         indiv_wl_with_likes += [movie for movie in friend_wlist if movie not in user_wlist]
 
         self.shared_watchlist = [movie for movie in shared_wl_with_likes if movie not in all_likes_dislikes]
-        self.indiv_watchlist =  [movie for movie in indiv_wl_with_likes if movie not in all_likes_dislikes]
+        self.indiv_watchlist = [movie for movie in indiv_wl_with_likes if movie not in all_likes_dislikes]
 
         super().save(*args, **kwargs)
 
