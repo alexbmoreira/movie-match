@@ -3,9 +3,8 @@ from django.db.models import Q
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from .models import (FriendRequest, FriendsList, JointWatchlist, Matchlist,
-                     Profile, Watchlist, friendslist_updated,
-                     matchlist_updated, watchlist_updated)
+from .models import (FriendRequest, FriendsList, Matchlist, Profile, Watchlist,
+                     friendslist_updated, matchlist_updated, watchlist_updated)
 
 
 @receiver(post_save, sender=User)
@@ -21,9 +20,6 @@ def create_profile(sender, instance, created, **kwargs):
 @receiver(friendslist_updated, sender=FriendsList)
 def update_friendslist(user, friend, action, **kwargs):
     if action == 'add':
-        if not JointWatchlist.objects.filter(Q(user1=user, user2=friend) | Q(user1=friend, user2=user)):
-            j_w = JointWatchlist.objects.create(user1=user, user2=friend)
-            j_w.save()
         if not Matchlist.objects.filter(user=user):
             m_l = Matchlist.objects.create(user=user, friend=friend)
             m_l.save()
@@ -32,7 +28,6 @@ def update_friendslist(user, friend, action, **kwargs):
             m_l.save()
 
     if action == 'remove':
-        JointWatchlist.objects.filter(Q(user1=user, user2=friend) | Q(user1=friend, user2=user)).delete()
         Matchlist.objects.filter(Q(user=user, friend=friend) | Q(user=friend, friend=user)).delete()
 
 

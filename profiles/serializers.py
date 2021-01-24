@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from .models import (FriendRequest, FriendsList, JointWatchlist, Matchlist,
-                     Profile, User, Watchlist)
+from .models import (FriendRequest, FriendsList, Matchlist, Profile, User,
+                     Watchlist)
 
 
 class UserSerializer(serializers.ModelSerializer):

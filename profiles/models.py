@@ -91,27 +91,6 @@ class Watchlist(models.Model):
         return f"{self.user}'s watchlist"
 
 
-class JointWatchlist(models.Model):
-
-    user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='joint_watch_list_user1')
-    user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='joint_watch_list_user2')
-    shared_watchlist = ArrayField(models.IntegerField(), blank=True, default=list)
-    indiv_watchlist = ArrayField(models.IntegerField(), blank=True, default=list)
-
-    def save(self, *args, **kwargs):
-        user1_wlist = Watchlist.objects.get(user=self.user1).watchlist
-        user2_wlist = Watchlist.objects.get(user=self.user2).watchlist
-
-        self.shared_watchlist = [movie for movie in user1_wlist if movie in user2_wlist]
-        self.indiv_watchlist = [movie for movie in user1_wlist if movie not in user2_wlist] + \
-            [movie for movie in user2_wlist if movie not in user1_wlist]
-
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f"{self.user1}'s and {self.user2}'s watchlist"
-
-
 class MovieLike(models.Model):
 
     movie = models.IntegerField()

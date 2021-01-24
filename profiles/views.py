@@ -5,8 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import (FriendRequest, FriendsList, JointWatchlist, Matchlist,
-                     Profile, User, Watchlist)
+from .models import (FriendRequest, FriendsList, Matchlist, Profile, User,
+                     Watchlist)
 from .serializers import (FriendRequestSerializer, FriendsListSerializer,
                           JointWatchListSerializer, MatchListSerializer,
                           ProfileSerializer, UserSerializer,
