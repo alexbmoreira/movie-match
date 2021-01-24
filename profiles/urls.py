@@ -30,5 +30,5 @@ urlpatterns = [
     path("user/watchlist/<str:operation>/", watchlist_action_api, name="update_watchlist"),
     path("user/joint-watchlist/<int:user_id>/", joint_watchlist_api, name="joint_watchlist"),
     path("user/matchlist/<int:user_id>/", matchlist_api, name="matchlist"),
-    path("user/matchlist/<str:operation>/<int:user_id>/", matchlist_action_api, name="update_matchlist"),
+    path("user/matchlist/<int:user_id>/<str:operation>/", matchlist_action_api, name="update_matchlist"),
 ]
