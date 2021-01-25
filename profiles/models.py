@@ -125,7 +125,6 @@ class Matchlist(models.Model):
     def unlike_movie(self, movie_id):
         if movie_id in self.likes:
             self.likes.remove(movie_id)
-            self.return_to_joint_watchlist(movie_id)
             if movie_id in self.matches:
                 self.matches.remove(movie_id)
 
@@ -143,7 +142,6 @@ class Matchlist(models.Model):
     def undislike_movie(self, movie_id):
         if movie_id in self.dislikes:
             self.dislikes.remove(movie_id)
-            self.return_to_joint_watchlist(movie_id)
             self.save()
             matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
 
@@ -161,12 +159,6 @@ class Matchlist(models.Model):
             self.indiv_watchlist.remove(movie_id)
         if movie_id in self.shared_watchlist:
             self.shared_watchlist.remove(movie_id)
-
-    def return_to_joint_watchlist(self, movie_id):
-        if movie_id not in self.indiv_watchlist:
-            self.indiv_watchlist.insert(0, movie_id)
-        if movie_id not in self.shared_watchlist:
-            self.shared_watchlist.insert(0, movie_id)
 
     def save(self, *args, **kwargs):
         user_wlist = Watchlist.objects.get(user=self.user).watchlist
