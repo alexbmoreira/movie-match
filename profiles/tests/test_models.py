@@ -1,7 +1,10 @@
-from django.test import TestCase
+from datetime import timedelta
 
-from ..models import (FriendRequest, FriendsList, JointWatchlist, Profile,
-                      User, Watchlist)
+from django.test import TestCase
+from django.utils import timezone
+
+from ..models import (FriendRequest, FriendsList, Matchlist, MovieLike,
+                      Profile, User, Watchlist)
 
 
 class FriendsListTests(TestCase):
@@ -151,6 +154,7 @@ class FriendRequestTests(TestCase):
         self.assertEqual(user1_friends, []) # Joey has no friends
         self.assertEqual(user3_friends, []) # Carl has no friends
 
+
 class WatchListTests(TestCase):
 
     @classmethod
@@ -191,7 +195,7 @@ class WatchListTests(TestCase):
         self.assertEqual(w_list1.watchlist, [4995]) # Only Boogie Nights is left in Joey's watchlist
 
 
-class JointWatchlistTests(TestCase):
+class MatchlistTests(TestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -199,8 +203,101 @@ class JointWatchlistTests(TestCase):
         User.objects.create(username="joey", email="joey@test.com")
         User.objects.create(username="carl", email="carl@test.com")
         User.objects.create(username="suzy", email="suzy@test.com")
+        Matchlist.objects.create(user=User.objects.get(username="joey"), friend=User.objects.get(username="carl"))
+        Matchlist.objects.create(user=User.objects.get(username="carl"), friend=User.objects.get(username="joey"))
 
-    def test_JointWatchlistsSomeMatchSomeDont(self):
+    def test_MatchlistMatch(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
+        m_list2 = Matchlist.objects.get(user=user2, friend=user1)
+
+        m_list1.likes.append(4995) # Add Boogie Nights by TMDB movie id
+        m_list1.likes.append(68718) # Add Django Unchained by TMDB movie id
+        m_list1.save()
+
+        m_list2.likes.append(4995) # Add Boogie Nights by TMDB movie id
+        m_list2.likes.append(278) # Add Shawshank Redemption by TMDB movie id
+        m_list2.save()
+
+        #Act
+        m_list1.get_matches()
+        m_list2.get_matches()
+
+        #Assert
+        self.assertEqual(m_list1.matches, [4995]) # Joey and Carl matched on Boogie Nights
+        self.assertEqual(m_list2.matches, [4995])
+
+    def test_MatchlistLike(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list1.like_movie(4995) # Like Boogie Nights by TMDB movie id
+        m_list1.like_movie(68718) # Like Django Unchained by TMDB movie id
+        m_list1.save()
+
+        #Assert
+        self.assertEqual(m_list1.likes, [4995, 68718]) # Joey liked Boogie Nights and Django Unchained
+
+    def test_MatchlistLikeUnlike(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list1.likes.append(4995) # Like Boogie Nights by TMDB movie id
+        m_list1.likes.append(68718) # Like Django Unchained by TMDB movie id
+        m_list1.unlike_movie(4995) # Unliked Boogie Nights
+        m_list1.save()
+
+        #Assert
+        self.assertEqual(m_list1.likes, [68718]) # Only Django Unchained is in Joey's likes
+
+    def test_MatchlistDislike(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list1.dislike_movie(13223) # Dislike Gran Torino by TMDB movie id
+        m_list1.dislike_movie(464052) # Dislike WW84 by TMDB movie id
+        m_list1.save()
+
+        #Assert
+        self.assertEqual(m_list1.dislikes, [13223, 464052]) # Joey disliked WW84 and Gran Torino
+
+    def test_MatchlistDislikeUndislike(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list1.dislikes.append(13223) # Like Gran Torino by TMDB movie id
+        m_list1.dislikes.append(464052) # Like WW84 by TMDB movie id
+        m_list1.undislike_movie(13223) # Unliked Gran Torino
+        m_list1.save()
+
+        #Assert
+        self.assertEqual(m_list1.dislikes, [464052]) # Only WW84 is in Joey's likes
+
+    def test_MatchlistsSomeMatchSomeDont(self):
         # Arrange
         user1 = User.objects.get(username="joey")
         user2 = User.objects.get(username="carl")
@@ -216,16 +313,20 @@ class JointWatchlistTests(TestCase):
         w_list2.watchlist.append(278) # Add Shawshank Redemption by TMDB movie id
         w_list2.save()
 
-        j_w = JointWatchlist.objects.create(user1=user1, user2=user2)
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
+        m_list2 = Matchlist.objects.get(user=user2, friend=user1)
 
         #Act
-        j_w.save()
+        m_list1.save()
+        m_list2.save()
 
         #Assert
-        self.assertEqual(j_w.shared_watchlist, [4995])
-        self.assertEqual(j_w.indiv_watchlist, [68718, 278])
+        self.assertEqual(m_list1.shared_watchlist, [4995])
+        self.assertEqual(m_list1.indiv_watchlist, [68718, 278])
+        self.assertEqual(m_list2.shared_watchlist, [4995])
+        self.assertEqual(m_list2.indiv_watchlist, [278, 68718])
 
-    def test_JointWatchlistsAllMatch(self):
+    def test_MatchlistsAllMatch(self):
         # Arrange
         user1 = User.objects.get(username="joey")
         user2 = User.objects.get(username="carl")
@@ -241,16 +342,20 @@ class JointWatchlistTests(TestCase):
         w_list2.watchlist.append(278) # Add Shawshank Redemption by TMDB movie id
         w_list2.save()
 
-        j_w = JointWatchlist.objects.create(user1=user1, user2=user2)
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
+        m_list2 = Matchlist.objects.get(user=user2, friend=user1)
 
         #Act
-        j_w.save()
+        m_list1.save()
+        m_list2.save()
 
         #Assert
-        self.assertEqual(j_w.shared_watchlist, [4995, 278])
-        self.assertEqual(j_w.indiv_watchlist, [])
+        self.assertEqual(m_list1.shared_watchlist, [4995, 278])
+        self.assertEqual(m_list1.indiv_watchlist, [])
+        self.assertEqual(m_list2.shared_watchlist, [4995, 278])
+        self.assertEqual(m_list2.indiv_watchlist, [])
 
-    def test_JointWatchlistsNoneMatch(self):
+    def test_MatchlistsNoneMatch(self):
         # Arrange
         user1 = User.objects.get(username="joey")
         user2 = User.objects.get(username="carl")
@@ -266,11 +371,121 @@ class JointWatchlistTests(TestCase):
         w_list2.watchlist.append(278) # Add Shawshank Redemption by TMDB movie id
         w_list2.save()
 
-        j_w = JointWatchlist.objects.create(user1=user1, user2=user2)
+        m_list1 = Matchlist.objects.get(user=user1, friend=user2)
+        m_list2 = Matchlist.objects.get(user=user2, friend=user1)
 
         #Act
-        j_w.save()
+        m_list1.save()
+        m_list2.save()
 
         #Assert
-        self.assertEqual(j_w.shared_watchlist, [])
-        self.assertEqual(j_w.indiv_watchlist, [4995, 68718, 508442, 278])
+        self.assertEqual(m_list1.shared_watchlist, [])
+        self.assertEqual(m_list1.indiv_watchlist, [4995, 68718, 508442, 278])
+        self.assertEqual(m_list2.shared_watchlist, [])
+        self.assertEqual(m_list2.indiv_watchlist, [508442, 278, 4995, 68718])
+
+    def test_MatchlistLikeRemoveFromLists(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list = Watchlist.objects.get(user=user1)
+        w_list.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list.watchlist.append(68718) # Add Django Unchained by TMDB movie id
+        w_list.save()
+
+        m_list = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list.save()
+        m_list.like_movie(4995)
+
+        #Assert
+        self.assertEqual(m_list.likes, [4995])
+        self.assertEqual(m_list.indiv_watchlist, [68718])
+
+    def test_MatchlistLikeUnlikeReturnToLists(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list = Watchlist.objects.get(user=user1)
+        w_list.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list.watchlist.append(68718) # Add Django Unchained by TMDB movie id
+        w_list.save()
+
+        m_list = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list.save()
+        m_list.likes.append(4995)
+        m_list.unlike_movie(4995)
+
+        #Assert
+        self.assertEqual(m_list.likes, [])
+        self.assertEqual(m_list.indiv_watchlist, [4995, 68718])
+
+    def test_MatchlistDislikeRemoveFromLists(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list = Watchlist.objects.get(user=user1)
+        w_list.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list.watchlist.append(68718) # Add Django Unchained by TMDB movie id
+        w_list.save()
+
+        m_list = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list.save()
+        m_list.dislike_movie(4995)
+
+        #Assert
+        self.assertEqual(m_list.dislikes, [4995])
+        self.assertEqual(m_list.indiv_watchlist, [68718])
+
+    def test_MatchlistDislikeUndislikeReturnToLists(self):
+        # Arrange
+        user1 = User.objects.get(username="joey")
+        user2 = User.objects.get(username="carl")
+        user3 = User.objects.get(username="suzy")
+
+        w_list = Watchlist.objects.get(user=user1)
+        w_list.watchlist.append(4995) # Add Boogie Nights by TMDB movie id
+        w_list.watchlist.append(68718) # Add Django Unchained by TMDB movie id
+        w_list.save()
+
+        m_list = Matchlist.objects.get(user=user1, friend=user2)
+
+        #Act
+        m_list.save()
+        m_list.dislikes.append(4995)
+        m_list.undislike_movie(4995)
+
+        #Assert
+        self.assertEqual(m_list.dislikes, [])
+        self.assertEqual(m_list.indiv_watchlist, [4995, 68718])
+
+
+
+class MovieLikeTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        # Set up non-modified objects used by all test methods
+        MovieLike.objects.create(movie=4995)
+
+    def test_MovieLikeTimeAdded(self):
+        # Arrange
+        ml = MovieLike.objects.get(movie=4995)
+        ml.datetime_added = timezone.now() - timedelta(1)
+
+        #Act
+        hours_since = ml.get_hours_since_adding()
+
+        #Assert
+        self.assertEqual(hours_since, 24) # Only WW84 is in Joey's likes

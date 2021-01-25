@@ -1,13 +1,14 @@
-import random
+from datetime import timedelta
 
-from django.dispatch import Signal
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
-
+from django.dispatch import Signal
+from django.utils import timezone
 
 friendslist_updated = Signal()
 watchlist_updated = Signal()
+matchlist_updated = Signal()
 
 
 class Profile(models.Model):
@@ -90,22 +91,97 @@ class Watchlist(models.Model):
         return f"{self.user}'s watchlist"
 
 
-class JointWatchlist(models.Model):
+class MovieLike(models.Model):
 
-    user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='joint_watch_list_user1')
-    user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='joint_watch_list_user2')
+    movie = models.IntegerField()
+    datetime_added = models.DateTimeField(default=timezone.now)
+
+    def get_hours_since_adding(self):
+        td = timezone.now() - self.datetime_added
+        return (td.days * 24) + (td.seconds // 3600)
+
+    def __str__(self):
+        return f"{self.movie} added on {self.datetime_added}"
+
+
+class Matchlist(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_list_user')
+    likes = ArrayField(models.IntegerField(), blank=True, default=list)
+    dislikes = ArrayField(models.IntegerField(), blank=True, default=list)
+    friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_list_friend')
     shared_watchlist = ArrayField(models.IntegerField(), blank=True, default=list)
     indiv_watchlist = ArrayField(models.IntegerField(), blank=True, default=list)
+    matches = ArrayField(models.IntegerField(), blank=True, default=list)
+
+    def like_movie(self, movie_id):
+        if movie_id not in self.likes:
+            self.undislike_movie(movie_id)
+            self.likes.append(movie_id)
+            self.remove_from_joint_watchlist(movie_id)
+            self.save()
+            matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
+
+    def unlike_movie(self, movie_id):
+        if movie_id in self.likes:
+            self.likes.remove(movie_id)
+            self.return_to_joint_watchlist(movie_id)
+            if movie_id in self.matches:
+                self.matches.remove(movie_id)
+
+            self.save()
+            matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
+
+    def dislike_movie(self, movie_id):
+        if movie_id not in self.dislikes:
+            self.unlike_movie(movie_id)
+            self.dislikes.append(movie_id)
+            self.remove_from_joint_watchlist(movie_id)
+            self.save()
+            matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
+
+    def undislike_movie(self, movie_id):
+        if movie_id in self.dislikes:
+            self.dislikes.remove(movie_id)
+            self.return_to_joint_watchlist(movie_id)
+            self.save()
+            matchlist_updated.send(sender=self.__class__, user=self.user, friend=self.friend)
+
+    def get_matches(self):
+        other_likes = Matchlist.objects.get(user=self.friend, friend=self.user)
+
+        for like in other_likes.likes:
+            if like in self.likes and like not in self.matches:
+                self.matches.append(like)
+
+        self.save()
+
+    def remove_from_joint_watchlist(self, movie_id):
+        if movie_id in self.indiv_watchlist:
+            self.indiv_watchlist.remove(movie_id)
+        if movie_id in self.shared_watchlist:
+            self.shared_watchlist.remove(movie_id)
+
+    def return_to_joint_watchlist(self, movie_id):
+        if movie_id not in self.indiv_watchlist:
+            self.indiv_watchlist.insert(0, movie_id)
+        if movie_id not in self.shared_watchlist:
+            self.shared_watchlist.insert(0, movie_id)
 
     def save(self, *args, **kwargs):
-        user1_wlist = Watchlist.objects.get(user=self.user1).watchlist
-        user2_wlist = Watchlist.objects.get(user=self.user2).watchlist
+        user_wlist = Watchlist.objects.get(user=self.user).watchlist
+        friend_wlist = Watchlist.objects.get(user=self.friend).watchlist
 
-        self.shared_watchlist = [movie for movie in user1_wlist if movie in user2_wlist]
-        self.indiv_watchlist = [movie for movie in user1_wlist if movie not in user2_wlist] + \
-            [movie for movie in user2_wlist if movie not in user1_wlist]
+        all_likes_dislikes = [movie for movie in self.likes] + [movie for movie in self.dislikes]
+
+        shared_wl_with_likes = [movie for movie in user_wlist if movie in friend_wlist]
+        indiv_wl_with_likes = [movie for movie in user_wlist if movie not in friend_wlist]
+        indiv_wl_with_likes += [movie for movie in friend_wlist if movie not in user_wlist]
+
+        self.shared_watchlist = [movie for movie in shared_wl_with_likes if movie not in all_likes_dislikes]
+        self.indiv_watchlist = [movie for movie in indiv_wl_with_likes if movie not in all_likes_dislikes]
 
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.user1}'s and {self.user2}'s watchlist"
+        return f"{self.user}'s matchlist with {self.friend}"

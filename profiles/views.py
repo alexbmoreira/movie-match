@@ -5,11 +5,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import (FriendRequest, FriendsList, JointWatchlist, Profile, User,
+from .models import (FriendRequest, FriendsList, Matchlist, Profile, User,
                      Watchlist)
 from .serializers import (FriendRequestSerializer, FriendsListSerializer,
-                          JointWatchListSerializer, ProfileSerializer,
-                          UserSerializer, WatchListSerializer)
+                          JointWatchListSerializer, MatchListSerializer,
+                          ProfileSerializer, UserSerializer,
+                          WatchListSerializer)
 
 
 class ProfileAPIView(APIView):
@@ -138,8 +139,47 @@ class JointWatchlistAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, user_id):
-        query = Q(user1__id=user_id, user2__id=request.user.id) | Q(user1__id=request.user.id, user2__id=user_id)
-        joint_watchlist = get_object_or_404(JointWatchlist, query)
+        query = Q(user__id=request.user.id, friend__id=user_id)
+        joint_watchlist = get_object_or_404(Matchlist, query)
         serializer = JointWatchListSerializer(joint_watchlist)
 
         return Response(data=serializer.data)
+
+
+class MatchlistAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, user_id):
+        query = Q(user__id=request.user.id, friend__id=user_id)
+        matchlist = get_object_or_404(Matchlist, query)
+        serializer = MatchListSerializer(matchlist)
+
+        return Response(data=serializer.data)
+
+
+class MatchlistActionAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, operation, user_id):
+        query = Q(user__id=request.user.id, friend__id=user_id)
+        matchlist = get_object_or_404(Matchlist, query)
+        other_matchlist = get_object_or_404(Matchlist, user__id=user_id, friend__id=request.user.id)
+
+        if operation == 'like':
+            matchlist.like_movie(request.data['id'])
+            if request.data['id'] in other_matchlist.likes:
+                return Response(data={'match': request.data['id']}, status=status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_201_CREATED)
+        elif operation == 'unlike':
+            matchlist.unlike_movie(request.data['id'])
+            return Response(status=status.HTTP_202_ACCEPTED)
+        elif operation == 'dislike':
+            matchlist.dislike_movie(request.data['id'])
+            return Response(status=status.HTTP_201_CREATED)
+        elif operation == 'undislike':
+            matchlist.undislike_movie(request.data['id'])
+            return Response(status=status.HTTP_202_ACCEPTED)
+
+        return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
