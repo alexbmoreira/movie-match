@@ -9,7 +9,9 @@ api_key = settings.TMDB_API
 class MovieSearchAPIView(APIView):
 
     def get(self, request, search, page=1):
-        cached = 'movie_search' in request.session and request.session['movie_search']['search'] == search and request.session['movie_search']['page'] == page
+        cached = 'movie_search' in request.session and \
+            request.session['movie_search']['search'] == search and \
+            request.session['movie_search']['page'] == page
 
         if not cached:
             query = f"https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}&page={page}"
@@ -24,12 +26,19 @@ class MovieSearchAPIView(APIView):
 class ActorSearchAPIView(APIView):
 
     def get(self, request, search, page=1):
-        query = f"https://api.themoviedb.org/3/search/person?api_key={api_key}&query={search}&page={page}"
+        cached = 'actor_search' in request.session and \
+            request.session['actor_search']['search'] == search and \
+            request.session['actor_search']['page'] == page
 
-        response = requests.get(query)
-        actors = response.json()
-        actors['results'] = [actor for actor in actors['results'] if actor['known_for_department'] == "Acting"]
-        return Response(actors)
+        if not cached:
+            query = f"https://api.themoviedb.org/3/search/person?api_key={api_key}&query={search}&page={page}"
+            response = requests.get(query)
+            actors = response.json()
+            actors['results'] = [actor for actor in actors['results'] if actor['known_for_department'] == "Acting"]
+            request.session['actor_search'] = actors
+            request.session['actor_search']['search'] = search
+
+        return Response(request.session['actor_search'])
 
 
 class CrewSearchAPIView(APIView):
