@@ -44,12 +44,19 @@ class ActorSearchAPIView(APIView):
 class CrewSearchAPIView(APIView):
 
     def get(self, request, search, page=1):
-        query = f"https://api.themoviedb.org/3/search/person?api_key={api_key}&query={search}&page={page}"
-
-        response = requests.get(query)
-        actors = response.json()
-        actors['results'] = [actor for actor in actors['results'] if actor['known_for_department'] != "Acting"]
-        return Response(actors)
+        cached = 'crew_search' in request.session and \
+            request.session['crew_search']['search'] == search and \
+            request.session['crew_search']['page'] == page
+        
+        if not cached:
+            query = f"https://api.themoviedb.org/3/search/person?api_key={api_key}&query={search}&page={page}"
+            response = requests.get(query)
+            crew = response.json()
+            crew['results'] = [actor for actor in crew['results'] if actor['known_for_department'] != "Acting"]
+            request.session['crew_search'] = crew
+            request.session['crew_search']['search'] = search
+        
+        return Response(request.session['crew_search'])
 
 
 class MovieMetadataAPIView(APIView):
