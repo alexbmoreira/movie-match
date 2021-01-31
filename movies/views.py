@@ -47,7 +47,7 @@ class CrewSearchAPIView(APIView):
         cached = 'crew_search' in request.session and \
             request.session['crew_search']['search'] == search and \
             request.session['crew_search']['page'] == page
-        
+
         if not cached:
             query = f"https://api.themoviedb.org/3/search/person?api_key={api_key}&query={search}&page={page}"
             response = requests.get(query)
@@ -55,7 +55,7 @@ class CrewSearchAPIView(APIView):
             crew['results'] = [actor for actor in crew['results'] if actor['known_for_department'] != "Acting"]
             request.session['crew_search'] = crew
             request.session['crew_search']['search'] = search
-        
+
         return Response(request.session['crew_search'])
 
 
