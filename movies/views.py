@@ -9,11 +9,16 @@ api_key = settings.TMDB_API
 class MovieSearchAPIView(APIView):
 
     def get(self, request, search, page=1):
-        query = f"https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}&page={page}"
+        cached = 'movie_search' in request.session and request.session['movie_search']['search'] == search and request.session['movie_search']['page'] == page
 
-        response = requests.get(query)
-        movies = response.json()
-        return Response(movies)
+        if not cached:
+            query = f"https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}&page={page}"
+            response = requests.get(query)
+            movies = response.json()
+            request.session['movie_search'] = movies
+            request.session['movie_search']['search'] = search
+
+        return Response(request.session['movie_search'])
 
 
 class ActorSearchAPIView(APIView):
