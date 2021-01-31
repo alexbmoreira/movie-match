@@ -13,10 +13,16 @@ source ../.venv/bin/activate
 ```
 > Or wherever your virtual environment is located
 
-### Install backend dependencies
+### Installing dependencies
 
+Backend:
 ```shell
-make install
+make install-be
+```
+
+Frontend:
+```shell
+make install-fe
 ```
 
 ### Create the database

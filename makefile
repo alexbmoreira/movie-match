@@ -1,5 +1,8 @@
-install:
+install-be:
 	pip install -r requirements.txt
+
+install-fe:
+	cd frontend && npm install
 	
 run-backend:
 	python manage.py runserver
