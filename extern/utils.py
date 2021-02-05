@@ -54,6 +54,5 @@ class Letterboxd():
                     watchlist.extend(Letterboxd.get_page_watchlist(page))
 
             return watchlist
-        except:
+        except Exception:
             return {"error": "Could not GET watchlist"}
-
