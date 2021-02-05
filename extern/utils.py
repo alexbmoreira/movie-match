@@ -43,13 +43,17 @@ class Letterboxd():
 
         watchlist = []
 
-        watchlist.extend(Letterboxd.get_page_watchlist(page))
+        try:
+            watchlist.extend(Letterboxd.get_page_watchlist(page))
 
-        if int(last_page) > 0:
-            for i in range(2, int(last_page) + 1):
-                link = f"https://letterboxd.com/{username}/watchlist/page/{i}"
-                request = requests.get(link)
-                page = bs(request.text, "html.parser")
-                watchlist.extend(Letterboxd.get_page_watchlist(page))
+            if int(last_page) > 0:
+                for i in range(2, int(last_page) + 1):
+                    link = f"https://letterboxd.com/{username}/watchlist/page/{i}"
+                    request = requests.get(link)
+                    page = bs(request.text, "html.parser")
+                    watchlist.extend(Letterboxd.get_page_watchlist(page))
 
-        return watchlist
+            return watchlist
+        except:
+            return {"error": "Could not GET watchlist"}
+

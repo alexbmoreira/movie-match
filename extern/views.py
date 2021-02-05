@@ -12,4 +12,7 @@ class LetterboxdWatchlistAPIView(APIView):
     def get(self, request, username):
         watchlist = Letterboxd.get_watchlist(username)
 
-        return Response(watchlist)
+        if "error" not in watchlist:
+            return Response(watchlist)
+        else:
+            return Response(watchlist, status=status.HTTP_404_NOT_FOUND)
