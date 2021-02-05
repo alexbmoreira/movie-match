@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     'webpack_loader',
 
     'profiles',
-    'movies'
+    'movies',
+    'extern'
 ]
 
 MIDDLEWARE = [
