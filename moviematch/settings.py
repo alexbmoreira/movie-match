@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*pjd&od9e$+kj30+()x*-x@!$muc0wvbof(*xxybh*3!_k4kti'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', False)
 
 ALLOWED_HOSTS = []
 
@@ -105,7 +107,7 @@ DATABASES = {
         'NAME': 'moviematch',
         'USER': 'postgres',
         'PASSWORD': 'root',
-        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
+        'HOST': config('DATABASE_URL', 'localhost'),
         'PORT': '5432',
     }
 }
@@ -159,4 +161,4 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8081'
 ]
 
-TMDB_API = os.environ.get('TMDB_API')
+TMDB_API = config('TMDB_API')
