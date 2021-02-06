@@ -161,4 +161,4 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8081'
 ]
 
-TMDB_API = config('TMDB_API')
+TMDB_API = os.environ.get('TMDB_API')
