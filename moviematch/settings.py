@@ -107,7 +107,7 @@ DATABASES = {
         'NAME': 'moviematch',
         'USER': 'postgres',
         'PASSWORD': 'root',
-        'HOST': config('DATABASE_URL', 'localhost'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
         'PORT': '5432',
     }
 }
