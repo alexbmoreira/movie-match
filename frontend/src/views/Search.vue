@@ -1,43 +1,38 @@
 <template>
-<div>
-    <h1>{{search}}</h1>
-    <h2>{{search_type}}</h2>
-</div>
+  <div>
+    <h1>{{ search }}</h1>
+    <h2>{{ search_type }}</h2>
+  </div>
 </template>
 
 <script>
-
 import searchAPI from '../api/movies'
 
 export default {
-    name: 'Search',
-    data() {
-        return {
-            search: '',
-            search_type: '',
-            searchData: {}
-        }
-    },
-    methods: {
-        async makeSearch() {
-            if (this.search.length > 0 && this.search_type.length > 0) {
-                var placeholder = await searchAPI.searchMovie(this.search_type, this.search)
-                console.log(placeholder)
-                this.searchData = await searchAPI.searchMovie(this.search_type, this.search)
-                console.log(this.searchData)
-            }
-        }
-    },
-    created() {
-        this.search = this.$route.params.data.string
-        this.search_type = this.$route.params.data.type
-        
-        console.log(this.search)
-        console.log(this.search_type)
-
-        this.makeSearch()
-
+  name: 'Search',
+  data() {
+    return {
+      search: '',
+      search_type: '',
+      searchData: {}
     }
+  },
+  created() {
+    this.search = this.$route.params.search
+    this.search_type = this.$route.params.search_type
+
+    console.log(this.search)
+    console.log(this.search_type)
+
+    this.makeSearch()
+  },
+  methods: {
+    async makeSearch() {
+      if (this.search && this.search.length > 0 && this.search_type.length > 0) {
+        this.searchData = await searchAPI.searchMovie(this.search_type, this.search)
+        console.log(this.searchData.results)
+      }
+    }
+  }
 }
 </script>
-

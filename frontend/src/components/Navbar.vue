@@ -18,7 +18,13 @@
 
       <!-- Search field -->
       <div class="flex h-0 space-x-3 opacity-0 transition-all duration-600 ease-in-out" :class="{ 'h-12': show_search, 'opacity-100': show_search }">
-        <input v-model="search.string" v-on:keyup.enter="routeSearch" type="text" placeholder="Search for a movie..." class="bg-transparent w-full px-3 pb-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" />
+        <input
+          v-model="search.string"
+          type="text"
+          placeholder="Search for a movie..."
+          class="bg-transparent w-full px-3 pb-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none"
+          @keyup.enter="routeSearch"
+        />
         <button class="w-auto flex justify-end items-center transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="routeSearch"><i class="fas fa-search"></i></button>
         <div class="flex flex-col">
           <label for="searchType" class="text-xs">Search for:</label>
@@ -54,11 +60,10 @@ export default {
   },
   data() {
     return {
-      search: [
-        {string: ''},
-        {type: 'movies'}
-      ],
-      //search_type: 'movies',
+      search: {
+        string: '',
+        type: 'movies'
+      },
       show_search: false,
       show_menu: false
     }
@@ -70,26 +75,8 @@ export default {
   },
   methods: {
     routeSearch() {
-
-      //temporary spaghetti, come back to this
-      if(this.$route.name === 'Search'){
-        console.log('BITCH')
-        this.$router.push({name: 'Login'})
-      }
-
-      else {
-
-        this.$router.push({name: 'Search', query:{type: this.search.string}, params:{data:this.search}}).catch(err => {
-          // Ignore the vuex err regarding  navigating to the page they are already on. //path: '/search',
-          if (
-            err.name !== 'NavigationDuplicated' &&
-            !err.message.includes('Avoided redundant navigation to current location')
-          ) {
-            // But print any other errors to the console
-            console.log(err);
-          }
-        });
-        //params are ignored if path is provided
+      if (this.search.string.length > 0) {
+        this.$router.push({ name: 'Search', params: { search_type: this.search.type, search: this.search.string } }).catch(() => {})
       }
     },
     showSearch() {
