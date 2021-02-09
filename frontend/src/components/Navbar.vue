@@ -126,17 +126,18 @@ export default {
     }
   },
   created() {
-    document.addEventListener('resize', this.onResize)
+    window.addEventListener('resize', this.onResize)
   },
   destroyed() {
-    document.removeEventListener('resize', this.onResize)
+    window.removeEventListener('resize', this.onResize)
   },
   methods: {
     onResize() {
-      console.log(window.width)
-      this.window_width = window.width
+      this.window_width = window.innerWidth
       if (this.show_search === true) {
-        this.show_search = this.window_width <= 767
+        this.show_search = this.window_width <= 1023
+      } else if (this.show_menu === true) {
+        this.show_menu = this.window_width <= 1023
       }
     },
     routeSearch() {
