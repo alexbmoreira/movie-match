@@ -6,8 +6,8 @@
         <router-link to="/" class="cursor-pointer w-60">
           <Logo />
         </router-link>
-        <div class="flex space-x-6 mx-5 w-full">
-          <div class="space-x-3 hidden w-full lg:flex">
+        <div class="flex space-x-6 mx-5 lg:w-full">
+          <div class="space-x-3 hidden lg:w-full lg:flex">
             <input
               v-model="search.string"
               type="text"
