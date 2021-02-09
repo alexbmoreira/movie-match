@@ -17,7 +17,7 @@
       </div>
 
       <!-- Search field -->
-      <div class="flex h-0 space-x-3 opacity-0 transition-all duration-600 ease-in-out" :class="{ 'h-12': show_search, 'opacity-100': show_search }">
+      <div v-if="show_search" class="flex h-0 space-x-3">
         <input
           v-model="search.string"
           type="text"
@@ -36,8 +36,8 @@
         </div>
       </div>
 
-      <!-- Nav Bar -->
-      <div class="flex h-0 opacity-0 transition-all duration-600 ease-in-out" :class="{ 'h-12': show_menu, 'opacity-100': show_menu }">
+      <!-- Logins -->
+      <div v-if="show_menu" class="flex h-0">
         <div v-show="!isLoggedIn" class="flex my-auto mx-auto space-x-4">
           <button class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click.prevent="goLogin()">Log In</button>
           <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="goRegister()">Register</button>
