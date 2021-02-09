@@ -18,11 +18,17 @@
 
       <!-- Search field -->
       <div class="flex h-0 space-x-3 opacity-0 transition-all duration-600 ease-in-out" :class="{ 'h-12': show_search, 'opacity-100': show_search }">
-        <input v-model="search" type="text" placeholder="Search for a movie..." class="bg-transparent w-full px-3 pb-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" />
-        <button class="w-auto flex justify-end items-center transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="makeSearch"><i class="fas fa-search"></i></button>
+        <input
+          v-model="search.string"
+          type="text"
+          placeholder="Search for a movie..."
+          class="bg-transparent w-full px-3 pb-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none"
+          @keyup.enter="routeSearch"
+        />
+        <button class="w-auto flex justify-end items-center transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="routeSearch"><i class="fas fa-search"></i></button>
         <div class="flex flex-col">
           <label for="searchType" class="text-xs">Search for:</label>
-          <select id="searchType" v-model="search_type" class="bg-app-bg rounded">
+          <select id="searchType" v-model="search.type" class="bg-app-bg rounded">
             <option value="movies">Movies</option>
             <option value="actors">Actors</option>
             <option value="crew">Crew</option>
@@ -46,7 +52,6 @@
 
 <script>
 import Logo from './SVGComponents/Logo'
-import searchAPI from '../api/movies'
 
 export default {
   name: 'Navbar',
@@ -55,8 +60,10 @@ export default {
   },
   data() {
     return {
-      search: '',
-      search_type: 'movies',
+      search: {
+        string: '',
+        type: 'movies'
+      },
       show_search: false,
       show_menu: false
     }
@@ -67,10 +74,9 @@ export default {
     }
   },
   methods: {
-    async makeSearch() {
-      if (this.search.length > 0 && this.search_type.length > 0) {
-        var data = await searchAPI.searchMovie(this.search_type, this.search)
-        console.log(data)
+    routeSearch() {
+      if (this.search.string.length > 0) {
+        this.$router.push({ name: 'Search', params: { search_type: this.search.type, search: this.search.string } }).catch(() => {})
       }
     },
     showSearch() {
