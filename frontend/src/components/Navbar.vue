@@ -1,13 +1,13 @@
 <template>
   <div class="bg-app-bg fixed top-0 inset-x-0">
-    <div class="p-4 pb-2 md:pb-4">
+    <div class="p-4 pb-0" :class="{'pb-4':(show_search || show_menu)}">
       <!-- Logo text or image -->
       <div class="flex items-center justify-between mb-4">
         <router-link to="/" class="cursor-pointer w-60">
           <Logo/>
         </router-link>
-        <div class="flex space-x-4">
-          <div class="space-x-3 hidden md:flex">
+        <div class="flex space-x-6 mx-5 w-full">
+          <div class="space-x-3 hidden w-full lg:flex">
             <input
               v-model="search.string"
               type="text"
@@ -30,10 +30,10 @@
               </select>
             </div>
           </div>
-          <div class="hidden md:flex">
+          <div class="hidden lg:flex">
           <div v-show="!isLoggedIn" class="flex my-auto space-x-4">
             <button
-              class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0"
+              class="bg-transparent rounded border border-app-typeface w-20 px-4 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0"
               @click.prevent="goLogin()"
             >Log In</button>
             <button
@@ -49,7 +49,7 @@
           </div>
         </div>
         </div>
-        <div class="flex space-x-2 md:hidden">
+        <div class="flex space-x-2 lg:hidden">
           <button
             class="flex items-center text-2xl transition duration-400 ease-in-out hover:text-app-primary"
             @click="showSearch()"
@@ -111,7 +111,7 @@
         <div v-if="show_menu" class="flex">
           <div v-show="!isLoggedIn" class="flex my-auto mx-auto space-x-4">
             <button
-              class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0"
+              class="bg-transparent rounded border border-app-typeface w-20 px-4 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0"
               @click.prevent="goLogin()"
             >Log In</button>
             <button
