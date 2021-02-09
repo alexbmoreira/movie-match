@@ -4,13 +4,62 @@
       <!-- Logo text or image -->
       <div class="flex items-center justify-between mb-4">
         <router-link to="/" class="cursor-pointer w-60">
-          <Logo />
+          <Logo/>
         </router-link>
-        <div class="flex space-x-2">
-          <button class="flex items-center text-2xl transition duration-400 ease-in-out hover:text-app-primary" @click="showSearch()">
+        <div class="flex space-x-4">
+          <div class="space-x-3 hidden md:flex">
+            <input
+              v-model="search.string"
+              type="text"
+              placeholder="Search for a movie..."
+              class="bg-transparent w-full px-3 pb-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none"
+              @keyup.enter="routeSearch"
+            >
+            <button
+              class="w-auto flex justify-end items-center transition duration-400 ease-in-out hover:text-app-primary"
+              @click.prevent="routeSearch"
+            >
+              <i class="fas fa-search"></i>
+            </button>
+            <div class="flex flex-col">
+              <label for="searchType" class="text-xs">Search for:</label>
+              <select id="searchType" v-model="search.type" class="bg-app-bg rounded">
+                <option value="movies">Movies</option>
+                <option value="actors">Actors</option>
+                <option value="crew">Crew</option>
+              </select>
+            </div>
+          </div>
+          <div class="hidden md:flex">
+          <div v-show="!isLoggedIn" class="flex my-auto space-x-4">
+            <button
+              class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0"
+              @click.prevent="goLogin()"
+            >Log In</button>
+            <button
+              class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary"
+              @click.prevent="goRegister()"
+            >Register</button>
+          </div>
+          <div v-show="isLoggedIn" class="flex my-auto mx-auto space-x-4">
+            <button
+              class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary"
+              @click.prevent="logout()"
+            >Log Out</button>
+          </div>
+        </div>
+        </div>
+        <div class="flex space-x-2 md:hidden">
+          <button
+            class="flex items-center text-2xl transition duration-400 ease-in-out hover:text-app-primary"
+            @click="showSearch()"
+          >
             <i class="fas fa-search"></i>
           </button>
-          <button class="flex items-center text-3xl transition duration-400 ease-in-out hover:text-app-primary" @click="showMenu()">
+          <button
+            class="flex items-center text-3xl transition duration-400 ease-in-out hover:text-app-primary"
+            @click="showMenu()"
+          >
             <i class="fa fa-bars"></i>
           </button>
         </div>
@@ -32,8 +81,13 @@
             placeholder="Search for a movie..."
             class="bg-transparent w-full px-3 pb-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none"
             @keyup.enter="routeSearch"
-          />
-          <button class="w-auto flex justify-end items-center transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="routeSearch"><i class="fas fa-search"></i></button>
+          >
+          <button
+            class="w-auto flex justify-end items-center transition duration-400 ease-in-out hover:text-app-primary"
+            @click.prevent="routeSearch"
+          >
+            <i class="fas fa-search"></i>
+          </button>
           <div class="flex flex-col">
             <label for="searchType" class="text-xs">Search for:</label>
             <select id="searchType" v-model="search.type" class="bg-app-bg rounded">
@@ -56,11 +110,20 @@
       >
         <div v-if="show_menu" class="flex">
           <div v-show="!isLoggedIn" class="flex my-auto mx-auto space-x-4">
-            <button class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click.prevent="goLogin()">Log In</button>
-            <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="goRegister()">Register</button>
+            <button
+              class="bg-transparent rounded border border-app-typeface px-2 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0"
+              @click.prevent="goLogin()"
+            >Log In</button>
+            <button
+              class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary"
+              @click.prevent="goRegister()"
+            >Register</button>
           </div>
           <div v-show="isLoggedIn" class="flex my-auto mx-auto space-x-4">
-            <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="logout()">Log Out</button>
+            <button
+              class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary"
+              @click.prevent="logout()"
+            >Log Out</button>
           </div>
         </div>
       </transition>
@@ -69,56 +132,64 @@
 </template>
 
 <script>
-import Logo from './SVGComponents/Logo'
+import Logo from "./SVGComponents/Logo";
 
 export default {
-  name: 'Navbar',
+  name: "Navbar",
   components: {
     Logo
   },
   data() {
     return {
       search: {
-        string: '',
-        type: 'movies'
+        string: "",
+        type: "movies"
       },
       show_search: false,
       show_menu: false
-    }
+    };
   },
   computed: {
     isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn
+      return this.$store.getters.isLoggedIn;
     }
   },
   methods: {
     routeSearch() {
       if (this.search.string.length > 0) {
-        this.$router.push({ name: 'Search', params: { search_type: this.search.type, search: this.search.string } }).catch(() => {})
+        this.$router
+          .push({
+            name: "Search",
+            params: {
+              search_type: this.search.type,
+              search: this.search.string
+            }
+          })
+          .catch(() => {});
       }
     },
     showSearch() {
-      this.show_search = !this.show_search
-      this.show_menu = false
+      this.show_search = !this.show_search;
+      this.show_menu = false;
     },
     showMenu() {
-      this.show_menu = !this.show_menu
-      this.show_search = false
+      this.show_menu = !this.show_menu;
+      this.show_search = false;
     },
     goLogin() {
-      this.$router.push({ name: 'Login' })
+      this.$router.push({ name: "Login" });
     },
     goRegister() {
-      this.$router.push({ name: 'Register' })
+      this.$router.push({ name: "Register" });
     },
     async logout() {
       try {
-        await this.$store.dispatch('logoutUser')
-        this.$router.push({ name: 'Login' })
+        await this.$store.dispatch("logoutUser");
+        this.$router.push({ name: "Login" });
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
     }
   }
-}
+};
 </script>
