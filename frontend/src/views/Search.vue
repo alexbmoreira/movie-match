@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1>{{ search }}</h1>
+    <h1 class="mt-60">{{ search }}</h1>
     <h2>{{ search_type }}</h2>
+    <h2 v-for="result in searchData.results" :key="result.id">{{ result.id }}</h2>
   </div>
 </template>
 
@@ -21,16 +22,13 @@ export default {
     this.search = this.$route.params.search
     this.search_type = this.$route.params.search_type
 
-    console.log(this.search)
-    console.log(this.search_type)
-
     this.makeSearch()
   },
   methods: {
     async makeSearch() {
       if (this.search && this.search.length > 0 && this.search_type.length > 0) {
         this.searchData = await searchAPI.searchMovie(this.search_type, this.search)
-        console.log(this.searchData.results)
+        console.log(this.searchData)
       }
     }
   }
