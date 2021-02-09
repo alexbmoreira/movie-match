@@ -1,6 +1,6 @@
 <template>
   <div class="bg-poster-collage bg-center min-h-screen pt-12 pb-6 px-2 md:px-0 md:pt-20">
-    <div class="bg-app-bg-light max-w-lg mx-auto p-8 my-10 rounded-lg shadow-2xl md:p-12">
+    <div class="bg-app-bg-light max-w-lg mx-auto my-20 p-8 rounded-lg shadow-2xl md:p-12">
       <div>
         <h3 class="text-app-typeface font-bold text-2xl">Join Match Cut</h3>
         <p class="text-app-typeface-alt pt-2">Create your account</p>
