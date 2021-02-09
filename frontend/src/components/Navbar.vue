@@ -143,7 +143,8 @@ export default {
     return {
       search: {
         string: "",
-        type: "movies"
+        type: "movies",
+        window_width: window.innerWidth
       },
       show_search: false,
       show_menu: false
@@ -152,9 +153,23 @@ export default {
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn;
-    }
+    },
+    
+  },
+  created() {
+    document.addEventListener("resize", this.onResize);
+  },
+  destroyed() {
+    document.removeEventListener("resize", this.onResize);
   },
   methods: {
+    onResize() {
+      console.log(window.width)
+      this.window_width = window.width
+      if(this.show_search === true) {
+        this.show_search = this.window_width <= 767
+      }
+    },
     routeSearch() {
       if (this.search.string.length > 0) {
         this.$router
