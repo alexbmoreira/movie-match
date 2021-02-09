@@ -15,19 +15,16 @@ export default {
         return {
             search: '',
             search_type: '',
-            searchData: []
+            searchData: {}
         }
     },
     methods: {
-        setData(payload){
-            this.searchData = payload
-        },
         async makeSearch() {
             if (this.search.length > 0 && this.search_type.length > 0) {
                 var placeholder = await searchAPI.searchMovie(this.search_type, this.search)
                 console.log(placeholder)
                 this.searchData = await searchAPI.searchMovie(this.search_type, this.search)
-                console.log(this.searchData.data)
+                console.log(this.searchData)
             }
         }
     },
