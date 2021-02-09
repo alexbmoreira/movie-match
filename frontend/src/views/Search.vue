@@ -2,7 +2,6 @@
 <div>
     <h1>{{search}}</h1>
     <h2>{{search_type}}</h2>
-    <div :searchData = setData(placeholder)></div>
 </div>
 </template>
 
@@ -27,8 +26,8 @@ export default {
             if (this.search.length > 0 && this.search_type.length > 0) {
                 var placeholder = await searchAPI.searchMovie(this.search_type, this.search)
                 console.log(placeholder)
-                this.searchData = placeholder.data
-                console.log(this.searchData)
+                this.searchData = await searchAPI.searchMovie(this.search_type, this.search)
+                console.log(this.searchData.data)
             }
         }
     },
