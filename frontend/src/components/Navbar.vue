@@ -33,7 +33,7 @@
               <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="goRegister()">Register</button>
             </div>
             <div v-show="isLoggedIn" class="flex my-auto mx-auto space-x-4">
-              <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="logout()">Log Out</button>
+              <button class="bg-transparent w-20 px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="logout()">Log Out</button>
             </div>
           </div>
         </div>
