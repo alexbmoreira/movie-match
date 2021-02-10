@@ -1,11 +1,11 @@
 <template>
-  <div class="pt-32">
-    <div class="border-b border-t mx-2">
+  <div class="pt-32 bg-app-bg min-h-screen border-app-bg-light">
+    <div class="border-app-bg-light border-b mx-2 text-xl font-thin">
       <h1>{{ searchData.total_results }} search results for: "{{ search }}"</h1>
       <h2>category: {{ search_type }}</h2>
     </div>
-    <div class="divide-y mx-2">
-      <h2 v-for="result in searchData.results" :key="result.id">{{ result.id }}</h2>
+    <div class="divide-y mx-2 border-b divide-app-bg-light border-app-bg-light">
+      <div v-for="result in searchData.results" :key="result.id"><p class="text-xl">{{ result.title }}</p> {{result.release_date}}</div>
     </div>
   </div>
 </template>
