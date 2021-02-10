@@ -1,8 +1,12 @@
 <template>
-  <div>
-    <h1 class="mt-60">{{ search }}</h1>
-    <h2>{{ search_type }}</h2>
-    <h2 v-for="result in searchData.results" :key="result.id">{{ result.id }}</h2>
+  <div class="pt-32">
+    <div class="border-b border-t mx-2">
+      <h1>{{ searchData.total_results }} search results for: "{{ search }}"</h1>
+      <h2>category: {{ search_type }}</h2>
+    </div>
+    <div class="divide-y mx-2">
+      <h2 v-for="result in searchData.results" :key="result.id">{{ result.id }}</h2>
+    </div>
   </div>
 </template>
 
