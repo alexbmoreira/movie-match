@@ -7,9 +7,10 @@
     <!-- Movies as search category -->
     <div v-if="search_type === 'movies'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
       <div v-for="result in searchData.results" :key="result.id" class="py-2 flex">
-        <img class="object-scale-down h-40 object-left border-2 rounded" :src="result.poster_link_sm" alt="">
+        <img v-if="result.poster_link_sm !== 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="result.poster_link_sm" alt="">
+        <img v-if="result.poster_link_sm === 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="missing_poster" alt="">
         <p class="text-thin text-xl font-roboto-slab mx-2">{{ result.title }}</p>
-        <p class="">{{ result.release_date }}</p>
+        <p class="text-thin my-1">{{ result.release_date }}</p>
       </div>
     </div>
     <!-- Actors as search category -->
@@ -31,7 +32,8 @@ export default {
     return {
       search: '',
       search_type: '',
-      searchData: {}
+      searchData: {},
+      missing_poster: 'https://image.tmdb.org/t/p/w154/sqZKCRYGovZ8aN99VVJSdL8Ja9k.jpg'
     }
   },
   created() {
