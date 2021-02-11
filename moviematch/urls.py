@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from django.views.generic.base import TemplateView
+from rest_auth.views import PasswordResetConfirmView
+
+pass_reset = PasswordResetConfirmView.as_view()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +28,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/rest-auth/', include('rest_auth.urls')),
     path('api/rest-auth/register/', include('rest_auth.registration.urls')),
+    re_path(r'^rest-auth/password/reset/confirm/(?P<uidb64>(\d|\w)+)/(?P<token>(\d|\w)+-(\d|\w)+)/$',
+        pass_reset, name='password_reset_confirm'),
 ]
