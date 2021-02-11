@@ -15,8 +15,10 @@
     </div>
     <!-- Actors as search category -->
     <div v-if="search_type === 'actors'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
-      <div v-for="result in searchData.results" :key="result.id" class="">
-        <p class="text-thin text-xl font-roboto-slab">{{ result.name }}</p>
+      <div v-for="result in searchData.results" :key="result.id" class="py-2 flex">
+        <img v-if="result.profile_link_sm !== 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="result.profile_link_sm" alt="">
+        <img v-if="result.profile_link_sm === 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="missing_poster" alt="">
+        <p class="text-thin text-xl font-roboto-slab mx-2">{{ result.name }}</p>
         <!--p v-for="kf in searchData.results" :key="kf.id">{{kf.known_for}}</p-->
       </div>
     </div>
