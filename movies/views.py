@@ -84,6 +84,11 @@ class MovieMetadataAPIView(APIView):
 
         response = requests.get(query)
         movie = response.json()
+
+        movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
+        movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+        movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
+
         return Response(movie)
 
 
@@ -96,6 +101,11 @@ class PersonMetadataAPIView(APIView):
         person = response.json()
 
         person['credits'] = self.sort_credits(person_id, person['known_for_department'])
+
+        person['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{person['profile_path']}"
+        person['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{person['profile_path']}"
+        person['profile_link_og'] = f"https://image.tmdb.org/t/p/original{person['profile_path']}"
+
         return Response(person)
 
     def sort_credits(self, person_id, known_for):
