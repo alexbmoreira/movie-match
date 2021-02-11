@@ -37,7 +37,6 @@ class MovieSearchAPIView(APIView):
         return [dirs for dirs in movie_credits['crew'] if dirs['job'] == 'Director']
 
 
-
 class ActorSearchAPIView(APIView):
 
     def get(self, request, search, page=1):
