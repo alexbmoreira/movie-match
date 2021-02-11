@@ -22,11 +22,20 @@ class MovieSearchAPIView(APIView):
                 movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
                 movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
                 movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
+                movie['directors'] = self.get_directors(movie['id'])
 
             request.session['movie_search'] = movies
             request.session['movie_search']['search'] = search
 
         return Response(request.session['movie_search'])
+
+    def get_directors(self, movie_id):
+        query = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={api_key}"
+        response = requests.get(query)
+        movie_credits = response.json()
+
+        return [dirs for dirs in movie_credits['crew'] if dirs['job'] == 'Director']
+
 
 
 class ActorSearchAPIView(APIView):
@@ -136,10 +145,18 @@ class PopularMoviesAPIView(APIView):
                 movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
                 movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
                 movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
+                movie['directors'] = self.get_directors(movie['id'])
 
             request.session['popular'] = movies
 
         return Response(request.session['popular'])
+
+    def get_directors(self, movie_id):
+        query = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={api_key}"
+        response = requests.get(query)
+        movie_credits = response.json()
+
+        return [dirs for dirs in movie_credits['crew'] if dirs['job'] == 'Director']
 
 
 class MovieCreditsAPIView(APIView):
@@ -148,8 +165,6 @@ class MovieCreditsAPIView(APIView):
         query = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={api_key}"
         response = requests.get(query)
         movie_credits = response.json()
-
-        print(movie_credits)
 
         movie_credits['directors'] = [dirs for dirs in movie_credits['crew'] if dirs['job'] == 'Director']
 
