@@ -12,6 +12,12 @@
       </div>
     </div>
     <!-- Actors as search category -->
+    <div v-if="search_type === 'actors'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
+      <div v-for="result in searchData.results" :key="result.id" class="">
+        <p class="text-thin text-xl font-roboto-slab">{{ result.name }}</p>
+        <p>{{result.known_for}}</p>
+      </div>
+    </div>
   </div>
 </template>
 
