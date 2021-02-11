@@ -8,7 +8,7 @@
     <div v-if="search_type === 'movies'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
       <div v-for="result in searchData.results" :key="result.id" class="">
         <p class="text-thin text-xl font-roboto-slab">{{ result.title }}</p>
-         {{result.release_date}}
+         {{ result.release_date }}
       </div>
     </div>
     <!-- Actors as search category -->
