@@ -53,13 +53,13 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
+    'rest_auth',
     'rest_auth.registration',
 
     'rest_framework',
     'rest_framework.authtoken',
 
     'corsheaders',
-    'rest_auth',
 
     'profiles',
     'movies',
@@ -162,3 +162,5 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 TMDB_API = os.environ.get('TMDB_API')
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
