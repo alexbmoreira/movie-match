@@ -17,7 +17,7 @@ class MovieSearchAPIView(APIView):
             query = f"https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}&page={page}"
             response = requests.get(query)
             movies = response.json()
-            
+
             for movie in movies['results']:
                 movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
                 movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
@@ -41,7 +41,7 @@ class ActorSearchAPIView(APIView):
             response = requests.get(query)
             actors = response.json()
             actors['results'] = [actor for actor in actors['results'] if actor['known_for_department'] == "Acting"]
-            
+
             for actor in actors['results']:
                 actor['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{actor['profile_path']}"
                 actor['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{actor['profile_path']}"
@@ -65,7 +65,7 @@ class CrewSearchAPIView(APIView):
             response = requests.get(query)
             crew = response.json()
             crew['results'] = [actor for actor in crew['results'] if actor['known_for_department'] != "Acting"]
-            
+
             for member in crew['results']:
                 member['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{member['profile_path']}"
                 member['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{member['profile_path']}"
@@ -131,7 +131,7 @@ class PopularMoviesAPIView(APIView):
             query = f"https://api.themoviedb.org/3/movie/popular?api_key={api_key}&page={page}"
             response = requests.get(query)
             movies = response.json()
-            
+
             for movie in movies['results']:
                 movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
                 movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
