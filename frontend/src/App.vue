@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="text-app-typeface font-nunito bg-app-bg">
     <Navbar />
-    <router-view />
+    <router-view class="pt-20" />
   </div>
 </template>
 

@@ -53,6 +53,9 @@ module.exports = {
           dark: '#474747',
           muted: '#F0F0F088'
         },
+        'app-like': {
+          DEFAULT: '#D13115'
+        },
         'app-error': {
           bg: '#CC7676',
           text: '#9C4343'
