@@ -15,7 +15,7 @@
     <div v-if="search_type === 'actors'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
       <div v-for="result in searchData.results" :key="result.id" class="">
         <p class="text-thin text-xl font-roboto-slab">{{ result.name }}</p>
-        <p>{{result.known_for}}</p>
+        <!--p v-for="kf in searchData.results" :key="kf.id">{{kf.known_for}}</p-->
       </div>
     </div>
   </div>
@@ -44,6 +44,10 @@ export default {
       if (this.search && this.search.length > 0 && this.search_type.length > 0) {
         this.searchData = await searchAPI.searchMovie(this.search_type, this.search)
         console.log(this.searchData)
+
+        //var delete_this_shit = await searchAPI.searchMovie(this.search_type, this.search)
+        //console.log(delete_this_shit)
+
       }
     }
   }
