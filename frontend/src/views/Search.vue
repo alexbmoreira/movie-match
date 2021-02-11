@@ -6,9 +6,10 @@
     </div>
     <!-- Movies as search category -->
     <div v-if="search_type === 'movies'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
-      <div v-for="result in searchData.results" :key="result.id" class="">
-        <p class="text-thin text-xl font-roboto-slab">{{ result.title }}</p>
-         {{ result.release_date }}
+      <div v-for="result in searchData.results" :key="result.id" class="py-2 flex">
+        <img class="object-scale-down h-40 object-left border-2 rounded" :src="result.poster_link_sm" alt="">
+        <p class="text-thin text-xl font-roboto-slab mx-2">{{ result.title }}</p>
+        <p class="">{{ result.release_date }}</p>
       </div>
     </div>
     <!-- Actors as search category -->
