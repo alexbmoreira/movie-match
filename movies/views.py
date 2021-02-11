@@ -131,6 +131,12 @@ class PopularMoviesAPIView(APIView):
             query = f"https://api.themoviedb.org/3/movie/popular?api_key={api_key}&page={page}"
             response = requests.get(query)
             movies = response.json()
+            
+            for movie in movies['results']:
+                movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
+                movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+                movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
+
             request.session['popular'] = movies
 
         return Response(request.session['popular'])
