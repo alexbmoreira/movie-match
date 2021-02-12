@@ -23,7 +23,7 @@ class MovieSearchAPIView(APIView):
                 movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
                 movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
                 movie['directors'] = self.get_directors(movie['id'])
-                movie['release_year'] = movie['release_date'][0:4]
+                movie['release_year'] = movie['release_date'][0:4] if 'release_date' in movie else ''
 
             request.session['movie_search'] = movies
             request.session['movie_search']['search'] = search
@@ -148,7 +148,7 @@ class PopularMoviesAPIView(APIView):
                 movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
                 movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
                 movie['directors'] = self.get_directors(movie['id'])
-                movie['release_year'] = movie['release_date'][0:4]
+                movie['release_year'] = movie['release_date'][0:4] if 'release_date' in movie else ''
 
             request.session['popular'] = movies
 
