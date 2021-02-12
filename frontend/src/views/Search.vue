@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-4 mx-4 bg-app-bg min-h-full border-app-bg-light">
+  <div class="pb-4 mx-4 bg-app-bg min-h-full border-app-bg-light md:mx-auto md:px-10">
     <div class="border-app-bg-light border-b pb-2 text-xl font-thin">
       <h1 class="flex">{{ searchData.total_results }} search results for: <p class="italic pl-1">'{{ search }}'</p> </h1>
       <h1 class="flex">Category: <p class="italic pl-1">{{ search_type }}</p></h1>
@@ -7,9 +7,9 @@
     <!-- Movies as search category -->
     <div v-if="search_type === 'movies'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
       <div v-for="result in searchData.results" :key="result.id" class="py-2 flex">
-        <img v-if="result.poster_link_sm !== 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="result.poster_link_sm" alt="" />
+        <img v-if="result.poster_link_sm !== 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded md:my-auto" :src="result.poster_link_sm" alt="" />
         <img v-if="result.poster_link_sm === 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="missing_poster" alt="" />
-        <div class="flex flex-col mx-2">
+        <div class="flex flex-col mx-2 md:mx-10 md:my-auto">
           <div class="flex flex-wrap">
             <p class="text-thin text-xl font-roboto-slab">{{ result.title }}</p>
           </div>
@@ -18,6 +18,9 @@
           </div>
           <div v-for="director in result.directors" :key="director.id">
             <p class="italic">{{ director.name }}</p>
+          </div>
+          <div class="invisible md:visible">
+            <p class="text-base font-roboto-slab text-thin">{{ result.overview }}</p>
           </div>
         </div>
       </div>
