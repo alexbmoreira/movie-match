@@ -19,7 +19,7 @@
           <div v-for="director in result.directors" :key="director.id">
             <p class="italic">{{ director.name }}</p>
           </div>
-          <div class="invisible md:visible">
+          <div class="hidden md:flex">
             <p class="text-base font-roboto-slab text-thin">{{ result.overview }}</p>
           </div>
         </div>
