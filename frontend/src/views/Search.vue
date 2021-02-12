@@ -32,7 +32,7 @@
       <div v-for="result in searchData.results" :key="result.id" class="py-2 flex">
         <img v-if="result.profile_link_sm !== 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="result.profile_link_sm" alt="" />
         <img v-if="result.profile_link_sm === 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="missing_poster" alt="" />
-        <div class="flex flex-col mx-2">
+        <div class="flex flex-col mx-2 md:mx-10 md:my-auto">
           <p class="text-thin text-xl font-roboto-slab">{{ result.name }}</p>
           <!--p class="text-thin my-1">{{ result.known_for[0].title }}</p-->
           <p class="mb-6 italic text-bg-app-accent">{{ result.known_for_department }}</p>
@@ -47,7 +47,7 @@
       <div v-for="result in searchData.results" :key="result.id" class="py-2 flex">
         <img v-if="result.profile_link_sm !== 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="result.profile_link_sm" alt="" />
         <img v-if="result.profile_link_sm === 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="missing_poster" alt="" />
-        <div class="flex flex-col mx-2">
+        <div class="flex flex-col mx-2 md:mx-10 md:my-auto">
           <p class="text-thin text-xl font-roboto-slab">{{ result.name }}</p>
           <p class="mb-6 italic text-bg-app-accent">{{ result.known_for_department }}</p>
           <p class="text-thin text-sm">Known for:</p>
