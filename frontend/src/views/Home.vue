@@ -41,7 +41,7 @@
       </div>
     </div>
     <div v-else class="flex flex-col mx-auto my-auto p-4 mt-8">
-      <div class="text-center mb-6">
+      <div class="text-center mb-10">
         <p class="font-roboto-slab text-4xl mb-4">Have a no-fight movie night!</p>
         <p class="text-lg">Decide what to watch with friends based on your personal watchlists.</p>
       </div>
