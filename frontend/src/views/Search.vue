@@ -1,8 +1,14 @@
 <template>
   <div class="pb-4 mx-4 bg-app-bg min-h-full border-app-bg-light md:mx-auto md:px-10">
     <div class="border-app-bg-light border-b pb-2 text-xl font-thin">
-      <h1 class="flex">{{ searchData.total_results }} search results for: <p class="italic pl-1">'{{ search }}'</p> </h1>
-      <h1 class="flex">Category: <p class="italic pl-1">{{ search_type }}</p></h1>
+      <h1 class="flex">
+        {{ searchData.total_results }} search results for:
+        <p class="italic pl-1">'{{ search }}'</p>
+      </h1>
+      <h1 class="flex">
+        Category:
+        <p class="italic pl-1">{{ search_type }}</p>
+      </h1>
     </div>
     <!-- Movies as search category -->
     <div v-if="search_type === 'movies'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
@@ -90,9 +96,6 @@ export default {
       if (this.search && this.search.length > 0 && this.search_type.length > 0) {
         this.searchData = await searchAPI.searchMovie(this.search_type, this.search)
         console.log(this.searchData)
-
-        //var delete_this_shit = await searchAPI.searchMovie(this.search_type, this.search)
-        //console.log(delete_this_shit)
       }
     }
   }
