@@ -9,8 +9,17 @@
       <div v-for="result in searchData.results" :key="result.id" class="py-2 flex">
         <img v-if="result.poster_link_sm !== 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="result.poster_link_sm" alt="">
         <img v-if="result.poster_link_sm === 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="missing_poster" alt="">
-        <p class="text-thin text-xl font-roboto-slab mx-2">{{ result.title }}</p>
-        <p class="text-thin my-1">{{ result.release_date }}</p>
+        <div class="flex flex-col mx-2">
+          <div class="flex flex-wrap">
+            <p class="text-thin text-xl font-roboto-slab">{{ result.title }}</p>
+          </div>
+          <div>
+            <p class="text-thin">{{ result.release_date }}</p>
+          </div>
+          <div v-for="director in result.directors" :key="director.id">
+            <p class="">{{ director.name }}</p>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Actors as search category -->
@@ -19,7 +28,9 @@
         <img v-if="result.profile_link_sm !== 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="result.profile_link_sm" alt="">
         <img v-if="result.profile_link_sm === 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="missing_poster" alt="">
         <p class="text-thin text-xl font-roboto-slab mx-2">{{ result.name }}</p>
-        <!--p v-for="kf in searchData.results" :key="kf.id">{{kf.known_for}}</p-->
+        <!--p class="text-thin my-1">{{ result.known_for[0].title }}</p-->
+        <p class="text-thin my-1 px-2">Known for:</p>
+          <p v-for="kf in result.known_for" :key="kf.id" class="my-1 px-1">{{ kf.title }}{{ kf.original_name }},</p>
       </div>
     </div>
   </div>
