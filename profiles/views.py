@@ -13,6 +13,18 @@ from .serializers import (FriendRequestSerializer, FriendsListSerializer,
                           WatchListSerializer)
 
 
+class UserAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        user = request.user
+
+        serializer = UserSerializer(user)
+
+        return Response(serializer.data)
+
+
 class ProfileAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
