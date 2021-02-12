@@ -1,6 +1,9 @@
 <template>
   <div class="bg-app-bg">
     <div v-if="isLoggedIn" class="flex flex-col p-4">
+      <div class="mx-auto mb-2">
+        <p class="text-xl text-app-typeface-muted">Welcome back,</p>
+      </div>
       <div class="flex flex-col mx-auto mb-6">
         <!-- Profile Pic -->
         <div class="flex mx-auto rounded-full bg-app-bg-sec w-20 h-20">
@@ -35,6 +38,20 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div v-else class="flex flex-col mx-auto my-auto p-4 mt-8">
+      <div class="text-center mb-6">
+        <p class="font-roboto-slab text-4xl mb-4">Have a no-fight movie night!</p>
+        <p class="text-lg">Decide what to watch with friends based on your personal watchlists.</p>
+      </div>
+      <div class="flex flex-col mx-auto">
+        <router-link to="/register" class="mx-auto mb-2">
+          <button class="text-app-typeface-dark font-bold p-2 rounded shadow-lg bg-app-accent hover:bg-app-accent-light hover:shadow-xl transition duration-200">
+            Create an account
+          </button>
+        </router-link>
+        <router-link to="/login" class="text-app-typeface text-xs hover:underline">Or sign in if you already know what's up</router-link>
       </div>
     </div>
   </div>
