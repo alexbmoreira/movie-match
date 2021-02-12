@@ -4,7 +4,7 @@
       <div class="flex flex-col mx-auto mb-6">
         <!-- Profile Pic -->
         <div class="flex mx-auto rounded-full bg-app-bg-sec w-20 h-20">
-          <p class="mx-auto my-auto text-4xl">{{ user.username }}</p>
+          <p class="mx-auto my-auto text-4xl">{{ user.username.substring(0, 1).toUpperCase() }}</p>
         </div>
         <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
       </div>
@@ -57,14 +57,14 @@ export default {
     }
   },
   created() {
+    this.user = this.$store.getters.user
     this.friends()
   },
   methods: {
     async friends() {
       if (this.$store.getters.isLoggedIn) {
-        var result = await friendsAPI.getFriends(1)
+        var result = await friendsAPI.getFriends(this.user.id)
         this.friends_list = result.friends
-        this.user = result.user
       }
     }
   }

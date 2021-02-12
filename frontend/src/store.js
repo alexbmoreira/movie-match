@@ -56,7 +56,8 @@ const store = new Vuex.Store({
     }
   },
   getters: {
-    isLoggedIn: state => !!state.token
+    isLoggedIn: state => !!state.token,
+    user: state => state.user
   }
 })
 
