@@ -14,25 +14,31 @@
             <p class="text-thin text-xl font-roboto-slab">{{ result.title }}</p>
           </div>
           <div>
-            <p class="text-thin">{{ result.release_date }}</p>
+            <p class="text-thin">{{ result.release_year }}</p>
           </div>
           <div v-for="director in result.directors" :key="director.id">
-            <p class="">{{ director.name }}</p>
+            <p class="italic">{{ director.name }}</p>
           </div>
         </div>
       </div>
     </div>
+    <!--     End of movies                                   -->
+
     <!-- Actors as search category -->
     <div v-if="search_type === 'actors'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
       <div v-for="result in searchData.results" :key="result.id" class="py-2 flex">
         <img v-if="result.profile_link_sm !== 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="result.profile_link_sm" alt="">
         <img v-if="result.profile_link_sm === 'https://image.tmdb.org/t/p/w154None'" class="object-scale-down h-40 object-left border-2 rounded" :src="missing_poster" alt="">
-        <p class="text-thin text-xl font-roboto-slab mx-2">{{ result.name }}</p>
-        <!--p class="text-thin my-1">{{ result.known_for[0].title }}</p-->
-        <p class="text-thin my-1 px-2">Known for:</p>
-          <p v-for="kf in result.known_for" :key="kf.id" class="my-1 px-1">{{ kf.title }}{{ kf.original_name }},</p>
+        <div class="flex flex-col mx-2">
+          <p class="text-thin text-xl font-roboto-slab">{{ result.name }}</p>
+          <!--p class="text-thin my-1">{{ result.known_for[0].title }}</p-->
+          <p class="text-thin">Known for:</p>
+          <p v-for="kf in result.known_for" :key="kf.id" class="text-sm italic">- {{ kf.title }}{{ kf.original_name }}</p>
+        </div>
       </div>
     </div>
+  <!--     End of actors                                   -->
+
   </div>
 </template>
 
