@@ -11,12 +11,12 @@
         </div>
         <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
       </div>
-      <div class="flex mb-4">
+      <div class="flex mb-2">
         <p class="text-lg">Your Friends:</p>
       </div>
       <!-- Friends list -->
-      <div class="flex flex-col space-y-3">
-        <div v-for="friend in friends_list" :key="friend.id" class="flex justify-between">
+      <div class="flex flex-col divide-y divide-app-bg-light">
+        <div v-for="friend in friends_list" :key="friend.id" class="flex justify-between py-2">
           <!-- Friend -->
           <div class="flex space-x-2">
             <!-- Friend Pic -->
