@@ -6,7 +6,7 @@
     </div>
     <!-- Movies as search category -->
     <div v-if="search_type === 'movies'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
-      <div v-for="result in searchData.results" :key="result.id" class="py-2 flex">
+      <div v-for="result in searchData.results" :key="result.id" class="py-2 flex w-full">
         <img v-if="result.poster_link_sm !== 'https://image.tmdb.org/t/p/w154None'" class="h-40 md:h-56 object-left border-2 rounded md:my-auto" :src="result.poster_link_md" alt="" />
         <img v-if="result.poster_link_sm === 'https://image.tmdb.org/t/p/w154None'" class="h-40 md:h-56 object-left border-2 rounded" :src="missing_poster" alt="" />
         <div class="flex flex-col mx-2 md:mx-10 md:my-auto">
@@ -19,9 +19,15 @@
           <div v-for="director in result.directors" :key="director.id">
             <p class="italic">{{ director.name }}</p>
           </div>
-          <div class="hidden md:flex">
+          <div class="hidden lg:flex">
             <p class="text-base font-roboto-slab text-thin">{{ result.overview }}</p>
           </div>
+        </div>
+        <div class="my-auto px-2">
+          <button class="hover:text-app-primary hover:cursor-pointer">
+            <p class="hidden md:flex">Add to watchlist!</p>
+            <i class="fas fa-plus-circle"></i>
+          </button>
         </div>
       </div>
     </div>
