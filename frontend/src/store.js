@@ -8,7 +8,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     token: Cookies.get('access_token') || '',
-    user: JSON.parse(Cookies.get('user')) || {}
+    user: Cookies.get('user') || {}
   },
   mutations: {
     success(state, token) {
@@ -57,7 +57,13 @@ const store = new Vuex.Store({
   },
   getters: {
     isLoggedIn: state => !!state.token,
-    user: state => state.user
+    user: state => {
+      try {
+        return typeof state.user === 'object' ? state.user : JSON.parse(state.user)
+      } catch {
+        return {}
+      }
+    }
   }
 })
 
