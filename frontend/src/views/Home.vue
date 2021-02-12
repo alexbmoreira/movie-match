@@ -4,7 +4,7 @@
       <div class="flex flex-col mx-auto mb-6">
         <!-- Profile Pic -->
         <div class="flex mx-auto rounded-full bg-app-bg-sec w-20 h-20">
-          <p class="mx-auto my-auto text-4xl">{{ user.username.substring(0, 1).toUpperCase() }}</p>
+          <p class="mx-auto my-auto text-4xl">{{ user.username }}</p>
         </div>
         <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
       </div>
