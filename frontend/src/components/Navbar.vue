@@ -162,10 +162,10 @@ export default {
       this.show_search = false
     },
     goLogin() {
-      this.$router.push({ name: 'Login' })
+      this.$router.push({ name: 'Login' }).catch(() => {})
     },
     goRegister() {
-      this.$router.push({ name: 'Register' })
+      this.$router.push({ name: 'Register' }).catch(() => {})
     },
     async logout() {
       try {
