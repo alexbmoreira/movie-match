@@ -7,30 +7,47 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    token: Cookies.get('access_token') || ''
+    token: Cookies.get('access_token') || '',
+    user: JSON.parse(Cookies.get('user')) || {}
   },
   mutations: {
     success(state, token) {
       state.token = token
       Cookies.set('access_token', token, { sameSite: 'Lax' })
     },
+    setUser(state, user) {
+      state.user = user
+      Cookies.set('user', user)
+    },
     logout(state) {
       state.token = ''
+      state.user = {}
       Cookies.remove('access_token')
+      Cookies.remove('user')
     }
   },
   actions: {
     async loginUser(context, payload) {
-      const response = await authAPI.login(payload)
-      const token = response.key
+      await authAPI.login(payload).then(response => {
+        const token = response.key
 
-      context.commit('success', token)
+        context.commit('success', token)
+      })
+
+      await authAPI.getUser().then(user => {
+        context.commit('setUser', user)
+      })
     },
     async registerUser(context, payload) {
-      const response = await authAPI.register(payload)
-      const token = response.key
+      await authAPI.register(payload).then(response => {
+        const token = response.key
 
-      context.commit('success', token)
+        context.commit('success', token)
+      })
+
+      await authAPI.getUser().then(user => {
+        context.commit('setUser', user)
+      })
     },
     async logoutUser(context) {
       await authAPI.logout()
@@ -39,7 +56,8 @@ const store = new Vuex.Store({
     }
   },
   getters: {
-    isLoggedIn: state => !!state.token
+    isLoggedIn: state => !!state.token,
+    user: state => state.user
   }
 })
 

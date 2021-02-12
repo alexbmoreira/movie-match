@@ -4,8 +4,9 @@ from .views import (FriendActionAPIView, FriendRequestsAPIView,
                     JointWatchlistAPIView, MatchlistActionAPIView,
                     MatchlistAPIView, ProfileAPIView, ProfileDetailAPIView,
                     ProfileFriendsAPIView, ProfileWatchlistAPIView,
-                    RequestActionAPIView, WatchlistActionAPIView)
+                    RequestActionAPIView, UserAPIView, WatchlistActionAPIView)
 
+user_api = UserAPIView.as_view()
 profile_api = ProfileAPIView.as_view()
 profile_detail_api = ProfileDetailAPIView.as_view()
 profile_friends_api = ProfileFriendsAPIView.as_view()
@@ -19,6 +20,7 @@ matchlist_api = MatchlistAPIView.as_view()
 matchlist_action_api = MatchlistActionAPIView.as_view()
 
 urlpatterns = [
+    path("user/", user_api, name="current_user"),
     path("profiles/search/", profile_api, name="profiles"),
     path("profiles/search/<str:search>", profile_api, name="profiles_search"),
     path("profiles/<int:user_id>/", profile_detail_api, name="profile_detail_api"),
