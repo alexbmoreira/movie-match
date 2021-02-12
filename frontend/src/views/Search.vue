@@ -1,8 +1,8 @@
 <template>
-  <div class="pt-32 pb-4 mx-4 bg-app-bg min-h-full border-app-bg-light">
+  <div class="pb-4 mx-4 bg-app-bg min-h-full border-app-bg-light">
     <div class="border-app-bg-light border-b pb-2 text-xl font-thin">
-      <h1>{{ searchData.total_results }} search results for: "{{ search }}"</h1>
-      <h2>Category: {{ search_type }}</h2>
+      <h1 class="flex">{{ searchData.total_results }} search results for: <p class="italic pl-1">'{{ search }}'</p> </h1>
+      <h1 class="flex">Category: <p class="italic pl-1">{{ search_type }}</p></h1>
     </div>
     <!-- Movies as search category -->
     <div v-if="search_type === 'movies'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
