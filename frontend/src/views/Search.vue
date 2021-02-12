@@ -32,13 +32,12 @@
         <div class="flex flex-col mx-2">
           <p class="text-thin text-xl font-roboto-slab">{{ result.name }}</p>
           <!--p class="text-thin my-1">{{ result.known_for[0].title }}</p-->
-          <p class="text-thin">Known for:</p>
+          <p class="text-thin my-2">Known for:</p>
           <p v-for="kf in result.known_for" :key="kf.id" class="text-sm italic">- {{ kf.title }}{{ kf.original_name }}</p>
         </div>
       </div>
     </div>
   <!--     End of actors                                   -->
-
   </div>
 </template>
 
