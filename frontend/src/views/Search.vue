@@ -6,27 +6,31 @@
     </div>
     <!-- Movies as search category -->
     <div v-if="search_type === 'movies'" class="divide-y border-b divide-app-bg-light border-app-bg-light">
-      <div v-for="result in searchData.results" :key="result.id" class="py-2 flex w-full">
-        <img class="h-40 md:h-56 object-left border-2 rounded md:my-auto" :src="getPoster(result)" alt="" />
-        <div class="flex flex-col mx-2 md:mx-10 md:my-auto">
-          <div class="flex flex-wrap">
-            <p class="text-thin text-xl font-roboto-slab">{{ getTitle(result) }}</p>
-          </div>
-          <div>
-            <p class="text-thin">{{ result.release_year }}</p>
-          </div>
-          <div v-for="director in result.directors" :key="director.id">
-            <p class="italic">{{ director.name }}</p>
-          </div>
-          <div class="hidden lg:flex">
-            <p class="text-base font-roboto-slab text-thin">{{ result.overview }}</p>
+      <div v-for="result in searchData.results" :key="result.id" class="flex py-2 w-full justify-between">
+        <div class="flex w-full">
+          <img class="h-40 md:h-56 object-left border-2 rounded md:my-auto" :src="getPoster(result)" alt="" />
+          <div class="flex flex-col mx-2 md:mx-10 md:my-auto">
+            <div class="flex flex-wrap">
+              <p class="text-thin text-xl font-roboto-slab">{{ getTitle(result) }}</p>
+            </div>
+            <div class="flex">
+              <div class="flex flex-col">
+                <p class="text-thin">{{ result.release_year }}</p>
+                <div v-for="director in result.directors" :key="director.id">
+                  <p class="italic">{{ director.name }}</p>
+                </div>
+                <div class="hidden lg:flex">
+                  <p class="text-base font-roboto-slab text-thin">{{ result.overview }}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="my-auto px-2">
-          <button class="hover:text-app-primary hover:cursor-pointer">
-            <p class="hidden md:flex">Add to watchlist!</p>
-            <i class="fas fa-plus-circle"></i>
-          </button>
+        <div v-show="search_type === 'movies'" class="flex flex-col my-auto">
+          <p class="hidden text-xs text-center md:flex">Add to watchlist!</p>
+          <div class="flex mx-auto rounded-full bg-app-primary w-8 h-8 hover:bg-app-accent hover:text-app-typeface-dark hover:cursor-pointer">
+            <div class="mx-auto my-auto"><i class="fas fa-plus"></i></div>
+          </div>
         </div>
       </div>
     </div>
