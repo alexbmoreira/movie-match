@@ -33,7 +33,6 @@
         </form>
       </div>
     </div>
-
     <div class="max-w-lg mx-auto text-center mt-12 mb-6">
       <p class="text-app-typeface">Don't have an account? <router-link to="/register" class="font-bold hover:underline">Sign up</router-link></p>
     </div>
