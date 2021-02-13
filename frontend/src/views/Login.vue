@@ -2,24 +2,18 @@
   <div class="bg-poster-collage bg-center min-h-screen pt-12 pb-6 px-2 md:px-0 md:pt-20">
     <div class="bg-app-bg-light max-w-lg mx-auto my-20 p-8 rounded-lg shadow-2xl md:p-12">
       <div>
-        <h3 class="text-app-typeface font-bold text-2xl">Welcome back</h3>
+        <h3 class="font-bold text-2xl">Welcome back</h3>
         <p class="text-app-typeface-alt pt-2">Sign in to your account</p>
       </div>
       <div class="mt-10">
         <form class="flex flex-col" @submit.prevent="login">
           <div class="mb-6 pt-3">
             <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="username">Username</label>
-            <input id="username" v-model="username" type="text" class="bg-transparent w-full px-3 pb-2 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="clearFields" />
+            <input id="username" v-model="username" type="text" class="bg-transparent w-full px-3 pb-2 border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="clearFields" />
           </div>
           <div class="mb-6 pt-3">
             <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="password">Password</label>
-            <input
-              id="password"
-              v-model="password"
-              type="password"
-              class="bg-transparent w-full px-3 pb-2 text-app-typeface border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none"
-              @blur="clearFields"
-            />
+            <input id="password" v-model="password" type="password" class="bg-transparent w-full px-3 pb-2 border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none" @blur="clearFields" />
           </div>
           <div class="flex justify-end">
             <a href="#" class="text-sm mb-6 text-app-accent hover:text-app-accent-light hover:underline">Forgot your password?</a>
@@ -34,7 +28,7 @@
       </div>
     </div>
     <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-      <p class="text-app-typeface">Don't have an account? <router-link to="/register" class="font-bold hover:underline">Sign up</router-link></p>
+      <p>Don't have an account? <router-link to="/register" class="font-bold hover:underline">Sign up</router-link></p>
     </div>
   </div>
 </template>
