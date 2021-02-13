@@ -37,7 +37,7 @@
 import CircleButton from '@/components/CircleButton'
 
 export default {
-  name: 'ListItem',
+  name: 'MovieItem',
   components: {
     CircleButton
   },

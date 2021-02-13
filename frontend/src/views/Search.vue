@@ -5,19 +5,19 @@
       <p class="italic pl-1">Category: {{ search_type }}</p>
     </div>
     <div class="divide-y border-b divide-app-bg-light border-app-bg-light">
-      <ListItem v-for="result in searchData.results" :key="result.id" :search-type="search_type" :result="result" />
+      <MovieItem v-for="result in searchData.results" :key="result.id" :search-type="search_type" :result="result" />
     </div>
   </div>
 </template>
 
 <script>
 import searchAPI from '../api/movies'
-import ListItem from '@/components/lists/ListItem'
+import MovieItem from '@/components/lists/MovieItem'
 
 export default {
   name: 'Search',
   components: {
-    ListItem
+    MovieItem
   },
   data() {
     return {
