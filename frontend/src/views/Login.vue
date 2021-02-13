@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import LgActionButton from '@/components/LgActionButton'
+import LgActionButton from '@/components/actions/LgActionButton'
 
 export default {
   components: {

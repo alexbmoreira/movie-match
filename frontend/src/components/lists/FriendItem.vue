@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import CircleButton from '@/components/CircleButton'
+import CircleButton from '@/components/actions/CircleButton'
 
 export default {
   name: 'FriendItem',

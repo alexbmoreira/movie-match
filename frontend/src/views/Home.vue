@@ -37,7 +37,7 @@
 <script>
 import friendsAPI from '@/api/friends'
 import FriendItem from '@/components/lists/FriendItem'
-import LgActionButton from '@/components/LgActionButton'
+import LgActionButton from '@/components/actions/LgActionButton'
 
 export default {
   name: 'Home',
