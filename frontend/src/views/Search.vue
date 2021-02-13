@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-4 mx-4 bg-app-bg min-h-full border-app-bg-light md:mx-auto md:px-10">
+  <div class="pb-4 mx-4 bg-app-bg min-h-full border-app-bg-light mx-auto">
     <div class="border-app-bg-light border-b pb-2 text-xl font-thin">
       <p class="italic pl-1">{{ searchData.total_results }} search results for: '{{ search }}'</p>
       <p class="italic pl-1">Category: {{ search_type }}</p>

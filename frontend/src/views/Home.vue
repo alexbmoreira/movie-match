@@ -1,6 +1,6 @@
 <template>
   <div class="bg-app-bg">
-    <div v-if="isLoggedIn" class="flex flex-col p-4">
+    <div v-if="isLoggedIn" class="flex flex-col py-4">
       <div class="mx-auto mb-2">
         <p class="text-xl text-app-typeface-muted">Welcome back,</p>
       </div>
