@@ -7,7 +7,7 @@
       <div class="flex flex-col mx-auto mb-6">
         <!-- Profile Pic -->
         <div class="flex mx-auto rounded-full bg-app-bg-sec w-20 h-20">
-          <p class="mx-auto my-auto text-4xl">{{ user.username.substring(0, 1).toUpperCase() }}</p>
+          <p class="mx-auto my-auto text-4xl uppercase">{{ user.username.substring(0, 1) }}</p>
         </div>
         <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
       </div>
@@ -21,7 +21,7 @@
           <div class="flex space-x-2">
             <!-- Friend Pic -->
             <div class="flex rounded-full bg-app-bg-sec w-14 h-14">
-              <p class="mx-auto my-auto text-xl">{{ friend.username.substring(0, 1).toUpperCase() }}</p>
+              <p class="mx-auto my-auto text-xl uppercase">{{ friend.username.substring(0, 1) }}</p>
             </div>
             <div class="my-auto">
               <p class="font-roboto-slab text-lg">{{ friend.username }}</p>
