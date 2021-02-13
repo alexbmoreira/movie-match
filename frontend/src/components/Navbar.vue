@@ -8,13 +8,7 @@
         </router-link>
         <div class="flex space-x-6 mx-5 lg:w-full">
           <div class="space-x-3 hidden lg:w-full lg:flex">
-            <input
-              v-model="search.string"
-              type="text"
-              placeholder="Search for a movie..."
-              class="bg-transparent w-full px-3 pb-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none"
-              @keyup.enter="routeSearch"
-            />
+            <form class="flex w-full" @submit.prevent="routeSearch"><TextField v-model="search.string" :placeholder="`Search for ${search.type}...`" /></form>
             <button class="w-auto flex justify-end items-center transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="routeSearch">
               <i class="fas fa-search"></i>
             </button>
@@ -57,13 +51,7 @@
         leave-to-class="opacity-0 h-0"
       >
         <div v-if="show_search" class="flex space-x-3">
-          <input
-            v-model="search.string"
-            type="text"
-            placeholder="Search for a movie..."
-            class="bg-transparent w-full px-3 pb-2 my-auto border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none"
-            @keyup.enter="routeSearch"
-          />
+          <form class="flex w-full" @submit.prevent="routeSearch"><TextField v-model="search.string" :placeholder="`Search for ${search.type}...`" /></form>
           <button class="w-auto flex justify-end items-center transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="routeSearch">
             <i class="fas fa-search"></i>
           </button>
@@ -103,11 +91,13 @@
 
 <script>
 import Logo from './SVGComponents/Logo'
+import TextField from '@/components/actions/TextField'
 
 export default {
   name: 'Navbar',
   components: {
-    Logo
+    Logo,
+    TextField
   },
   data() {
     return {
