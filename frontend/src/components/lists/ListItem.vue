@@ -28,16 +28,19 @@
     </div>
     <div v-show="searchType === 'movies'" class="flex flex-col my-auto">
       <p class="hidden text-xs text-center md:flex">Add to watchlist!</p>
-      <div class="flex mx-auto rounded-full bg-app-primary w-8 h-8 cursor-pointer hover:bg-app-accent hover:text-app-typeface-dark">
-        <div class="mx-auto my-auto"><i class="fas fa-plus"></i></div>
-      </div>
+      <CircleButton icon="plus" color="app-primary" />
     </div>
   </div>
 </template>
 
 <script>
+import CircleButton from '@/components/CircleButton'
+
 export default {
   name: 'ListItem',
+  components: {
+    CircleButton
+  },
   props: {
     searchType: {
       type: String,

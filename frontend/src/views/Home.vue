@@ -29,13 +29,9 @@
           </div>
           <div class="flex my-auto space-x-2">
             <!-- Matches -->
-            <div class="flex rounded-full bg-app-like w-8 h-8">
-              <div class="mx-auto my-auto"><i class="fas fa-heart"></i></div>
-            </div>
+            <CircleButton icon="heart" color="app-like" />
             <!-- Watch -->
-            <div class="flex rounded-full bg-app-accent w-8 h-8">
-              <div class="mx-auto my-auto"><i class="fas fa-ticket-alt"></i></div>
-            </div>
+            <CircleButton icon="ticket-alt" color="app-accent" />
           </div>
         </div>
       </div>
@@ -59,9 +55,13 @@
 
 <script>
 import friendsAPI from '../api/friends'
+import CircleButton from '@/components/CircleButton'
 
 export default {
   name: 'Home',
+  components: {
+    CircleButton
+  },
   data() {
     return {
       friends_list: [],
