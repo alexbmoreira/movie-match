@@ -4,7 +4,7 @@
       <img class="h-poster-sm w-poster-sm object-left object-cover border-2 rounded lg:my-auto lg:h-poster-md lg:w-poster-md" :src="getPoster(result)" alt="" />
       <div class="flex flex-col mx-2 lg:ml-10 my-auto">
         <div class="flex flex-wrap">
-          <p class="text-xl font-roboto-slab">{{ getTitle(result) }}</p>
+          <p class="text-xl font-roboto-slab lg:text-3xl">{{ getTitle(result) }}</p>
         </div>
         <div v-show="searchType === 'movies'" class="flex">
           <div class="flex flex-col">
@@ -20,8 +20,8 @@
         <div v-show="searchType !== 'movies'" class="flex">
           <div class="flex flex-col">
             <p class="italic">{{ result.known_for_department }}</p>
-            <p class="text-sm">Known for:</p>
-            <p v-for="kf in result.known_for" :key="kf.id" class="text-xs">- {{ kf.title }}{{ kf.original_name }}</p>
+            <p class="text-sm text-app-typeface-muted">Known for:</p>
+            <p v-for="kf in result.known_for" :key="kf.id" class="text-xs text-app-typeface-muted">- {{ kf.title }}{{ kf.name }}</p>
           </div>
         </div>
       </div>
