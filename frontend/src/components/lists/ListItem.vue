@@ -1,19 +1,19 @@
 <template>
   <div class="flex w-full justify-between py-2">
     <div class="flex w-full">
-      <img class="h-40 md:h-56 object-left border-2 rounded md:my-auto" :src="getPoster(result)" alt="" />
-      <div class="flex flex-col mx-2 md:mx-10 md:my-auto">
+      <img class="h-poster-sm w-poster-sm object-left object-cover border-2 rounded lg:my-auto lg:h-poster-md lg:w-poster-md" :src="getPoster(result)" alt="" />
+      <div class="flex flex-col mx-2 lg:ml-10 my-auto">
         <div class="flex flex-wrap">
           <p class="text-xl font-roboto-slab">{{ getTitle(result) }}</p>
         </div>
         <div v-show="searchType === 'movies'" class="flex">
           <div class="flex flex-col">
-            <p class="text-thin">{{ result.release_year }}</p>
+            <p class="text-sm text-app-typeface-muted">{{ result.release_year }}</p>
             <div v-for="director in result.directors" :key="director.id">
               <p class="italic">{{ director.name }}</p>
             </div>
             <div class="hidden lg:flex">
-              <p class="text-base font-roboto-slab text-thin">{{ result.overview }}</p>
+              <p class="font-roboto-slab text-sm">{{ result.overview }}</p>
             </div>
           </div>
         </div>

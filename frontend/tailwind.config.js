@@ -70,6 +70,18 @@ module.exports = {
       },
       fontSize: {
         '2xs': '0.66rem'
+      },
+      width: {
+        'poster-sm': '92px',
+        'poster-md': '154px',
+        'poster-lg': '500px',
+        'poster-og': '1000px'
+      },
+      height: {
+        'poster-sm': '138px',
+        'poster-md': '231px',
+        'poster-lg': '750px',
+        'poster-og': '1500px'
       }
     }
   },
