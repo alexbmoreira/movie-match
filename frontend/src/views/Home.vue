@@ -16,24 +16,7 @@
       </div>
       <!-- Friends list -->
       <div class="flex flex-col divide-y divide-app-bg-light">
-        <div v-for="friend in friends_list" :key="friend.id" class="flex justify-between py-2">
-          <!-- Friend -->
-          <div class="flex space-x-2">
-            <!-- Friend Pic -->
-            <div class="flex rounded-full bg-app-bg-sec w-14 h-14">
-              <p class="mx-auto my-auto text-xl uppercase">{{ friend.username.substring(0, 1) }}</p>
-            </div>
-            <div class="my-auto">
-              <p class="font-roboto-slab text-lg">{{ friend.username }}</p>
-            </div>
-          </div>
-          <div class="flex my-auto space-x-2">
-            <!-- Matches -->
-            <CircleButton icon="heart" color="app-like" />
-            <!-- Watch -->
-            <CircleButton icon="ticket-alt" color="app-accent" />
-          </div>
-        </div>
+        <FriendItem v-for="friend in friends_list" :key="friend.id" :friend="friend" />
       </div>
     </div>
     <div v-else class="flex flex-col mx-auto my-auto mt-8">
@@ -54,13 +37,13 @@
 </template>
 
 <script>
-import friendsAPI from '../api/friends'
-import CircleButton from '@/components/CircleButton'
+import friendsAPI from '@/api/friends'
+import FriendItem from '@/components/lists/FriendItem'
 
 export default {
   name: 'Home',
   components: {
-    CircleButton
+    FriendItem
   },
   data() {
     return {

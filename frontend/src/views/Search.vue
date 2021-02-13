@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import searchAPI from '../api/movies'
+import searchAPI from '@/api/movies'
 import MovieItem from '@/components/lists/MovieItem'
 
 export default {
