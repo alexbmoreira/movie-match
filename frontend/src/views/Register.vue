@@ -40,7 +40,7 @@
               <span class="mx-2 py-1 text-app-error-text"><i class="fas fa-exclamation-triangle"></i> {{ error }}</span>
             </div>
           </div>
-          <button class="text-app-typeface-dark bg-app-accent font-bold p-2 rounded shadow-lg hover:shadow-xl hover:bg-app-accent-light transition duration-200" type="submit">Register</button>
+          <LgActionButton text="Register" />
         </form>
       </div>
     </div>
@@ -52,8 +52,12 @@
 
 <script>
 import utils from '../utils.js'
+import LgActionButton from '@/components/LgActionButton'
 
 export default {
+  components: {
+    LgActionButton
+  },
   data() {
     return {
       username: '',
