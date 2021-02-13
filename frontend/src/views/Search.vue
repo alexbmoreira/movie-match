@@ -36,7 +36,6 @@ export default {
     async makeSearch() {
       if (this.search && this.search.length > 0 && this.search_type.length > 0) {
         this.searchData = await searchAPI.searchMovie(this.search_type, this.search)
-        console.log(this.searchData)
       }
     }
   }
