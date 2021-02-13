@@ -29,7 +29,7 @@
               <span class="mx-2 py-1 text-app-error-text"><i class="fas fa-exclamation-triangle"></i> {{ error }}</span>
             </div>
           </div>
-          <button class="text-app-typeface-dark font-bold py-2 rounded shadow-lg bg-app-accent hover:bg-app-accent-light hover:shadow-xl transition duration-200" type="submit">Sign In</button>
+          <button class="text-app-typeface-dark font-bold p-2 rounded shadow-lg bg-app-accent hover:bg-app-accent-light hover:shadow-xl transition duration-200" type="submit">Sign In</button>
         </form>
       </div>
     </div>
