@@ -1,3 +1,5 @@
+import sys
+
 import requests
 from django.conf import settings
 from rest_framework.response import Response
@@ -10,6 +12,7 @@ class MovieSearchAPIView(APIView):
 
     def get(self, request, search, page=1):
         cached = 'movie_search' in request.session and \
+            sys.getsizeof(request.session['movie_search']) > 0 and \
             request.session['movie_search']['search'] == search and \
             request.session['movie_search']['page'] == page
 
@@ -42,6 +45,7 @@ class ActorSearchAPIView(APIView):
 
     def get(self, request, search, page=1):
         cached = 'actor_search' in request.session and \
+            sys.getsizeof(request.session['actor_search']) > 0 and \
             request.session['actor_search']['search'] == search and \
             request.session['actor_search']['page'] == page
 
@@ -66,6 +70,7 @@ class CrewSearchAPIView(APIView):
 
     def get(self, request, search, page=1):
         cached = 'crew_search' in request.session and \
+            sys.getsizeof(request.session['crew_search']) > 0 and \
             request.session['crew_search']['search'] == search and \
             request.session['crew_search']['page'] == page
 
@@ -136,7 +141,9 @@ class PersonMetadataAPIView(APIView):
 class PopularMoviesAPIView(APIView):
 
     def get(self, request, page=1):
-        cached = 'popular' in request.session and request.session['popular']['page'] == page
+        cached = 'popular' in request.session and \
+            sys.getsizeof(request.session['popular']) > 0 and \
+            request.session['popular']['page'] == page
 
         if not cached:
             query = f"https://api.themoviedb.org/3/movie/popular?api_key={api_key}&page={page}"
