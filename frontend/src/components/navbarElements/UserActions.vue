@@ -5,7 +5,7 @@
       <button class="bg-transparent w-20 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="goRegister()">Register</button>
     </div>
     <div v-else class="flex my-auto mx-auto space-x-1">
-      <div class="flex rounded-full bg-app-bg-sec w-8 h-8">
+      <div class="flex rounded-full bg-app-bg-sec w-8 h-8" :class="hideOnHome">
         <p class="mx-auto my-auto uppercase">{{ userInitial }}</p>
       </div>
       <button class="bg-transparent w-24 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="logout()">Log Out</button>
@@ -27,6 +27,12 @@ export default {
     },
     userInitial: function() {
       return this.user.username.substring(0, 1)
+    },
+    hideOnHome() {
+      if (this.$route.name !== 'Home') {
+        return 'flex'
+      }
+      return 'hidden'
     }
   },
   created() {

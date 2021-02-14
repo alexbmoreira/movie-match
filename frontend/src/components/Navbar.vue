@@ -6,7 +6,7 @@
         <router-link to="/" class="cursor-pointer w-60">
           <Logo />
         </router-link>
-        <div class="flex space-x-6 ml-5 lg:w-full">
+        <div class="flex space-x-4 ml-5 lg:w-full">
           <div class="hidden lg:w-full lg:flex">
             <SearchBar />
           </div>
