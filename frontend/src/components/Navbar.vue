@@ -23,7 +23,6 @@
           </button>
         </div>
       </div>
-
       <!-- Search field -->
       <transition
         enter-active-class="transistion-all duration-100 ease-in"
@@ -34,10 +33,9 @@
         leave-to-class="opacity-0 h-0"
       >
         <div v-if="showSearch">
-          <SearchBar />
+          <SearchBar @search="hideDropdowns" />
         </div>
       </transition>
-
       <!-- Logins -->
       <transition
         enter-active-class="transistion-all duration-100 ease-in"
@@ -48,7 +46,7 @@
         leave-to-class="opacity-0 h-0"
       >
         <div v-if="showMenu">
-          <UserActions />
+          <UserActions @route="hideDropdowns" />
         </div>
       </transition>
     </div>
@@ -83,10 +81,8 @@ export default {
   methods: {
     onResize() {
       this.windowWidth = window.innerWidth
-      if (this.showSearch === true) {
-        this.showSearch = this.windowWidth <= 1023
-      } else if (this.showMenu === true) {
-        this.showMenu = this.windowWidth <= 1023
+      if (this.windowWidth > 1023) {
+        this.hideDropdowns()
       }
     },
     showSearchDropdown() {
@@ -95,6 +91,10 @@ export default {
     },
     showMenuDropdown() {
       this.showMenu = !this.showMenu
+      this.showSearch = false
+    },
+    hideDropdowns() {
+      this.showMenu = false
       this.showSearch = false
     }
   }

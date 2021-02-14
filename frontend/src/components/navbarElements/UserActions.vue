@@ -20,14 +20,17 @@ export default {
   },
   methods: {
     goLogin() {
+      this.$emit('route')
       this.$router.push({ name: 'Login' }).catch(() => {})
     },
     goRegister() {
+      this.$emit('route')
       this.$router.push({ name: 'Register' }).catch(() => {})
     },
     async logout() {
       try {
         await this.$store.dispatch('logoutUser')
+        this.$emit('route')
         this.$router.push({ name: 'Login' })
       } catch (err) {
         console.error(err)
