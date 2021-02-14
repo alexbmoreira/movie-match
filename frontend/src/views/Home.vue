@@ -6,7 +6,7 @@
       </div>
       <div class="flex flex-col mx-auto mb-6">
         <!-- Profile Pic -->
-        <ProfilePicture pic-size="20" :username="user.username" />
+        <ProfilePicture pic-size="20" :user="user" />
         <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
       </div>
       <div class="flex mb-2">

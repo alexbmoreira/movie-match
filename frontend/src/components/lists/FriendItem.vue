@@ -3,7 +3,7 @@
     <!-- Friend -->
     <div class="flex space-x-2">
       <!-- Friend Pic -->
-      <ProfilePicture pic-size="14" :username="friend.username" />
+      <ProfilePicture pic-size="14" :user="friend" />
       <div class="my-auto">
         <p class="font-roboto-slab text-lg">{{ friend.username }}</p>
       </div>

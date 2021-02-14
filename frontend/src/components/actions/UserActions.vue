@@ -5,7 +5,7 @@
       <button class="bg-transparent w-20 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="goRegister()">Register</button>
     </div>
     <div v-else class="flex my-auto mx-auto space-x-1">
-      <ProfilePicture pic-size="8" :username="user.username" />
+      <ProfilePicture pic-size="8" :user="user" />
       <button class="bg-transparent w-24 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="logout()">Log Out</button>
     </div>
   </div>

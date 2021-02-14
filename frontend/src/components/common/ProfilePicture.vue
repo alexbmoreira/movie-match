@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mx-auto rounded-full bg-app-bg-sec" :class="`w-${picSize} h-${picSize}`">
+  <div class="flex mx-auto rounded-full bg-app-bg-sec cursor-pointer" :class="`w-${picSize} h-${picSize}`" @click="goUser">
     <p class="mx-auto my-auto uppercase" :class="textSize">{{ userInitial }}</p>
   </div>
 </template>
@@ -12,9 +12,11 @@ export default {
       type: String,
       default: '14'
     },
-    username: {
-      type: String,
-      default: ''
+    user: {
+      type: Object,
+      default: function() {
+        return {}
+      }
     }
   },
   data() {
@@ -24,7 +26,7 @@ export default {
   },
   computed: {
     userInitial: function() {
-      return this.username.substring(0, 1)
+      return this.user.username.substring(0, 1)
     }
   },
   created() {
@@ -34,6 +36,19 @@ export default {
       this.textSize = 'text-xl'
     } else if (this.picSize === '20') {
       this.textSize = 'text-4xl'
+    }
+  },
+  methods: {
+    goUser() {
+      this.$router
+        .push({
+          name: 'Profile',
+          params: {
+            username: this.user.username,
+            id: this.user.id
+          }
+        })
+        .catch(() => {})
     }
   }
 }
