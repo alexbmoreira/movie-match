@@ -79,7 +79,10 @@ const store = new Vuex.Store({
       } catch {
         return {}
       }
-    }
+    },
+    searchData: state => state.searchData,
+    search: state => state.search.string,
+    searchType: state => state.search.type
   }
 })
 
