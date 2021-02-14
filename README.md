@@ -39,11 +39,19 @@ Then we have to make and migrate.
 make migrate
 ```
 
-### Run the backend
+### Running the dev servers
 
+Backend:
 ```shell
 make run-backend
 ```
+> Server will be running on port 8000
+
+Frontend:
+```shell
+make run-frontend
+```
+> Server will be running on port 8080
 
 ### Linting backend
 
