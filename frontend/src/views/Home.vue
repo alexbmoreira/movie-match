@@ -16,7 +16,7 @@
       </div>
       <!-- Friends list -->
       <div class="flex flex-col divide-y divide-app-bg-light">
-        <FriendItem v-for="friend in friends_list" :key="friend.id" :friend="friend" />
+        <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend" />
       </div>
     </div>
     <div v-else class="flex flex-col mx-auto my-auto mt-8">
@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      friends_list: [],
+      friendsList: [],
       user: {}
     }
   },
@@ -64,7 +64,7 @@ export default {
     async friends() {
       if (this.$store.getters.isLoggedIn) {
         var result = await friendsAPI.getFriends(this.user.id)
-        this.friends_list = result.friends
+        this.friendsList = result.friends
       }
     }
   }
