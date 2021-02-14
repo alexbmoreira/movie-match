@@ -1,14 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Cookies from 'js-cookie'
-import authAPI from './api/auth'
+import authAPI from '@/api/auth'
+import searchAPI from '@/api/movies'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
     token: Cookies.get('access_token') || '',
-    user: Cookies.get('user') || {}
+    user: Cookies.get('user') || {},
+    search: {},
+    searchData: {}
   },
   mutations: {
     success(state, token) {
@@ -24,6 +27,12 @@ const store = new Vuex.Store({
       state.user = {}
       Cookies.remove('access_token')
       Cookies.remove('user')
+    },
+    setSearchData(state, data) {
+      state.searchData = data
+    },
+    setSearchInfo(state, search) {
+      state.search = search
     }
   },
   actions: {
@@ -53,6 +62,13 @@ const store = new Vuex.Store({
       await authAPI.logout()
 
       context.commit('logout')
+    },
+    async makeSearch(context, payload) {
+      await searchAPI.searchMovie(payload.type, payload.string).then(data => {
+        context.commit('setSearchData', data)
+      })
+
+      context.commit('setSearchInfo', payload)
     }
   },
   getters: {
@@ -63,7 +79,10 @@ const store = new Vuex.Store({
       } catch {
         return {}
       }
-    }
+    },
+    searchData: state => state.searchData,
+    search: state => state.search.string,
+    searchType: state => state.search.type
   }
 })
 
