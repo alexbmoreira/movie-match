@@ -3,9 +3,7 @@
     <!-- Friend -->
     <div class="flex space-x-2">
       <!-- Friend Pic -->
-      <div class="flex rounded-full bg-app-bg-sec w-14 h-14">
-        <p class="mx-auto my-auto text-xl uppercase">{{ friend.username.substring(0, 1) }}</p>
-      </div>
+      <ProfilePicture pic-size="14" :username="friend.username" />
       <div class="my-auto">
         <p class="font-roboto-slab text-lg">{{ friend.username }}</p>
       </div>
@@ -21,11 +19,13 @@
 
 <script>
 import CircleButton from '@/components/actions/CircleButton'
+import ProfilePicture from '@/components/common/ProfilePicture'
 
 export default {
   name: 'FriendItem',
   components: {
-    CircleButton
+    CircleButton,
+    ProfilePicture
   },
   props: {
     friend: {

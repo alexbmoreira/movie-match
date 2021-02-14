@@ -5,17 +5,20 @@
       <button class="bg-transparent w-20 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="goRegister()">Register</button>
     </div>
     <div v-else class="flex my-auto mx-auto space-x-1">
-      <div class="flex rounded-full bg-app-bg-sec w-8 h-8" :class="hideOnHome">
-        <p class="mx-auto my-auto uppercase">{{ userInitial }}</p>
-      </div>
+      <ProfilePicture pic-size="8" :username="user.username" />
       <button class="bg-transparent w-24 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="logout()">Log Out</button>
     </div>
   </div>
 </template>
 
 <script>
+import ProfilePicture from '@/components/common/ProfilePicture'
+
 export default {
   name: 'UserActions',
+  components: {
+    ProfilePicture
+  },
   data() {
     return {
       user: {}
@@ -24,9 +27,6 @@ export default {
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn
-    },
-    userInitial: function() {
-      return this.user.username.substring(0, 1)
     },
     hideOnHome() {
       if (this.$route.name !== 'Home') {

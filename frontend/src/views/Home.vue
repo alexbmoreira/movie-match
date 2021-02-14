@@ -6,9 +6,7 @@
       </div>
       <div class="flex flex-col mx-auto mb-6">
         <!-- Profile Pic -->
-        <div class="flex mx-auto rounded-full bg-app-bg-sec w-20 h-20">
-          <p class="mx-auto my-auto text-4xl uppercase">{{ user.username.substring(0, 1) }}</p>
-        </div>
+        <ProfilePicture pic-size="20" :username="user.username" />
         <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
       </div>
       <div class="flex mb-2">
@@ -38,12 +36,14 @@
 import friendsAPI from '@/api/friends'
 import FriendItem from '@/components/lists/FriendItem'
 import LgActionButton from '@/components/actions/LgActionButton'
+import ProfilePicture from '@/components/common/ProfilePicture'
 
 export default {
   name: 'Home',
   components: {
     FriendItem,
-    LgActionButton
+    LgActionButton,
+    ProfilePicture
   },
   data() {
     return {
