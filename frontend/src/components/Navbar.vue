@@ -103,9 +103,9 @@ export default {
     return {
       search: {
         string: '',
-        type: 'movies',
-        window_width: window.innerWidth
+        type: 'movies'
       },
+      window_width: window.innerWidth,
       show_search: false,
       show_menu: false
     }
@@ -132,6 +132,7 @@ export default {
     },
     routeSearch() {
       if (this.search.string.length > 0) {
+        this.$store.dispatch('makeSearch', this.search)
         this.$router
           .push({
             name: 'Search',

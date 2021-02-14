@@ -30,7 +30,7 @@ export default {
     this.search = this.$route.params.search
     this.search_type = this.$route.params.search_type
 
-    this.makeSearch()
+    // this.makeSearch()
   },
   methods: {
     async makeSearch() {
