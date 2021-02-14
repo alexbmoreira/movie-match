@@ -1,6 +1,6 @@
 <template>
   <div class="bg-app-bg fixed top-0 inset-x-0">
-    <div class="p-4 pb-0" :class="{ 'pb-4': show_search || show_menu }">
+    <div class="p-4 pb-0" :class="{ 'pb-4': showSearch || showMenu }">
       <!-- Logo text or image -->
       <div class="flex items-center justify-between mb-4">
         <router-link to="/" class="cursor-pointer w-60">
@@ -32,10 +32,10 @@
           </div>
         </div>
         <div class="flex space-x-2 lg:hidden">
-          <button class="flex items-center text-2xl transition duration-400 ease-in-out hover:text-app-primary" @click="showSearch()">
+          <button class="flex items-center text-2xl transition duration-400 ease-in-out hover:text-app-primary" @click="showSearchDropdown()">
             <i class="fas fa-search"></i>
           </button>
-          <button class="flex items-center text-3xl transition duration-400 ease-in-out hover:text-app-primary" @click="showMenu()">
+          <button class="flex items-center text-3xl transition duration-400 ease-in-out hover:text-app-primary" @click="showMenuDropdown()">
             <i class="fa fa-bars"></i>
           </button>
         </div>
@@ -50,7 +50,7 @@
         leave-class="opacity-100 h-12"
         leave-to-class="opacity-0 h-0"
       >
-        <div v-if="show_search" class="flex space-x-3">
+        <div v-if="showSearch" class="flex space-x-3">
           <form class="flex w-full" @submit.prevent="routeSearch"><TextField v-model="search.string" :placeholder="`Search for ${search.type}...`" /></form>
           <button class="w-auto flex justify-end items-center transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="routeSearch">
             <i class="fas fa-search"></i>
@@ -75,7 +75,7 @@
         leave-class="opacity-100 h-12"
         leave-to-class="opacity-0 h-0"
       >
-        <div v-if="show_menu" class="flex">
+        <div v-if="showMenu" class="flex">
           <div v-show="!isLoggedIn" class="flex my-auto mx-auto space-x-4">
             <button class="bg-transparent rounded border border-app-typeface w-20 px-4 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click.prevent="goLogin()">Log In</button>
             <button class="bg-transparent px-2 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="goRegister()">Register</button>
@@ -105,9 +105,9 @@ export default {
         string: '',
         type: 'movies'
       },
-      window_width: window.innerWidth,
-      show_search: false,
-      show_menu: false
+      windowWidth: window.innerWidth,
+      showSearch: false,
+      showMenu: false
     }
   },
   computed: {
@@ -123,11 +123,11 @@ export default {
   },
   methods: {
     onResize() {
-      this.window_width = window.innerWidth
-      if (this.show_search === true) {
-        this.show_search = this.window_width <= 1023
-      } else if (this.show_menu === true) {
-        this.show_menu = this.window_width <= 1023
+      this.windowWidth = window.innerWidth
+      if (this.showSearch === true) {
+        this.showSearch = this.windowWidth <= 1023
+      } else if (this.showMenu === true) {
+        this.showMenu = this.windowWidth <= 1023
       }
     },
     routeSearch() {
@@ -136,13 +136,13 @@ export default {
         this.$router.push({ name: 'Search' }).catch(() => {})
       }
     },
-    showSearch() {
-      this.show_search = !this.show_search
-      this.show_menu = false
+    showSearchDropdown() {
+      this.showSearch = !this.showSearch
+      this.showMenu = false
     },
-    showMenu() {
-      this.show_menu = !this.show_menu
-      this.show_search = false
+    showMenuDropdown() {
+      this.showMenu = !this.showMenu
+      this.showSearch = false
     },
     goLogin() {
       this.$router.push({ name: 'Login' }).catch(() => {})
