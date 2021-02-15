@@ -26,7 +26,10 @@ export default {
   },
   computed: {
     userInitial: function() {
-      return this.user.username.substring(0, 1)
+      if (this.user.username) {
+        return this.user.username.substring(0, 1)
+      }
+      return ''
     }
   },
   created() {
