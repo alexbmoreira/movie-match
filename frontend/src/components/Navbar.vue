@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-app-bg fixed top-0 inset-x-0">
+  <div class="bg-app-bg fixed top-0 inset-x-0 shadow-lg">
     <div class="p-4 pb-0" :class="{ 'pb-4': showSearch || showMenu }">
       <!-- Logo text or image -->
       <div class="flex items-center justify-between mb-4">
