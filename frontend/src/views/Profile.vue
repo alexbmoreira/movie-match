@@ -2,21 +2,27 @@
   <div id="profile_page" class="">
     <div class="flex">
       <div class="mx-auto p-8 ">
-        <img src="@/assets/images/defaultProfilePic.png" alt="@/assets/images/defaultProfilePic.png" class="h-32 rounded-full">
+        <ProfilePicture pic-size="20" :user="user" />
+        <h1>@</h1>
+        <h1 class="italic">best </h1>
       </div>
-    </div>
-    <div class="w-full">
-      <h1 class="px-24">will</h1>
     </div>
   <div>
     {{ $route.params.username }}
     {{ $route.params.id }}
   </div>
+  </div>
 </template>
 
 <script>
+
+import ProfilePicture from '@/components/common/ProfilePicture'
+
 export default {
   name: 'Profile',
+  components: {
+    ProfilePicture
+  },
   data() {
     return {
       profile: {}
