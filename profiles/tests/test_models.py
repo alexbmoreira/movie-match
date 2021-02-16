@@ -471,7 +471,6 @@ class MatchlistTests(TestCase):
         self.assertEqual(m_list.indiv_watchlist, [4995, 68718])
 
 
-
 class MovieLikeTests(TestCase):
 
     @classmethod
