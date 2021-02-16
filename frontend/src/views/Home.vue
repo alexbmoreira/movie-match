@@ -6,9 +6,7 @@
       </div>
       <div class="flex flex-col mx-auto mb-6">
         <!-- Profile Pic -->
-        <div class="flex mx-auto rounded-full bg-app-bg-sec w-20 h-20">
-          <p class="mx-auto my-auto text-4xl uppercase">{{ user.username.substring(0, 1) }}</p>
-        </div>
+        <ProfilePicture pic-size="20" :user="user" />
         <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
       </div>
       <div class="flex mb-2">
@@ -16,7 +14,7 @@
       </div>
       <!-- Friends list -->
       <div class="flex flex-col divide-y divide-app-bg-light">
-        <FriendItem v-for="friend in friends_list" :key="friend.id" :friend="friend" />
+        <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend" />
       </div>
     </div>
     <div v-else class="flex flex-col mx-auto my-auto mt-8">
@@ -38,16 +36,18 @@
 import friendsAPI from '@/api/friends'
 import FriendItem from '@/components/lists/FriendItem'
 import LgActionButton from '@/components/actions/LgActionButton'
+import ProfilePicture from '@/components/common/ProfilePicture'
 
 export default {
   name: 'Home',
   components: {
     FriendItem,
-    LgActionButton
+    LgActionButton,
+    ProfilePicture
   },
   data() {
     return {
-      friends_list: [],
+      friendsList: [],
       user: {}
     }
   },
@@ -64,7 +64,7 @@ export default {
     async friends() {
       if (this.$store.getters.isLoggedIn) {
         var result = await friendsAPI.getFriends(this.user.id)
-        this.friends_list = result.friends
+        this.friendsList = result.friends
       }
     }
   }
