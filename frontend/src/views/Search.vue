@@ -12,6 +12,7 @@
 
 <script>
 import MovieItem from '@/components/lists/MovieItem'
+import searchAPI from '@/api/movies'
 
 export default {
   name: 'Search',
@@ -19,19 +20,29 @@ export default {
     MovieItem
   },
   data() {
-    return {}
-  },
-  computed: {
-    search() {
-      return this.$store.getters.search
-    },
-    searchType() {
-      return this.$store.getters.searchType
-    },
-    searchData() {
-      return this.$store.getters.searchData
+    return {
+      search: '',
+      searchType: '',
+      searchData: {}
     }
   },
-  methods: {}
+  watch: {
+    $route() {
+      this.search = this.$route.params.search
+      this.searchType = this.$route.params.searchType
+      this.getData()
+    }
+  },
+  created() {
+    this.search = this.$route.params.search
+    this.searchType = this.$route.params.searchType
+    this.getData()
+  },
+  methods: {
+    async getData() {
+      this.searchData = await searchAPI.searchMovie(this.$route.params.searchType, this.$route.params.search)
+      console.log()
+    }
+  }
 }
 </script>

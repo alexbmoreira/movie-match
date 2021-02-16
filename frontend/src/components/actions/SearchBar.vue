@@ -35,8 +35,15 @@ export default {
     routeSearch() {
       if (this.search.string.length > 0) {
         this.$emit('search')
-        this.$store.dispatch('makeSearch', this.search)
-        this.$router.push({ name: 'Search' }).catch(() => {})
+        this.$router
+          .push({
+            name: 'Search',
+            params: {
+              searchType: this.search.type,
+              search: this.search.string
+            }
+          })
+          .catch(() => {})
       }
     }
   }
