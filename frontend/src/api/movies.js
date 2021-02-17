@@ -1,7 +1,7 @@
 import api from '@/api/api.service'
 
-async function searchMovie(search_type, search) {
-  return api.get(`/movies/${search_type}/${search}/`).then(response => response.data)
+async function searchMovie(searchType, search, page = 1) {
+  return api.get(`/movies/${searchType}/${search}/${page}`).then(response => response.data)
 }
 
 export default {
