@@ -23,7 +23,8 @@ export default {
       search: '',
       searchType: '',
       results: [],
-      currentPage: 1
+      currentPage: 1,
+      totalPages: 1
     }
   },
   computed: {
@@ -39,6 +40,7 @@ export default {
     $route() {
       this.search = this.$route.params.search
       this.searchType = this.$route.params.searchType
+      this.results = []
       this.getData()
     }
   },
@@ -60,9 +62,15 @@ export default {
       }
     },
     async getData(page = this.currentPage) {
-      var res = await searchAPI.searchMovie(this.$route.params.searchType, this.$route.params.search, page).then(data => data.results)
-      this.results = this.results.concat(res)
-      this.currentPage = page
+      if (page <= this.totalPages) {
+        var res = await searchAPI.searchMovie(this.$route.params.searchType, this.$route.params.search, page)
+
+        this.results = this.results.concat(res.results)
+        this.totalPages = res.total_pages
+
+        console.log(this.totalPages)
+        this.currentPage = page
+      }
     }
   }
 }
