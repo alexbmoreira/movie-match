@@ -20,7 +20,7 @@
         <div v-show="searchType !== 'movies'" class="flex">
           <div class="flex flex-col">
             <p class="italic">{{ result.known_for_department }}</p>
-            <p class="text-sm text-app-typeface-muted">Known for:</p>
+            <p v-if="!!result.known_for && result.known_for.length > 0" class="text-sm text-app-typeface-muted">Known for:</p>
             <p v-for="kf in result.known_for" :key="kf.id" class="text-xs text-app-typeface-muted">- {{ kf.title }}{{ kf.name }}</p>
           </div>
         </div>
