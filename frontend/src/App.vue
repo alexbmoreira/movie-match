@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     path() {
-      if (this.$route.name !== 'Login' && this.$route.name !== 'Register') {
+      if (!['Login', 'Register', 'Not Found'].includes(this.$route.name)) {
         return 'px-4 md:px-10 lg:px-48'
       }
       return ''

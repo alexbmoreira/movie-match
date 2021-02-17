@@ -20,7 +20,8 @@ module.exports = {
     // },
     extend: {
       backgroundImage: () => ({
-        'poster-collage': "linear-gradient(#2E2E2EE5, #050505E5), url('../images/backdrop.png')"
+        'poster-collage': "linear-gradient(#2E2E2EE5, #050505E5), url('../images/backdrop.png')",
+        'not-found': "linear-gradient(#2E2E2E88, #2E2E2E88), url('../images/404-backdrop.jpg')"
       }),
       fontFamily: {
         'nunito': ['Nunito', 'sans-serif'],
