@@ -68,8 +68,6 @@ export default {
 
         this.results = this.results.concat(res.results)
         this.totalPages = res.total_pages
-
-        console.log(this.totalPages)
       }
     }
   }
