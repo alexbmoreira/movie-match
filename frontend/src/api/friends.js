@@ -13,9 +13,9 @@ function setAuth() {
   }
 }
 
-async function getFriends(user_id) {
+async function getFriends(userID) {
   setAuth()
-  return api.get(`/profiles/${user_id}/friends/`, config).then(response => response.data)
+  return api.get(`/profiles/${userID}/friends/`, config).then(response => response.data)
 }
 
 export default {
