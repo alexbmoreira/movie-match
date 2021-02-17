@@ -41,6 +41,7 @@ export default {
       this.search = this.$route.params.search
       this.searchType = this.$route.params.searchType
       this.results = []
+      this.currentPage = 1
       this.getData()
     }
   },
