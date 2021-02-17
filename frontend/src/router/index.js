@@ -5,6 +5,7 @@ import Profile from '@/views/Profile'
 import Register from '@/views/Register'
 import Login from '@/views/Login'
 import Search from '@/views/Search'
+import NotFound from '@/views/NotFound'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/search/:searchType/:search',
     name: 'Search',
     component: Search
+  },
+  {
+    path: '*',
+    name: 'Not Found',
+    component: NotFound
   }
 ]
 
