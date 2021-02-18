@@ -42,7 +42,19 @@ async function getJointWatchlist(userID) {
   return response
 }
 
+async function getWatchlist(userID) {
+  setAuth()
+  var response = await api.get(`/profiles/${userID}/watchlist`, config).then(response => response.data)
+
+  response.watchlist.forEach(async function(movie, index, array) {
+    array[index] = await movieAPI.getMetadata('movie', movie)
+  })
+
+  return response
+}
+
 export default {
   getMatchlist,
-  getJointWatchlist
+  getJointWatchlist,
+  getWatchlist
 }
