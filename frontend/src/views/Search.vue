@@ -65,7 +65,7 @@ export default {
     async getData(page = this.currentPage) {
       if (page <= this.totalPages) {
         this.currentPage = page
-        var res = await searchAPI.searchMovie(this.$route.params.searchType, this.$route.params.search, page)
+        var res = await searchAPI.makeSearch(this.$route.params.searchType, this.$route.params.search, page)
 
         this.results = this.results.concat(res.results)
         this.totalPages = res.total_pages
