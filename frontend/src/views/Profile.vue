@@ -14,6 +14,13 @@
       <div class="flex mb-2">
         <p class="text-lg">Watchlist:</p>
       </div>
+      <div class="flex mb-2">
+        <p class="text-lg">Username's Friends:</p>
+      </div>
+      <div class="flex flex-col divide-y divide-app-bg-light">
+        <p>@</p>
+        <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend" />
+      </div>
     </div>
   <div>
     {{ $route.params.username }}
