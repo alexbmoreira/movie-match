@@ -1,10 +1,18 @@
 <template>
   <div id="profile_page" class="">
-    <div class="flex">
-      <div class="mx-auto p-8 ">
-        <ProfilePicture pic-size="20" :user="user" />
-        <h1>@</h1>
-        <h1 class="italic">best </h1>
+    <div class="flex flex-col py-4">
+      <div class="mx-auto mb-2">
+        <p class="text-xl text-app-typeface-muted invisible">Welcome back,</p>
+      </div>
+      <div class="flex flex-col mx-auto mb-6">
+        <div class="">
+          <ProfilePicture pic-size="20" :user="user" /> <!-- im thinking add a white ring to the profile pic in the future -->
+        </div>
+        <p class="font-roboto-slab text-2xl mx-auto">peepee{{ $route.params.username }}</p>
+        <p class="font-nunito text-base mx-auto mt-2 italic">placeholder text for future desc implementation</p>
+      </div>
+      <div class="flex mb-2">
+        <p class="text-lg">Watchlist:</p>
       </div>
     </div>
   <div>
