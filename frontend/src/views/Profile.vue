@@ -6,9 +6,9 @@
       </div>
       <div class="flex flex-col mx-auto mb-6">
         <div class="">
-          <ProfilePicture pic-size="20" :user="user" /> <!-- im thinking add a white ring to the profile pic in the future -->
+          <ProfilePicture pic-size="20" :user="user" /> <!-- im thinking add a 2pt white ring / border to the profile pic in the future -->
         </div>
-        <p class="font-roboto-slab text-2xl mx-auto">peepee{{ $route.params.username }}</p>
+        <p class="font-roboto-slab text-2xl mx-auto">@{{ $route.params.username }}</p>
         <p class="font-nunito text-base mx-auto mt-2 italic">placeholder text for future desc implementation</p>
       </div>
       <div class="flex mb-2">
@@ -18,7 +18,6 @@
         <p class="text-lg">Username's Friends:</p>
       </div>
       <div class="flex flex-col divide-y divide-app-bg-light">
-        <p>@</p>
         <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend" />
       </div>
     </div>
