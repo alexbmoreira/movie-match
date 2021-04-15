@@ -9,6 +9,7 @@ friend_requests_api = FriendRequestAPIView.as_view()
 
 urlpatterns = [
     path("user/", user_api, name="current_user"),
+    path("user/requests/", friend_requests_api, name="friend_requests"),
     path("user/requests/<str:type>/", friend_requests_api, name="friend_requests"),
     path("profiles/", profile_api, name="profiles"),
     path("profiles/search/<str:search>/", profile_api, name="profiles_search"),
