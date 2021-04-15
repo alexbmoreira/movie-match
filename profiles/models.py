@@ -30,7 +30,7 @@ class FriendRequest(models.Model):
     active = models.BooleanField(default=True)
 
     def accept(self):
-        Friendship.objects.create(user=creator, friend=receiver)
+        Friendship.objects.create(user=self.creator, friend=self.receiver)
         self.active = False
         self.delete()
 

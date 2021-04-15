@@ -74,4 +74,18 @@ class FriendRequestAPIView(APIView):
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request):
+        friend_request = FriendRequest.objects.get(id=request.data['id'])
+        if request.data['action'] == 'accept' and request.user == friend_request.receiver:
+            friend_request.accept()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        elif request.data['action'] == 'cancel' and request.user == friend_request.creator:
+            friend_request.cancel()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        elif request.data['action'] == 'decline' and request.user == friend_request.receiver:
+            friend_request.decline()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
