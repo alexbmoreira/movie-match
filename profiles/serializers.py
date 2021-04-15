@@ -31,8 +31,13 @@ class FriendRequestSerializer(serializers.ModelSerializer):
 
 class FriendshipSerializer(serializers.ModelSerializer):
 
-    friend = ProfileSerializer(source='friend')
+    friend = serializers.SerializerMethodField()
 
     class Meta:
         model = Friendship
         fields = ['id', 'friend']
+
+    def get_friend(self, obj):
+        user_id = self.context.get("user_id")
+        user = obj.friend if obj.friend.id != user_id else obj.user
+        return ProfileSerializer(user.profile).data

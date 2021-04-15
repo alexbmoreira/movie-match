@@ -5,9 +5,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import FriendRequest, Profile, User
-from .serializers import (FriendRequestSerializer, ProfileSerializer,
-                          UserSerializer)
+from .models import FriendRequest, Friendship, Profile, User
+from .serializers import (FriendRequestSerializer, FriendshipSerializer,
+                          ProfileSerializer, UserSerializer)
 
 
 class UserAPIView(APIView):
@@ -54,12 +54,12 @@ class FriendRequestAPIView(APIView):
 
     def get(self, request, type=''):
         if type == 'sent':
-            requests = FriendRequest.objects.filter(creator=request.user)
-            serializer = FriendRequestSerializer(requests, many=True)
+            friend_requests = FriendRequest.objects.filter(creator=request.user)
+            serializer = FriendRequestSerializer(friend_requests, many=True)
             return Response(data=serializer.data)
         elif type == 'received':
-            requests = FriendRequest.objects.filter(receiver=request.user)
-            serializer = FriendRequestSerializer(requests, many=True)
+            friend_requests = FriendRequest.objects.filter(receiver=request.user)
+            serializer = FriendRequestSerializer(friend_requests, many=True)
             return Response(data=serializer.data)
         
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -88,4 +88,28 @@ class FriendRequestAPIView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class FriendshipAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        friends = Friendship.objects.filter(Q(user=request.user) | Q(friend=request.user))
+        serializer = FriendshipSerializer(friends, many=True, context={'user_id': request.user.id})
+        return Response(data=serializer.data)
+
+    # def delete(self, request):
+    #     friend_request = FriendRequest.objects.get(id=request.data['id'])
+    #     if request.data['action'] == 'accept' and request.user == friend_request.receiver:
+    #         friend_request.accept()
+    #         return Response(status=status.HTTP_204_NO_CONTENT)
+    #     elif request.data['action'] == 'cancel' and request.user == friend_request.creator:
+    #         friend_request.cancel()
+    #         return Response(status=status.HTTP_204_NO_CONTENT)
+    #     elif request.data['action'] == 'decline' and request.user == friend_request.receiver:
+    #         friend_request.decline()
+    #         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    #     return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
