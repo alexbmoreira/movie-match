@@ -26,8 +26,10 @@ class ProfileAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, search=""):
+    def get(self, request):
         profiles = Profile.objects.all()
+
+        search = request.GET.get('search', '')
 
         if search != "":
             profiles = profiles.filter(user__username__icontains=search)
@@ -52,17 +54,19 @@ class FriendRequestAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, type=''):
-        if type == 'sent':
+    def get(self, request):
+        kind = request.GET.get('kind', '')
+        
+        if kind == 'sent':
             friend_requests = FriendRequest.objects.filter(creator=request.user)
             serializer = FriendRequestSerializer(friend_requests, many=True)
             return Response(data=serializer.data)
-        elif type == 'received':
+        elif kind == 'received':
             friend_requests = FriendRequest.objects.filter(receiver=request.user)
             serializer = FriendRequestSerializer(friend_requests, many=True)
             return Response(data=serializer.data)
         
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(data={'error': 'invalid friend request kind'}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request):
         request.data['creator'] = request.user.id
