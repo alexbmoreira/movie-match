@@ -30,7 +30,7 @@ class ProfileAPIView(APIView):
         profiles = Profile.objects.all()
 
         if search != "":
-            profiles = profiles.filter(user__username=search)
+            profiles = profiles.filter(user__username__icontains=search)
 
         serializer = ProfileSerializer(profiles, many=True)
 
@@ -46,3 +46,21 @@ class ProfileDetailAPIView(APIView):
         serializer = ProfileSerializer(profile)
 
         return Response(data=serializer.data)
+
+
+class FriendRequestAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, type):
+        if type == 'sent':
+            requests = FriendRequest.objects.filter(creator=request.user)
+            serializer = FriendRequestSerializer(requests, many=True)
+            return Response(data=serializer.data)
+        elif type == 'received':
+            requests = FriendRequest.objects.filter(receiver=request.user)
+            serializer = FriendRequestSerializer(requests, many=True)
+            return Response(data=serializer.data)
+        
+        return Response(status=HTTP_404_NOT_FOUND)
+        
