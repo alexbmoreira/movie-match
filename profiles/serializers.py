@@ -2,7 +2,7 @@ from random import shuffle
 
 from rest_framework import serializers
 
-from .models import FriendRequest, Friendship, Profile, User
+from .models import FriendRequest, Friendship, Profile, User, WatchlistMovie
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -38,6 +38,19 @@ class FriendshipSerializer(serializers.ModelSerializer):
         fields = ['id', 'friend']
 
     def get_friend(self, obj):
-        user_id = self.context.get("user_id")
+        user_id = self.context["user_id"]
         user = obj.friend if obj.friend.id != user_id else obj.user
         return ProfileSerializer(user.profile).data
+
+
+class WatchlistMovieSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = WatchlistMovie
+        fields = ['id', 'movie']
+
+    def create(self, validated_data):
+        user = User.objects.get(id=self.context["user_id"])
+        watchlist_movie = WatchlistMovie.objects.create(user=user, movie=validated_data.pop('movie'))
+
+        return watchlist_movie
