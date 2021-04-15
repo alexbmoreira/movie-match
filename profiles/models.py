@@ -16,8 +16,8 @@ class Profile(models.Model):
 
 class Friendship(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friendship_user')
-    friend = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='friendship_friend')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_friendships')
+    friend = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='received_friendships')
 
     def __str__(self):
         return f"{self.user.username} is friends with {self.friend.username}"
@@ -25,8 +25,8 @@ class Friendship(models.Model):
 
 class FriendRequest(models.Model):
 
-    creator = models.ForeignKey(User, related_name='request_creator', on_delete=models.CASCADE)
-    receiver = models.ForeignKey(User, related_name='request_friend', on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_requests')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_requests')
     active = models.BooleanField(default=True)
 
     def accept(self):
@@ -45,8 +45,8 @@ class FriendRequest(models.Model):
 
 class MatchlistLike(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_list_like_user')
-    friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_list_like_friend')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='matchlist_likes')
+    friend = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.IntegerField(blank=True, default=list)
 
     def __str__(self):
@@ -55,8 +55,8 @@ class MatchlistLike(models.Model):
 
 class MatchlistDislike(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_list_dislike_user')
-    friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='match_list_dislike_friend')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='matchlist_dislikes')
+    friend = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.IntegerField(blank=True, default=list)
 
     def __str__(self):
@@ -65,7 +65,7 @@ class MatchlistDislike(models.Model):
 
 class WatchlistMovie(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='watchlist_movie_user')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.IntegerField(blank=True, default=list)
 
     def __str__(self):
