@@ -99,17 +99,8 @@ class FriendshipAPIView(APIView):
         serializer = FriendshipSerializer(friends, many=True, context={'user_id': request.user.id})
         return Response(data=serializer.data)
 
-    # def delete(self, request):
-    #     friend_request = FriendRequest.objects.get(id=request.data['id'])
-    #     if request.data['action'] == 'accept' and request.user == friend_request.receiver:
-    #         friend_request.accept()
-    #         return Response(status=status.HTTP_204_NO_CONTENT)
-    #     elif request.data['action'] == 'cancel' and request.user == friend_request.creator:
-    #         friend_request.cancel()
-    #         return Response(status=status.HTTP_204_NO_CONTENT)
-    #     elif request.data['action'] == 'decline' and request.user == friend_request.receiver:
-    #         friend_request.decline()
-    #         return Response(status=status.HTTP_204_NO_CONTENT)
-
-    #     return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def delete(self, request):
+        friendship = get_object_or_404(Friendship, id=request.data['id'])
+        friendship.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
         
