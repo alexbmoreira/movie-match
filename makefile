@@ -1,16 +1,16 @@
 BACKEND=cd backend &&
 FRONTEND=cd frontend &&
 
-install-be:
+install-b:
 	$(BACKEND) pip install -r requirements.txt
 
-install-fe:
+install-f:
 	$(FRONTEND) npm install
 	
-run-backend:
+run-b:
 	$(BACKEND) python manage.py runserver
 	
-run-frontend:
+run-f:
 	$(FRONTEND) npm run serve
 
 migrate:

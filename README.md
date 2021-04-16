@@ -17,12 +17,12 @@ source ../.venv/bin/activate
 
 Backend:
 ```shell
-make install-be
+make install-b
 ```
 
 Frontend:
 ```shell
-make install-fe
+make install-f
 ```
 
 ### Create the database
@@ -43,13 +43,13 @@ make migrate
 
 Backend:
 ```shell
-make run-backend
+make run-b
 ```
 > Server will be running on port 8000
 
 Frontend:
 ```shell
-make run-frontend
+make run-f
 ```
 > Server will be running on port 8080
 
