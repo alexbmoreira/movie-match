@@ -145,6 +145,12 @@ class MatchlistLikeAPIView(APIView):
 
     def get(self, request):
         likes = request.user.matchlist_likes.all()
+
+        friend = request.GET.get('friend', '')
+
+        if friend != "":
+            likes = likes.filter(friend__id=friend)
+
         serializer = MatchlistLikeSerializer(likes, many=True)
         data = {}
         data['user'] = ProfileSerializer(request.user.profile).data
@@ -181,6 +187,12 @@ class MatchlistDislikeAPIView(APIView):
 
     def get(self, request):
         dislikes = request.user.matchlist_dislikes.all()
+
+        friend = request.GET.get('friend', '')
+
+        if friend != "":
+            dislikes = dislikes.filter(friend__id=friend)
+
         serializer = MatchlistDislikeSerializer(dislikes, many=True)
         data = {}
         data['user'] = ProfileSerializer(request.user.profile).data
@@ -209,3 +221,19 @@ class MatchlistDislikeAPIView(APIView):
             return MatchlistLike.objects.get(user=request.user, friend=friend, movie=request.data['movie']) != None
         except:
             return None
+
+
+class MatchlistMatchAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        friend = get_object_or_404(User, id=request.GET.get('friend', ''))
+        user_likes = request.user.matchlist_likes.all()
+        friend_likes = [ml.movie for ml in friend.matchlist_likes.all()]
+        matches = [ml for ml in user_likes if ml.movie in friend_likes]
+        serializer = MatchlistLikeSerializer(matches, many=True)
+        data = {}
+        data['user'] = ProfileSerializer(request.user.profile).data
+        data['matches'] = serializer.data
+        return Response(data=data)
