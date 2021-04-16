@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -68,7 +68,7 @@ class FriendRequestAPIView(APIView):
             friend_requests = FriendRequest.objects.filter(receiver=request.user)
             serializer = FriendRequestSerializer(friend_requests, many=True)
             return Response(data=serializer.data)
-        
+
         return Response(data={'error': 'invalid friend request kind'}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request):
@@ -94,7 +94,7 @@ class FriendRequestAPIView(APIView):
             friend_request.decline()
             return Response(status=status.HTTP_204_NO_CONTENT)
 
-        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class FriendshipAPIView(APIView):
@@ -177,7 +177,7 @@ class MatchlistLikeAPIView(APIView):
         friend = User.objects.get(id=request.data['friend'])
         try:
             return MatchlistDislike.objects.get(user=request.user, friend=friend, movie=request.data['movie'])
-        except:
+        except Exception:
             return None
 
 
@@ -218,8 +218,8 @@ class MatchlistDislikeAPIView(APIView):
     def check_conflict(self, request):
         friend = User.objects.get(id=request.data['friend'])
         try:
-            return MatchlistLike.objects.get(user=request.user, friend=friend, movie=request.data['movie']) != None
-        except:
+            return MatchlistLike.objects.get(user=request.user, friend=friend, movie=request.data['movie'])
+        except Exception:
             return None
 
 

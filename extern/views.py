@@ -1,5 +1,3 @@
-import requests
-from django.conf import settings
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -24,7 +22,7 @@ class LetterboxdWatchlistAPIView(APIView):
             for movie in watchlist:
                 try:
                     watchlist_movies.append(WatchlistMovie(user=request.user, movie=movie['id']))
-                except:
+                except Exception:
                     pass
 
             WatchlistMovie.objects.bulk_create(watchlist_movies, ignore_conflicts=True)

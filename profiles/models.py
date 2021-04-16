@@ -1,10 +1,5 @@
-from datetime import timedelta
-
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from django.dispatch import Signal
-from django.utils import timezone
 
 from .managers import ProfileManager
 
