@@ -1,16 +1,16 @@
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import (FriendRequest, FriendsList, Matchlist, Profile, User,
-                     Watchlist)
-from .serializers import (FriendRequestSerializer, FriendsListSerializer,
-                          JointWatchListSerializer, MatchListSerializer,
+from .models import (FriendRequest, Friendship, MatchlistDislike,
+                     MatchlistLike, Profile, User, WatchlistMovie)
+from .serializers import (FriendRequestSerializer, FriendshipSerializer,
+                          MatchlistDislikeSerializer, MatchlistLikeSerializer,
                           ProfileSerializer, UserSerializer,
-                          WatchListSerializer)
+                          WatchlistMovieSerializer)
 
 
 class UserAPIView(APIView):
@@ -29,11 +29,13 @@ class ProfileAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, search=""):
+    def get(self, request):
         profiles = Profile.objects.all()
 
+        search = request.GET.get('search', '')
+
         if search != "":
-            profiles = profiles.filter(user__username=search)
+            profiles = profiles.filter(user__username__icontains=search)
 
         serializer = ProfileSerializer(profiles, many=True)
 
@@ -51,147 +53,201 @@ class ProfileDetailAPIView(APIView):
         return Response(data=serializer.data)
 
 
-class ProfileFriendsAPIView(APIView):
-
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, user_id):
-        friends_list = get_object_or_404(FriendsList, user__id=user_id)
-        serializer = FriendsListSerializer(friends_list)
-
-        return Response(data=serializer.data)
-
-
-class FriendRequestsAPIView(APIView):
+class FriendRequestAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        friend_reqs = FriendRequest.objects.filter(Q(creator=request.user) | Q(receiver=request.user), active=True)
-        serializer = FriendRequestSerializer(friend_reqs, many=True)
+        kind = request.GET.get('kind', '')
 
-        return Response(data=serializer.data)
+        if kind == 'sent':
+            friend_requests = FriendRequest.objects.filter(creator=request.user)
+            serializer = FriendRequestSerializer(friend_requests, many=True)
+            return Response(data=serializer.data)
+        elif kind == 'received':
+            friend_requests = FriendRequest.objects.filter(receiver=request.user)
+            serializer = FriendRequestSerializer(friend_requests, many=True)
+            return Response(data=serializer.data)
+
+        return Response(data={'error': 'invalid friend request kind'}, status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request):
-        try:
-            send_to_user = User.objects.get(**request.data)
-            FriendRequest.objects.create(creator=request.user, receiver=send_to_user)
+        request.data['creator'] = request.user.id
+        request.data['active'] = True
+        serializer = FriendRequestSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
             return Response(status=status.HTTP_201_CREATED)
-        except Exception:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
 
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class FriendActionAPIView(APIView):
-
-    def post(self, request, operation, user_id):
-        friend = User.objects.get(id=user_id)
-
-        friends_list = FriendsList.objects.get(user=request.user)
-
-        if operation == 'add':
-            friends_list.friend(friend)
-            return Response(status=status.HTTP_201_CREATED)
-        elif operation == 'remove':
-            friends_list.unfriend(friend)
-            return Response(status=status.HTTP_202_ACCEPTED)
-
-        return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
-
-
-class RequestActionAPIView(APIView):
-
-    def post(self, request, operation, request_id):
-        friend_request = FriendRequest.objects.get(id=request_id)
-
-        if operation == 'accept' and friend_request.receiver == request.user:
+    def delete(self, request):
+        friend_request = FriendRequest.objects.get(id=request.data['id'])
+        if request.data['action'] == 'accept' and request.user == friend_request.receiver:
             friend_request.accept()
-            return Response(status=status.HTTP_201_CREATED)
-        elif operation == 'decline' and friend_request.receiver == request.user:
-            friend_request.decline()
-            return Response(status=status.HTTP_202_ACCEPTED)
-        elif operation == 'cancel' and friend_request.creator == request.user:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        elif request.data['action'] == 'cancel' and request.user == friend_request.creator:
             friend_request.cancel()
-            return Response(status=status.HTTP_202_ACCEPTED)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        elif request.data['action'] == 'decline' and request.user == friend_request.receiver:
+            friend_request.decline()
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
-        return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class ProfileWatchlistAPIView(APIView):
+class FriendshipAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, user_id):
-        watchlist = get_object_or_404(Watchlist, user__id=user_id)
-        serializer = WatchListSerializer(watchlist)
-
+    def get(self, request):
+        friends = Friendship.objects.filter(Q(user=request.user) | Q(friend=request.user))
+        serializer = FriendshipSerializer(friends, many=True, context={'user_id': request.user.id})
         return Response(data=serializer.data)
 
+    def delete(self, request):
+        friendship = get_object_or_404(Friendship, id=request.data['id'])
+        friendship.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-class WatchlistActionAPIView(APIView):
+
+class WatchlistAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def post(self, request, operation):
-        try:
-            watchlist = get_object_or_404(Watchlist, user=request.user)
-            if operation == 'add':
-                watchlist.add_movie(request.data['id'])
-                return Response(status=status.HTTP_201_CREATED)
-            elif operation == 'remove':
-                watchlist.remove_movie(request.data['id'])
-                return Response(status=status.HTTP_202_ACCEPTED)
+    def get(self, request):
+        watchlist = request.user.watchlistmovie_set.all()
+        serializer = WatchlistMovieSerializer(watchlist, many=True)
+        data = {}
+        data['user'] = ProfileSerializer(request.user.profile).data
+        data['watchlist'] = serializer.data
+        return Response(data=data)
 
-            return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request):
+        serializer = WatchlistMovieSerializer(data=request.data, context={'user_id': request.user.id})
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request):
+        watchlist_movie = get_object_or_404(WatchlistMovie, id=request.data['id'])
+        watchlist_movie.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class MatchlistLikeAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        likes = request.user.matchlist_likes.all()
+
+        friend = request.GET.get('friend', '')
+
+        if friend != "":
+            likes = likes.filter(friend__id=friend)
+
+        serializer = MatchlistLikeSerializer(likes, many=True)
+        data = {}
+        data['user'] = ProfileSerializer(request.user.profile).data
+        data['likes'] = serializer.data
+        return Response(data=data)
+
+    def post(self, request):
+        serializer = MatchlistLikeSerializer(data=request.data, context={'user_id': request.user.id})
+
+        if serializer.is_valid():
+            if self.check_conflict(request):
+                return Response(status=status.HTTP_409_CONFLICT)
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request):
+        matchlist_like = get_object_or_404(MatchlistLike, id=request.data['id'])
+        matchlist_like.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def check_conflict(self, request):
+        friend = User.objects.get(id=request.data['friend'])
+        try:
+            return MatchlistDislike.objects.get(user=request.user, friend=friend, movie=request.data['movie'])
         except Exception:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return None
+
+
+class MatchlistDislikeAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        dislikes = request.user.matchlist_dislikes.all()
+
+        friend = request.GET.get('friend', '')
+
+        if friend != "":
+            dislikes = dislikes.filter(friend__id=friend)
+
+        serializer = MatchlistDislikeSerializer(dislikes, many=True)
+        data = {}
+        data['user'] = ProfileSerializer(request.user.profile).data
+        data['dislikes'] = serializer.data
+        return Response(data=data)
+
+    def post(self, request):
+        serializer = MatchlistDislikeSerializer(data=request.data, context={'user_id': request.user.id})
+
+        if serializer.is_valid():
+            if self.check_conflict(request):
+                return Response(status=status.HTTP_409_CONFLICT)
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request):
+        matchlist_dislike = get_object_or_404(MatchlistDislike, id=request.data['id'])
+        matchlist_dislike.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def check_conflict(self, request):
+        friend = User.objects.get(id=request.data['friend'])
+        try:
+            return MatchlistLike.objects.get(user=request.user, friend=friend, movie=request.data['movie'])
+        except Exception:
+            return None
+
+
+class MatchlistMatchAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        friend = get_object_or_404(User, id=request.GET.get('friend', ''))
+        user_likes = request.user.matchlist_likes.all()
+        friend_likes = [ml.movie for ml in friend.matchlist_likes.all()]
+        matches = [ml for ml in user_likes if ml.movie in friend_likes]
+        serializer = MatchlistLikeSerializer(matches, many=True)
+        data = {}
+        data['user'] = ProfileSerializer(request.user.profile).data
+        data['matches'] = serializer.data
+        return Response(data=data)
 
 
 class JointWatchlistAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request, user_id):
-        query = Q(user__id=request.user.id, friend__id=user_id)
-        joint_watchlist = get_object_or_404(Matchlist, query)
-        serializer = JointWatchListSerializer(joint_watchlist)
-
-        return Response(data=serializer.data)
-
-
-class MatchlistAPIView(APIView):
-
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, user_id):
-        query = Q(user__id=request.user.id, friend__id=user_id)
-        matchlist = get_object_or_404(Matchlist, query)
-        serializer = MatchListSerializer(matchlist)
-
-        return Response(data=serializer.data)
-
-
-class MatchlistActionAPIView(APIView):
-
-    permission_classes = (IsAuthenticated,)
-
-    def post(self, request, operation, user_id):
-        query = Q(user__id=request.user.id, friend__id=user_id)
-        matchlist = get_object_or_404(Matchlist, query)
-        other_matchlist = get_object_or_404(Matchlist, user__id=user_id, friend__id=request.user.id)
-
-        if operation == 'like':
-            matchlist.like_movie(request.data['id'])
-            if request.data['id'] in other_matchlist.likes:
-                return Response(data={'match': request.data['id']}, status=status.HTTP_201_CREATED)
-            return Response(status=status.HTTP_201_CREATED)
-        elif operation == 'unlike':
-            matchlist.unlike_movie(request.data['id'])
-            return Response(status=status.HTTP_202_ACCEPTED)
-        elif operation == 'dislike':
-            matchlist.dislike_movie(request.data['id'])
-            return Response(status=status.HTTP_201_CREATED)
-        elif operation == 'undislike':
-            matchlist.undislike_movie(request.data['id'])
-            return Response(status=status.HTTP_202_ACCEPTED)
-
-        return Response(data={'outcome': 'error'}, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request):
+        friend = get_object_or_404(User, id=request.GET.get('friend', ''))
+        joint_watchlist = Profile.objects.get_joint_watchlist(request.user, friend)
+        serializer = WatchlistMovieSerializer(joint_watchlist, many=True)
+        data = {}
+        data['user'] = ProfileSerializer(request.user.profile).data
+        data['joint_watchlist'] = serializer.data
+        return Response(data=data)

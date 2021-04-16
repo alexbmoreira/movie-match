@@ -3,8 +3,9 @@ count = True
 
 exclude = 
 	*migrations*,
-	test_*
+	test_*,
+	*/apps.py
 
-ignore = F401, E128
+ignore = E128
 
 max-line-length = 119

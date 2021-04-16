@@ -1,8 +1,7 @@
 from rest_framework import serializers
-from random import shuffle
 
-from .models import (FriendRequest, FriendsList, Matchlist, Profile, User,
-                     Watchlist)
+from .models import (FriendRequest, Friendship, MatchlistDislike,
+                     MatchlistLike, Profile, User, WatchlistMovie)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -14,67 +13,71 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer(read_only=True)
+    user_id = serializers.ReadOnlyField(source='user.id')
+    username = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = Profile
-        fields = ['user']
-
-
-class FriendsListSerializer(serializers.ModelSerializer):
-
-    user = UserSerializer(read_only=True)
-    friends = serializers.SerializerMethodField()
-
-    class Meta:
-        model = FriendsList
-        fields = ['user', 'friends']
-
-    def get_friends(self, obj):
-        return UserSerializer(obj.friends, many=True).data
+        fields = ['user_id', 'username']
 
 
 class FriendRequestSerializer(serializers.ModelSerializer):
-
-    creator = UserSerializer(read_only=True)
-    receiver = UserSerializer(read_only=True)
 
     class Meta:
         model = FriendRequest
         fields = ['id', 'creator', 'receiver', 'active']
 
 
-class WatchListSerializer(serializers.ModelSerializer):
+class FriendshipSerializer(serializers.ModelSerializer):
 
-    user = UserSerializer(read_only=True)
-
-    class Meta:
-        model = Watchlist
-        fields = ['user', 'watchlist']
-
-
-class JointWatchListSerializer(serializers.ModelSerializer):
-
-    joint_watchlist = serializers.SerializerMethodField()
+    friend = serializers.SerializerMethodField()
 
     class Meta:
-        model = Matchlist
-        fields = ['joint_watchlist']
+        model = Friendship
+        fields = ['id', 'friend']
 
-    def get_joint_watchlist(self, obj):
-        shared = [movie for movie in obj.shared_watchlist]
-        indiv = [movie for movie in obj.indiv_watchlist]
-        shuffle(shared)
-        shuffle(indiv)
-
-        return shared + indiv
+    def get_friend(self, obj):
+        user_id = self.context["user_id"]
+        user = obj.friend if obj.friend.id != user_id else obj.user
+        return ProfileSerializer(user.profile).data
 
 
-class MatchListSerializer(serializers.ModelSerializer):
-
-    user = UserSerializer(read_only=True)
-    friend = UserSerializer(read_only=True)
+class WatchlistMovieSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Matchlist
-        fields = ['user', 'likes', 'dislikes', 'friend', 'matches']
+        model = WatchlistMovie
+        fields = ['id', 'movie']
+
+    def create(self, validated_data):
+        user = User.objects.get(id=self.context["user_id"])
+        watchlist_movie = WatchlistMovie.objects.create(user=user, movie=validated_data.pop('movie'))
+
+        return watchlist_movie
+
+
+class MatchlistLikeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MatchlistLike
+        fields = ['id', 'friend', 'movie']
+
+    def create(self, validated_data):
+        user = User.objects.get(id=self.context['user_id'])
+        friend = validated_data.pop('friend')
+        watchlist_movie = MatchlistLike.objects.create(user=user, friend=friend, movie=validated_data.pop('movie'))
+
+        return watchlist_movie
+
+
+class MatchlistDislikeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MatchlistDislike
+        fields = ['id', 'friend', 'movie']
+
+    def create(self, validated_data):
+        user = User.objects.get(id=self.context['user_id'])
+        friend = validated_data.pop('friend')
+        watchlist_movie = MatchlistDislike.objects.create(user=user, friend=friend, movie=validated_data.pop('movie'))
+
+        return watchlist_movie
