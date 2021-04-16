@@ -155,6 +155,8 @@ class MatchlistLikeAPIView(APIView):
         serializer = MatchlistLikeSerializer(data=request.data, context={'user_id': request.user.id})
 
         if serializer.is_valid():
+            if self.check_conflict(request):
+                return Response(status=status.HTTP_409_CONFLICT)
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
 
@@ -164,6 +166,13 @@ class MatchlistLikeAPIView(APIView):
         matchlist_like = get_object_or_404(MatchlistLike, id=request.data['id'])
         matchlist_like.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def check_conflict(self, request):
+        friend = User.objects.get(id=request.data['friend'])
+        try:
+            return MatchlistDislike.objects.get(user=request.user, friend=friend, movie=request.data['movie'])
+        except:
+            return None
 
 
 class MatchlistDislikeAPIView(APIView):
@@ -182,6 +191,8 @@ class MatchlistDislikeAPIView(APIView):
         serializer = MatchlistDislikeSerializer(data=request.data, context={'user_id': request.user.id})
 
         if serializer.is_valid():
+            if self.check_conflict(request):
+                return Response(status=status.HTTP_409_CONFLICT)
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
 
@@ -191,3 +202,10 @@ class MatchlistDislikeAPIView(APIView):
         matchlist_dislike = get_object_or_404(MatchlistDislike, id=request.data['id'])
         matchlist_dislike.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def check_conflict(self, request):
+        friend = User.objects.get(id=request.data['friend'])
+        try:
+            return MatchlistLike.objects.get(user=request.user, friend=friend, movie=request.data['movie']) != None
+        except:
+            return None
