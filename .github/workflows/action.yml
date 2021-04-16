@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: make install-be
+      run: make install-b
     - name: Linting
       run: make lint
     - name: Tests
