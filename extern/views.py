@@ -5,25 +5,29 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .utils import Letterboxd
-# from profiles.models import Watchlist
+from profiles.models import WatchlistMovie
 
 
-# class LetterboxdWatchlistAPIView(APIView):
+class LetterboxdWatchlistAPIView(APIView):
 
-#     def post(self, request, username, operation="add"):
-#         watchlist = Letterboxd.get_watchlist(username)
+    def post(self, request, username):
+        operation = request.GET.get('operation', '')
+        watchlist = Letterboxd.get_watchlist(username)
 
-#         if "error" not in watchlist:
-#             user_list = Watchlist.objects.get(user=request.user)
+        if "error" not in watchlist:
+            user_list = request.user.watchlistmovie_set.all()
 
-#             if operation == "overwrite":
-#                 user_list.watchlist.clear()
+            if operation == "overwrite":
+                user_list.delete()
 
-#             for movie in watchlist:
-#                 if movie["id"] not in user_list.watchlist:
-#                     user_list.add_movie(movie["id"])
+            watchlist_movies = []
+            for movie in watchlist:
+                try:
+                    watchlist_movies.append(WatchlistMovie(user=request.user, movie=movie['id']))
+                except:
+                    pass
 
-#             user_list.save()
-#             return Response(status=status.HTTP_202_ACCEPTED)
-#         else:
-#             return Response(watchlist, status=status.HTTP_404_NOT_FOUND)
+            WatchlistMovie.objects.bulk_create(watchlist_movies, ignore_conflicts=True)
+            return Response(status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(watchlist, status=status.HTTP_404_NOT_FOUND)
