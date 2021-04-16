@@ -1,20 +1,23 @@
+BACKEND=cd backend &&
+FRONTEND=cd frontend &&
+
 install-be:
-	pip install -r requirements.txt
+	$(BACKEND) pip install -r requirements.txt
 
 install-fe:
-	cd frontend && npm install
+	$(FRONTEND) npm install
 	
 run-backend:
-	python manage.py runserver
+	$(BACKEND) python manage.py runserver
 	
 run-frontend:
-	cd frontend && npm run serve
+	$(FRONTEND) npm run serve
 
 migrate:
-	python manage.py makemigrations $(app) && python manage.py migrate $(app)
+	$(BACKEND) python manage.py makemigrations $(app) && python manage.py migrate $(app)
 
 test:
-	python manage.py test $(app)
+	$(BACKEND) python manage.py test $(app)
 
 lint:
 	scripts/lint.sh
