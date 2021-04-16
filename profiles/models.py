@@ -5,6 +5,7 @@ from .managers import ProfileManager
 
 
 class Profile(models.Model):
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     objects = ProfileManager()
