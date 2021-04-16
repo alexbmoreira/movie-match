@@ -14,12 +14,9 @@ movie_credits_api = MovieCreditsAPIView.as_view()
 
 
 urlpatterns = [
-    path("movies/<str:search>/", movie_search_api, name="movies"),
-    path("movies/<str:search>/<int:page>/", movie_search_api, name="movies_page"),
-    path("actors/<str:search>/", actor_search_api, name="actors"),
-    path("actors/<str:search>/<int:page>/", actor_search_api, name="actors_page"),
-    path("crew/<str:search>/", crew_search_api, name="crew"),
-    path("crew/<str:search>/<int:page>/", crew_search_api, name="crew_page"),
+    path("movies/", movie_search_api, name="movies"),
+    path("actors/", actor_search_api, name="actors"),
+    path("crew/", crew_search_api, name="crew"),
     path("movie/<int:movie_id>/", movie_data_api, name="movie_metadata"),
     path("person/<int:person_id>/", person_data_api, name="person_metadata"),
     path("popular/", popular_movies_api, name="popular_movies"),
