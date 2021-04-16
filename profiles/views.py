@@ -5,10 +5,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import FriendRequest, Friendship, Profile, User, WatchlistMovie
+from .models import (FriendRequest, Friendship, MatchlistLike, Profile, User,
+                     WatchlistMovie)
 from .serializers import (FriendRequestSerializer, FriendshipSerializer,
-                          ProfileSerializer, UserSerializer,
-                          WatchlistMovieSerializer)
+                          MatchlistLikeSerializer, ProfileSerializer,
+                          UserSerializer, WatchlistMovieSerializer)
 
 
 class UserAPIView(APIView):
@@ -135,4 +136,30 @@ class WatchlistAPIView(APIView):
         watchlist_movie = get_object_or_404(WatchlistMovie, id=request.data['id'])
         watchlist_movie.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-        
+
+
+class MatchlistLikeAPIView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        likes = request.user.matchlist_likes.all()
+        serializer = MatchlistLikeSerializer(likes, many=True)
+        data = {}
+        data['user'] = ProfileSerializer(request.user.profile).data
+        data['likes'] = serializer.data
+        return Response(data=data)
+
+    def post(self, request):
+        serializer = MatchlistLikeSerializer(data=request.data, context={'user_id': request.user.id})
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request):
+        matchlist_like = get_object_or_404(MatchlistLike, id=request.data['id'])
+        matchlist_like.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
