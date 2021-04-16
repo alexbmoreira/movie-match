@@ -2,6 +2,7 @@ import sys
 
 import requests
 from django.conf import settings
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -10,7 +11,13 @@ api_key = settings.TMDB_API
 
 class MovieSearchAPIView(APIView):
 
-    def get(self, request, search, page=1):
+    def get(self, request):
+        search = request.GET.get('search', '')
+        page = int(request.GET.get('page', 1))
+
+        if search == '':
+            return Response(data={'error': 'search param required'}, status=status.HTTP_400_BAD_REQUEST)
+
         cached = 'movie_search' in request.session and \
             sys.getsizeof(request.session['movie_search']) > 0 and \
             request.session['movie_search']['search'] == search and \
@@ -30,6 +37,7 @@ class MovieSearchAPIView(APIView):
 
             request.session['movie_search'] = movies
             request.session['movie_search']['search'] = search
+            request.session['movie_search']['page'] = page
 
         return Response(request.session['movie_search'])
 
@@ -43,7 +51,13 @@ class MovieSearchAPIView(APIView):
 
 class ActorSearchAPIView(APIView):
 
-    def get(self, request, search, page=1):
+    def get(self, request):
+        search = request.GET.get('search', '')
+        page = int(request.GET.get('page', 1))
+
+        if search == '':
+            return Response(data={'error': 'search param required'}, status=status.HTTP_400_BAD_REQUEST)
+
         cached = 'actor_search' in request.session and \
             sys.getsizeof(request.session['actor_search']) > 0 and \
             request.session['actor_search']['search'] == search and \
@@ -62,13 +76,20 @@ class ActorSearchAPIView(APIView):
 
             request.session['actor_search'] = actors
             request.session['actor_search']['search'] = search
+            request.session['actor_search']['page'] = page
 
         return Response(request.session['actor_search'])
 
 
 class CrewSearchAPIView(APIView):
 
-    def get(self, request, search, page=1):
+    def get(self, request):
+        search = request.GET.get('search', '')
+        page = int(request.GET.get('page', 1))
+
+        if search == '':
+            return Response(data={'error': 'search param required'}, status=status.HTTP_400_BAD_REQUEST)
+
         cached = 'crew_search' in request.session and \
             sys.getsizeof(request.session['crew_search']) > 0 and \
             request.session['crew_search']['search'] == search and \
@@ -87,6 +108,7 @@ class CrewSearchAPIView(APIView):
 
             request.session['crew_search'] = crew
             request.session['crew_search']['search'] = search
+            request.session['crew_search']['page'] = page
 
         return Response(request.session['crew_search'])
 
