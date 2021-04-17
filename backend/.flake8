@@ -1,0 +1,11 @@
+[flake8]
+count = True
+
+exclude = 
+	*migrations*,
+	test_*,
+	*/apps.py
+
+ignore = E128
+
+max-line-length = 119
