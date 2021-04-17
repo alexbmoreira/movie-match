@@ -6,15 +6,17 @@
       </div>
       <div class="flex flex-col mx-auto mb-6">
         <!-- Profile Pic -->
-        <ProfilePicture pic-size="20" :user="user" />
-        <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
+        <router-link :to="{ name: 'Profile', params: { username: user.username, id: user.id } }">
+          <ProfilePicture pic-size="20" :user="user" />
+          <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
+        </router-link>
       </div>
       <div class="flex mb-2">
         <p class="text-lg">Your Friends:</p>
       </div>
       <!-- Friends list -->
       <div class="flex flex-col divide-y divide-app-bg-light">
-        <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend" />
+        <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend.friend" />
       </div>
     </div>
     <div v-else class="flex flex-col mx-auto my-auto mt-8">
@@ -64,7 +66,7 @@ export default {
     async friends() {
       if (this.$store.getters.isLoggedIn) {
         var result = await friendsAPI.getFriends(this.user.id)
-        this.friendsList = result.friends
+        this.friendsList = result
       }
     }
   }

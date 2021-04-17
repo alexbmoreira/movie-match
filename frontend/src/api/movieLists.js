@@ -1,22 +1,8 @@
 import api from '@/api/api.service'
 import movieAPI from '@/api/movies'
-import Cookies from 'js-cookie'
-
-var config = {}
-
-function setAuth() {
-  if (Cookies.get('access_token')) {
-    config = {
-      headers: {
-        Authorization: `Token ${Cookies.get('access_token')}`
-      }
-    }
-  }
-}
 
 async function getMatchlist(userID) {
-  setAuth()
-  var response = await api.get(`/user/matchlist/${userID}`, config).then(response => response.data)
+  var response = await api.get(`/user/matchlist/${userID}`).then(response => response.data)
 
   response.likes.forEach(async function(movie, index, array) {
     array[index] = await movieAPI.getMetadata('movie', movie)
@@ -32,8 +18,7 @@ async function getMatchlist(userID) {
 }
 
 async function getJointWatchlist(userID) {
-  setAuth()
-  var response = await api.get(`/user/joint-watchlist/${userID}`, config).then(response => response.data)
+  var response = await api.get(`/user/joint-watchlist/${userID}`).then(response => response.data)
 
   response.joint_watchlist.forEach(async function(movie, index, array) {
     array[index] = await movieAPI.getMetadata('movie', movie)
@@ -43,8 +28,7 @@ async function getJointWatchlist(userID) {
 }
 
 async function getWatchlist(userID) {
-  setAuth()
-  var response = await api.get(`/profiles/${userID}/watchlist`, config).then(response => response.data)
+  var response = await api.get(`/profiles/${userID}/watchlist`).then(response => response.data)
 
   response.watchlist.forEach(async function(movie, index, array) {
     array[index] = await movieAPI.getMetadata('movie', movie)
