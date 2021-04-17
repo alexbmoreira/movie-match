@@ -7,10 +7,8 @@
       <div class="flex flex-col mx-auto mb-6">
         <div class="">
           <ProfilePicture pic-size="20" :user="user" />
-          <!-- im thinking add a 2pt white ring / border to the profile pic in the future -->
         </div>
-        <p class="font-roboto-slab text-2xl mx-auto">@{{ $route.params.username }}</p>
-        <p class="font-nunito text-base mx-auto mt-2 italic">placeholder text for future desc implementation</p>
+        <p class="font-roboto-slab text-2xl mx-auto">{{ $route.params.username }}</p>
       </div>
       <div class="flex mb-2">
         <p class="text-lg">Watchlist:</p>
@@ -39,6 +37,7 @@ export default {
   },
   data() {
     return {
+      user: {},
       profile: {}
     }
   },
@@ -52,15 +51,18 @@ export default {
 
       // You probably don't need to actually use either if your API functions can work using $route.params.id
       // Call this.getData() here to get all the necessary data on creation
+      this.getData()
     }
   },
   created() {
+    this.getData()
     // In here is where you get all data from users (Profile info, friends, etc.)
     // Check the backend code for any urls you need
     // Call this.getData() here to get all the necessary data on creation
   },
   methods: {
     getData() {
+      this.user = this.$store.getters.user
       // Call all your API calling functions here
       // this.getProfile()
       // this.getFriends()
