@@ -3,11 +3,10 @@ name: MovieMatch
 on: [push]
 
 jobs:
-  build:
-
+  backend:
+    name: Back-end
     container: python:3.8-buster
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres
@@ -24,9 +23,22 @@ jobs:
     - name: Install dependencies
       run: make install-b
     - name: Linting
-      run: make lint
+      run: make lint-b
     - name: Tests
       run: make test
       env:
         POSTGRES_HOST: postgres
         POSTGRES_PORT: 5432
+
+  frontend:
+    name: Front-end
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 15.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: make install-f
+    - name: Linting
+      run: make lint-f
