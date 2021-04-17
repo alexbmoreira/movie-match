@@ -1,7 +1,7 @@
 import api from '@/api/api.service'
 
 async function makeSearch(searchType, search, page = 1) {
-  return api.get(`/movies/${searchType}/${search}/${page}`).then(response => response.data)
+  return api.get(`/movies/${searchType}/`, { params: { search, page } }).then(response => response.data)
 }
 
 async function getMetadata(type, id) {
