@@ -26,6 +26,7 @@ urlpatterns = [
     path("user/matches/", matches_api, name="matches"),
     path("user/joint-watchlist/", joint_watchlist_api, name="joint_watchlist"),
     path("user/", user_api, name="current_user"),
+    path("profiles/<int:user_id>/friends/", friendships_api, name="friendships_all"),
     path("profiles/<int:user_id>/", profile_detail_api, name="profile_detail"),
     path("profiles/", profile_api, name="profiles"),
 ]
