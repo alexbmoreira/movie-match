@@ -6,8 +6,10 @@
       </div>
       <div class="flex flex-col mx-auto mb-6">
         <!-- Profile Pic -->
-        <ProfilePicture pic-size="20" :user="user" />
-        <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
+        <router-link :to="{ name: 'Profile', params: { username: user.username, id: user.id } }">
+          <ProfilePicture pic-size="20" :user="user" />
+          <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
+        </router-link>
       </div>
       <div class="flex mb-2">
         <p class="text-lg">Your Friends:</p>
