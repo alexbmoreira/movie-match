@@ -8,7 +8,7 @@
         <div class="">
           <ProfilePicture pic-size="20" :user="user" />
         </div>
-        <p class="font-roboto-slab text-2xl mx-auto">{{ $route.params.username }}</p>
+        <p class="font-roboto-slab text-2xl mx-auto">{{ user.username }}</p>
       </div>
       <div class="flex mb-2">
         <p class="text-lg">Watchlist:</p>
@@ -17,28 +17,28 @@
         <p class="text-lg">Username's Friends:</p>
       </div>
       <div class="flex flex-col divide-y divide-app-bg-light">
-        <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend" />
+        <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend.friend" />
       </div>
-    </div>
-    <div>
-      {{ $route.params.username }}
-      {{ $route.params.id }}
     </div>
   </div>
 </template>
 
 <script>
 import ProfilePicture from '@/components/common/ProfilePicture'
+import FriendItem from '@/components/lists/FriendItem'
+import friendsAPI from '@/api/friends'
 
 export default {
   name: 'Profile',
   components: {
-    ProfilePicture
+    ProfilePicture,
+    FriendItem
   },
   data() {
     return {
       user: {},
-      profile: {}
+      profile: {},
+      friendsList: []
     }
   },
   watch: {
@@ -62,13 +62,19 @@ export default {
   },
   methods: {
     getData() {
-      this.user = this.$store.getters.user
+      this.user = this.$route.params
       // Call all your API calling functions here
       // this.getProfile()
-      // this.getFriends()
+      this.getFriends()
       // etc.
     },
     async getProfile() {
+      // Call the profileAPI by passing $route.params.id
+      // You'll have to write a new set of API functions, so make a profiles.js file in the api folder
+      // Use the response to populate the profile object in this case
+    },
+    async getFriends() {
+      this.friendsList = await friendsAPI.getFriends(this.user.id)
       // Call the profileAPI by passing $route.params.id
       // You'll have to write a new set of API functions, so make a profiles.js file in the api folder
       // Use the response to populate the profile object in this case
