@@ -2,7 +2,7 @@ import api from '@/api/api.service'
 import movieAPI from '@/api/movies'
 
 async function getMatchlist(userID) {
-  var response = await api.get(`/user/matchlist/${userID}`).then(response => response.data)
+  let response = await api.get(`/user/matchlist/${userID}`).then(response => response.data)
 
   response.likes.forEach(async function(movie, index, array) {
     array[index] = await movieAPI.getMetadata('movie', movie)
@@ -18,7 +18,7 @@ async function getMatchlist(userID) {
 }
 
 async function getJointWatchlist(userID) {
-  var response = await api.get(`/user/joint-watchlist/${userID}`).then(response => response.data)
+  let response = await api.get(`/user/joint-watchlist/${userID}`).then(response => response.data)
 
   response.joint_watchlist.forEach(async function(movie, index, array) {
     array[index] = await movieAPI.getMetadata('movie', movie)
@@ -28,13 +28,13 @@ async function getJointWatchlist(userID) {
 }
 
 async function getWatchlist(userID) {
-  var response = await api.get(`/profiles/${userID}/watchlist`).then(response => response.data)
+  let response = await api.get(`/profiles/${userID}/watchlist`).then(response => response.data)
 
-  response.watchlist.forEach(async function(movie, index, array) {
-    array[index] = await movieAPI.getMetadata('movie', movie)
+  response.watchlist.forEach(async element => {
+    element.movie = await movieAPI.getMetadata('movie', element.movie)
   })
 
-  return response
+  return response.watchlist
 }
 
 export default {

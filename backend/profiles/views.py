@@ -120,8 +120,9 @@ class WatchlistAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request):
-        watchlist = request.user.watchlistmovie_set.all()
+    def get(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
+        watchlist = user.watchlistmovie_set.all()
         serializer = WatchlistMovieSerializer(watchlist, many=True)
         data = {}
         data['user'] = ProfileSerializer(request.user.profile).data

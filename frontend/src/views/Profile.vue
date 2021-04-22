@@ -20,6 +20,7 @@
         <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend.friend" />
       </div>
     </div>
+    <p>{{ watchlist }}</p>
   </div>
 </template>
 
@@ -27,6 +28,7 @@
 import ProfilePicture from '@/components/common/ProfilePicture'
 import FriendItem from '@/components/lists/FriendItem'
 import friendsAPI from '@/api/friends'
+import movieListsAPI from '@/api/movieLists'
 
 export default {
   name: 'Profile',
@@ -38,7 +40,8 @@ export default {
     return {
       user: {},
       profile: {},
-      friendsList: []
+      friendsList: [],
+      watchlist: []
     }
   },
   watch: {
@@ -66,6 +69,7 @@ export default {
       // Call all your API calling functions here
       // this.getProfile()
       this.getFriends()
+      this.getWatchlist()
       // etc.
     },
     async getProfile() {
@@ -75,9 +79,9 @@ export default {
     },
     async getFriends() {
       this.friendsList = await friendsAPI.getFriends(this.user.id)
-      // Call the profileAPI by passing $route.params.id
-      // You'll have to write a new set of API functions, so make a profiles.js file in the api folder
-      // Use the response to populate the profile object in this case
+    },
+    async getWatchlist() {
+      this.watchlist = await movieListsAPI.getWatchlist(this.user.id)
     }
   }
 }
