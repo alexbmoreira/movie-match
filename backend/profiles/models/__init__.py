@@ -7,12 +7,12 @@ from .matchlist_like import MatchlistLike
 from .profile import Profile
 from .watchlist_movie import WatchlistMovie
 
-__all__ = [ 
-  'Profile',
-  'Friendship',
-  'FriendRequest',
-  'MatchlistLike',
-  'MatchlistDislike',
-  'WatchlistMovie',
-  'User'
+__all__ = [
+    'Profile',
+    'Friendship',
+    'FriendRequest',
+    'MatchlistLike',
+    'MatchlistDislike',
+    'WatchlistMovie',
+    'User'
 ]

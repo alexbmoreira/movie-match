@@ -7,12 +7,12 @@ from .user_serializer import UserSerializer
 from .watchlist_movie_serializer import WatchlistMovieSerializer
 
 __all__ = [
-  'ProfileSerializer',
-  'FriendRequestSerializer',
-  'FriendshipSerializer',
-  'MatchlistLikeSerializer',
-  'MatchlistDislikeSerializer',
-  'WatchlistMovieSerializer',
-  'UserSerializer',
+    'ProfileSerializer',
+    'FriendRequestSerializer',
+    'FriendshipSerializer',
+    'MatchlistLikeSerializer',
+    'MatchlistDislikeSerializer',
+    'WatchlistMovieSerializer',
+    'UserSerializer',
 ]
 

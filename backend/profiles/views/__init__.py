@@ -1,5 +1,3 @@
-from django.contrib.auth.models import User
-
 from .friend_request_view import FriendRequestAPIView
 from .friendship_view import FriendshipAPIView
 from .matchlist_dislike_view import MatchlistDislikeAPIView
@@ -11,15 +9,15 @@ from .user_view import UserAPIView
 from .watchlist_view import WatchlistAPIView
 from .joint_watchlist_view import JointWatchlistAPIView
 
-__all__ = [ 
-  'ProfileAPIView',
-  'ProfileDetailAPIView'
-  'FriendshipAPIView',
-  'FriendRequestAPIView',
-  'MatchlistLikeAPIView',
-  'MatchlistDislikeAPIView',
-  'MatchlistMatchAPIView',
-  'WatchlistAPIView',
-  'JointWatchlistAPIView',
-  'UserAPIView'
+__all__ = [
+    'ProfileAPIView',
+    'ProfileDetailAPIView',
+    'FriendshipAPIView',
+    'FriendRequestAPIView',
+    'MatchlistLikeAPIView',
+    'MatchlistDislikeAPIView',
+    'MatchlistMatchAPIView',
+    'WatchlistAPIView',
+    'JointWatchlistAPIView',
+    'UserAPIView'
 ]

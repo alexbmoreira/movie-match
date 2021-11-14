@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 
 from ..serializers import UserSerializer
 
+
 class UserAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
