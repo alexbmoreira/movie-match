@@ -6,6 +6,8 @@ exclude =
 	test_*,
 	*/apps.py
 
-ignore = E128
+ignore = W391
 
 max-line-length = 119
+
+indent-size = 2
