@@ -4,7 +4,7 @@ from django.db import models
 
 class WatchlistMovie(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='watchlist', on_delete=models.CASCADE)
     movie = models.IntegerField(blank=True, default=list)
 
     class Meta:

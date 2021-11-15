@@ -14,7 +14,7 @@
         <p class="text-lg">Watchlist:</p>
       </div>
       <div class="flex mb-2">
-        <p class="text-lg">Username's Friends:</p>
+        <p class="text-lg">{{ `${user.username}'s Friends:` }}</p>
       </div>
       <div class="flex flex-col divide-y divide-app-bg-light">
         <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend.friend" />
