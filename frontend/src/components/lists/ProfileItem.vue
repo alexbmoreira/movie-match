@@ -24,7 +24,7 @@ import CircleButton from '@/components/actions/CircleButton'
 import ProfilePicture from '@/components/common/ProfilePicture'
 
 export default {
-  name: 'FriendItem',
+  name: 'ProfileItem',
   components: {
     CircleButton,
     ProfilePicture

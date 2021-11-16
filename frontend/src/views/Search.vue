@@ -3,19 +3,22 @@
     <div class="border-app-bg-light border-b pb-2 text-xl font-thin">
       <p class="italic text-sm pl-1 lg:text-base">{{ resultsInfo }}</p>
     </div>
-    <div class="divide-y border-b divide-app-bg-light border-app-bg-light">
+    <List>
       <MovieItem v-for="result in results" :key="result.id" :search-type="searchType" :result="result" />
-    </div>
+    </List>
   </div>
 </template>
 
 <script>
+import List from '@/components/lists/List'
 import MovieItem from '@/components/lists/MovieItem'
+
 import searchAPI from '@/api/movies'
 
 export default {
   name: 'Search',
   components: {
+    List,
     MovieItem
   },
   data() {

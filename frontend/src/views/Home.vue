@@ -16,7 +16,7 @@
       </div>
       <!-- Friends list -->
       <div class="flex flex-col divide-y divide-app-bg-light">
-        <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend.friend" />
+        <ProfileItem v-for="friend in friendsList" :key="friend.id" :friend="friend.friend" />
       </div>
     </div>
     <div v-else class="flex flex-col mx-auto my-auto mt-8">
@@ -36,14 +36,14 @@
 
 <script>
 import friendsAPI from '@/api/friends'
-import FriendItem from '@/components/lists/FriendItem'
+import ProfileItem from '@/components/lists/ProfileItem'
 import LgActionButton from '@/components/actions/LgActionButton'
 import ProfilePicture from '@/components/common/ProfilePicture'
 
 export default {
   name: 'Home',
   components: {
-    FriendItem,
+    ProfileItem,
     LgActionButton,
     ProfilePicture
   },

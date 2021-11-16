@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full justify-between py-2">
+  <div class="flex justify-between py-2">
     <div class="flex w-full">
       <img class="h-poster-sm w-poster-sm object-left object-cover border-2 rounded lg:my-auto lg:h-poster-md lg:w-poster-md" :src="getPoster(result)" alt="" />
       <div class="flex flex-col mx-2 lg:ml-10 my-auto">

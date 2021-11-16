@@ -16,23 +16,26 @@
       <div class="flex mb-2">
         <p class="text-lg">{{ `${user.username}'s Friends:` }}</p>
       </div>
-      <div class="flex flex-col divide-y divide-app-bg-light">
-        <FriendItem v-for="friend in profile.friends" :key="friend.id" :friend="friend" />
-      </div>
+      <List>
+        <ProfileItem v-for="friend in profile.friends" :key="friend.id" :friend="friend" />
+      </List>
     </div>
   </div>
 </template>
 
 <script>
 import ProfilePicture from '@/components/common/ProfilePicture'
-import FriendItem from '@/components/lists/FriendItem'
+import List from '@/components/lists/List'
+import ProfileItem from '@/components/lists/ProfileItem'
+
 import profileAPI from '@/api/profiles'
 
 export default {
   name: 'Profile',
   components: {
     ProfilePicture,
-    FriendItem
+    List,
+    ProfileItem
   },
   data() {
     return {
