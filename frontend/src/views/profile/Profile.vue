@@ -17,7 +17,12 @@
             </p>
           </div>
           <SideScrollList>
-            <Poster v-for="movie in profile.watchlist" :key="movie.id" size="lg" />
+            <Poster
+              v-for="movie in profile.watchlist"
+              :key="movie.id"
+              :poster-path="movie.poster_link_md"
+              size="lg"
+            />
           </SideScrollList>
         </div>
         <div>
@@ -36,6 +41,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import ProfilePicture from '@/components/common/ProfilePicture'
 import List from '@/components/lists/List'
 import SideScrollList from '@/components/lists/SideScrollList'
@@ -43,6 +49,7 @@ import ProfileItem from '@/components/lists/ProfileItem'
 import Poster from '@/components/movies/Poster'
 
 import profileAPI from '@/api/profiles'
+import moviesAPI from '@/api/movies'
 
 export default {
   name: 'Profile',
@@ -66,12 +73,15 @@ export default {
   },
   created() {
     this.getData()
-    console.log(this.profile)
   },
   methods: {
     async getData() {
       this.user = this.$route.params
       this.profile = await profileAPI.getProfile(this.user.id)
+
+      this.profile.watchlist = await Promise.all(_.map(this.profile.watchlist, async (m) => {
+        return await moviesAPI.getMetadata('movie', m.movie)
+      }))
     }
   }
 }
