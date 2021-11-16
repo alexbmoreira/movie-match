@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
-import Home from '@/views/Home'
-import Profile from '@/views/Profile'
-import Register from '@/views/Register'
-import Login from '@/views/Login'
-import Search from '@/views/Search'
+import Home from '@/views/home/Home'
+import Profile from '@/views/profile/Profile'
+import Register from '@/views/auth/Register'
+import Login from '@/views/auth/Login'
+import Search from '@/views/search/Search'
 import NotFound from '@/views/NotFound'
 
 Vue.use(VueRouter)

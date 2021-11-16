@@ -2,17 +2,23 @@
   <div class="bg-app-bg">
     <div v-if="isLoggedIn" class="flex flex-col py-4">
       <div class="mx-auto mb-2">
-        <p class="text-xl text-app-typeface-muted">Welcome back,</p>
+        <p class="text-xl text-app-typeface-muted">
+          Welcome back,
+        </p>
       </div>
       <div class="flex flex-col mx-auto mb-6">
         <!-- Profile Pic -->
         <router-link :to="{ name: 'Profile', params: { username: user.username, id: user.id } }">
           <ProfilePicture pic-size="20" :user="user" />
-          <p class="font-roboto-slab text-2xl">{{ user.username }}</p>
+          <p class="font-roboto-slab text-2xl">
+            {{ user.username }}
+          </p>
         </router-link>
       </div>
       <div class="flex mb-2">
-        <p class="text-lg">Your Friends:</p>
+        <p class="text-lg">
+          Your Friends:
+        </p>
       </div>
       <!-- Friends list -->
       <div class="flex flex-col divide-y divide-app-bg-light">
@@ -21,14 +27,20 @@
     </div>
     <div v-else class="flex flex-col mx-auto my-auto mt-8">
       <div class="text-center mb-10">
-        <p class="font-roboto-slab text-4xl mb-4">Have a no-fight movie night!</p>
-        <p class="text-lg">Decide what to watch with friends based on your personal watchlists.</p>
+        <p class="font-roboto-slab text-4xl mb-4">
+          Have a no-fight movie night!
+        </p>
+        <p class="text-lg">
+          Decide what to watch with friends based on your personal watchlists.
+        </p>
       </div>
       <div class="flex flex-col mx-auto">
         <router-link to="/register" class="mx-auto mb-2">
           <LgActionButton text="Create an Account" />
         </router-link>
-        <router-link to="/login" class="text-app-typeface text-xs hover:underline">Or sign in if you already know what's up</router-link>
+        <router-link to="/login" class="text-app-typeface text-xs hover:underline">
+          Or sign in if you already know what's up
+        </router-link>
       </div>
     </div>
   </div>
