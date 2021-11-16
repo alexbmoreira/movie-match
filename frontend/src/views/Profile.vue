@@ -17,18 +17,16 @@
         <p class="text-lg">{{ `${user.username}'s Friends:` }}</p>
       </div>
       <div class="flex flex-col divide-y divide-app-bg-light">
-        <FriendItem v-for="friend in friendsList" :key="friend.id" :friend="friend.friend" />
+        <FriendItem v-for="friend in profile.friends" :key="friend.id" :friend="friend" />
       </div>
     </div>
-    <p>{{ watchlist }}</p>
   </div>
 </template>
 
 <script>
 import ProfilePicture from '@/components/common/ProfilePicture'
 import FriendItem from '@/components/lists/FriendItem'
-import friendsAPI from '@/api/friends'
-import movieListsAPI from '@/api/movieLists'
+import profileAPI from '@/api/profiles'
 
 export default {
   name: 'Profile',
@@ -39,49 +37,27 @@ export default {
   data() {
     return {
       user: {},
-      profile: {},
-      friendsList: [],
-      watchlist: []
+      profile: {}
     }
   },
   watch: {
     $route(to, from) {
-      // This function watches for route changes. In other words, when you go from profile/alex to profile/will, the route is the same (same issue as search)
-      // This makes it so that it can stay on the page but update based on the new params (i.e. new users)
+      console.log(to)
+      console.log(from)
 
-      console.log(to) // This is the user profile you came from
-      console.log(from) // This is the user profile you're going to
-
-      // You probably don't need to actually use either if your API functions can work using $route.params.id
-      // Call this.getData() here to get all the necessary data on creation
       this.getData()
     }
   },
   created() {
     this.getData()
-    // In here is where you get all data from users (Profile info, friends, etc.)
-    // Check the backend code for any urls you need
-    // Call this.getData() here to get all the necessary data on creation
+    console.log(this.profile)
   },
   methods: {
-    getData() {
+    async getData() {
       this.user = this.$route.params
       // Call all your API calling functions here
-      // this.getProfile()
-      this.getFriends()
-      this.getWatchlist()
-      // etc.
-    },
-    async getProfile() {
-      // Call the profileAPI by passing $route.params.id
-      // You'll have to write a new set of API functions, so make a profiles.js file in the api folder
-      // Use the response to populate the profile object in this case
-    },
-    async getFriends() {
-      this.friendsList = await friendsAPI.getFriends(this.user.id)
-    },
-    async getWatchlist() {
-      this.watchlist = await movieListsAPI.getWatchlist(this.user.id)
+      // this.getProfile()]
+      this.profile = await profileAPI.getProfile(this.user.id)
     }
   }
 }

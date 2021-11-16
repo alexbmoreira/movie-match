@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'Profile', params: { username: friend.username, id: friend.user_id } }">
+  <router-link :to="{ name: 'Profile', params: { username: friend.username, id: friend.id } }">
     <div class="flex justify-between py-2">
       <!-- Friend -->
       <div class="flex space-x-2">
