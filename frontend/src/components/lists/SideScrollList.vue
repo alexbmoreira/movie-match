@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col divide-y divide-app-bg-light">
+  <div class="flex space-x-4 overflow-x-scroll">
     <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'List'
+  name: 'SideScrollList'
 }
 </script>

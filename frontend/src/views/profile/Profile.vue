@@ -9,19 +9,28 @@
           {{ user.username }}
         </p>
       </div>
-      <div class="flex mb-2">
-        <p class="text-lg">
-          Watchlist:
-        </p>
+      <div class="space-y-8">
+        <div>
+          <div class="flex mb-2">
+            <p class="text-lg">
+              Watchlist:
+            </p>
+          </div>
+          <SideScrollList>
+            <Poster v-for="movie in profile.watchlist" :key="movie.id" size="lg" />
+          </SideScrollList>
+        </div>
+        <div>
+          <div class="flex mb-2">
+            <p class="text-lg">
+              Friends:
+            </p>
+          </div>
+          <List>
+            <ProfileItem v-for="friend in profile.friends" :key="friend.id" :friend="friend" />
+          </List>
+        </div>
       </div>
-      <div class="flex mb-2">
-        <p class="text-lg">
-          {{ `${user.username}'s Friends:` }}
-        </p>
-      </div>
-      <List>
-        <ProfileItem v-for="friend in profile.friends" :key="friend.id" :friend="friend" />
-      </List>
     </div>
   </div>
 </template>
@@ -29,7 +38,9 @@
 <script>
 import ProfilePicture from '@/components/common/ProfilePicture'
 import List from '@/components/lists/List'
+import SideScrollList from '@/components/lists/SideScrollList'
 import ProfileItem from '@/components/lists/ProfileItem'
+import Poster from '@/components/movies/Poster'
 
 import profileAPI from '@/api/profiles'
 
@@ -38,7 +49,9 @@ export default {
   components: {
     ProfilePicture,
     List,
-    ProfileItem
+    SideScrollList,
+    ProfileItem,
+    Poster
   },
   data() {
     return {
