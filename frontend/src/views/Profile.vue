@@ -41,10 +41,7 @@ export default {
     }
   },
   watch: {
-    $route(to, from) {
-      console.log(to)
-      console.log(from)
-
+    $route() {
       this.getData()
     }
   },
@@ -55,8 +52,6 @@ export default {
   methods: {
     async getData() {
       this.user = this.$route.params
-      // Call all your API calling functions here
-      // this.getProfile()]
       this.profile = await profileAPI.getProfile(this.user.id)
     }
   }
