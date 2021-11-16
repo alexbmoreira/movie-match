@@ -1,20 +1,23 @@
 <template>
   <div id="profile_page" class="">
     <div class="flex flex-col py-4">
-      <div class="mx-auto mb-2">
-        <p class="text-xl text-app-typeface-muted invisible">Welcome back,</p>
-      </div>
       <div class="flex flex-col mx-auto mb-6">
         <div class="">
           <ProfilePicture pic-size="20" :user="user" />
         </div>
-        <p class="font-roboto-slab text-2xl mx-auto">{{ user.username }}</p>
+        <p class="font-roboto-slab text-2xl mx-auto">
+          {{ user.username }}
+        </p>
       </div>
       <div class="flex mb-2">
-        <p class="text-lg">Watchlist:</p>
+        <p class="text-lg">
+          Watchlist:
+        </p>
       </div>
       <div class="flex mb-2">
-        <p class="text-lg">{{ `${user.username}'s Friends:` }}</p>
+        <p class="text-lg">
+          {{ `${user.username}'s Friends:` }}
+        </p>
       </div>
       <List>
         <ProfileItem v-for="friend in profile.friends" :key="friend.id" :friend="friend" />

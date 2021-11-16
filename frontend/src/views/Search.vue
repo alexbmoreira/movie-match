@@ -1,17 +1,24 @@
 <template>
   <div class="pb-4 mx-4 bg-app-bg min-h-full border-app-bg-light mx-auto">
     <div class="border-app-bg-light border-b pb-2 text-xl font-thin">
-      <p class="italic text-sm pl-1 lg:text-base">{{ resultsInfo }}</p>
+      <p class="italic text-sm pl-1 lg:text-base">
+        {{ resultsInfo }}
+      </p>
     </div>
     <List>
-      <MovieItem v-for="result in results" :key="result.id" :search-type="searchType" :result="result" />
+      <SearchItem
+        v-for="result in results"
+        :key="result.id"
+        :search-type="searchType"
+        :result="result"
+      />
     </List>
   </div>
 </template>
 
 <script>
 import List from '@/components/lists/List'
-import MovieItem from '@/components/lists/MovieItem'
+import SearchItem from '@/components/lists/SearchItem'
 
 import searchAPI from '@/api/movies'
 
@@ -19,7 +26,7 @@ export default {
   name: 'Search',
   components: {
     List,
-    MovieItem
+    SearchItem
   },
   data() {
     return {
