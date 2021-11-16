@@ -1,29 +1,19 @@
 <template>
   <div class="flex justify-between py-2">
     <div class="flex w-full">
-      <img
-        class="h-poster-sm w-poster-sm object-left object-cover border-2 rounded lg:my-auto lg:h-poster-md lg:w-poster-md"
-        :src="getPoster(result)"
-        alt=""
-      >
+      <Poster :poster-path="getPoster(result)" size="lg" />
       <div class="flex flex-col mx-2 lg:ml-10 my-auto">
         <div class="flex flex-wrap">
           <p class="text-xl font-roboto-slab lg:text-3xl">
             {{ getTitle(result) }}
           </p>
         </div>
-        <div
-          v-show="searchType === 'movies'"
-          class="flex"
-        >
+        <div v-show="searchType === 'movies'" class="flex">
           <div class="flex flex-col">
             <p class="text-sm text-app-typeface-muted">
               {{ result.release_year }}
             </p>
-            <div
-              v-for="director in result.directors"
-              :key="director.id"
-            >
+            <div v-for="director in result.directors" :key="director.id">
               <p class="italic">
                 {{ director.name }}
               </p>
@@ -35,53 +25,39 @@
             </div>
           </div>
         </div>
-        <div
-          v-show="searchType !== 'movies'"
-          class="flex"
-        >
+        <div v-show="searchType !== 'movies'" class="flex">
           <div class="flex flex-col">
             <p class="italic">
               {{ result.known_for_department }}
             </p>
-            <p
-              v-if="!!result.known_for && result.known_for.length > 0"
-              class="text-sm text-app-typeface-muted"
-            >
+            <p v-if="!!result.known_for && result.known_for.length > 0" class="text-sm text-app-typeface-muted">
               Known for:
             </p>
-            <p
-              v-for="kf in result.known_for"
-              :key="kf.id"
-              class="text-xs text-app-typeface-muted"
-            >
+            <p v-for="kf in result.known_for" :key="kf.id" class="text-xs text-app-typeface-muted">
               - {{ kf.title }}{{ kf.name }}
             </p>
           </div>
         </div>
       </div>
     </div>
-    <div
-      v-show="searchType === 'movies'"
-      class="flex flex-col my-auto"
-    >
+    <div v-show="searchType === 'movies'" class="flex flex-col my-auto">
       <p class="hidden text-xs text-center md:flex">
         Add to watchlist!
       </p>
-      <CircleButton
-        icon="plus"
-        color="app-primary"
-      />
+      <CircleButton icon="plus" color="app-primary" />
     </div>
   </div>
 </template>
 
 <script>
 import CircleButton from '@/components/actions/CircleButton'
+import Poster from '@/components/movies/Poster'
 
 export default {
   name: 'SearchItem',
   components: {
-    CircleButton
+    CircleButton,
+    Poster
   },
   props: {
     searchType: {

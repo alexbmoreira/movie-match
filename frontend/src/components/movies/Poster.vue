@@ -1,11 +1,9 @@
 <template lang="">
-  <div>
-    <img
-      class="object-left object-cover border-2 rounded lg:my-auto"
-      :src="posterPath"
-      alt=""
-    >
-  </div>
+  <img
+    :class="`${sizingClasses()} object-left object-cover border-2 rounded lg:my-auto`"
+    :src="posterPath"
+    alt=""
+  >
 </template>
 
 <script>

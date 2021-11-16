@@ -4,10 +4,7 @@
       <!-- Friend -->
       <div class="flex space-x-2">
         <!-- Friend Pic -->
-        <ProfilePicture
-          pic-size="14"
-          :user="friend"
-        />
+        <ProfilePicture pic-size="14" :user="friend" />
         <div class="my-auto">
           <p class="font-roboto-slab text-lg">
             {{ friend.username }}
@@ -16,15 +13,9 @@
       </div>
       <div class="flex my-auto space-x-2">
         <!-- Matches -->
-        <CircleButton
-          icon="heart"
-          color="app-like"
-        />
+        <CircleButton icon="heart" color="app-like" />
         <!-- Watch -->
-        <CircleButton
-          icon="ticket-alt"
-          color="app-accent"
-        />
+        <CircleButton icon="ticket-alt" color="app-accent" />
       </div>
     </div>
   </router-link>
