@@ -29,9 +29,10 @@ class MovieSearchAPIView(APIView):
             movies = response.json()
 
             for movie in movies['results']:
-                movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
-                movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
-                movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
+                if movie['poster_path']:
+                    movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
+                    movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+                    movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
                 movie['directors'] = self.get_directors(movie['id'])
                 movie['release_year'] = movie['release_date'][0:4] if 'release_date' in movie else ''
 
@@ -70,9 +71,10 @@ class ActorSearchAPIView(APIView):
             actors['results'] = [actor for actor in actors['results'] if actor['known_for_department'] == "Acting"]
 
             for actor in actors['results']:
-                actor['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{actor['profile_path']}"
-                actor['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{actor['profile_path']}"
-                actor['profile_link_og'] = f"https://image.tmdb.org/t/p/original{actor['profile_path']}"
+                if actor['profile_path']:
+                    actor['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{actor['profile_path']}"
+                    actor['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{actor['profile_path']}"
+                    actor['profile_link_og'] = f"https://image.tmdb.org/t/p/original{actor['profile_path']}"
 
             request.session['actor_search'] = actors
             request.session['actor_search']['search'] = search
@@ -102,9 +104,10 @@ class CrewSearchAPIView(APIView):
             crew['results'] = [actor for actor in crew['results'] if actor['known_for_department'] != "Acting"]
 
             for member in crew['results']:
-                member['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{member['profile_path']}"
-                member['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{member['profile_path']}"
-                member['profile_link_og'] = f"https://image.tmdb.org/t/p/original{member['profile_path']}"
+                if member['profile_path']:
+                    member['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{member['profile_path']}"
+                    member['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{member['profile_path']}"
+                    member['profile_link_og'] = f"https://image.tmdb.org/t/p/original{member['profile_path']}"
 
             request.session['crew_search'] = crew
             request.session['crew_search']['search'] = search
@@ -121,9 +124,10 @@ class MovieMetadataAPIView(APIView):
         response = requests.get(query)
         movie = response.json()
 
-        movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
-        movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
-        movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
+        if movie['poster_path']:
+            movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
+            movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+            movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
 
         movie['release_year'] = movie['release_date'][0:4]
 
@@ -140,9 +144,10 @@ class PersonMetadataAPIView(APIView):
 
         person['credits'] = self.sort_credits(person_id, person['known_for_department'])
 
-        person['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{person['profile_path']}"
-        person['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{person['profile_path']}"
-        person['profile_link_og'] = f"https://image.tmdb.org/t/p/original{person['profile_path']}"
+        if person['profile_path']:
+            person['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{person['profile_path']}"
+            person['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{person['profile_path']}"
+            person['profile_link_og'] = f"https://image.tmdb.org/t/p/original{person['profile_path']}"
 
         return Response(person)
 
@@ -173,9 +178,10 @@ class PopularMoviesAPIView(APIView):
             movies = response.json()
 
             for movie in movies['results']:
-                movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
-                movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
-                movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
+                if movie['poster_path']:
+                    movie['poster_link_sm'] = f"https://image.tmdb.org/t/p/w154{movie['poster_path']}"
+                    movie['poster_link_md'] = f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+                    movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
                 movie['directors'] = self.get_directors(movie['id'])
                 movie['release_year'] = movie['release_date'][0:4] if 'release_date' in movie else ''
 

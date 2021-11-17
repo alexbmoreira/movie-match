@@ -62,8 +62,11 @@
         "warn"
       ],
       "max-len": [
-        0,
+        "off",
         120
+      ],
+      "no-debugger": [
+        "warn"
       ],
       "vue/max-attributes-per-line": [
         "warn",
