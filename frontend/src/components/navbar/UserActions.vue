@@ -10,7 +10,9 @@
     </div>
     <div v-else class="flex m-auto space-x-1">
       <div :class="hideOnHome">
-        <ProfilePicture pic-size="8" :user="user" />
+        <router-link :to="{ name: 'Profile', params: { username: user.username, id: user.id } }">
+          <ProfilePicture pic-size="8" :user="user" />
+        </router-link>
       </div>
       <Button trait="transparent" @onClick="logout">
         Log Out

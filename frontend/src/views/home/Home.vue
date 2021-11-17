@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-app-bg">
-    <div v-if="isLoggedIn" class="flex flex-col py-4">
+  <PageContainer>
+    <div v-if="isLoggedIn" class="flex flex-col">
       <div class="mx-auto mb-2">
         <p class="text-xl text-app-typeface-muted">
           Welcome back,
@@ -43,11 +43,12 @@
         </router-link>
       </div>
     </div>
-  </div>
+  </PageContainer>
 </template>
 
 <script>
 import friendsAPI from '@/api/friends'
+import PageContainer from '@/components/containers/PageContainer'
 import ProfileItem from '@/components/lists/ProfileItem'
 import Button from '@/components/buttons/Button'
 import ProfilePicture from '@/components/common/ProfilePicture'
@@ -55,6 +56,7 @@ import ProfilePicture from '@/components/common/ProfilePicture'
 export default {
   name: 'Home',
   components: {
+    PageContainer,
     ProfileItem,
     Button,
     ProfilePicture
