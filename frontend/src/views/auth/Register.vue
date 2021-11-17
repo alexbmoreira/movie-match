@@ -42,7 +42,7 @@
               <span class="mx-2 py-1 text-app-error-text"><i class="fas fa-exclamation-triangle" /> {{ error }}</span>
             </div>
           </div>
-          <LgActionButton text="Register" />
+          <Button>Register</Button>
         </form>
       </div>
     </div>
@@ -58,12 +58,12 @@
 
 <script>
 import utils from '../../utils.js'
-import LgActionButton from '@/components/buttons/LgActionButton'
+import Button from '@/components/buttons/Button'
 import TextField from '@/components/inputs/TextField'
 
 export default {
   components: {
-    LgActionButton,
+    Button,
     TextField
   },
   data() {

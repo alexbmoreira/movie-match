@@ -14,12 +14,12 @@
         </div>
       </div>
       <div class="flex space-x-2 lg:hidden">
-        <button class="flex items-center text-2xl transition duration-400 ease-in-out hover:text-app-primary" @click="showSearchDropdown()">
+        <Button trait="transparent" @onClick="showSearchDropdown">
           <i class="fas fa-search" />
-        </button>
-        <button class="flex items-center text-3xl transition duration-400 ease-in-out hover:text-app-primary" @click="showMenuDropdown()">
+        </Button>
+        <Button trait="transparent" @onClick="showMenuDropdown">
           <i class="fa fa-bars" />
-        </button>
+        </Button>
       </div>
     </div>
     <!-- Search field -->
@@ -55,13 +55,15 @@
 import Logo from '@/components/SVGComponents/Logo'
 import SearchBar from './SearchBar'
 import UserActions from './UserActions'
+import Button from '@/components/buttons/Button'
 
 export default {
   name: 'Navbar',
   components: {
     Logo,
     SearchBar,
-    UserActions
+    UserActions,
+    Button
   },
   data() {
     return {

@@ -1,6 +1,6 @@
 <template>
-  <div class="flex mx-auto rounded-full bg-app-bg-sec cursor-pointer" :class="`w-${picSize} h-${picSize}`">
-    <p class="mx-auto my-auto uppercase" :class="textSize">
+  <div class="flex m-auto rounded-full bg-app-bg-sec cursor-pointer" :class="`w-${picSize} h-${picSize}`">
+    <p class="m-auto uppercase" :class="textSize">
       {{ userInitial }}
     </p>
   </div>
