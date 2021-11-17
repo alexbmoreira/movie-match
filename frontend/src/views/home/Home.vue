@@ -49,7 +49,7 @@
 <script>
 import friendsAPI from '@/api/friends'
 import ProfileItem from '@/components/lists/ProfileItem'
-import LgActionButton from '@/components/actions/LgActionButton'
+import LgActionButton from '@/components/buttons/LgActionButton'
 import ProfilePicture from '@/components/common/ProfilePicture'
 
 export default {

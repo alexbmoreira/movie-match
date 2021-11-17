@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import TextField from '@/components/actions/TextField'
+import TextField from '@/components/inputs/TextField'
 
 export default {
   name: 'SearchBar',

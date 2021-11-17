@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import CircleButton from '@/components/actions/CircleButton'
+import CircleButton from '@/components/buttons/CircleButton'
 import ProfilePicture from '@/components/common/ProfilePicture'
 
 export default {

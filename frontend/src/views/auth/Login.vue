@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import LgActionButton from '@/components/actions/LgActionButton'
-import TextField from '@/components/actions/TextField'
+import LgActionButton from '@/components/buttons/LgActionButton'
+import TextField from '@/components/inputs/TextField'
 
 export default {
   components: {

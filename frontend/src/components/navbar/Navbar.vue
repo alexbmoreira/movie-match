@@ -55,8 +55,8 @@
 
 <script>
 import Logo from '@/components/SVGComponents/Logo'
-import SearchBar from '@/components/actions/SearchBar'
-import UserActions from '@/components/actions/UserActions'
+import SearchBar from './SearchBar'
+import UserActions from './UserActions'
 
 export default {
   name: 'Navbar',
