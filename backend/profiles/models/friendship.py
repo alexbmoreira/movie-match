@@ -1,11 +1,15 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from ..managers import FriendshipManager
+
 
 class Friendship(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_friendships')
     friend = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='received_friendships')
+
+    objects = FriendshipManager()
 
     class Meta:
         unique_together = ['user', 'friend']

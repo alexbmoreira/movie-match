@@ -1,12 +1,14 @@
 <template>
-  <router-link :to="{ name: 'Profile', params: { username: friend.username, id: friend.user_id } }">
+  <router-link :to="{ name: 'Profile', params: { username: friend.username, id: friend.id } }">
     <div class="flex justify-between py-2">
       <!-- Friend -->
       <div class="flex space-x-2">
         <!-- Friend Pic -->
         <ProfilePicture pic-size="14" :user="friend" />
         <div class="my-auto">
-          <p class="font-roboto-slab text-lg">{{ friend.username }}</p>
+          <p class="font-roboto-slab text-lg">
+            {{ friend.username }}
+          </p>
         </div>
       </div>
       <div class="flex my-auto space-x-2">
@@ -24,7 +26,7 @@ import CircleButton from '@/components/actions/CircleButton'
 import ProfilePicture from '@/components/common/ProfilePicture'
 
 export default {
-  name: 'FriendItem',
+  name: 'ProfileItem',
   components: {
     CircleButton,
     ProfilePicture

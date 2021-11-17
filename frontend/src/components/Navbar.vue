@@ -16,10 +16,10 @@
         </div>
         <div class="flex space-x-2 lg:hidden">
           <button class="flex items-center text-2xl transition duration-400 ease-in-out hover:text-app-primary" @click="showSearchDropdown()">
-            <i class="fas fa-search"></i>
+            <i class="fas fa-search" />
           </button>
           <button class="flex items-center text-3xl transition duration-400 ease-in-out hover:text-app-primary" @click="showMenuDropdown()">
-            <i class="fa fa-bars"></i>
+            <i class="fa fa-bars" />
           </button>
         </div>
       </div>

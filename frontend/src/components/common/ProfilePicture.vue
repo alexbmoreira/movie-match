@@ -1,6 +1,8 @@
 <template>
   <div class="flex mx-auto rounded-full bg-app-bg-sec cursor-pointer" :class="`w-${picSize} h-${picSize}`">
-    <p class="mx-auto my-auto uppercase" :class="textSize">{{ userInitial }}</p>
+    <p class="mx-auto my-auto uppercase" :class="textSize">
+      {{ userInitial }}
+    </p>
   </div>
 </template>
 

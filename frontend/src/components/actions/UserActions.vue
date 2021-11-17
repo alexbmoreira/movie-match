@@ -1,14 +1,20 @@
 <template>
   <div class="flex">
     <div v-if="!isLoggedIn" class="flex my-auto mx-auto space-x-4">
-      <button class="bg-transparent rounded border border-app-typeface w-20 px-4 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click.prevent="goLogin()">Log In</button>
-      <button class="bg-transparent w-20 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="goRegister()">Register</button>
+      <button class="bg-transparent rounded border border-app-typeface w-20 px-4 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click.prevent="goLogin()">
+        Log In
+      </button>
+      <button class="bg-transparent w-20 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="goRegister()">
+        Register
+      </button>
     </div>
     <div v-else class="flex my-auto mx-auto space-x-1">
       <div :class="hideOnHome">
         <ProfilePicture pic-size="8" :user="user" />
       </div>
-      <button class="bg-transparent w-24 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="logout()">Log Out</button>
+      <button class="bg-transparent w-24 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="logout()">
+        Log Out
+      </button>
     </div>
   </div>
 </template>

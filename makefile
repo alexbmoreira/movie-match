@@ -19,6 +19,9 @@ migrate:
 test:
 	$(BACKEND) python manage.py test $(app)
 
+shell:
+	$(BACKEND) python manage.py shell
+
 lint-b:
 	scripts/lint.sh
 
