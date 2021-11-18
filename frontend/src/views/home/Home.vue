@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-app-bg">
-    <div v-if="isLoggedIn" class="flex flex-col py-4">
+  <PageContainer>
+    <div v-if="isLoggedIn" class="flex flex-col">
       <div class="mx-auto mb-2">
         <p class="text-xl text-app-typeface-muted">
           Welcome back,
@@ -36,27 +36,29 @@
       </div>
       <div class="flex flex-col mx-auto">
         <router-link to="/register" class="mx-auto mb-2">
-          <LgActionButton text="Create an Account" />
+          <Button>Create an Account</Button>
         </router-link>
         <router-link to="/login" class="text-app-typeface text-xs hover:underline">
           Or sign in if you already know what's up
         </router-link>
       </div>
     </div>
-  </div>
+  </PageContainer>
 </template>
 
 <script>
 import friendsAPI from '@/api/friends'
+import PageContainer from '@/components/containers/PageContainer'
 import ProfileItem from '@/components/lists/ProfileItem'
-import LgActionButton from '@/components/actions/LgActionButton'
+import Button from '@/components/buttons/Button'
 import ProfilePicture from '@/components/common/ProfilePicture'
 
 export default {
   name: 'Home',
   components: {
+    PageContainer,
     ProfileItem,
-    LgActionButton,
+    Button,
     ProfilePicture
   },
   data() {

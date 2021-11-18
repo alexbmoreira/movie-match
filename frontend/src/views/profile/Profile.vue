@@ -1,6 +1,6 @@
 <template>
-  <div id="profile_page" class="">
-    <div class="flex flex-col py-4">
+  <PageContainer>
+    <div class="flex flex-col">
       <div class="flex flex-col mx-auto mb-6">
         <div class="">
           <ProfilePicture pic-size="20" :user="user" />
@@ -37,11 +37,12 @@
         </div>
       </div>
     </div>
-  </div>
+  </PageContainer>
 </template>
 
 <script>
 import _ from 'lodash'
+import PageContainer from '@/components/containers/PageContainer'
 import ProfilePicture from '@/components/common/ProfilePicture'
 import List from '@/components/lists/List'
 import SideScrollList from '@/components/lists/SideScrollList'
@@ -54,6 +55,7 @@ import moviesAPI from '@/api/movies'
 export default {
   name: 'Profile',
   components: {
+    PageContainer,
     ProfilePicture,
     List,
     SideScrollList,

@@ -1,14 +1,6 @@
 <template>
   <div class="bg-poster-collage bg-center min-h-screen pt-12 pb-6 px-2 md:px-0 md:pt-20">
-    <div class="bg-app-bg-light max-w-lg mx-auto my-20 p-8 rounded-lg shadow-2xl md:p-12">
-      <div>
-        <h3 class="font-bold text-2xl">
-          Welcome back
-        </h3>
-        <p class="text-app-typeface-alt pt-2">
-          Sign in to your account
-        </p>
-      </div>
+    <Panel header="Welcome back" sub-header="Sign in to your account">
       <div class="mt-10">
         <form class="flex flex-col" @submit.prevent="login">
           <div class="mb-6 pt-3">
@@ -32,10 +24,10 @@
               <span class="mx-2 py-1 text-app-error-text"><i class="fas fa-exclamation-triangle" /> {{ error }}</span>
             </div>
           </div>
-          <LgActionButton text="Sign In" />
+          <Button>Sign In</Button>
         </form>
       </div>
-    </div>
+    </Panel>
     <div class="max-w-lg mx-auto text-center mt-12 mb-6">
       <p>
         Don't have an account? <router-link to="/register" class="font-bold hover:underline">
@@ -47,12 +39,14 @@
 </template>
 
 <script>
-import LgActionButton from '@/components/actions/LgActionButton'
-import TextField from '@/components/actions/TextField'
+import Button from '@/components/buttons/Button'
+import Panel from '@/components/containers/Panel'
+import TextField from '@/components/inputs/TextField'
 
 export default {
   components: {
-    LgActionButton,
+    Button,
+    Panel,
     TextField
   },
   data() {

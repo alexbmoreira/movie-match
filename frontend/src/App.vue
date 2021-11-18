@@ -1,24 +1,24 @@
 <template>
-  <div id="app" class="h-full min-h-screen text-app-typeface font-nunito bg-app-bg" :class="path">
+  <div id="app" class="text-app-typeface font-nunito bg-app-bg">
     <Navbar />
-    <router-view class="pt-20" />
+    <router-view />
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/navbar/Navbar'
 
 export default {
   components: {
     Navbar
   },
   computed: {
-    path() {
-      if (!['Login', 'Register', 'Not Found'].includes(this.$route.name)) {
-        return 'px-4 md:px-10 lg:px-48'
-      }
-      return ''
-    }
+    // path() {
+    //   if (!['Login', 'Register', 'Not Found'].includes(this.$route.name)) {
+    //     return 'px-4 md:px-10 lg:px-48'
+    //   }
+    //   return ''
+    // }
   },
   methods: {}
 }

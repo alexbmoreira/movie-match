@@ -56,7 +56,6 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresNoAuth)) {
-    console.log(store)
     if (!store.getters.isLoggedIn) {
       next()
       return

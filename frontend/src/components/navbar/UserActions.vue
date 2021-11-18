@@ -1,31 +1,33 @@
 <template>
   <div class="flex">
-    <div v-if="!isLoggedIn" class="flex my-auto mx-auto space-x-4">
-      <button class="bg-transparent rounded border border-app-typeface w-20 px-4 py-1 transition duration-400 ease-in-out hover:bg-app-primary hover:border-opacity-0" @click.prevent="goLogin()">
+    <div v-if="!isLoggedIn" class="flex m-auto space-x-2 w-52 justify-center">
+      <Button trait="bordered" @onClick="goLogin">
         Log In
-      </button>
-      <button class="bg-transparent w-20 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="goRegister()">
+      </Button>
+      <Button trait="transparent" @onClick="goRegister">
         Register
-      </button>
+      </Button>
     </div>
-    <div v-else class="flex my-auto mx-auto space-x-1">
-      <div :class="hideOnHome">
+    <div v-else class="flex m-auto space-x-1">
+      <router-link :to="{ name: 'Profile', params: { username: user.username, id: user.id } }">
         <ProfilePicture pic-size="8" :user="user" />
-      </div>
-      <button class="bg-transparent w-24 px-1 py-1 transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="logout()">
+      </router-link>
+      <Button trait="transparent" @onClick="logout">
         Log Out
-      </button>
+      </Button>
     </div>
   </div>
 </template>
 
 <script>
 import ProfilePicture from '@/components/common/ProfilePicture'
+import Button from '@/components/buttons/Button'
 
 export default {
   name: 'UserActions',
   components: {
-    ProfilePicture
+    ProfilePicture,
+    Button
   },
   data() {
     return {
@@ -35,12 +37,6 @@ export default {
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn
-    },
-    hideOnHome() {
-      if (this.$route.name !== 'Home') {
-        return 'flex'
-      }
-      return 'hidden'
     }
   },
   created() {

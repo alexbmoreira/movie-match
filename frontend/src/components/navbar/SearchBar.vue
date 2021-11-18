@@ -3,9 +3,9 @@
     <form class="flex w-full" @submit.prevent="routeSearch">
       <TextField v-model="search.string" :placeholder="`Search for ${search.type}...`" />
     </form>
-    <button class="w-auto flex justify-end items-center transition duration-400 ease-in-out hover:text-app-primary" @click.prevent="routeSearch">
+    <Button trait="transparent" @onClick="routeSearch">
       <i class="fas fa-search" />
-    </button>
+    </Button>
     <div class="flex flex-col">
       <label for="searchType" class="text-xs">Search for:</label>
       <select id="searchType" v-model="search.type" class="bg-app-bg rounded">
@@ -24,12 +24,14 @@
 </template>
 
 <script>
-import TextField from '@/components/actions/TextField'
+import TextField from '@/components/inputs/TextField'
+import Button from '@/components/buttons/Button'
 
 export default {
   name: 'SearchBar',
   components: {
-    TextField
+    TextField,
+    Button
   },
   data() {
     return {

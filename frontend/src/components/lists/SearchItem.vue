@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import CircleButton from '@/components/actions/CircleButton'
+import CircleButton from '@/components/buttons/CircleButton'
 import Poster from '@/components/movies/Poster'
 
 export default {

@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-4 mx-4 bg-app-bg min-h-full border-app-bg-light mx-auto">
+  <PageContainer>
     <div class="border-app-bg-light border-b pb-2 text-xl font-thin">
       <p class="italic text-sm pl-1 lg:text-base">
         {{ resultsInfo }}
@@ -13,10 +13,11 @@
         :result="result"
       />
     </List>
-  </div>
+  </PageContainer>
 </template>
 
 <script>
+import PageContainer from '@/components/containers/PageContainer'
 import List from '@/components/lists/List'
 import SearchItem from '@/components/lists/SearchItem'
 
@@ -25,6 +26,7 @@ import searchAPI from '@/api/movies'
 export default {
   name: 'Search',
   components: {
+    PageContainer,
     List,
     SearchItem
   },
