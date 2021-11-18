@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <div v-if="!isLoggedIn" class="flex m-auto space-x-4">
+    <div v-if="!isLoggedIn" class="flex m-auto space-x-2 w-52 justify-center">
       <Button trait="bordered" @onClick="goLogin">
         Log In
       </Button>
@@ -9,11 +9,9 @@
       </Button>
     </div>
     <div v-else class="flex m-auto space-x-1">
-      <div :class="hideOnHome">
-        <router-link :to="{ name: 'Profile', params: { username: user.username, id: user.id } }">
-          <ProfilePicture pic-size="8" :user="user" />
-        </router-link>
-      </div>
+      <router-link :to="{ name: 'Profile', params: { username: user.username, id: user.id } }">
+        <ProfilePicture pic-size="8" :user="user" />
+      </router-link>
       <Button trait="transparent" @onClick="logout">
         Log Out
       </Button>
@@ -39,12 +37,6 @@ export default {
   computed: {
     isLoggedIn: function() {
       return this.$store.getters.isLoggedIn
-    },
-    hideOnHome() {
-      if (this.$route.name !== 'Home') {
-        return 'flex'
-      }
-      return 'hidden'
     }
   },
   created() {
