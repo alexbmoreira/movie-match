@@ -1,7 +1,8 @@
-import api from '@/api/api.service'
+import {getRequest} from './api.service'
+import endpoints from './endpoints'
 
 async function getProfile(userId) {
-  return api.get(`/profiles/${userId}/`).then(response => response.data)
+  return getRequest(endpoints.PROFILE.with(userId))
 }
 
 export default {

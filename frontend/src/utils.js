@@ -21,14 +21,14 @@ function validateAll(username, email, password1, password2) {
 }
 
 function validPassword(password1, password2) {
-  var errors = []
+  const errors = []
 
   if (password1.length < 8) {
     errors.push('Password is too short')
   }
 
-  var nonNumericPass = /\D/.test(password1)
-  // var passwordCapLetter = /[A-Z]/.test(password1)
+  const nonNumericPass = /\D/.test(password1)
+  // const passwordCapLetter = /[A-Z]/.test(password1)
 
   if (!nonNumericPass) {
     errors.push('Password cannot be entirely numeric')
@@ -42,10 +42,10 @@ function validPassword(password1, password2) {
 }
 
 function simPwUsername(username, password1) {
-  var errors = []
+  const errors = []
 
-  var u = username.toLowerCase()
-  var p = password1.toLowerCase()
+  const u = username.toLowerCase()
+  const p = password1.toLowerCase()
 
   if (u === p || p.includes(u)) {
     errors.push('Password and username are too similar')
@@ -55,7 +55,7 @@ function simPwUsername(username, password1) {
 }
 
 function validUsername(username) {
-  var errors = []
+  const errors = []
 
   if (username.length < 3) {
     errors.push('Username is not long enough')
@@ -65,8 +65,8 @@ function validUsername(username) {
 }
 
 function validEmail(email) {
-  var errors = []
-  var re = /\S+@\S+\.\S+/
+  const errors = []
+  const re = /\S+@\S+\.\S+/
 
   if (!re.test(email)) {
     errors.push('Not a valid email address')

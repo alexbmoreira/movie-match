@@ -1,11 +1,12 @@
-import api from '@/api/api.service'
+import {getRequest} from './api.service'
+import endpoints from './endpoints'
 
-async function makeSearch(searchType, search, page = 1) {
-  return api.get(`/movies/${searchType}/`, { params: { search, page } }).then(response => response.data)
+async function makeSearch(searchType, searchParams) {
+  return getRequest(endpoints.TMDB.SEARCH.with(searchType), searchParams)
 }
 
 async function getMetadata(type, id) {
-  return api.get(`/movies/${type}/${id}`).then(response => response.data)
+  return getRequest(endpoints.TMDB.DATA.with(type, id))
 }
 
 export default {

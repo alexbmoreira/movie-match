@@ -42,7 +42,7 @@ export default {
   computed: {
     resultsInfo() {
       if (this.results) {
-        var numResults = this.results.length
+        const numResults = this.results.length
         return `Showing ${numResults} result${numResults !== 1 ? 's' : ''} in '${this.searchType}' for: '${this.search}'`
       }
       return ''
@@ -77,7 +77,8 @@ export default {
     async getData(page = this.currentPage) {
       if (page <= this.totalPages) {
         this.currentPage = page
-        var res = await searchAPI.makeSearch(this.$route.params.searchType, this.$route.params.search, page)
+        const searchParams = {params: {search: this.$route.params.search, page}}
+        const res = await searchAPI.makeSearch(this.$route.params.searchType, searchParams)
 
         this.results = this.results.concat(res.results)
         this.totalPages = res.total_pages
