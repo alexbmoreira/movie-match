@@ -68,6 +68,12 @@
       "no-debugger": [
         "warn"
       ],
+      "no-unused-vars": [
+        "warn"
+      ],
+      "vue/no-unused-components": [
+        "warn"
+      ],
       "vue/max-attributes-per-line": [
         "warn",
         {

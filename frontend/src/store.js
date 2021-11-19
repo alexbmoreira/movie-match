@@ -28,31 +28,38 @@ const store = new Vuex.Store({
   },
   actions: {
     async loginUser(context, payload) {
-      await authAPI.login(payload).then(response => {
-        const token = response.key
+      return new Promise((resolve) => {
+        authAPI.login(payload).then(response => {
+          const token = response.key
 
-        context.commit('success', token)
-      })
-
-      await authAPI.getUser().then(user => {
-        context.commit('setUser', user)
+          if(token) {
+            context.commit('success', token)
+          }
+          resolve(response)
+        })
       })
     },
     async registerUser(context, payload) {
-      await authAPI.register(payload).then(response => {
-        const token = response.key
+      return new Promise((resolve) => {
+        authAPI.register(payload).then(response => {
+          const token = response.key
 
-        context.commit('success', token)
-      })
-
-      await authAPI.getUser().then(user => {
-        context.commit('setUser', user)
+          if(token) {
+            context.commit('success', token)
+          }
+          resolve(response)
+        })
       })
     },
     async logoutUser(context) {
       await authAPI.logout()
 
       context.commit('logout')
+    },
+    async setUser(context) {
+      await authAPI.getUser().then(user => {
+        context.commit('setUser', user)
+      })
     }
   },
   getters: {

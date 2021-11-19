@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-app-bg-light max-w-lg mx-auto my-20 p-8 rounded-lg shadow-2xl md:p-12">
+  <div class="bg-app-bg-light max-w-lg m-4 p-6 rounded-lg shadow-2xl md:p-8">
     <div>
       <h3 class="font-bold text-2xl">
         {{ header }}

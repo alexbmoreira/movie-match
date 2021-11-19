@@ -28,8 +28,8 @@ const request = async (url, payload, func) => {
     const response = await func(url, payload)
     return response.data
   } catch (e) {
-    if (e.formErrors) {
-      return {errors: e.formErrors}
+    if (e.response.data) {
+      return {errors: e.response.data}
     }
 
     throw e

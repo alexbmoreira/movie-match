@@ -16,9 +16,7 @@ export default {
     },
     user: {
       type: Object,
-      default: function() {
-        return {}
-      }
+      default: () => {}
     }
   },
   data() {
