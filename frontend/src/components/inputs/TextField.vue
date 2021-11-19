@@ -1,5 +1,8 @@
 <template>
   <div class="w-full">
+    <p v-if="hasLabel" class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3">
+      {{ label }}
+    </p>
     <input
       :value="value"
       :type="type"
@@ -25,6 +28,10 @@ export default {
       type: String,
       default: ''
     },
+    label: {
+      type: String,
+      default: ''
+    },
     placeholder: {
       type: String,
       default: ''
@@ -36,6 +43,11 @@ export default {
     errors: {
       type: Array,
       default: () => []
+    }
+  },
+  computed: {
+    hasLabel() {
+      return !!this.label
     }
   }
 }

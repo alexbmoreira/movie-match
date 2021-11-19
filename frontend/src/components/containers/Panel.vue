@@ -1,6 +1,6 @@
 <template>
   <div class="bg-app-bg-light max-w-lg m-4 p-6 rounded-lg shadow-2xl md:p-8">
-    <div>
+    <div class="mb-8">
       <h3 class="font-bold text-2xl">
         {{ header }}
       </h3>
