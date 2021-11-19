@@ -59,7 +59,7 @@ module.exports = {
         },
         'app-error': {
           bg: '#CC7676',
-          text: '#9C4343'
+          text: '#ED1F1F'
         }
       },
       transitionProperty: {

@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="text-app-typeface font-nunito bg-app-bg">
+  <div id="app" class="flex flex-col h-screen text-app-typeface font-nunito bg-app-bg">
     <Navbar />
-    <router-view />
+    <router-view class="flex-grow" />
   </div>
 </template>
 

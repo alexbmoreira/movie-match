@@ -66,9 +66,7 @@ export default {
     },
     result: {
       type: Object,
-      default: function() {
-        return {}
-      }
+      default: () => {}
     }
   },
   methods: {

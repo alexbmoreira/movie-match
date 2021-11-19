@@ -1,19 +1,20 @@
-import api from '@/api/api.service'
+import {getRequest, postRequest} from './api.service'
+import endpoints from './endpoints'
 
 async function getUser() {
-  return api.get('/user/').then(response => response.data)
+  return getRequest(endpoints.USER)
 }
 
 async function login(data) {
-  return api.post('/rest-auth/login/', data).then(response => response.data)
+  return postRequest(endpoints.AUTH.LOGIN, data)
 }
 
 async function register(data) {
-  return api.post('/rest-auth/register/', data).then(response => response.data)
+  return postRequest(endpoints.AUTH.REGISTER, data)
 }
 
 async function logout() {
-  return api.post('/rest-auth/logout/')
+  return postRequest(endpoints.AUTH.LOGOUT)
 }
 
 export default {

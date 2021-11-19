@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-not-found bg-center bg-cover flex flex-col justify-between min-h-screen pt-12 pb-6 px-2">
+  <div class="bg-not-found bg-center bg-cover flex flex-col justify-between pt-12 pb-6 px-2">
     <div>
       <p class="text-4xl font-roboto-slab">
         Whoops!

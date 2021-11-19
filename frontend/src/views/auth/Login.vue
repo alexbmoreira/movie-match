@@ -1,86 +1,65 @@
 <template>
-  <div class="bg-poster-collage bg-center min-h-screen pt-12 pb-6 px-2 md:px-0 md:pt-20">
-    <Panel header="Welcome back" sub-header="Sign in to your account">
-      <div class="mt-10">
-        <form class="flex flex-col" @submit.prevent="login">
-          <div class="mb-6 pt-3">
-            <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="username">Username</label>
-            <TextField id="username" v-model="username" @blur="clearFields" />
-          </div>
-          <div class="mb-6 pt-3">
-            <label class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3" for="password">Password</label>
-            <TextField
-              id="password"
-              v-model="password"
-              type="password"
-              @blur="clearFields"
-            />
-          </div>
-          <div class="flex justify-end">
-            <a href="#" class="text-sm mb-6 text-app-accent hover:text-app-accent-light hover:underline">Forgot your password?</a>
-          </div>
-          <div v-if="formErrors.length > 0" class="mb-3 space-y-2">
-            <div v-for="(error, index) in formErrors" :key="index" class="flex w-full bg-app-error-bg content-center rounded text-sm">
-              <span class="mx-2 py-1 text-app-error-text"><i class="fas fa-exclamation-triangle" /> {{ error }}</span>
-            </div>
-          </div>
-          <Button>Sign In</Button>
-        </form>
-      </div>
-    </Panel>
-    <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-      <p>
-        Don't have an account? <router-link to="/register" class="font-bold hover:underline">
-          Sign up
-        </router-link>
-      </p>
+  <FormLayout>
+    <FormRow>
+      <TextField
+        v-model="username"
+        :errors="formErrors.username"
+        label="Username"
+      />
+    </FormRow>
+    <FormRow>
+      <TextField
+        v-model="password"
+        type="password"
+        :errors="formErrors.password"
+        label="Password"
+      />
+    </FormRow>
+    <div class="flex justify-end">
+      <a href="#" class="text-sm mb-6 text-app-accent hover:text-app-accent-light hover:underline">Forgot your password?</a>
     </div>
-  </div>
+    <Button @onClick="login">
+      Sign In
+    </Button>
+  </FormLayout>
 </template>
 
 <script>
+import FormLayout from '@/components/forms/FormLayout'
+import FormRow from '@/components/forms/FormRow'
 import Button from '@/components/buttons/Button'
-import Panel from '@/components/containers/Panel'
 import TextField from '@/components/inputs/TextField'
 
 export default {
+  name: 'Login',
   components: {
+    FormLayout,
+    FormRow,
     Button,
-    Panel,
     TextField
   },
   data() {
     return {
       username: '',
       password: '',
-      formErrors: []
+      formErrors: {}
     }
   },
   methods: {
     async login() {
-      if (this.username.length === 0 || this.password.length === 0) {
-        this.formErrors = ['Oops! You missed a field']
-      } else {
-        this.formErrors = []
-        try {
-          const payload = {
-            username: this.username,
-            password: this.password
-          }
-          await this.$store.dispatch('loginUser', payload)
-          this.$router.push({ name: 'Home' })
-        } catch (err) {
-          Object.entries(err.response.data).forEach(err => {
-            this.formErrors = this.formErrors.concat(err[1])
-          })
-        }
+      const payload = {
+        username: this.username,
+        password: this.password
       }
-    },
-    clearFields() {
-      if (this.username.length > 0 && this.password.length > 0) {
-        this.formErrors = []
+      const {errors} = await this.$store.dispatch('loginUser', payload)
+
+      if(!errors) {
+        await this.$store.dispatch('setUser')
+        this.$router.push({ name: 'Home' })
+      } else {
+        this.formErrors = errors
       }
     }
-  }
+  },
 }
 </script>

@@ -34,9 +34,7 @@ export default {
   props: {
     friend: {
       type: Object,
-      default: function() {
-        return {}
-      }
+      default: () => {}
     }
   }
 }

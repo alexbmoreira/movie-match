@@ -79,7 +79,7 @@ export default {
   methods: {
     async friends() {
       if (this.$store.getters.isLoggedIn) {
-        var result = await friendsAPI.getFriends(this.user.id)
+        const result = await friendsAPI.getFriends(this.user.id)
         this.friendsList = result
       }
     }

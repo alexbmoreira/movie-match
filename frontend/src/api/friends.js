@@ -1,7 +1,8 @@
-import api from '@/api/api.service'
+import {getRequest} from './api.service'
+import endpoints from './endpoints'
 
-async function getFriends(userID) {
-  return api.get(`/profiles/${userID}/friends/`).then(response => response.data)
+async function getFriends(userId) {
+  return getRequest(endpoints.FRIENDS.with(userId))
 }
 
 export default {
