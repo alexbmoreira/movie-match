@@ -1,5 +1,5 @@
 <template>
-  <button :class="`flex-grow whitespace-nowrap p-2 ${style}`" @click="onClick()">
+  <button :class="`flex-grow whitespace-nowrap p-2 focus:outline-none ${style}`" @click="onClick()">
     <slot />
   </button>
 </template>

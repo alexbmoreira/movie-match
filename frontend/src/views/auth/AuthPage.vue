@@ -1,8 +1,20 @@
 <template>
-  <PageContainer class="bg-poster-collage">
+  <PageContainer class="bg-poster-collage md:pt-12">
     <Panel :header="header" :sub-header="subHeader" class="m-auto">
       <Login v-if="$route.name === 'Login'" />
-      <Register v-if="$route.name === 'Register'" />
+      <Register v-else-if="$route.name === 'Register'" />
+      <div class="text-center mt-4">
+        <p v-if="$route.name === 'Login'">
+          Already have an account? <router-link to="/login" class="font-bold hover:underline">
+            Log in
+          </router-link>
+        </p>
+        <p v-else-if="$route.name === 'Register'">
+          Don't have an account? <router-link to="/register" class="font-bold hover:underline">
+            Sign up
+          </router-link>
+        </p>
+      </div>
     </Panel>
   </PageContainer>
 </template>
