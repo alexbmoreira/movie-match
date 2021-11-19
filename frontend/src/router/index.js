@@ -3,8 +3,7 @@ import VueRouter from 'vue-router'
 import store from '@/store'
 import Home from '@/views/home/Home'
 import Profile from '@/views/profile/Profile'
-import Register from '@/views/auth/Register'
-import Login from '@/views/auth/Login'
+import AuthPage from '@/views/auth/AuthPage'
 import Search from '@/views/search/Search'
 import NotFound from '@/views/NotFound'
 
@@ -24,7 +23,7 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: Register,
+    component: AuthPage,
     meta: {
       requiresNoAuth: true
     }
@@ -32,7 +31,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: AuthPage,
     meta: {
       requiresNoAuth: true
     }

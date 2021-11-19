@@ -2,7 +2,7 @@
   <div class="w-full">
     <input
       :value="value"
-      type="text"
+      :type="type"
       class="bg-transparent w-full px-3 pb-2 border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none"
       :placeholder="placeholder"
       @input="$emit('input', $event.target.value)"
@@ -29,13 +29,14 @@ export default {
       type: String,
       default: ''
     },
+    type: {
+      type: String,
+      default: 'text'
+    },
     errors: {
       type: Array,
       default: () => []
     }
-  }, updated() {
-    console.log('text field updated')
-    console.log(this.errors)
-  },
+  }
 }
 </script>
