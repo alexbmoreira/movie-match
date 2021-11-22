@@ -30,10 +30,11 @@ const store = new Vuex.Store({
     async loginUser(context, payload) {
       return new Promise((resolve) => {
         authAPI.login(payload).then(response => {
-          const token = response.key
+          const {key, user} = response
 
-          if(token) {
-            context.commit('success', token)
+          if(key) {
+            context.commit('success', key)
+            context.commit('setUser', user)
           }
           resolve(response)
         })
@@ -42,10 +43,11 @@ const store = new Vuex.Store({
     async registerUser(context, payload) {
       return new Promise((resolve) => {
         authAPI.register(payload).then(response => {
-          const token = response.key
+          const {key, user} = response.key
 
-          if(token) {
-            context.commit('success', token)
+          if(key) {
+            context.commit('success', key)
+            context.commit('setUser', user)
           }
           resolve(response)
         })
@@ -55,11 +57,6 @@ const store = new Vuex.Store({
       await authAPI.logout()
 
       context.commit('logout')
-    },
-    async setUser(context) {
-      await authAPI.getUser().then(user => {
-        context.commit('setUser', user)
-      })
     }
   },
   getters: {

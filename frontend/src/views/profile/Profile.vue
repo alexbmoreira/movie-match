@@ -5,18 +5,13 @@
         <div class="">
           <ProfilePicture pic-size="20" :user="user" />
         </div>
-        <p class="font-roboto-slab text-2xl mx-auto">
+        <p class="font-roboto-slab text-2xl text-center">
           {{ user.username }}
         </p>
       </div>
       <div class="space-y-8">
         <div>
-          <div class="flex mb-2">
-            <p class="text-lg">
-              Watchlist:
-            </p>
-          </div>
-          <SideScrollList>
+          <SideScrollList label="Watchlist:">
             <Poster
               v-for="movie in profile.watchlist"
               :key="movie.id"
@@ -26,13 +21,8 @@
           </SideScrollList>
         </div>
         <div>
-          <div class="flex mb-2">
-            <p class="text-lg">
-              Friends:
-            </p>
-          </div>
-          <List>
-            <ProfileItem v-for="friend in profile.friends" :key="friend.id" :friend="friend" />
+          <List label="Friends:">
+            <ProfileItem v-for="friend in profile.friends" :key="friend.id" :user="friend" />
           </List>
         </div>
       </div>

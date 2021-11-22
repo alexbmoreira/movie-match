@@ -1,13 +1,13 @@
 <template>
-  <router-link :to="{ name: 'Profile', params: { username: friend.username, id: friend.id } }">
+  <router-link :to="{ name: 'Profile', params: { username: user.username, id: user.id } }">
     <div class="flex justify-between py-2">
       <!-- Friend -->
       <div class="flex space-x-2">
         <!-- Friend Pic -->
-        <ProfilePicture pic-size="14" :user="friend" />
+        <ProfilePicture pic-size="14" :user="user" />
         <div class="my-auto">
           <p class="font-roboto-slab text-lg">
-            {{ friend.username }}
+            {{ user.username }}
           </p>
         </div>
       </div>
@@ -32,7 +32,7 @@ export default {
     ProfilePicture
   },
   props: {
-    friend: {
+    user: {
       type: Object,
       default: () => {}
     }
