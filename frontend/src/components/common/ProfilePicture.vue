@@ -16,7 +16,7 @@ export default {
     },
     user: {
       type: Object,
-      default: () => {}
+      required: true
     }
   },
   data() {
@@ -26,10 +26,7 @@ export default {
   },
   computed: {
     userInitial: function() {
-      if (this.user.username) {
-        return this.user.username.substring(0, 1)
-      }
-      return ''
+      return this.user.username.substring(0, 1)
     }
   },
   created() {

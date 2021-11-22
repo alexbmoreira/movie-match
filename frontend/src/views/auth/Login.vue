@@ -54,7 +54,6 @@ export default {
       const {errors} = await this.$store.dispatch('loginUser', payload)
 
       if(!errors) {
-        await this.$store.dispatch('setUser')
         this.$router.push({ name: 'Home' })
       } else {
         this.formErrors = errors

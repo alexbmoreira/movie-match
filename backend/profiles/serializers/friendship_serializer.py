@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from ..models import Friendship
-from .profile_serializer import ProfileSerializer
+from .user_serializer import UserSerializer
 
 
 class FriendshipSerializer(serializers.ModelSerializer):
@@ -15,4 +15,4 @@ class FriendshipSerializer(serializers.ModelSerializer):
     def get_friend(self, obj):
         user_id = self.context["user_id"]
         user = obj.friend if obj.friend.id != user_id else obj.user
-        return ProfileSerializer(user.profile).data
+        return UserSerializer(user).data

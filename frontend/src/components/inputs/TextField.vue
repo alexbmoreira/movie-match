@@ -1,12 +1,12 @@
 <template>
-  <div class="w-full">
-    <p v-if="hasLabel" class="block text-app-typeface-alt text-sm font-bold mb-2 ml-3">
+  <div class="w-full m-auto">
+    <p v-if="hasLabel" class="block text-app-typeface text-sm font-bold mb-2">
       {{ label }}
     </p>
     <input
       :value="value"
       :type="type"
-      class="bg-transparent w-full px-3 pb-2 border-b-2 border-app-bg-sec-light focus:border-app-primary transition duration-500 focus:outline-none"
+      class="bg-transparent w-full px-3 pb-2 border-b-2 border-typeface focus:border-app-primary transition duration-500 focus:outline-none"
       :placeholder="placeholder"
       @input="$emit('input', $event.target.value)"
       @blur="$emit('blur')"

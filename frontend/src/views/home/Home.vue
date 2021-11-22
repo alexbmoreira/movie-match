@@ -10,20 +10,14 @@
         <!-- Profile Pic -->
         <router-link :to="{ name: 'Profile', params: { username: user.username, id: user.id } }">
           <ProfilePicture pic-size="20" :user="user" />
-          <p class="font-roboto-slab text-2xl">
+          <p class="font-roboto-slab text-2xl text-center">
             {{ user.username }}
           </p>
         </router-link>
       </div>
-      <div class="flex mb-2">
-        <p class="text-lg">
-          Your Friends:
-        </p>
-      </div>
-      <!-- Friends list -->
-      <div class="flex flex-col divide-y divide-app-bg-light">
-        <ProfileItem v-for="friend in friendsList" :key="friend.id" :friend="friend.friend" />
-      </div>
+      <List label="Your Friends:">
+        <ProfileItem v-for="friend in friendsList" :key="friend.id" :user="friend.friend" />
+      </List>
     </div>
     <div v-else class="flex flex-col mx-auto my-auto mt-8">
       <div class="text-center mb-10">
@@ -47,19 +41,21 @@
 </template>
 
 <script>
-import friendsAPI from '@/api/friends'
 import PageContainer from '@/components/containers/PageContainer'
+import ProfilePicture from '@/components/common/ProfilePicture'
+import List from '@/components/lists/List'
 import ProfileItem from '@/components/lists/ProfileItem'
 import Button from '@/components/buttons/Button'
-import ProfilePicture from '@/components/common/ProfilePicture'
+import friendsAPI from '@/api/friends'
 
 export default {
   name: 'Home',
   components: {
     PageContainer,
+    ProfilePicture,
+    List,
     ProfileItem,
-    Button,
-    ProfilePicture
+    Button
   },
   data() {
     return {
