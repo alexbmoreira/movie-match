@@ -19,7 +19,6 @@ joint_watchlist_api = JointWatchlistAPIView.as_view()
 
 urlpatterns = [
     path("user/requests/", friend_requests_api, name="friend_requests"),
-    path("user/friends/", friendships_api, name="friendships"),
     path("user/likes/", likes_api, name="likes"),
     path("user/dislikes/", dislikes_api, name="dislikes"),
     path("user/matches/", matches_api, name="matches"),
