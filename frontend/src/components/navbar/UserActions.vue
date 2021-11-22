@@ -8,7 +8,7 @@
         Register
       </Button>
     </div>
-    <div v-else class="flex m-auto space-x-1">
+    <div v-else class="flex m-auto space-x-2">
       <router-link :to="{ name: 'Profile', params: { username: user.username, id: user.id } }">
         <ProfilePicture pic-size="8" :user="user" />
       </router-link>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ProfilePicture from '@/components/common/ProfilePicture'
 import Button from '@/components/buttons/Button'
 
@@ -30,17 +31,10 @@ export default {
     Button
   },
   data() {
-    return {
-      user: {}
-    }
+    return {}
   },
   computed: {
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn
-    }
-  },
-  created() {
-    this.user = this.$store.getters.user
+    ...mapGetters(['isLoggedIn', 'user'])
   },
   methods: {
     goLogin() {
