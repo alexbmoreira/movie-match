@@ -1,5 +1,5 @@
 <template>
-  <div class="flex m-auto rounded-full bg-app-bg-sec cursor-pointer" :class="`w-${picSize} h-${picSize}`">
+  <div class="flex m-auto rounded-full bg-panel cursor-pointer" :class="`w-${picSize} h-${picSize}`">
     <p class="m-auto uppercase" :class="textSize">
       {{ userInitial }}
     </p>

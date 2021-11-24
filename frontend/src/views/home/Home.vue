@@ -2,7 +2,7 @@
   <PageContainer>
     <div v-if="isLoggedIn" class="flex flex-col">
       <div class="mx-auto mb-2">
-        <p class="text-xl text-app-typeface-muted">
+        <p class="text-xl text-typeface-dark">
           Welcome back,
         </p>
       </div>
@@ -32,7 +32,7 @@
         <router-link to="/register" class="mx-auto mb-2">
           <Button>Create an Account</Button>
         </router-link>
-        <router-link to="/login" class="text-app-typeface text-xs hover:underline">
+        <router-link to="/login" class="text-xs hover:underline">
           Or sign in if you already know what's up
         </router-link>
       </div>

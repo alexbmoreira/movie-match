@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="flex flex-col h-screen text-app-typeface font-nunito bg-app-bg">
+  <div id="app" class="flex flex-col h-screen text-typeface font-nunito bg-background">
     <Navbar />
     <router-view class="flex-grow" />
   </div>

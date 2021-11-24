@@ -3,7 +3,7 @@
     <p v-if="hasLabel" class="mb-2 text-lg">
       {{ label }}
     </p>
-    <div class="flex flex-col divide-y divide-app-bg-light">
+    <div class="flex flex-col divide-y divide-typeface">
       <slot />
     </div>
   </div>

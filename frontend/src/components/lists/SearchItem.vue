@@ -10,7 +10,7 @@
         </div>
         <div v-show="searchType === 'movies'" class="flex">
           <div class="flex flex-col">
-            <p class="text-sm text-app-typeface-muted">
+            <p class="text-sm text-typeface-dark">
               {{ result.release_year }}
             </p>
             <div v-for="director in result.directors" :key="director.id">
@@ -30,10 +30,10 @@
             <p class="italic">
               {{ result.known_for_department }}
             </p>
-            <p v-if="!!result.known_for && result.known_for.length > 0" class="text-sm text-app-typeface-muted">
+            <p v-if="!!result.known_for && result.known_for.length > 0" class="text-sm text-typeface-dark">
               Known for:
             </p>
-            <p v-for="kf in result.known_for" :key="kf.id" class="text-xs text-app-typeface-muted">
+            <p v-for="kf in result.known_for" :key="kf.id" class="text-xs text-typeface-dark">
               - {{ kf.title }}{{ kf.name }}
             </p>
           </div>
@@ -44,7 +44,7 @@
       <p class="hidden text-xs text-center md:flex">
         Add to watchlist!
       </p>
-      <CircleButton icon="plus" color="app-primary" />
+      <CircleButton icon="plus" color="primary" />
     </div>
   </div>
 </template>

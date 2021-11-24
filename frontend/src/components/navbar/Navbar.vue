@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-app-bg p-4 shadow-lg">
+  <div class="p-4 shadow-lg">
     <!-- Logo text or image -->
     <div class="flex items-center justify-between">
       <router-link to="/" class="cursor-pointer w-60">

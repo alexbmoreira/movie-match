@@ -16,7 +16,7 @@
       />
     </FormRow>
     <div class="flex justify-end">
-      <a href="#" class="text-sm mb-6 text-app-accent hover:text-app-accent-light hover:underline">Forgot your password?</a>
+      <a href="#" class="text-sm mb-6 hover:text-accent hover:underline">Forgot your password?</a>
     </div>
     <Button @onClick="login">
       Sign In

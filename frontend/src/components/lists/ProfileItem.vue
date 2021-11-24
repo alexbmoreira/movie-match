@@ -13,9 +13,9 @@
       </div>
       <div class="flex my-auto space-x-2">
         <!-- Matches -->
-        <CircleButton icon="heart" color="app-like" />
+        <CircleButton icon="heart" color="like" />
         <!-- Watch -->
-        <CircleButton icon="ticket-alt" color="app-accent" />
+        <CircleButton icon="ticket-alt" color="primary" />
       </div>
     </div>
   </router-link>

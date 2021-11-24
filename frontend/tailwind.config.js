@@ -18,6 +18,39 @@ module.exports = {
     //   'sm': { max: '639px' }
     //   // => @media (max-width: 639px) { ... }
     // },
+    colors: {
+      transparent: 'transparent',
+      'background': {
+        DEFAULT: '#404142'
+      },
+      'panel': {
+        DEFAULT: '#7D7E88'
+      },
+      'primary': {
+        disabled: '#9EAEE7',
+        light: '#5D72BA',
+        DEFAULT: '#495C9C',
+        dark: '#3B4C84'
+      },
+      'secondary': {
+        DEFAULT: '#DF3131'
+      },
+      'accent': {
+        DEFAULT: '#F2C649'
+      },
+      'typeface': {
+        light: '#FAFAFA',
+        DEFAULT: '#F0F0F2',
+        dark: '#DEDEE3'
+      },
+      'app-like': {
+        DEFAULT: '#D13115'
+      },
+      'error': {
+        bg: '#CC7676',
+        text: '#ED1F1F'
+      }
+    },
     extend: {
       backgroundImage: () => ({
         'poster-collage': "linear-gradient(#2E2E2EE5, #050505E5), url('../images/backdrop.png')",
@@ -26,41 +59,6 @@ module.exports = {
       fontFamily: {
         'nunito': ['Nunito', 'sans-serif'],
         'roboto-slab': ['Roboto Slab', 'serif']
-      },
-      colors: {
-        'app-bg': {
-          light: '#666666',
-          DEFAULT: '#2E2E2E',
-          dark: '#050505'
-        },
-        'app-bg-sec': {
-          light: '#CCCCCC',
-          DEFAULT: '#969696',
-          dark: '#666666'
-        },
-        'app-primary': {
-          light: '#6791E0',
-          DEFAULT: '#4D7FDB',
-          dark: '#2A62CB'
-        },
-        'app-accent': {
-          light: '#F7DB8D',
-          DEFAULT: '#F2C649',
-          dark: '#E5AC10'
-        },
-        'app-typeface': {
-          DEFAULT: '#F4F4F4',
-          alt: '#D6D6D6',
-          dark: '#474747',
-          muted: '#F0F0F088'
-        },
-        'app-like': {
-          DEFAULT: '#D13115'
-        },
-        'app-error': {
-          bg: '#CC7676',
-          text: '#ED1F1F'
-        }
       },
       transitionProperty: {
         height: 'height',
@@ -87,7 +85,9 @@ module.exports = {
     }
   },
   variants: {
-    extend: {}
+    extend: {
+      backgroundColor: ['active']
+    }
   },
   plugins: []
 }

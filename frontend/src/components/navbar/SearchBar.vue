@@ -8,7 +8,7 @@
     </Button>
     <div class="flex flex-col">
       <label for="searchType" class="text-xs">Search for:</label>
-      <select id="searchType" v-model="search.type" class="bg-app-bg rounded">
+      <select id="searchType" v-model="search.type" class="bg-background rounded">
         <option value="movies">
           Movies
         </option>

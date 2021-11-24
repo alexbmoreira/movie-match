@@ -8,13 +8,13 @@
         That page doesn't exist.
       </p>
       <router-link to="/">
-        <p class="hover:underline hover:text-app-accent">
+        <p class="hover:underline hover:text-accent">
           Phone home...
         </p>
       </router-link>
     </div>
     <div>
-      <p class="text-right text-xs text-app-typeface-muted">
+      <p class="text-right text-xs text-typeface-dark">
         E.T. the Extra-Terrestrial (1982)
       </p>
     </div>
