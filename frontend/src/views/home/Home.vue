@@ -2,7 +2,7 @@
   <PageContainer>
     <div v-if="isLoggedIn" class="flex flex-col">
       <div class="mx-auto mb-2">
-        <p class="text-xl text-app-typeface-muted">
+        <p class="text-xl text-typeface-dark">
           Welcome back,
         </p>
       </div>
@@ -32,9 +32,12 @@
         <router-link to="/register" class="mx-auto mb-2">
           <Button>Create an Account</Button>
         </router-link>
-        <router-link to="/login" class="text-app-typeface text-xs hover:underline">
-          Or sign in if you already know what's up
-        </router-link>
+        <div class="text-center">
+          <p class="text-xs">
+            OR
+          </p>
+          <TextLink type="router" path="/login" text="Log in" />
+        </div>
       </div>
     </div>
   </PageContainer>
@@ -46,6 +49,7 @@ import ProfilePicture from '@/components/common/ProfilePicture'
 import List from '@/components/lists/List'
 import ProfileItem from '@/components/lists/ProfileItem'
 import Button from '@/components/buttons/Button'
+import TextLink from '@/components/typography/TextLink'
 import friendsAPI from '@/api/friends'
 
 export default {
@@ -55,7 +59,8 @@ export default {
     ProfilePicture,
     List,
     ProfileItem,
-    Button
+    Button,
+    TextLink
   },
   data() {
     return {

@@ -4,15 +4,21 @@
       <Login v-if="$route.name === 'Login'" />
       <Register v-else-if="$route.name === 'Register'" />
       <div class="text-center mt-4">
-        <p v-if="$route.name === 'Login'">
-          Don't have an account? <router-link to="/register" class="font-bold hover:underline">
-            Sign up
-          </router-link>
+        <p v-if="$route.name === 'Login'" class="text-typeface-dark">
+          Don't have an account? <TextLink
+            type="router"
+            path="/register"
+            text="Sign up" 
+            class="font-bold"
+          />
         </p>
-        <p v-else-if="$route.name === 'Register'">
-          Already have an account? <router-link to="/login" class="font-bold hover:underline">
-            Log in
-          </router-link>
+        <p v-else-if="$route.name === 'Register'" class="text-typeface-dark">
+          Already have an account? <TextLink
+            type="router"
+            path="/login"
+            text="Log in"
+            class="font-bold"
+          />
         </p>
       </div>
     </Panel>
@@ -22,6 +28,7 @@
 <script>
 import PageContainer from '@/components/containers/PageContainer'
 import Panel from '@/components/containers/Panel'
+import TextLink from '@/components/typography/TextLink'
 import Login from './Login'
 import Register from './Register'
 
@@ -30,6 +37,7 @@ export default {
   components: {
     PageContainer,
     Panel,
+    TextLink,
     Login,
     Register
   },

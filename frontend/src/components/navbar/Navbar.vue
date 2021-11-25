@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-app-bg p-4 shadow-lg">
+  <div class="p-4 shadow-lg">
     <!-- Logo text or image -->
     <div class="flex items-center justify-between">
       <router-link to="/" class="cursor-pointer w-60">
@@ -14,10 +14,10 @@
         </div>
       </div>
       <div class="flex space-x-2 lg:hidden">
-        <Button trait="transparent" @onClick="showSearchDropdown">
+        <Button trait="transparent" font-size="2xl" @onClick="showSearchDropdown">
           <i class="fas fa-search" />
         </Button>
-        <Button trait="transparent" @onClick="showMenuDropdown">
+        <Button trait="transparent" font-size="2xl" @onClick="showMenuDropdown">
           <i class="fa fa-bars" />
         </Button>
       </div>

@@ -1,6 +1,6 @@
 <template>
   <PageContainer>
-    <div class="border-app-bg-light border-b pb-2 text-xl font-thin">
+    <div class="border-typeface border-b pb-2 text-xl font-thin">
       <p class="italic text-sm pl-1 lg:text-base">
         {{ resultsInfo }}
       </p>
