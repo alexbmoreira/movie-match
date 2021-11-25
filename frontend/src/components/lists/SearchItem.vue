@@ -40,23 +40,22 @@
         </div>
       </div>
     </div>
-    <div v-show="searchType === 'movies'" class="flex flex-col my-auto">
-      <p class="hidden text-xs text-center md:flex">
-        Add to watchlist!
-      </p>
-      <CircleButton icon="plus" color="primary" />
+    <div v-show="showAddToWatchlist" class="flex flex-col my-auto">
+      <Button trait="transparent" font-size="xl" @onClick.stop="()=>{}">
+        <i class="fas fa-plus" />
+      </Button>
     </div>
   </div>
 </template>
 
 <script>
-import CircleButton from '@/components/buttons/CircleButton'
+import Button from '@/components/buttons/Button'
 import Poster from '@/components/movies/Poster'
 
 export default {
   name: 'SearchItem',
   components: {
-    CircleButton,
+    Button,
     Poster
   },
   props: {
@@ -67,6 +66,11 @@ export default {
     result: {
       type: Object,
       default: () => {}
+    }
+  },
+  computed: {
+    showAddToWatchlist() {
+      return this.searchType === 'movies' && this.$store.getters.isLoggedIn
     }
   },
   methods: {

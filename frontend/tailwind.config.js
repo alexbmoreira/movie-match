@@ -39,9 +39,9 @@ module.exports = {
         DEFAULT: '#F2C649'
       },
       'typeface': {
-        light: '#FAFAFA',
-        DEFAULT: '#F0F0F2',
-        dark: '#DEDEE3'
+        light: '#FFFFFF',
+        DEFAULT: '#E2E2E2',
+        dark: '#C6C6C6'
       },
       'app-like': {
         DEFAULT: '#D13115'
@@ -51,6 +51,13 @@ module.exports = {
         text: '#ED1F1F'
       }
     },
+    fill: theme => ({
+      'primary': theme('colors.primary'),
+      'secondary': theme('colors.secondary'),
+      'accent': theme('colors.accent'),
+      'background': theme('colors.background'),
+      'typeface': theme('colors.typeface'),
+    }),
     extend: {
       backgroundImage: () => ({
         'poster-collage': "linear-gradient(#2E2E2EE5, #050505E5), url('../images/backdrop.png')",

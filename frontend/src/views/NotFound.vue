@@ -7,11 +7,7 @@
       <p class="text-xl">
         That page doesn't exist.
       </p>
-      <router-link to="/">
-        <p class="hover:underline hover:text-accent">
-          Phone home...
-        </p>
-      </router-link>
+      <TextLink type="router" path="/" text="Phone home..." />
     </div>
     <div>
       <p class="text-right text-xs text-typeface-dark">
@@ -22,5 +18,12 @@
 </template>
 
 <script>
-export default {}
+import TextLink from '@/components/typography/TextLink'
+
+export default {
+  name: 'NotFound',
+  components: {
+    TextLink
+  }
+}
 </script>

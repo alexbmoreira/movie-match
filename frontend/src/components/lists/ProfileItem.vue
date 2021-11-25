@@ -13,22 +13,26 @@
       </div>
       <div class="flex my-auto space-x-2">
         <!-- Matches -->
-        <CircleButton icon="heart" color="like" />
+        <Button trait="transparent" font-size="xl" @onClick.stop="()=>{}">
+          <i class="fas fa-heart" />
+        </Button>
         <!-- Watch -->
-        <CircleButton icon="ticket-alt" color="primary" />
+        <Button trait="transparent" font-size="xl" @onClick.stop="()=>{}">
+          <i class="fas fa-ticket-alt" />
+        </Button>
       </div>
     </div>
   </router-link>
 </template>
 
 <script>
-import CircleButton from '@/components/buttons/CircleButton'
+import Button from '@/components/buttons/Button'
 import ProfilePicture from '@/components/common/ProfilePicture'
 
 export default {
   name: 'ProfileItem',
   components: {
-    CircleButton,
+    Button,
     ProfilePicture
   },
   props: {

@@ -15,8 +15,8 @@
         label="Password"
       />
     </FormRow>
-    <div class="flex justify-end">
-      <a href="#" class="text-sm mb-6 hover:text-accent hover:underline">Forgot your password?</a>
+    <div class="flex justify-end mb-6 text-sm">
+      <TextLink type="external" path="#" text="Forgot your password?" />
     </div>
     <Button @onClick="login">
       Sign In
@@ -27,6 +27,7 @@
 <script>
 import FormLayout from '@/components/forms/FormLayout'
 import FormRow from '@/components/forms/FormRow'
+import TextLink from '@/components/typography/TextLink'
 import Button from '@/components/buttons/Button'
 import TextField from '@/components/inputs/TextField'
 
@@ -35,6 +36,7 @@ export default {
   components: {
     FormLayout,
     FormRow,
+    TextLink,
     Button,
     TextField
   },

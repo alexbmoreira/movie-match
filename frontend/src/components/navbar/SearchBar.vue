@@ -1,9 +1,9 @@
 <template>
-  <div class="flex space-x-3 w-full">
+  <div class="flex space-x-3 w-full lg:w-1/2">
     <form class="flex w-full" @submit.prevent="routeSearch">
       <TextField v-model="search.string" :placeholder="`Search for ${search.type}...`" />
     </form>
-    <Button trait="transparent" @onClick="routeSearch">
+    <Button trait="transparent" font-size="xl" @onClick="routeSearch">
       <i class="fas fa-search" />
     </Button>
     <div class="flex flex-col">
