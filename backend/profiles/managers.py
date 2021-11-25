@@ -5,8 +5,8 @@ from django.db.models import Q
 class ProfileManager(models.Manager):
 
     def get_indiv_watchlist(self, user, friend):
-        user_watchlist = user.watchlistmovie_set.all()
-        friend_watchlist = friend.watchlistmovie_set.all()
+        user_watchlist = user.watchlist.all()
+        friend_watchlist = friend.watchlist.all()
 
         user_watchlist_m = set([wm.movie for wm in user_watchlist])
         friend_watchlist_m = set([wm.movie for wm in friend_watchlist])
@@ -17,8 +17,8 @@ class ProfileManager(models.Manager):
         return indiv
 
     def get_shared_watchlist(self, user, friend):
-        user_watchlist = user.watchlistmovie_set.all()
-        friend_watchlist = [ml.movie for ml in friend.watchlistmovie_set.all()]
+        user_watchlist = user.watchlist.all()
+        friend_watchlist = [ml.movie for ml in friend.watchlist.all()]
         shared = [ml for ml in user_watchlist if ml.movie in friend_watchlist]
 
         return shared
