@@ -1,9 +1,9 @@
 <template>
   <div class="bg-app-bg-light max-w-lg m-4 p-6 rounded-lg shadow-2xl md:p-8">
     <div class="mb-8">
-      <h3 class="font-bold text-2xl">
+      <p class="font-bold text-2xl">
         {{ header }}
-      </h3>
+      </p>
       <p class="text-app-typeface-alt pt-2">
         {{ subHeader }}
       </p>
