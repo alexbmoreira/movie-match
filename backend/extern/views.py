@@ -13,7 +13,7 @@ class LetterboxdWatchlistAPIView(APIView):
         watchlist = Letterboxd.get_watchlist(username)
 
         if "error" not in watchlist:
-            user_list = request.user.watchlistmovie_set.all()
+            user_list = request.user.watchlist.all()
 
             if operation == "overwrite":
                 user_list.delete()
