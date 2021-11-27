@@ -1,5 +1,3 @@
-from profiles.models import Friendship
-
 from .. import interaction
 
 
