@@ -1,11 +1,10 @@
-from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..interactions.friendship import DestroyFriendship, FindFriendship
+from ..interactions.friendship import DestroyFriendship, FindFriendshipsForUser
 from ..models import Friendship, User
 from ..serializers import FriendshipSerializer
 
@@ -16,7 +15,7 @@ class FriendshipAPIView(APIView):
 
     def get(self, request, user_id=None):
         user = request.user if user_id else get_object_or_404(User, id=user_id)
-        friends = FindFriendship.run(user=user)
+        friends = FindFriendshipsForUser.run(user=user)
 
         serializer = FriendshipSerializer(friends, many=True, context={'user_id': user.id})
 
