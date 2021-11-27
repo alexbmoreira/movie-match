@@ -1,8 +1,13 @@
 from django.db import models
-from django.db.models import Q
 
 
 class ProfileManager(models.Manager):
+
+    def search(self, query=''):
+        if not query:
+            return self.all()
+
+        return self.filter(user__username__icontains=query)
 
     def get_indiv_watchlist(self, user, friend):
         user_watchlist = user.watchlist.all()
@@ -34,11 +39,3 @@ class ProfileManager(models.Manager):
         indiv = [wm for wm in indiv if wm.movie not in user_likes and wm.movie not in user_dislikes]
 
         return shared + indiv
-
-
-class FriendshipManager(models.Manager):
-
-    def get_friends(self, user):
-        friendships = self.model.objects.select_related("user", "friend").filter(Q(user=user) | Q(friend=user))
-
-        return [u.user if u.friend == user else u.friend for u in friendships]

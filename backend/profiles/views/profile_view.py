@@ -10,13 +10,8 @@ class ProfileAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request):
-        profiles = Profile.objects.all()
-
-        search = request.GET.get('search', '')
-
-        if search != "":
-            profiles = profiles.filter(user__username__icontains=search)
+    def get(self, request, search=''):
+        profiles = Profile.objects.search(search)
 
         serializer = ProfileSerializer(profiles, many=True)
 
