@@ -1,7 +1,7 @@
 from .destroy_friendship import DestroyFriendship
-from .find_friendship import FindFriendship
+from .find_friendships_for_user import FindFriendshipsForUser
 
 __all__ = [
-    'FindFriendship',
+    'FindFriendshipsForUser',
     'DestroyFriendship'
 ]

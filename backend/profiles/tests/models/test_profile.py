@@ -12,9 +12,9 @@ class ProfileTests(TestCase):
         UserFactory(username='little_nicky')
         UserFactory(username='thats_my_boy')
 
-class ManagerSearchTests(ProfileTests):
+class SearchTests(ProfileTests):
 
-    def test_NoSearchQuery(self):
+    def test_ReturnsAllOnNoSearchQuery(self):
         profiles = Profile.objects.search()
 
         self.assertEqual(profiles.count(), Profile.objects.count())
