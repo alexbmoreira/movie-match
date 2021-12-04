@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from ..serializers import (FriendRequestSerializer, MatchlistDislikeSerializer,
-                           MatchlistLikeSerializer, WatchlistMovieSerializer)
+                           MatchlistLikeSerializer)
 
 
 class FriendRequestSerializerTests(TestCase):
@@ -26,26 +26,6 @@ class FriendRequestSerializerTests(TestCase):
         self.assertIsNotNone(friend_request)
         self.assertEqual(friend_request.creator.username, 'username')
         self.assertEqual(friend_request.receiver.username, 'new_friend')
-
-
-class WatchlistMovieSerializerTests(TestCase):
-
-    def test_CreateValid(self):
-        # Arrange
-        user = User.objects.create_user(username='username')
-        d = {
-            'movie': 4995
-        }
-        serializer = WatchlistMovieSerializer(data=d, context={'user_id': user.id}) # Add Boogie Nights to user's watchlist
-
-        # Act
-        serializer.is_valid()
-        watchlist_movie = serializer.save()
-
-        # Assert
-        self.assertIsNotNone(watchlist_movie)
-        self.assertEqual(watchlist_movie.user, user)
-        self.assertEqual(watchlist_movie.movie, 4995)
 
 
 class MatchlistLikeSerializerTests(TestCase):

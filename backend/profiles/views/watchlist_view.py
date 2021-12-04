@@ -4,24 +4,17 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from ..interactions.watchlist import DestroyWatchlistMovie
 from ..models import WatchlistMovie
-from ..serializers import ProfileSerializer, WatchlistMovieSerializer
+from ..serializers import WatchlistMovieSerializer
 
 
 class WatchlistAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request):
-        watchlist = request.user.watchlist.all()
-        serializer = WatchlistMovieSerializer(watchlist, many=True)
-        data = {}
-        data['user'] = ProfileSerializer(request.user.profile).data
-        data['watchlist'] = serializer.data
-        return Response(data=data)
-
     def post(self, request):
-        serializer = WatchlistMovieSerializer(data=request.data, context={'user_id': request.user.id})
+        serializer = WatchlistMovieSerializer(data=request.data, context={'user': request.user})
 
         if serializer.is_valid():
             serializer.save()
@@ -30,6 +23,6 @@ class WatchlistAPIView(APIView):
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
-        watchlist_movie = get_object_or_404(WatchlistMovie, id=request.data['id'])
-        watchlist_movie.delete()
+        movie = get_object_or_404(WatchlistMovie, **request.data)
+        DestroyWatchlistMovie.run(movie=movie)
         return Response(status=status.HTTP_204_NO_CONTENT)
