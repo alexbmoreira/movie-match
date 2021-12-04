@@ -36,7 +36,7 @@ class WatchlistMovieSerializerTests(TestCase):
         d = {
             'movie': 4995
         }
-        serializer = WatchlistMovieSerializer(data=d, context={'user_id': user.id}) # Add Boogie Nights to user's watchlist
+        serializer = WatchlistMovieSerializer(data=d, context={'user': user}) # Add Boogie Nights to user's watchlist
 
         # Act
         serializer.is_valid()

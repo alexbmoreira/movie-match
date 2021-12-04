@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..interactions.watchlist_movie import CreateWatchlistMovie
+from ..interactions.watchlist import CreateWatchlistMovie
 from ..models import WatchlistMovie
 
 

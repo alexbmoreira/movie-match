@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..interactions.watchlist_movie import DestroyWatchlistMovie
+from ..interactions.watchlist import DestroyWatchlistMovie
 from ..models import WatchlistMovie
 from ..serializers import WatchlistMovieSerializer
 
