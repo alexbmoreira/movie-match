@@ -1,94 +1,98 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint --fix --max-warnings=0"
-  },
-  "dependencies": {
-    "axios": "^0.21.1",
-    "core-js": "^3.6.5",
-    "js-cookie": "^2.2.1",
-    "lodash": "^4.17.21",
-    "vue": "^2.6.11",
-    "vue-router": "^3.2.0",
-    "vuex": "^3.6.0",
-    "webpack-bundle-tracker": "^0.4.3"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss7-compat": "^2.0.2",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "autoprefixer": "^9.8.6",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "postcss": "^7.0.35",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "frontend",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint --fix --max-warnings=0"
     },
-    "extends": [
-      "plugin:vue/recommended",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
+    "dependencies": {
+        "axios": "^0.21.1",
+        "core-js": "^3.6.5",
+        "js-cookie": "^2.2.1",
+        "lodash": "^4.17.21",
+        "vue": "^2.6.11",
+        "vue-router": "^3.2.0",
+        "vuex": "^3.6.0",
+        "webpack-bundle-tracker": "^0.4.3"
     },
-    "ignorePatterns": [
-      "**/SVGComponents/**"
-    ],
-    "rules": {
-      "semi": [
-        "warn",
-        "never"
-      ],
-      "indent": [
-        "warn",
-        2
-      ],
-      "no-multi-spaces": [
-        "warn"
-      ],
-      "camelcase": [
-        "warn"
-      ],
-      "max-len": [
-        "off",
-        120
-      ],
-      "no-debugger": [
-        "warn"
-      ],
-      "no-unused-vars": [
-        "warn"
-      ],
-      "vue/no-unused-components": [
-        "warn"
-      ],
-      "vue/max-attributes-per-line": [
-        "warn",
-        {
-          "singleline": 3,
-          "multiline": {
-            "max": 1,
-            "allowFirstLine": false
-          }
+    "devDependencies": {
+        "@tailwindcss/postcss7-compat": "^2.0.2",
+        "@vue/cli-plugin-babel": "~4.5.0",
+        "@vue/cli-plugin-eslint": "~4.5.0",
+        "@vue/cli-plugin-router": "~4.5.0",
+        "@vue/cli-service": "~4.5.0",
+        "autoprefixer": "^9.8.6",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^6.7.2",
+        "eslint-plugin-vue": "^6.2.2",
+        "postcss": "^7.0.35",
+        "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
+        "vue-template-compiler": "^2.6.11"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/recommended",
+            "eslint:recommended"
+        ],
+        "parserOptions": {
+            "parser": "babel-eslint"
+        },
+        "ignorePatterns": [
+            "**/SVGComponents/**"
+        ],
+        "rules": {
+            "semi": [
+                "warn",
+                "never"
+            ],
+            "indent": [
+                "warn",
+                2
+            ],
+            "no-multi-spaces": [
+                "warn"
+            ],
+            "camelcase": [
+                "warn"
+            ],
+            "max-len": [
+                "off",
+                120
+            ],
+            "no-debugger": [
+                "warn"
+            ],
+            "no-unused-vars": [
+                "warn"
+            ],
+            "vue/no-unused-components": [
+                "warn"
+            ],
+            "vue/max-attributes-per-line": [
+                "warn",
+                {
+                    "singleline": 3,
+                    "multiline": {
+                        "max": 1,
+                        "allowFirstLine": false
+                    }
+                }
+            ]
         }
-      ]
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    },
+    "engines": {
+        "npm": "^8.1.4",
+        "node": "^17.2.0"
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead"
+    ]
 }
