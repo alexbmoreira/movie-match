@@ -1,5 +1,3 @@
-from profiles.models import WatchlistMovie
-
 from .. import interaction
 
 

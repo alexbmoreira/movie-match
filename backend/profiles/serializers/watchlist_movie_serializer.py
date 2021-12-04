@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from ..interactions.watchlist_movie import CreateWatchlistMovie
-from ..models import User, WatchlistMovie
+from ..models import WatchlistMovie
 
 
 class WatchlistMovieSerializer(serializers.ModelSerializer):
