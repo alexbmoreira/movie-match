@@ -4,6 +4,12 @@ Watch something everyone can agree on!
 
 ## Starting it up
 
+### Requirements
+
+- Django v3.1
+- Postgres v13
+- Node v16.13
+
 ### Set up a virtual environment
 
 Use venv to create and activate a virtual environment.
