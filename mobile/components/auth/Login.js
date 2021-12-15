@@ -12,10 +12,9 @@ const Login = observer(({ uiState, navigation }) => {
       <Title>Login</Title>
       <TextInput placeholder="Username" value={username} onChangeText={value => uiState.updateUsername(value)} autoCapitalize="none" autoCorrect={false} />
       <TextInput placeholder="Password" value={password} onChangeText={value => uiState.updatePassword(value)} autoCapitalize="none" autoCorrect={false} secureTextEntry />
-        <Button title="Login" onPress={uiState.login}>
-          Log In
-        </Button>
-      {/* {uiState.errors.password ? <Text>{state.errorMessage}</Text> : null} */}
+      <Button onPress={uiState.login}>
+        Log In
+      </Button>
       <Text>Don't have an Account?</Text>
       <Text onPress={() => navigation.navigate('Register')}>Register</Text>
     </View>

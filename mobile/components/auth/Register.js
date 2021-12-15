@@ -14,10 +14,9 @@ const Register = observer(({ uiState, navigation }) => {
       <TextInput placeholder="Email" value={email} onChangeText={value => uiState.updateEmail(value)} autoCapitalize="none" autoCorrect={false} />
       <TextInput placeholder="Password" value={password} onChangeText={value => uiState.updatePassword(value)} autoCapitalize="none" autoCorrect={false} secureTextEntry />
       <TextInput placeholder="Confirm Password" value={password2} onChangeText={value => uiState.updatePassword2(value)} autoCapitalize="none" autoCorrect={false} secureTextEntry />
-        <Button title="Register" onPress={uiState.register}>
-          Register
-        </Button>
-      {/* {uiState.errors.password ? <Text>{state.errorMessage}</Text> : null} */}
+      <Button onPress={uiState.register}>
+        Register
+      </Button>
       <Text>Already have an account?</Text>
       <Text onPress={() => navigation.navigate('Login')}>Log In</Text>
     </View>
