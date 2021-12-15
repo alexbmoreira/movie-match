@@ -1,17 +1,33 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import { View } from 'react-native';
-import { Button, Text, TextInput, Title } from 'react-native-paper';
-import withState from '../../shared/withState';
+import { Button, Text, Title } from 'react-native-paper';
+import { withState } from '../../shared';
+import { TextInput } from '../common';
 import AuthState from './state/AuthState';
 
 const Login = observer(({ uiState, navigation }) => {
-  const {username, password} = uiState
+  const {username, password, errors} = uiState
   return (
     <View>
       <Title>Login</Title>
-      <TextInput placeholder="Username" value={username} onChangeText={value => uiState.updateUsername(value)} autoCapitalize="none" autoCorrect={false} />
-      <TextInput placeholder="Password" value={password} onChangeText={value => uiState.updatePassword(value)} autoCapitalize="none" autoCorrect={false} secureTextEntry />
+      <TextInput
+        placeholder="Username"
+        value={username}
+        onChange={value => uiState.updateUsername(value)}
+        autoCapitalize="none"
+        errorMessage={errors.username}
+        autoCorrect={false}
+      />
+      <TextInput
+        placeholder="Password"
+        value={password}
+        onChange={value => uiState.updatePassword(value)}
+        autoCapitalize="none"
+        autoCorrect={false}
+        secureTextEntry
+        errorMessage={errors.password}
+      />
       <Button onPress={uiState.login}>
         Log In
       </Button>

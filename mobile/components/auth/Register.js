@@ -1,19 +1,50 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import { View } from 'react-native';
-import { Button, Text, TextInput, Title } from 'react-native-paper';
-import withState from '../../shared/withState';
+import { Button, Text, Title } from 'react-native-paper';
+import { withState } from '../../shared';
+import { TextInput } from '../common';
 import AuthState from './state/AuthState';
 
 const Register = observer(({ uiState, navigation }) => {
-  const {username, email, password, password2} = uiState
+  const {username, email, password, password2, errors} = uiState
   return (
     <View>
       <Title>Register</Title>
-      <TextInput placeholder="Username" value={username} onChangeText={value => uiState.updateUsername(value)} autoCapitalize="none" autoCorrect={false} />
-      <TextInput placeholder="Email" value={email} onChangeText={value => uiState.updateEmail(value)} autoCapitalize="none" autoCorrect={false} />
-      <TextInput placeholder="Password" value={password} onChangeText={value => uiState.updatePassword(value)} autoCapitalize="none" autoCorrect={false} secureTextEntry />
-      <TextInput placeholder="Confirm Password" value={password2} onChangeText={value => uiState.updatePassword2(value)} autoCapitalize="none" autoCorrect={false} secureTextEntry />
+      <TextInput
+        placeholder="Username"
+        value={username}
+        onChange={value => uiState.updateUsername(value)}
+        autoCapitalize="none"
+        autoCorrect={false}
+        errorMessage={errors.username}
+      />
+      <TextInput
+        placeholder="Email"
+        value={email}
+        onChange={value => uiState.updateEmail(value)}
+        autoCapitalize="none"
+        autoCorrect={false}
+        errorMessage={errors.email}
+      />
+      <TextInput
+        placeholder="Password"
+        value={password}
+        onChange={value => uiState.updatePassword(value)}
+        autoCapitalize="none"
+        autoCorrect={false}
+        secureTextEntry
+        errorMessage={errors.password1}
+      />
+      <TextInput
+        placeholder="Confirm Password"
+        value={password2}
+        onChange={value => uiState.updatePassword2(value)}
+        autoCapitalize="none"
+        autoCorrect={false}
+        secureTextEntry
+        errorMessage={errors.password2}
+      />
       <Button onPress={uiState.register}>
         Register
       </Button>
