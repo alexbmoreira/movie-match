@@ -15,8 +15,11 @@ export default class AuthState {
       password: observable,
       load: action.bound,
       login: action.bound,
+      register: action.bound,
       updateUsername: action.bound,
-      updatePassword: action.bound
+      updateEmail: action.bound,
+      updatePassword: action.bound,
+      updatePassword2: action.bound
     })
   }
 
@@ -36,8 +39,16 @@ export default class AuthState {
     this.username = username
   }
 
+  updateEmail(email) {
+    this.email = email
+  }
+
   updatePassword(password) {
     this.password = password
+  }
+
+  updatePassword2(password2) {
+    this.password2 = password2
   }
 
   async login() {
@@ -48,11 +59,32 @@ export default class AuthState {
     });
 
     if(data) {
-      await AsyncStorage.setItem('access_token', data.key);
-      await AsyncStorage.setItem('user', JSON.stringify(data.user));
-      navigate('Main');
+      await this.authSuccess(data.key, data.user)
     } else {
       this.errors = errors
     }
+  }
+
+  async register() {
+    this.errors = {}
+    const {data, errors} = await authApi.register({
+      username: this.username,
+      email: this.email,
+      password1: this.password,
+      password2: this.password2
+    });
+
+    if(data) {
+      await this.authSuccess(data.key, data.user)
+    } else {
+      console.log(errors)
+      this.errors = errors
+    }
+  }
+
+  async authSuccess(key, user) {
+    await AsyncStorage.setItem('access_token', key);
+    await AsyncStorage.setItem('user', JSON.stringify(user));
+    navigate('Main');
   }
 }
