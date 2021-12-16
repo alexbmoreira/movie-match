@@ -8,7 +8,7 @@ const ProfileNav = createStackNavigator();
 function ProfileStack() {
   return (
     <ProfileNav.Navigator>
-      <ProfileNav.Screen name="Profile" component={ProfilePage} />
+      <ProfileNav.Screen name="Profile" component={ProfilePage} options={{ headerLeft: () => null }}/>
     </ProfileNav.Navigator>
   );
 }

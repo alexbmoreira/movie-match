@@ -3,9 +3,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
 import MainTabs from './components/navigation/MainTabs';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
 import { navigationRef } from './RootNavigation';
 
 const Stack = createStackNavigator();
@@ -14,9 +14,9 @@ function AppNavigator() {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="Main" component={MainTabs} />
+        <Stack.Screen name="Login" component={Login} options={{gestureEnabled: false}}/>
+        <Stack.Screen name="Register" component={Register} options={{gestureEnabled: false}}/>
+        <Stack.Screen name="Main" component={MainTabs} options={{gestureEnabled: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
