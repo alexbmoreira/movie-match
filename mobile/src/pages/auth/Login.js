@@ -1,4 +1,4 @@
-import { Button, ScreenContainer, TextInput } from '@components/common';
+import { Button, FormLayout, ScreenContainer, TextInput } from '@components/common';
 import { withState } from '@shared';
 import { observer } from 'mobx-react';
 import React from 'react';
@@ -10,26 +10,24 @@ const Login = observer(({ uiState, navigation }) => {
   return (
     <ScreenContainer center>
       <Title>Log In to Match Cut</Title>
-      <TextInput
-        placeholder="Username"
-        value={username}
-        onChange={value => uiState.updateUsername(value)}
-        autoCapitalize="none"
-        errorMessage={errors.username}
-        autoCorrect={false}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChange={value => uiState.updatePassword(value)}
-        autoCapitalize="none"
-        autoCorrect={false}
-        secureTextEntry
-        errorMessage={errors.password}
-      />
-      <Button onPress={uiState.login}>
-        Log In
-      </Button>
+      <FormLayout>
+        <TextInput
+          placeholder="Username"
+          value={username}
+          onChange={value => uiState.updateUsername(value)}
+          errorMessage={errors.username}
+        />
+        <TextInput
+          placeholder="Password"
+          value={password}
+          onChange={value => uiState.updatePassword(value)}
+          secureTextEntry
+          errorMessage={errors.password}
+        />
+        <Button mode='contained' onPress={uiState.login}>
+          Log In
+        </Button>
+      </FormLayout>
       <Text>Don't have an Account?</Text>
       <Text onPress={() => navigation.navigate('Register')}>Register</Text>
     </ScreenContainer>

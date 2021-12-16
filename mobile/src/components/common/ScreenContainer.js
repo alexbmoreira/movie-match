@@ -7,7 +7,7 @@ const style = StyleSheet.create({
     display: 'flex',
     padding: '5%',
     height: '100%',
-    backgroundColor: theme.colors.background
+    backgroundColor: theme.colors.screen
   },
   center: { 
     justifyContent: 'center'
@@ -15,9 +15,13 @@ const style = StyleSheet.create({
 })
 
 const ScreenContainer = ({children, center}) => {
-  console.log(style.screenContainer)
+  const activeStyle = {
+    ...style.screenContainer,
+    ...(center && style.center)
+  }
+
   return(
-    <View style={{...style.screenContainer, ...(center && style.center)}}>
+    <View style={activeStyle}>
       {children}
     </View>
   )

@@ -1,4 +1,4 @@
-import { ScreenContainer, TextInput } from '@components/common';
+import { FormLayout, ScreenContainer, TextInput } from '@components/common';
 import { withState } from '@shared';
 import { observer } from 'mobx-react';
 import React from 'react';
@@ -10,43 +10,37 @@ const Register = observer(({ uiState, navigation }) => {
   return (
     <ScreenContainer center>
       <Title>Create an Account</Title>
-      <TextInput
-        placeholder="Username"
-        value={username}
-        onChange={value => uiState.updateUsername(value)}
-        autoCapitalize="none"
-        autoCorrect={false}
-        errorMessage={errors.username}
-      />
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChange={value => uiState.updateEmail(value)}
-        autoCapitalize="none"
-        autoCorrect={false}
-        errorMessage={errors.email}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChange={value => uiState.updatePassword(value)}
-        autoCapitalize="none"
-        autoCorrect={false}
-        secureTextEntry
-        errorMessage={errors.password1}
-      />
-      <TextInput
-        placeholder="Confirm Password"
-        value={password2}
-        onChange={value => uiState.updatePassword2(value)}
-        autoCapitalize="none"
-        autoCorrect={false}
-        secureTextEntry
-        errorMessage={errors.password2}
-      />
-      <Button onPress={uiState.register}>
-        Register
-      </Button>
+      <FormLayout>
+        <TextInput
+          placeholder="Username"
+          value={username}
+          onChange={value => uiState.updateUsername(value)}
+          errorMessage={errors.username}
+        />
+        <TextInput
+          placeholder="Email"
+          value={email}
+          onChange={value => uiState.updateEmail(value)}
+          errorMessage={errors.email}
+        />
+        <TextInput
+          placeholder="Password"
+          value={password}
+          onChange={value => uiState.updatePassword(value)}
+          secureTextEntry
+          errorMessage={errors.password1}
+        />
+        <TextInput
+          placeholder="Confirm Password"
+          value={password2}
+          onChange={value => uiState.updatePassword2(value)}
+          secureTextEntry
+          errorMessage={errors.password2}
+        />
+        <Button mode='contained' onPress={uiState.register}>
+          Register
+        </Button>
+      </FormLayout>
       <Text>Already have an account?</Text>
       <Text onPress={() => navigation.navigate('Login')}>Log In</Text>
     </ScreenContainer>

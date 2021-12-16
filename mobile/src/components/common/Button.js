@@ -26,7 +26,7 @@ class Button extends React.Component {
 
     return(
       <View>
-        <Btn onPress={async (e) => this.onPress(e, onPress)}>{children}</Btn>
+        <Btn onPress={async (e) => this.onPress(e, onPress)} {...rest}>{children}</Btn>
       </View>
     )
   }

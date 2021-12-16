@@ -9,7 +9,9 @@ const theme = {
     accent: '#F2C649',
     surface: '#7D7E88',
     text: '#E2E2E2',
-    background: '#404142'
+    background: '#7D7E88',
+    screen: '#404142',
+    error: '#ED1F1F'
   },
 };
 
