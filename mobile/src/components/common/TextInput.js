@@ -6,7 +6,7 @@ import ErrorMessage from './ErrorMessage';
 const TextInput = ({placeholder, value, onChange, errorMessage, ...rest}) => {
   return(
     <View>
-      <Input placeholder={placeholder} value={value} onChangeText={onChange} {...rest}/>
+      <Input placeholder={placeholder} value={value} onChangeText={onChange} mode='outlined' {...rest}/>
       {errorMessage && <ErrorMessage message={errorMessage[0]}/>}
     </View>
   )

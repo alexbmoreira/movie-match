@@ -1,8 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { navigationRef } from '@shared/RootNavigation';
+import theme from '@shared/theme';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import MainTabs from './src/components/navigation/MainTabs';
 import Login from './src/pages/auth/Login';
@@ -25,10 +27,13 @@ function AppNavigator() {
 }
 
 export default function App() {
+  console.log(theme)
   return (
     <SafeAreaProvider>
-      <StatusBar style="auto" />
-      <AppNavigator/>
+      <PaperProvider theme={theme}>
+        <StatusBar style="auto" />
+        <AppNavigator/>
+      </PaperProvider>
     </SafeAreaProvider>
   );
 }

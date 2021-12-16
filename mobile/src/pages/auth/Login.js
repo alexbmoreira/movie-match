@@ -1,16 +1,15 @@
-import { TextInput } from '@components/common';
+import { Button, ScreenContainer, TextInput } from '@components/common';
 import { withState } from '@shared';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { View } from 'react-native';
-import { Button, Text, Title } from 'react-native-paper';
+import { Text, Title } from 'react-native-paper';
 import AuthState from './state/AuthState';
 
 const Login = observer(({ uiState, navigation }) => {
   const {username, password, errors} = uiState
   return (
-    <View>
-      <Title>Login</Title>
+    <ScreenContainer center>
+      <Title>Log In to Match Cut</Title>
       <TextInput
         placeholder="Username"
         value={username}
@@ -33,7 +32,7 @@ const Login = observer(({ uiState, navigation }) => {
       </Button>
       <Text>Don't have an Account?</Text>
       <Text onPress={() => navigation.navigate('Register')}>Register</Text>
-    </View>
+    </ScreenContainer>
   );
 })
 
