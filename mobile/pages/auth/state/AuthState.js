@@ -13,7 +13,6 @@ export default class AuthState {
       errors: observable,
       username: observable,
       password: observable,
-      load: action.bound,
       login: action.bound,
       register: action.bound,
       updateUsername: action.bound,
@@ -21,18 +20,6 @@ export default class AuthState {
       updatePassword: action.bound,
       updatePassword2: action.bound
     })
-  }
-
-  async load() {
-    try {
-      const token = await AsyncStorage.getItem('access_token');
-      const user = await AsyncStorage.getItem('user');
-      if (token && user) {
-        navigate('Main');
-      }
-    } catch (e) {
-      console.log(e);
-    }
   }
 
   updateUsername(username) {
@@ -80,6 +67,16 @@ export default class AuthState {
     } else {
       console.log(errors)
       this.errors = errors
+    }
+  }
+
+  async resolveAuth() {
+    const token = await AsyncStorage.getItem('access_token');
+    const user = await AsyncStorage.getItem('user');
+    if (token && user) {
+      navigate('Main');
+    } else {
+      navigate('Login')
     }
   }
 
