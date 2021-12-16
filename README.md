@@ -59,12 +59,6 @@ make run-f
 ```
 > Server will be running on port 8080
 
-Mobile:
-```shell
-make run-m
-```
-> This starts an Expo app
-
 ### Linting backend
 
 ```shell
