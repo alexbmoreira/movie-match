@@ -28,12 +28,7 @@ SECRET_KEY = config('SECRET_KEY', 'secret')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', False)
 
-ALLOWED_HOSTS = [
-    config('NGROK_HOST', ''),
-    'localhost',
-    '0.0.0.0',
-    '127.0.0.1'
-]
+ALLOWED_HOSTS = []
 
 # Rest Framework
 REST_FRAMEWORK = {
