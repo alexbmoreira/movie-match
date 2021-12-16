@@ -1,4 +1,4 @@
-import { withState } from "../../shared";
+import { withState } from "@shared";
 import AuthState from "./state/AuthState";
 
 const ResolveAuth = ({ uiState }) => {

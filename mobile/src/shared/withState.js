@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 
 // const SomethingWentWrong = () => {
-//   const ContactUsLink = require('../../components').ContactUsLink;
+//   const ContactUsLink = require('components').ContactUsLink;
 
 //   return (
 //     <div className={`QuickTip QuickTip--error relative m2`}>
@@ -19,7 +19,7 @@ import React from 'react';
 
 const withState = (Component, State, options = {}) => {
 //   const {spinner, noSpinner} = options;
-//   const Spinner = spinner || require('../../components').Spinner;
+//   const Spinner = spinner || require('components').Spinner;
 
   return @observer class extends React.Component {
     @observable uiState;

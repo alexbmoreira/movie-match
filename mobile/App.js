@@ -1,13 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { navigationRef } from '@shared/RootNavigation';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import MainTabs from './components/navigation/MainTabs';
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
-import ResolveAuth from './pages/auth/ResolveAuth';
-import { navigationRef } from './RootNavigation';
+import MainTabs from './src/components/navigation/MainTabs';
+import Login from './src/pages/auth/Login';
+import Register from './src/pages/auth/Register';
+import ResolveAuth from './src/pages/auth/ResolveAuth';
 
 const Stack = createStackNavigator();
 
