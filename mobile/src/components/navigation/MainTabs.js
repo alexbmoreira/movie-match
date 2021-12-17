@@ -1,16 +1,25 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import theme from '@shared/theme';
 import React from 'react';
-import Stacks from './StackNavigators';
+import { ProfileStack } from './StackNavigators';
 
 const Tab = createBottomTabNavigator();
 
-function MainTabs() {
+const screenOptions ={
+  headerShown: false,
+  tabBarActiveTintColor: theme.colors.primary,
+  tabBarInactiveTintColor: theme.colors.surface,
+  tabBarStyle: {
+    backgroundColor: theme.colors.screen,
+  }
+}
 
+const MainTabs = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
         name="ProfileStack"
-        component={Stacks.ProfileStack}
+        component={ProfileStack}
         options={{
           title: 'Profile',
         }}
