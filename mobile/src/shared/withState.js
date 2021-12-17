@@ -2,24 +2,7 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 
-// const SomethingWentWrong = () => {
-//   const ContactUsLink = require('components').ContactUsLink;
-
-//   return (
-//     <div className={`QuickTip QuickTip--error relative m2`}>
-//       <div className='QuickTip-header'>
-//         <FormattedMessage id='Something went wrong.'/>
-//       </div>
-//       <div className='QuickTip-paragraph'>
-//         <FormattedMessage id='ERROR_BOUNDARY_DESC' values={{contactUs: <ContactUsLink/>}}/>
-//       </div>
-//     </div>
-//   );
-// };
-
 const withState = (Component, State, options = {}) => {
-//   const {spinner, noSpinner} = options;
-//   const Spinner = spinner || require('components').Spinner;
 
   return @observer class extends React.Component {
     @observable uiState;
@@ -67,14 +50,6 @@ const withState = (Component, State, options = {}) => {
     }
 
     render() {
-    //   if (this.hasError) {
-    //     return <SomethingWentWrong/>;
-    //   }
-
-    //   if (!this.isLoaded && !noSpinner) {
-    //     return <Spinner {...this.props}/>;
-    //   }
-
       return <Component {...this.props} uiState={this.uiState}/>;
     }
   };
