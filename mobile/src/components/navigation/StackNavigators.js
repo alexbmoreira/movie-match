@@ -14,10 +14,14 @@ const screenOptions = {
   },
 };
 
-const ProfileStack = () => {
+const ProfileStack = ({ route }) => {
   return (
     <ProfileNav.Navigator screenOptions={screenOptions}>
-      <ProfileNav.Screen name="Profile" component={ProfilePage} options={{ headerLeft: () => null }}/>
+      <ProfileNav.Screen
+        name='Profile'
+        component={ProfilePage}
+        initialParams={route.params}
+        options={{ headerLeft: () => null }}/>
     </ProfileNav.Navigator>
   );
 }

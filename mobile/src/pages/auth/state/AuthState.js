@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import authApi from '@shared/api/auth';
+import { authApi } from '@shared/api';
 import { navigate } from '@shared/RootNavigation';
 import { action, makeObservable, observable } from 'mobx';
 
-export default class AuthState {
+class AuthState {
   errors = {};
   username = '';
   password = '';
@@ -72,7 +72,7 @@ export default class AuthState {
     const token = await AsyncStorage.getItem('access_token');
     const user = await AsyncStorage.getItem('user');
     if (token && user) {
-      navigate('Main');
+      navigate('Main', { userId: JSON.parse(user).id });
     } else {
       navigate('Login')
     }
@@ -81,6 +81,8 @@ export default class AuthState {
   async authSuccess(key, user) {
     await AsyncStorage.setItem('access_token', key);
     await AsyncStorage.setItem('user', JSON.stringify(user));
-    navigate('Main');
+    navigate('Main', { userId: user.id });
   }
 }
+
+export default AuthState;
