@@ -6,8 +6,9 @@ import React from 'react';
 import { Text } from 'react-native-paper';
 import ProfileState from './state/ProfileState';
 
-const ProfilePage = observer(({ uiState }) => {
-  const {profile} = uiState;
+const ProfilePage = observer(({ route, uiState }) => {
+  const { userId } = route.params;
+  const { profile } = uiState;
 
   return (
     <ScreenContainer scroll>

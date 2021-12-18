@@ -11,7 +11,9 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const style = StyleSheet.create({
   screenContainer: {
+    display: 'flex',
     margin: '5%',
+    height: '95%',
     backgroundColor: theme.colors.screen
   },
   center: { 

@@ -14,15 +14,16 @@ const screenOptions ={
   }
 }
 
-const MainTabs = () => {
+const MainTabs = ({ route }) => {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
-        name="ProfileStack"
+        name='ProfileStack'
         component={ProfileStack}
         options={{
           title: 'Profile',
         }}
+        initialParams={route.params}
       />
     </Tab.Navigator>
   );

@@ -72,7 +72,7 @@ class AuthState {
     const token = await AsyncStorage.getItem('access_token');
     const user = await AsyncStorage.getItem('user');
     if (token && user) {
-      navigate('Main');
+      navigate('Main', { userId: JSON.parse(user).id });
     } else {
       navigate('Login')
     }
@@ -81,7 +81,7 @@ class AuthState {
   async authSuccess(key, user) {
     await AsyncStorage.setItem('access_token', key);
     await AsyncStorage.setItem('user', JSON.stringify(user));
-    navigate('Main');
+    navigate('Main', { userId: user.id });
   }
 }
 
