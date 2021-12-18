@@ -48,7 +48,6 @@ export default class AuthState {
     if(data) {
       await this.authSuccess(data.key, data.user)
     } else {
-      console.log(errors)
       this.errors = errors
     }
   }
@@ -65,7 +64,6 @@ export default class AuthState {
     if(data) {
       await this.authSuccess(data.key, data.user)
     } else {
-      console.log(errors)
       this.errors = errors
     }
   }
