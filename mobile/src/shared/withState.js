@@ -1,20 +1,31 @@
-import { observable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 
+
+
 const withState = (Component, State, options = {}) => {
 
-  return @observer class extends React.Component {
-    @observable uiState;
-    @observable isLoaded = false;
-    @observable hasError = false;
+  class StateHOC extends React.Component {
+    uiState = null;
+    isLoaded = false;
+    hasError = false;
 
+    constructor() {
+      super()
+      makeObservable(this, {
+        uiState: observable,
+        isLoaded: observable,
+        hasError: observable
+      })
+    }
+  
     async UNSAFE_componentWillMount() {
       this.uiState = new State();
       if (this.uiState.receiveProps) {
         this.uiState.receiveProps(this.props);
       }
-
+  
       if (this.uiState.load) {
         try {
           await Promise.resolve(this.uiState.load());
@@ -23,36 +34,38 @@ const withState = (Component, State, options = {}) => {
           throw error;
         }
       }
-
+  
       this.isLoaded = true;
     }
-
+  
     componentDidCatch(error, errorInfo) {
       this.hasError = true;
     }
-
+  
     async componentDidMount() {
       if (this.uiState.mount) {
         this.uiState.mount();
       }
     }
-
+  
     async componentWillUnmount() {
       if (this.uiState.unmount) {
         this.uiState.unmount();
       }
     }
-
+  
     UNSAFE_componentWillReceiveProps(props) {
       if (this.uiState.receiveProps) {
         this.uiState.receiveProps(props);
       }
     }
-
+  
     render() {
       return <Component {...this.props} uiState={this.uiState}/>;
     }
   };
+
+  return observer(StateHOC);
 };
 
 // withState(Component, State, options) wraps Component, instantiates State in
