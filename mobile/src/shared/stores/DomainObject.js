@@ -1,9 +1,8 @@
-import _ from 'lodash';
 import { action, makeObservable, toJS } from 'mobx';
 
 class DomainObject {
 
-  constructor () {
+  constructor() {
     makeObservable(this, {
       merge: action
     })
@@ -11,7 +10,7 @@ class DomainObject {
 
   merge(model) {
     if (!model) return;
-    _.merge(this, model);
+    Object.assign(this, model);
   }
 
   toJS() {

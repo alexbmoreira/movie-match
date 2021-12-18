@@ -1,18 +1,13 @@
 import { DomainObject } from "@shared/stores";
-import { makeObservable, observable } from 'mobx';
+import { observable } from 'mobx';
 
 class Profile extends DomainObject {
-  user = {};
-  friends = [];
-  watchlist = [];
+  user = observable({});
+  friends = observable([]);
+  watchlist = observable([]);
 
   constructor(model) {
-    super(model);
-    makeObservable(this, {
-      user: observable,
-      friends: observable,
-      watchlist: observable
-    });
+    super();
 
     if (model) {
       this.merge(model);

@@ -13,7 +13,7 @@ class ProfileState {
   }
 
   async load() {
-    const r = await profileApi.getProfile(44)
+    const r = await profileApi.getProfile(1)
     this.profile = new Profile(r.data)
   }
 }

@@ -11,10 +11,13 @@ const ProfilePage = observer(({ uiState }) => {
   console.log(profile.watchlist)
 
   return (
-    <ScreenContainer>
+    <ScreenContainer scroll>
       <Text>{profile.user.username}</Text>
       {_.map(profile.friends, friend => (
         <Text key={friend.id}>{friend.username}</Text>
+      ))}
+      {_.map(profile.watchlist, movie => (
+        <Text key={movie.id}>{movie.movie}</Text>
       ))}
     </ScreenContainer>
   );
