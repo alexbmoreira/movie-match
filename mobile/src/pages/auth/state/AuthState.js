@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import authApi from '@shared/api/auth';
+import { authApi } from '@shared/api';
 import { navigate } from '@shared/RootNavigation';
 import { action, makeObservable, observable } from 'mobx';
 
-export default class AuthState {
+class AuthState {
   errors = {};
   username = '';
   password = '';
@@ -84,3 +84,5 @@ export default class AuthState {
     navigate('Main');
   }
 }
+
+export default AuthState;

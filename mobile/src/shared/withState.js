@@ -6,7 +6,7 @@ import React from 'react';
 
 const withState = (Component, State, options = {}) => {
 
-  class StateHOC extends React.Component {
+  return observer(class extends React.Component {
     uiState = null;
     isLoaded = false;
     hasError = false;
@@ -61,11 +61,11 @@ const withState = (Component, State, options = {}) => {
     }
   
     render() {
+      if(!this.isLoaded) return null;
+
       return <Component {...this.props} uiState={this.uiState}/>;
     }
-  };
-
-  return observer(StateHOC);
+  });
 };
 
 // withState(Component, State, options) wraps Component, instantiates State in
