@@ -1,5 +1,7 @@
 import { DomainObject } from "@shared/stores";
 import { observable } from 'mobx';
+import Movie from "./Movie";
+import User from "./User";
 
 class Profile extends DomainObject {
   user = observable({});
@@ -10,7 +12,11 @@ class Profile extends DomainObject {
     super();
 
     if (model) {
-      this.merge(model);
+      this.merge(model, {
+        user: User,
+        friends: [User],
+        watchlist: [Movie]
+      });
     }
   }
 }

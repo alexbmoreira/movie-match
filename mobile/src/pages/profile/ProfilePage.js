@@ -8,7 +8,6 @@ import ProfileState from './state/ProfileState';
 
 const ProfilePage = observer(({ uiState }) => {
   const {profile} = uiState;
-  console.log(profile.watchlist)
 
   return (
     <ScreenContainer scroll>
