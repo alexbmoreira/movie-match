@@ -1,6 +1,6 @@
 import theme from '@shared/theme';
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 // const screenContainerHeight = () => {
@@ -22,13 +22,13 @@ const style = StyleSheet.create({
   background: {
     backgroundColor: theme.colors.screen
   }
-})
+});
 
 const ScreenContainer = ({children, center, scroll}) => {
   const activeStyle = {
     ...style.screenContainer,
     ...(center && style.center)
-  }
+  };
 
   const Container = scroll ? ScrollView : View;
 
@@ -38,7 +38,7 @@ const ScreenContainer = ({children, center, scroll}) => {
         {children}
       </View>
     </Container>
-  )
-}
+  );
+};
 
-export default ScreenContainer
+export default ScreenContainer;

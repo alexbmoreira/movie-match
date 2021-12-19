@@ -4,20 +4,21 @@ import React from 'react';
 
 
 
-const withState = (Component, State, options = {}) => {
-
+const withState = (Component, State) => {
+  
+  /* eslint-disable-next-line react/display-name */
   return observer(class extends React.Component {
     uiState = null;
     isLoaded = false;
     hasError = false;
 
     constructor() {
-      super()
+      super();
       makeObservable(this, {
         uiState: observable,
         isLoaded: observable,
         hasError: observable
-      })
+      });
     }
   
     async UNSAFE_componentWillMount() {
@@ -38,7 +39,7 @@ const withState = (Component, State, options = {}) => {
       this.isLoaded = true;
     }
   
-    componentDidCatch(error, errorInfo) {
+    componentDidCatch() {
       this.hasError = true;
     }
   

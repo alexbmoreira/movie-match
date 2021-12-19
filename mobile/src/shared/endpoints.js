@@ -7,26 +7,26 @@ const endpoints = {
   USER: '/user/',
   FRIENDS: {
     with(userId) {
-      return `/profiles/${userId}/friends/`
+      return `/profiles/${userId}/friends/`;
     }
   },
   PROFILE: {
     with(userId) {
-      return `/profiles/${userId}/`
+      return `/profiles/${userId}/`;
     }
   },
   TMDB: {
     SEARCH: {
       with(searchType) {
-        return `/movies/${searchType}/`
+        return `/movies/${searchType}/`;
       }
     },
     DATA: { 
       with(type, id) {
-        return `/movies/${type}/${id}`
+        return `/movies/${type}/${id}`;
       }
     }
   }
-}
+};
 
-export default endpoints
+export default endpoints;

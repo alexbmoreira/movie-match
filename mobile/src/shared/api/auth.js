@@ -1,20 +1,20 @@
-import { endpoints } from '@shared'
-import { getRequest, postRequest } from './api.service'
+import { endpoints } from '@shared';
+import { getRequest, postRequest } from './api.service';
 
 async function getUser() {
-  return getRequest(endpoints.USER)
+  return getRequest(endpoints.USER);
 }
 
 async function login(data) {
-  return postRequest(endpoints.AUTH.LOGIN, data)
+  return postRequest(endpoints.AUTH.LOGIN, data);
 }
 
 async function register(data) {
-  return postRequest(endpoints.AUTH.REGISTER, data)
+  return postRequest(endpoints.AUTH.REGISTER, data);
 }
 
 async function logout() {
-  return postRequest(endpoints.AUTH.LOGOUT)
+  return postRequest(endpoints.AUTH.LOGOUT);
 }
 
 export default {

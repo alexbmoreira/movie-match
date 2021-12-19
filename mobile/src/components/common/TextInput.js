@@ -1,6 +1,6 @@
-import React from "react";
-import { View } from "react-native";
-import { TextInput as Input } from "react-native-paper";
+import React from 'react';
+import { View } from 'react-native';
+import { TextInput as Input } from 'react-native-paper';
 import ErrorMessage from './ErrorMessage';
 
 const TextInput = ({placeholder, value, onChange, errorMessage, ...rest}) => {
@@ -11,13 +11,13 @@ const TextInput = ({placeholder, value, onChange, errorMessage, ...rest}) => {
         value={value}
         onChangeText={onChange}
         mode='outlined'
-        autoCapitalize="none"
+        autoCapitalize='none'
         autoCorrect={false}
         {...rest}
       />
       {errorMessage && <ErrorMessage message={errorMessage[0]}/>}
     </View>
-  )
-}
+  );
+};
 
-export default TextInput
+export default TextInput;

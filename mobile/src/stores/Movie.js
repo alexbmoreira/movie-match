@@ -1,4 +1,4 @@
-import { DomainObject } from "@shared/stores";
+import { DomainObject } from '@shared/stores';
 import { observable } from 'mobx';
 
 class Movie extends DomainObject {

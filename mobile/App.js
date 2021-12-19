@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 
 configure({
   enforceActions: 'never'
-})
+});
 
 function AppNavigator() {
   return (
