@@ -8,6 +8,9 @@ install-b:
 install-f:
 	$(FRONTEND) npm install
 
+install-m:
+	$(MOBILE) yarn install
+
 run-b:
 	$(BACKEND) python manage.py runserver
 
@@ -34,3 +37,6 @@ lint-b:
 
 lint-f:
 	$(FRONTEND) npm run lint
+
+lint-m:
+	$(MOBILE) npm run lint

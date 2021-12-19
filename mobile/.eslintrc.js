@@ -7,6 +7,12 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended'
   ],
+  'settings': {
+    'react': {
+      'pragma': 'React',
+      'version': '17.0.1'
+    }
+  },
   'parserOptions': {
     'ecmaFeatures': {
       'jsx': true
