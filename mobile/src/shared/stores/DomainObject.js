@@ -35,7 +35,7 @@ class DomainObject {
       for (const t of this[name]) {
         if (!t.id) continue;
 
-        const existingItem = _.find(other[name], {id: t.id});
+        const existingItem = _.find(other[name], { id: t.id });
         t.merge(existingItem);
       }
     }

@@ -9,7 +9,7 @@ const style = StyleSheet.create({
   }
 });
 
-const ErrorMessage = ({message}) => {
+const ErrorMessage = ({ message }) => {
   if (!message) return null;
 
   return(

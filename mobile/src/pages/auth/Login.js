@@ -6,7 +6,7 @@ import { Text, Title } from 'react-native-paper';
 import AuthState from './state/AuthState';
 
 const Login = observer(({ uiState, navigation }) => {
-  const {username, password, errors} = uiState;
+  const { username, password, errors } = uiState;
   return (
     <ScreenContainer center>
       <Title>Log In to Match Cut</Title>

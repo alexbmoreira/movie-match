@@ -1,9 +1,10 @@
-import { ScreenContainer } from '@components/common';
+import { CardList, ScreenContainer, Table } from '@components/common';
 import { withState } from '@shared';
-import _ from 'lodash';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { Text, Title } from 'react-native-paper';
+import AvatarHeader from './AvatarHeader';
+import { FRIENDS_COLUMNS } from './columns';
+import { Movie } from './ListComponents';
 import ProfileState from './state/ProfileState';
 
 const ProfilePage = observer(({ uiState }) => {
@@ -11,15 +12,9 @@ const ProfilePage = observer(({ uiState }) => {
 
   return (
     <ScreenContainer scroll>
-      <Title>{profile.user.username}</Title>
-      <Title>Friends</Title>
-      {_.map(profile.friends, friend => (
-        <Text key={friend.id}>{friend.username}</Text>
-      ))}
-      <Title>Watchlist</Title>
-      {_.map(profile.watchlist, movie => (
-        <Text key={movie.id}>{movie.movie}</Text>
-      ))}
+      <AvatarHeader user={profile.user}/>
+      <Table title='Friends' models={profile.friends} columns={FRIENDS_COLUMNS}/>
+      <CardList title='Watchlist' models={profile.watchlist} component={Movie}/>
     </ScreenContainer>
   );
 });

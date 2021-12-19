@@ -30,6 +30,10 @@ module.exports = {
       'warn',
       'always'
     ],
+    'object-curly-spacing': [
+      'warn',
+      'always'
+    ],
     'react/prop-types': [
       'off'
     ],

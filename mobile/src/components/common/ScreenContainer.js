@@ -24,7 +24,7 @@ const style = StyleSheet.create({
   }
 });
 
-const ScreenContainer = ({children, center, scroll}) => {
+const ScreenContainer = ({ children, center, scroll }) => {
   const activeStyle = {
     ...style.screenContainer,
     ...(center && style.center)
