@@ -10,7 +10,7 @@ class ProfileState {
     makeObservable(this, {
       profile: observable,
       load: action.bound
-    })
+    });
   }
 
   receiveProps({ route }) {
@@ -18,8 +18,8 @@ class ProfileState {
   }
 
   async load() {
-    const response = await profileApi.getProfile(this.userId)
-    this.profile = new Profile(response.data)
+    const response = await profileApi.getProfile(this.userId);
+    this.profile = new Profile(response.data);
   }
 }
 

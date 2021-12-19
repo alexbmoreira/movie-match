@@ -1,5 +1,5 @@
-import endpoints from "./endpoints";
-import withState from "./withState";
+import endpoints from './endpoints';
+import withState from './withState';
 
 export {
   endpoints,

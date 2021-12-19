@@ -6,8 +6,7 @@ import React from 'react';
 import { Text, Title } from 'react-native-paper';
 import ProfileState from './state/ProfileState';
 
-const ProfilePage = observer(({ route, uiState }) => {
-  const { userId } = route.params;
+const ProfilePage = observer(({ uiState }) => {
   const { profile } = uiState;
 
   return (
@@ -23,6 +22,6 @@ const ProfilePage = observer(({ route, uiState }) => {
       ))}
     </ScreenContainer>
   );
-})
+});
 
-export default withState(ProfilePage, ProfileState)
+export default withState(ProfilePage, ProfileState);

@@ -21,10 +21,11 @@ const ProfileStack = ({ route }) => {
         name='Profile'
         component={ProfilePage}
         initialParams={route.params}
-        options={{ headerLeft: () => null }}/>
+        options={{ headerLeft: () => null }}
+      />
     </ProfileNav.Navigator>
   );
-}
+};
 
 export {
   ProfileStack,

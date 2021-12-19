@@ -12,7 +12,7 @@ const screenOptions ={
   tabBarStyle: {
     backgroundColor: theme.colors.screen,
   }
-}
+};
 
 const MainTabs = ({ route }) => {
   return (
@@ -27,6 +27,6 @@ const MainTabs = ({ route }) => {
       />
     </Tab.Navigator>
   );
-}
+};
 
 export default MainTabs;

@@ -19,41 +19,41 @@ class AuthState {
       updateEmail: action.bound,
       updatePassword: action.bound,
       updatePassword2: action.bound
-    })
+    });
   }
 
   updateUsername(username) {
-    this.username = username
+    this.username = username;
   }
 
   updateEmail(email) {
-    this.email = email
+    this.email = email;
   }
 
   updatePassword(password) {
-    this.password = password
+    this.password = password;
   }
 
   updatePassword2(password2) {
-    this.password2 = password2
+    this.password2 = password2;
   }
 
   async login() {
-    this.errors = {}
+    this.errors = {};
     const {data, errors} = await authApi.login({
       username: this.username,
       password: this.password
     });
 
     if(data) {
-      await this.authSuccess(data.key, data.user)
+      await this.authSuccess(data.key, data.user);
     } else {
-      this.errors = errors
+      this.errors = errors;
     }
   }
 
   async register() {
-    this.errors = {}
+    this.errors = {};
     const {data, errors} = await authApi.register({
       username: this.username,
       email: this.email,
@@ -62,9 +62,9 @@ class AuthState {
     });
 
     if(data) {
-      await this.authSuccess(data.key, data.user)
+      await this.authSuccess(data.key, data.user);
     } else {
-      this.errors = errors
+      this.errors = errors;
     }
   }
 
@@ -74,7 +74,7 @@ class AuthState {
     if (token && user) {
       navigate('Main', { userId: JSON.parse(user).id });
     } else {
-      navigate('Login')
+      navigate('Login');
     }
   }
 

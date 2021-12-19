@@ -21,21 +21,21 @@ api.interceptors.request.use(
 
 const request = async (url, payload, func) => {
   try {
-    const response = await func(url, payload)
-    return {data: response.data}
+    const response = await func(url, payload);
+    return {data: response.data};
   } catch (e) {
     if (e.response.data) {
-      return {errors: e.response.data}
+      return {errors: e.response.data};
     }
 
-    throw e
+    throw e;
   }
-}
+};
 
 export const postRequest = async (url, payload = {}) => {
-  return await request(url, payload, api.post)
-}
+  return await request(url, payload, api.post);
+};
 
 export const getRequest = async (url, payload = {}) => {
-  return await request(url, payload, api.get)
-}
+  return await request(url, payload, api.get);
+};

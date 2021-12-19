@@ -6,7 +6,7 @@ class DomainObject {
   constructor() {
     makeObservable(this, {
       merge: action
-    })
+    });
   }
 
   merge(model, relations = {}) {

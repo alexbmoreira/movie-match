@@ -1,4 +1,4 @@
-import DomainObject from "./DomainObject";
+import DomainObject from './DomainObject';
 
 export {
   DomainObject
