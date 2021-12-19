@@ -1,7 +1,7 @@
-import theme from '@shared/theme';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import theme from 'shared/theme';
 
 // const screenContainerHeight = () => {
 //   const headerHeight = useHeaderHeight();

@@ -1,7 +1,7 @@
-import { CardList, ScreenContainer, Table } from '@components/common';
-import { withState } from '@shared';
+import { CardList, ScreenContainer, Table } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { withState } from 'shared';
 import AvatarHeader from './AvatarHeader';
 import { FRIENDS_COLUMNS } from './columns';
 import { Movie } from './ListComponents';

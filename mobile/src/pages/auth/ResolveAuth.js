@@ -1,6 +1,6 @@
-import { ScreenContainer } from '@components/common';
-import { withState } from '@shared';
+import { ScreenContainer } from 'components/common';
 import React from 'react';
+import { withState } from 'shared';
 import AuthState from './state/AuthState';
 
 const ResolveAuth = ({ uiState }) => {

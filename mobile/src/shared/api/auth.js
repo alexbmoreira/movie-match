@@ -1,4 +1,4 @@
-import { endpoints } from '@shared';
+import { endpoints } from 'shared';
 import { getRequest, postRequest } from './api.service';
 
 async function getUser() {

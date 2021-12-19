@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { authApi } from '@shared/api';
-import { navigate } from '@shared/RootNavigation';
 import { action, makeObservable, observable } from 'mobx';
+import { authApi } from 'shared/api';
+import { navigate } from 'shared/RootNavigation';
 
 class AuthState {
   errors = {};

@@ -1,5 +1,5 @@
-import { DomainObject } from '@shared/stores';
 import { observable } from 'mobx';
+import { DomainObject } from 'shared/stores';
 import Movie from './Movie';
 import User from './User';
 

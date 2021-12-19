@@ -1,4 +1,4 @@
-import { endpoints } from '@shared';
+import { endpoints } from 'shared';
 import { getRequest } from './api.service';
 
 async function getProfile(userId) {

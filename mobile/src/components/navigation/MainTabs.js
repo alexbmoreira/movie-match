@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import theme from '@shared/theme';
 import React from 'react';
+import theme from 'shared/theme';
 import { ProfileStack } from './StackNavigators';
 
 const Tab = createBottomTabNavigator();

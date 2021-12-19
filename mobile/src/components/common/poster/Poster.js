@@ -1,10 +1,10 @@
-import { withState } from '@shared';
-import theme from '@shared/theme';
 import { observer } from 'mobx-react';
 import { PropTypes } from 'prop-types';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
+import { withState } from 'shared';
+import theme from 'shared/theme';
 import PosterState from './state/PosterState';
 
 const getPosterDimensions = (size) => {
