@@ -13,8 +13,8 @@ const ProfilePage = observer(({ uiState }) => {
   return (
     <ScreenContainer scroll>
       <AvatarHeader user={profile.user}/>
-      <Table title='Friends' models={profile.friends} columns={FRIENDS_COLUMNS}/>
       <CardList title='Watchlist' models={profile.watchlist} component={Movie}/>
+      <Table title='Friends' models={profile.friends} columns={FRIENDS_COLUMNS}/>
     </ScreenContainer>
   );
 });
