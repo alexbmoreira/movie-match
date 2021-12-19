@@ -42,3 +42,17 @@ jobs:
       run: make install-f
     - name: Linting
       run: make lint-f
+
+  mobile:
+    name: Mobile
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: Install dependencies
+        run: make install-m
+      - name: Linting
+        run: make lint-m 
