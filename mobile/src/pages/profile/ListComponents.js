@@ -1,6 +1,5 @@
-import { UsernameWithAvatar } from '@components/common';
+import { Poster, UsernameWithAvatar } from '@components/common';
 import React from 'react';
-import { Text } from 'react-native-paper';
 
 const Friend = ({ model }) => {
   return (
@@ -10,7 +9,7 @@ const Friend = ({ model }) => {
 
 const Movie = ({ model }) => {
   return (
-    <Text>{model.movie}</Text>
+    <Poster size='sm' title={model.movie} source={{ uri: 'https://picsum.photos/700' }}/>
   );
 };
 

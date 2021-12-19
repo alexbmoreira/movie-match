@@ -1,9 +1,10 @@
-import { ScreenContainer, Table } from '@components/common';
+import { CardList, ScreenContainer, Table } from '@components/common';
 import { withState } from '@shared';
 import { observer } from 'mobx-react';
 import React from 'react';
 import AvatarHeader from './AvatarHeader';
-import { FRIENDS_COLUMNS, MOVIE_COLUMNS } from './columns';
+import { FRIENDS_COLUMNS } from './columns';
+import { Movie } from './ListComponents';
 import ProfileState from './state/ProfileState';
 
 const ProfilePage = observer(({ uiState }) => {
@@ -13,7 +14,7 @@ const ProfilePage = observer(({ uiState }) => {
     <ScreenContainer scroll>
       <AvatarHeader user={profile.user}/>
       <Table title='Friends' models={profile.friends} columns={FRIENDS_COLUMNS}/>
-      <Table title='Watchlist' models={profile.watchlist} columns={MOVIE_COLUMNS}/>
+      <CardList title='Watchlist' models={profile.watchlist} component={Movie}/>
     </ScreenContainer>
   );
 });
