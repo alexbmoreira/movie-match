@@ -1,10 +1,15 @@
+import { extendObservable } from 'mobx';
+import { observer } from 'mobx-react';
 import React from 'react';
 import { View } from 'react-native';
 import { Button as Btn } from 'react-native-paper';
 
 class Button extends React.Component {
-  loading = null;
-  
+  constructor() {
+    super();
+    extendObservable(this, { loading: false });
+  }
+
   onPress = async (e, cb) => {
     if (this.loading) return null;
 
@@ -26,10 +31,10 @@ class Button extends React.Component {
 
     return(
       <View>
-        <Btn onPress={async (e) => this.onPress(e, onPress)} {...rest}>{children}</Btn>
+        <Btn onPress={async (e) => this.onPress(e, onPress)} {...rest} loading={this.loading}>{children}</Btn>
       </View>
     );
   }
 }
 
-export default Button;
+export default observer(Button);
