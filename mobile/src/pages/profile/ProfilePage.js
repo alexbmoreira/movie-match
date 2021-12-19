@@ -1,4 +1,4 @@
-import { ScreenContainer } from '@components/common';
+import { ScreenContainer, UsernameWithAvatar } from '@components/common';
 import { withState } from '@shared';
 import _ from 'lodash';
 import { observer } from 'mobx-react';
@@ -14,7 +14,7 @@ const ProfilePage = observer(({ uiState }) => {
       <Title>{profile.user.username}</Title>
       <Title>Friends</Title>
       {_.map(profile.friends, friend => (
-        <Text key={friend.id}>{friend.username}</Text>
+        <UsernameWithAvatar key={friend.id} user={friend} size='md'/>
       ))}
       <Title>Watchlist</Title>
       {_.map(profile.watchlist, movie => (
