@@ -5,9 +5,9 @@ const style = StyleSheet.create({
   formLayout: {
     marginBottom: '4%',
   }
-})
+});
 
-const FormLayout = ({children}) => {
+const FormLayout = ({ children }) => {
 
   return React.Children.map(children, c => {
     if (!c) return null;
@@ -17,7 +17,7 @@ const FormLayout = ({children}) => {
     } else {
       const activeStyle = {
         ...style.formLayout,
-      }
+      };
 
       return (
         <View style={activeStyle}>

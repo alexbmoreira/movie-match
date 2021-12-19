@@ -17,7 +17,7 @@ const getAvatarSize = (size) => {
   }
 };
 
-const Avatar = ({user, size, style}) => {
+const Avatar = ({ user, size, style }) => {
   const avatarSize = getAvatarSize(size);
   return (
     <Avi.Text style={style} size={avatarSize} label={user.userInitial} />

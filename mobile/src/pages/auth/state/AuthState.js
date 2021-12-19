@@ -44,7 +44,7 @@ class AuthState {
 
   async login() {
     this.errors = {};
-    const {data, errors} = await authApi.login({
+    const { data, errors } = await authApi.login({
       username: this.username,
       password: this.password
     });
@@ -58,7 +58,7 @@ class AuthState {
 
   async register() {
     this.errors = {};
-    const {data, errors} = await authApi.register({
+    const { data, errors } = await authApi.register({
       username: this.username,
       email: this.email,
       password1: this.password,

@@ -22,10 +22,10 @@ api.interceptors.request.use(
 const request = async (url, payload, func) => {
   try {
     const response = await func(url, payload);
-    return {data: response.data};
+    return { data: response.data };
   } catch (e) {
     if (e.response.data) {
-      return {errors: e.response.data};
+      return { errors: e.response.data };
     }
 
     throw e;

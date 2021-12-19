@@ -17,7 +17,7 @@ const style = StyleSheet.create({
   }
 });
 
-const UsernameWithAvatar = ({user, size}) => {
+const UsernameWithAvatar = ({ user, size }) => {
   return (
     <View style={style.usernameWithAvatar}>
       <Avatar style={style.avatar} size={size} user={user} />

@@ -11,7 +11,7 @@ const style = StyleSheet.create({
   }
 });
 
-const AvatarHeader = ({user}) => {
+const AvatarHeader = ({ user }) => {
   return (
     <View style={style.avatarHeader}>
       <Avatar user={user} size={'lg'}/>

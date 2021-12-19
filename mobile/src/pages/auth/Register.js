@@ -6,7 +6,7 @@ import { Button, Text, Title } from 'react-native-paper';
 import AuthState from './state/AuthState';
 
 const Register = observer(({ uiState, navigation }) => {
-  const {username, email, password, password2, errors} = uiState;
+  const { username, email, password, password2, errors } = uiState;
   return (
     <ScreenContainer center>
       <Title>Create an Account</Title>

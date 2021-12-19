@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { TextInput as Input } from 'react-native-paper';
 import ErrorMessage from './ErrorMessage';
 
-const TextInput = ({placeholder, value, onChange, errorMessage, ...rest}) => {
+const TextInput = ({ placeholder, value, onChange, errorMessage, ...rest }) => {
   return(
     <View>
       <Input

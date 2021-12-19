@@ -21,10 +21,10 @@ const AppNavigator = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name='ResolveAuth' component={ResolveAuth} options={{gestureEnabled: false}}/>
-        <Stack.Screen name='Login' component={Login} options={{gestureEnabled: false}}/>
-        <Stack.Screen name='Register' component={Register} options={{gestureEnabled: false}}/>
-        <Stack.Screen name='Main' component={MainTabs} options={{gestureEnabled: false}}/>
+        <Stack.Screen name='ResolveAuth' component={ResolveAuth} options={{ gestureEnabled: false }}/>
+        <Stack.Screen name='Login' component={Login} options={{ gestureEnabled: false }}/>
+        <Stack.Screen name='Register' component={Register} options={{ gestureEnabled: false }}/>
+        <Stack.Screen name='Main' component={MainTabs} options={{ gestureEnabled: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

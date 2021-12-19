@@ -8,7 +8,7 @@ const style = StyleSheet.create({
   }
 });
 
-const TableRow = ({model, columns}) => {
+const TableRow = ({ model, columns }) => {
   return (
     <View style={style.tableRow}>
       {columns.map((column, index) => (
