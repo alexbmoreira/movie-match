@@ -17,7 +17,7 @@ configure({
   enforceActions: 'never'
 });
 
-function AppNavigator() {
+const AppNavigator = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -28,15 +28,17 @@ function AppNavigator() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-export default function App() {
+const App = () => {
   return (
     <SafeAreaProvider>
       <PaperProvider theme={theme}>
-        <StatusBar style='auto' />
+        <StatusBar barStyle='light-content'/>
         <AppNavigator/>
       </PaperProvider>
     </SafeAreaProvider>
   );
-}
+};
+
+export default App;

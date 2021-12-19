@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Text, Title } from 'react-native-paper';
+import AvatarHeader from './AvatarHeader';
 import ProfileState from './state/ProfileState';
 
 const ProfilePage = observer(({ uiState }) => {
@@ -11,7 +12,7 @@ const ProfilePage = observer(({ uiState }) => {
 
   return (
     <ScreenContainer scroll>
-      <Title>{profile.user.username}</Title>
+      <AvatarHeader user={profile.user}/>
       <Title>Friends</Title>
       {_.map(profile.friends, friend => (
         <UsernameWithAvatar key={friend.id} user={friend} size='md'/>
