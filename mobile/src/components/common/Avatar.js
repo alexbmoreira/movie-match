@@ -11,9 +11,9 @@ const getAvatarSize = (size) => {
   case 'md':
     return 48;
   case 'lg':
-    return 64;
+    return 72;
   default:
-    return 64;
+    return 72;
   }
 };
 
