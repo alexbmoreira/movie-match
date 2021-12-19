@@ -1,4 +1,4 @@
-import { profileApi } from '@shared/api';
+import { profileApi } from 'api';
 import { action, makeObservable, observable } from 'mobx';
 import { Profile } from 'stores';
 

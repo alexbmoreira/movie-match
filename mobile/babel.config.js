@@ -13,13 +13,7 @@ module.exports = function(api) {
           '.jsx',
           '.ts',
           '.tsx',
-        ],
-        alias: {
-          '@assets': './src/assets',
-          '@components': './src/components',
-          '@pages': './src/pages',
-          '@shared': './src/shared'
-        }
+        ]
       }]
     ]
   };

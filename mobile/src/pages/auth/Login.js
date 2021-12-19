@@ -1,8 +1,8 @@
-import { Button, FormLayout, ScreenContainer, TextInput } from '@components/common';
-import { withState } from '@shared';
+import { Button, FormLayout, ScreenContainer, TextInput } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Text, Title } from 'react-native-paper';
+import { withState } from 'shared';
 import AuthState from './state/AuthState';
 
 const Login = observer(({ uiState, navigation }) => {

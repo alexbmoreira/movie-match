@@ -1,4 +1,4 @@
-import { Poster, UsernameWithAvatar } from '@components/common';
+import { Poster, UsernameWithAvatar } from 'components/common';
 import React from 'react';
 
 const Friend = ({ model }) => {

@@ -1,5 +1,5 @@
-import { DomainObject } from '@shared/stores';
 import { computed, makeObservable, observable } from 'mobx';
+import { DomainObject } from 'shared/stores';
 
 class User extends DomainObject {
   username = observable('');

@@ -1,7 +1,7 @@
-import { ProfilePage } from '@pages/profile';
 import { createStackNavigator } from '@react-navigation/stack';
-import theme from '@shared/theme';
+import { ProfilePage } from 'pages/profile';
 import React from 'react';
+import theme from 'shared/theme';
 
 const ProfileNav = createStackNavigator();
 

@@ -1,4 +1,4 @@
-import { Avatar } from '@components/common';
+import { Avatar } from 'components/common';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Headline } from 'react-native-paper';
