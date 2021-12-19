@@ -1,17 +1,24 @@
 BACKEND=cd backend &&
 FRONTEND=cd frontend &&
+MOBILE=cd mobile &&
 
 install-b:
 	$(BACKEND) pip install -r requirements.txt
 
 install-f:
 	$(FRONTEND) npm install
-	
+
 run-b:
 	$(BACKEND) python manage.py runserver
-	
+
 run-f:
 	$(FRONTEND) npm run serve
+
+run-m:
+	$(MOBILE) expo start
+
+run-m-clean:
+	$(MOBILE) expo start
 
 migrate:
 	$(BACKEND) python manage.py makemigrations $(app) && python manage.py migrate $(app)

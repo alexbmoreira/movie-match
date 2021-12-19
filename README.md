@@ -59,6 +59,47 @@ make run-f
 ```
 > Server will be running on port 8080
 
+Mobile:
+```shell
+make run-m
+```
+> This starts an Expo app
+
+### Starting ngrok for mobile development
+
+> ngrok is required to make API calls from a mobile device
+
+Make sure (ngrok)[https://ngrok.com/download] is installed
+
+```shell
+ngrok http 8000
+```
+
+ngrok will now forward to port 8000, where the backend is running.
+
+Add ngrok to `ALLOWED_HOSTS` through the `.env` file (Don't include `http://`).
+
+```
+NGROK_HOST='<ngrok URL>'
+```
+
+The app uses an environment variable to find the ngrok URL. Add the url to a `mobile/.env` file.
+
+```
+NGROK_HOST=<ngrok URL>
+```
+
+After making these changes, clear the cache the first time the app is run.
+
+```shell
+make run-m-clean
+```
+
+The app can be run normally after this.
+> Note: If using the free version of ngrok, the URL will expire after 8 hours.
+> If the session is reset, this process will have to be repeated with the new URL
+ ngrok URL expires again.
+
 ### Linting backend
 
 ```shell
