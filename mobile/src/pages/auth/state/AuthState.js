@@ -6,13 +6,17 @@ import { action, makeObservable, observable } from 'mobx';
 class AuthState {
   errors = {};
   username = '';
+  email = '';
   password = '';
+  password2 = '';
 
   constructor() {
     makeObservable(this, {
       errors: observable,
       username: observable,
+      email: observable,
       password: observable,
+      password2: observable,
       login: action.bound,
       register: action.bound,
       updateUsername: action.bound,
