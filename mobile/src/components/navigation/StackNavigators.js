@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { ProfilePage } from 'pages/profile';
+import { SearchPage } from 'pages/search';
 import React from 'react';
 import theme from 'shared/theme';
 
@@ -27,6 +28,20 @@ const ProfileStack = ({ route }) => {
   );
 };
 
+const SearchStack = ({ route }) => {
+  return (
+    <ProfileNav.Navigator screenOptions={screenOptions}>
+      <ProfileNav.Screen
+        name='Search'
+        component={SearchPage}
+        initialParams={route.params}
+        options={{ headerLeft: () => null }}
+      />
+    </ProfileNav.Navigator>
+  );
+};
+
 export {
   ProfileStack,
+  SearchStack
 };
