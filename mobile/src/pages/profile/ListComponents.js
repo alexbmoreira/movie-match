@@ -9,7 +9,7 @@ const Friend = ({ model }) => {
 
 const Movie = ({ model }) => {
   return (
-    <Poster size='sm' title={model.movie} source={{ uri: 'https://picsum.photos/700' }}/>
+    <Poster size='sm' title={model.title} source={{ uri: model.poster_link_sm }}/>
   );
 };
 
