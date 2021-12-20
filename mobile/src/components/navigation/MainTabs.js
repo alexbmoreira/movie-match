@@ -1,16 +1,25 @@
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import theme from 'shared/theme';
+import { StyleSheet } from 'react-native';
+import { theme } from 'shared';
 import { ProfileStack } from './StackNavigators';
 
 const Tab = createBottomTabNavigator();
 
+const style = StyleSheet.create({
+  tabBarIcon: {
+    color: theme.colors.text
+  }
+});
+
 const screenOptions ={
   headerShown: false,
-  tabBarActiveTintColor: theme.colors.primary,
+  tabBarActiveTintColor: theme.colors.text,
   tabBarInactiveTintColor: theme.colors.surface,
   tabBarStyle: {
-    backgroundColor: theme.colors.screen,
+    backgroundColor: theme.colors.screen
   }
 };
 
@@ -22,6 +31,7 @@ const MainTabs = ({ route }) => {
         component={ProfileStack}
         options={{
           title: 'Profile',
+          tabBarIcon: () => <FontAwesomeIcon style={style.tabBarIcon} icon={faUser} size={24}/>
         }}
         initialParams={route.params}
       />
