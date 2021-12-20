@@ -1,10 +1,13 @@
+import DefaultSpinner from 'components/common/Spinner';
 import { makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 
 
 
-const withState = (Component, State) => {
+const withState = (Component, State, options={}) => {
+  const { customSpinner } = options;
+  const Spinner = customSpinner || DefaultSpinner;
   
   /* eslint-disable-next-line react/display-name */
   return observer(class extends React.Component {
@@ -62,7 +65,7 @@ const withState = (Component, State) => {
     }
   
     render() {
-      if(!this.isLoaded) return null;
+      if(!this.isLoaded) return <Spinner/>;
 
       return <Component {...this.props} uiState={this.uiState}/>;
     }
