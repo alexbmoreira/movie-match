@@ -35,7 +35,9 @@ const SearchStack = ({ route }) => {
         name='Search'
         component={SearchPage}
         initialParams={route.params}
-        options={{ headerLeft: () => null }}
+        options={{
+          headerLeft: () => null
+        }}
       />
     </ProfileNav.Navigator>
   );

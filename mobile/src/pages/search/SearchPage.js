@@ -1,13 +1,28 @@
-import { ScreenContainer } from 'components/common';
+import { ScreenContainer, Table, TextInput } from 'components/common';
+import { observer } from 'mobx-react';
 import React from 'react';
-import { Text } from 'react-native-paper';
+import { withState } from 'shared';
+import SearchState from './state/SearchState';
 
-const SearchPage = () => {
+const RESULT_COLUMNS = [
+  {
+    attribute: 'title'
+  }
+];
+
+const SearchPage = observer(({ uiState }) => {
+  const { query, results } = uiState;
   return (
     <ScreenContainer scroll>
-      <Text>Search</Text>
+      <TextInput
+        placeholder='Search for something...'
+        value={query}
+        onChange={value => uiState.updateQuery(value)}
+        onSubmitEditing={uiState.search}
+      />
+      <Table models={results} columns={RESULT_COLUMNS}/>
     </ScreenContainer>
   );
-};
+});
 
-export default SearchPage;
+export default withState(SearchPage, SearchState);
