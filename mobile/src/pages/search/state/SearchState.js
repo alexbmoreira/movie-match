@@ -12,12 +12,17 @@ class SearchState {
       type: observable,
       results: observable,
       updateQuery: action.bound,
+      updateType: action.bound,
       search: action.bound
     });
   }
 
   updateQuery(query) {
     this.query = query;
+  }
+
+  updateType(type) {
+    this.type = type;
   }
 
   async search() {
