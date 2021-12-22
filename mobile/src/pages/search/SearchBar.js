@@ -24,7 +24,7 @@ const style = StyleSheet.create({
 });
 
 const SearchBar = observer(({ uiState }) => {
-  const { query } = uiState;
+  const { query, type } = uiState;
   return (
     <View style={style.searchBar}>
       <TextInput
@@ -37,6 +37,7 @@ const SearchBar = observer(({ uiState }) => {
         onValueChange={(value) => uiState.updateType(value)}
         onDonePress={uiState.search}
         items={SEARCH_TYPE_OPTIONS}
+        value={type}
       />
     </View>
   );

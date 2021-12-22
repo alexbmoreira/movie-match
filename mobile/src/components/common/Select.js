@@ -33,7 +33,7 @@ const style = StyleSheet.create({
   },
 });
 
-const Select = ({ items, onValueChange, onDonePress, errorMessage, ...rest }) => {
+const Select = ({ items, value, onValueChange, onDonePress, errorMessage, ...rest }) => {
   return(
     <View>
       <RNPickerSelect
@@ -41,7 +41,7 @@ const Select = ({ items, onValueChange, onDonePress, errorMessage, ...rest }) =>
         useNativeAndroidPickerStyle={false}
         onValueChange={(value) => onValueChange(value)}
         onDonePress={onDonePress}
-        value={items[0].value}
+        value={value}
         items={items}
         Icon={() => <FontAwesomeIcon icon={faChevronDown} size={16} color={theme.colors.text} />}
         {...rest}
