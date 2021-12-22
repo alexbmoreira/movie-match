@@ -26,6 +26,7 @@ class SearchState {
   }
 
   async search() {
+    if(!this.query || !this.type) return;
     const searchParams = { params: { search: this.query } };
     const response = await movieApi.makeSearch(this.type, searchParams);
     this.results = response.data.results;

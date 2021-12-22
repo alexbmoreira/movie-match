@@ -17,9 +17,6 @@ const SEARCH_TYPE_OPTIONS = [
 
 const style = StyleSheet.create({
   searchBar: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center'
   }
 });
 

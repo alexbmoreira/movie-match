@@ -1,20 +1,23 @@
+import { TmdbListItem } from 'components/common';
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from 'react-native-paper';
 
 const ResultItem = ({ model }) => {
   if(model.type === 'movie') {
     return (
-      <View>
-        <Text>{model.title}</Text>
-      </View>
+      <TmdbListItem
+        header={model.title}
+        imageLink={model.poster_link_sm}
+        item={model}
+      />
     );
   }
 
   return (
-    <View>
-      <Text>{model.name}</Text>
-    </View>
+    <TmdbListItem
+      header={model.name}
+      imageLink={model.profile_link_sm}
+      item={model}
+    />
   );
 };
 
