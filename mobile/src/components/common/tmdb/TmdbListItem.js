@@ -1,8 +1,8 @@
 import { Poster } from 'components/common/poster';
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Title } from 'react-native-paper';
 import { navigate } from 'shared/RootNavigation';
+import { Title } from '../typography';
 import MovieInfo from './MovieInfo';
 import PersonInfo from './PersonInfo';
 

@@ -2,7 +2,8 @@ import Divider from 'components/common/Divider';
 import _ from 'lodash';
 import React from 'react';
 import { View } from 'react-native';
-import { List as ReactPaperList, Title } from 'react-native-paper';
+import { List as ReactPaperList } from 'react-native-paper';
+import { Title } from '../../typography';
 import TableRow from './TableRow';
 
 const Table = ({ title, models, columns }) => (
