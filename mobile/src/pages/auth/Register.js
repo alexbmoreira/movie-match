@@ -1,7 +1,7 @@
-import { FormLayout, ScreenContainer, TextInput } from 'components/common';
+import { FormLayout, ScreenContainer, Text, TextInput } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { Button, Text, Title } from 'react-native-paper';
+import { Button, Title } from 'react-native-paper';
 import { withState } from 'shared';
 import AuthState from './state/AuthState';
 

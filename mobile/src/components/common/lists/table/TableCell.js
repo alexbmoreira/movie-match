@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { Text } from 'react-native-paper';
+import { Text } from '../../typography';
 
 const TableCell = ({ model, column }) => {
   if(column.attribute) {

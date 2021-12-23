@@ -2,9 +2,9 @@ import { observer } from 'mobx-react';
 import { PropTypes } from 'prop-types';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
 import { withState } from 'shared';
 import theme from 'shared/theme';
+import { Text } from '../typography';
 import PosterState from './state/PosterState';
 
 const getPosterDimensions = (size) => {
@@ -73,7 +73,7 @@ const Poster = observer(({ source, size, title, uiState }) => {
         style={style(size).poster}
         source={source}
         onLoadStart={() => uiState.setLoading(true)}
-        onLoadEnd={() => uiState.setLoading(false)}
+        onLoadEnd={() => { if(source.uri) uiState.setLoading(false); }}
       />
       {isLoading && <PlaceholderPoster title={title} size={size}/>}
     </View>

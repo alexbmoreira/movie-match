@@ -10,6 +10,7 @@ import Select from './Select';
 import Spinner from './Spinner';
 import TextInput from './TextInput';
 import { TmdbListItem } from './tmdb';
+import { Text } from './typography';
 import UsernameWithAvatar from './UsernameWithAvatar';
 
 export {
@@ -26,5 +27,6 @@ export {
   Spinner,
   TextInput,
   TmdbListItem,
+  Text,
   UsernameWithAvatar,
 };
