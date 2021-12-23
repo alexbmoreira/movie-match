@@ -64,7 +64,7 @@ const PlaceholderPoster = ({ title, size }) => {
 };
 
 const Poster = observer(({ source, size, title, uiState }) => {
-  const { loading } = uiState;
+  const { isLoading } = uiState;
   if(!source.uri) uiState.setLoading(true);
 
   return (
@@ -75,7 +75,7 @@ const Poster = observer(({ source, size, title, uiState }) => {
         onLoadStart={() => uiState.setLoading(true)}
         onLoadEnd={() => uiState.setLoading(false)}
       />
-      {loading && <PlaceholderPoster title={title} size={size}/>}
+      {isLoading && <PlaceholderPoster title={title} size={size}/>}
     </View>
   );
 });

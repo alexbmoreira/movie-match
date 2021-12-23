@@ -1,4 +1,4 @@
-import { ScreenContainer, Table } from 'components/common';
+import { ScreenContainer, Spinner, Table } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { withState } from 'shared';
@@ -13,12 +13,12 @@ const RESULT_COLUMNS = [
 ];
 
 const SearchPage = observer(({ uiState }) => {
-  const { results } = uiState;
+  const { results, isLoading } = uiState;
 
   return (
     <ScreenContainer scroll>
       <SearchBar uiState={uiState}/>
-      <Table models={results} columns={RESULT_COLUMNS}/>
+      {isLoading ? <Spinner/> : <Table models={results} columns={RESULT_COLUMNS}/>}
     </ScreenContainer>
   );
 });
