@@ -16,6 +16,9 @@ const style = StyleSheet.create({
     width: 0,
     marginLeft: 15,
     justifyContent: 'center'
+  },
+  detailedInfo: {
+    marginTop: 5
   }
 });
 
@@ -26,9 +29,11 @@ const TmdbListItem = ({ header, imageLink, item }) => {
         <Poster size='sm' title={header} source={{ uri: imageLink }}/>
         <View style={style.info}>
           <Title>{header}</Title>
-          {item.type === 'movie' ?
-            <MovieInfo item={item}/> :
-            <PersonInfo item={item}/>}
+          <View style={style.detailedInfo}>
+            {item.type === 'movie' ?
+              <MovieInfo item={item}/> :
+              <PersonInfo item={item}/>}
+          </View>
         </View>
       </View>
     </Pressable>
