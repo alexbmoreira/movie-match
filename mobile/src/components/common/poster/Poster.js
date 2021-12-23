@@ -39,24 +39,26 @@ const style = StyleSheet.create((size) => {
     posterPlaceholder: {
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center'
-    },
-    loadingPoster: {
+      alignItems: 'center',
+      padding: 5,
       position: 'absolute',
       left: 0,
       right: 0,
       top: 0,
       bottom: 0,
+    },
+    text: {
+      textAlign: 'center'
     }
   };
 });
 
-const PlaceholderPoster = ({ title, size, loading }) => {
-  const { poster, posterPlaceholder, loadingPoster } = style(size);
+const PlaceholderPoster = ({ title, size }) => {
+  const { poster, posterPlaceholder, text } = style(size);
 
   return (
-    <View style={{ ...poster, ...posterPlaceholder, ...(loading && loadingPoster) }}>
-      <Text>{title}</Text>
+    <View style={{ ...poster, ...posterPlaceholder }}>
+      <Text style={text}>{title}</Text>
     </View>
   );
 };
@@ -73,12 +75,7 @@ const Poster = observer(({ source, size, title, uiState }) => {
         onLoadStart={() => uiState.setLoading(true)}
         onLoadEnd={() => uiState.setLoading(false)}
       />
-      {loading &&
-        <PlaceholderPoster
-          title={title}
-          size={size}
-          loading={loading}
-        />}
+      {loading && <PlaceholderPoster title={title} size={size}/>}
     </View>
   );
 });
