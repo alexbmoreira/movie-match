@@ -9,8 +9,8 @@ import ErrorMessage from './ErrorMessage';
 const style = StyleSheet.create({
   inputIOS: {
     fontSize: 16,
-    paddingVertical: 17,
-    paddingHorizontal: 15,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
     borderColor: theme.colors.surface,
     backgroundColor: theme.colors.surface,
     borderRadius: 8,
@@ -28,7 +28,7 @@ const style = StyleSheet.create({
     paddingRight: 30, // to ensure the text is never behind the icon
   },
   iconContainer: {
-    top: 18,
+    top: 10,
     right: 15,
   },
 });

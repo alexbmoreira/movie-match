@@ -1,18 +1,17 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { TextInput as Input } from 'react-native-paper';
+import { StyleSheet, TextInput as Input, View } from 'react-native';
 import { theme } from 'shared';
 import ErrorMessage from './ErrorMessage';
 
 const style = StyleSheet.create({
   textInput: {
     fontSize: 16,
-    paddingVertical: 0,
-    paddingHorizontal: 0,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
     borderColor: theme.colors.surface,
     backgroundColor: theme.colors.surface,
     borderRadius: 8,
-    color: theme.colors.text,
+    color: theme.colors.text
   },
   withIcon: {
     paddingRight: 30, // to ensure the text is never behind the icon

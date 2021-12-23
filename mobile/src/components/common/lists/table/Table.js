@@ -1,4 +1,4 @@
-import { Divider } from 'components/common';
+import Divider from 'components/common/Divider';
 import _ from 'lodash';
 import React from 'react';
 import { View } from 'react-native';
