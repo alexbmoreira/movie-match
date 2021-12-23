@@ -4,7 +4,7 @@ import TableCell from './TableCell';
 
 const style = StyleSheet.create({
   tableRow: {
-    paddingVertical: '2%'
+    paddingVertical: 10
   }
 });
 

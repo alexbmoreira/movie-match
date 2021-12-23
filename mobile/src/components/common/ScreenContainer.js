@@ -25,10 +25,10 @@ const style = StyleSheet.create({
 });
 
 const ScreenContainer = ({ children, center, scroll }) => {
-  const activeStyle = {
-    ...style.screenContainer,
-    ...(center && style.center)
-  };
+  const activeStyle = [
+    style.screenContainer,
+    (center && style.center)
+  ];
 
   const Container = scroll ? ScrollView : View;
 

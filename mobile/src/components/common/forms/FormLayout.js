@@ -15,12 +15,8 @@ const FormLayout = ({ children }) => {
     if (c.props.wrapper && c.props.wrapper.name === 'FormLayout') {
       return c;
     } else {
-      const activeStyle = {
-        ...style.formLayout,
-      };
-
       return (
-        <View style={activeStyle}>
+        <View style={style.formLayout}>
           {c}
         </View>
       );
