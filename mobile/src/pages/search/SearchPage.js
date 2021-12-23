@@ -1,26 +1,24 @@
-import { ScreenContainer, Table, TextInput } from 'components/common';
+import { ScreenContainer, Spinner, Table } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { withState } from 'shared';
+import ResultItem from './ResultItem';
+import SearchBar from './SearchBar';
 import SearchState from './state/SearchState';
 
 const RESULT_COLUMNS = [
   {
-    attribute: 'title'
+    component: ResultItem
   }
 ];
 
 const SearchPage = observer(({ uiState }) => {
-  const { query, results } = uiState;
+  const { results, isLoading } = uiState;
+
   return (
     <ScreenContainer scroll>
-      <TextInput
-        placeholder='Search for something...'
-        value={query}
-        onChange={value => uiState.updateQuery(value)}
-        onSubmitEditing={uiState.search}
-      />
-      <Table models={results} columns={RESULT_COLUMNS}/>
+      <SearchBar uiState={uiState}/>
+      {isLoading ? <Spinner/> : <Table models={results} columns={RESULT_COLUMNS}/>}
     </ScreenContainer>
   );
 });
