@@ -3,8 +3,6 @@ import { makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 
-
-
 const withState = (Component, State, options={}) => {
   const { customSpinner } = options;
   const Spinner = customSpinner || DefaultSpinner;

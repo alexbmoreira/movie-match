@@ -40,6 +40,14 @@ module.exports = {
       'warn',
       'always'
     ],
+    'no-multiple-empty-lines': [
+      'warn',
+      {
+        'max': 1,
+        'maxEOF': 0,
+        'maxBOF': 0
+      }
+    ],
     'react/prop-types': [
       'off'
     ],
