@@ -12,14 +12,21 @@ import theme from 'shared/theme';
 
 const Stack = createStackNavigator();
 
-
 configure({
   enforceActions: 'never'
 });
 
+const navigationTheme = {
+  ...theme,
+  colors: {
+    ...theme.colors,
+    background: theme.colors.screen
+  }
+};
+
 const AppNavigator = () => {
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer ref={navigationRef} theme={navigationTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name='ResolveAuth' component={ResolveAuth} options={{ gestureEnabled: false }}/>
         <Stack.Screen name='Login' component={Login} options={{ gestureEnabled: false }}/>
