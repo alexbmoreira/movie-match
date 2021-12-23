@@ -24,7 +24,7 @@ const style = StyleSheet.create({
 
 const TmdbListItem = ({ header, imageLink, item }) => {
   return (
-    <Pressable onPress={() => navigate('MovieDetails', { movieId: item.id })}>
+    <Pressable onPress={() => item.type === 'movie' && navigate('MovieDetails', { movieId: item.id })}>
       <View style={style.resultItem}>
         <Poster size='sm' title={header} source={{ uri: imageLink }}/>
         <View style={style.info}>
