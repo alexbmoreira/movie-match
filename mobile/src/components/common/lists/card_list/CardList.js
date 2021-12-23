@@ -16,23 +16,25 @@ const style = StyleSheet.create({
   }
 });
 
-const CardList = ({ title, models, component }) => (
-  <View>
-    {title && <Title>{title}</Title>}
-    <ReactPaperList.Section>
-      <ScrollView
-        horizontal 
-        showsHorizontalScrollIndicator={false}
-        style={style.scrollView}
-      >
-        {models.map((model, index) => (
-          <View key={index} style={[style.cardListItem, (index === models.length - 1 && style.cardListItemLast)]}>
-            <CardListItem model={model} component={component}/>
-          </View>
-        ))}
-      </ScrollView>
-    </ReactPaperList.Section>
-  </View>
-);
+const CardList = ({ title, models, component }) => {
+  return (
+    <View>
+      {title && <Title>{title}</Title>}
+      <ReactPaperList.Section>
+        <ScrollView
+          horizontal 
+          showsHorizontalScrollIndicator={false}
+          style={style.scrollView}
+        >
+          {models.map((model, index) => (
+            <View key={index} style={[style.cardListItem, (index === models.length - 1 && style.cardListItemLast)]}>
+              <CardListItem model={model} component={component}/>
+            </View>
+          ))}
+        </ScrollView>
+      </ReactPaperList.Section>
+    </View>
+  );
+};
 
 export default CardList;
