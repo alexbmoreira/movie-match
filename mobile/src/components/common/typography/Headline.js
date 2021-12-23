@@ -4,10 +4,9 @@ import { Text as Txt } from 'react-native-paper';
 
 const defaultStyle = StyleSheet.create({
   headline: {
-    fontSize: 24,
+    fontSize: 26,
     lineHeight: 32,
     marginVertical: 2,
-    letterSpacing: 0
   }
 });
 

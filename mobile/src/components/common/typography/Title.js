@@ -4,7 +4,7 @@ import { Text as Txt } from 'react-native-paper';
 
 const defaultStyle = StyleSheet.create({
   title: {
-    fontSize: 20,
+    fontSize: 22,
     lineHeight: 30,
     marginVertical: 2,
     letterSpacing: 0.15
