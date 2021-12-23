@@ -5,6 +5,7 @@ import { FormLayout } from './forms';
 import { CardList, Table } from './lists';
 import { Poster } from './poster';
 import ScreenContainer from './ScreenContainer';
+import Select from './Select';
 import Spinner from './Spinner';
 import TextInput from './TextInput';
 import UsernameWithAvatar from './UsernameWithAvatar';
@@ -18,6 +19,7 @@ export {
   Table,
   Poster,
   ScreenContainer,
+  Select,
   Spinner,
   TextInput,
   UsernameWithAvatar,
