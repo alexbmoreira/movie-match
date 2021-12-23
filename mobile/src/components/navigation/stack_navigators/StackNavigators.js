@@ -1,37 +1,30 @@
 import { createStackNavigator } from '@react-navigation/stack';
+import { MovieDetails } from 'pages/movie_details';
 import { ProfilePage } from 'pages/profile';
 import { SearchPage } from 'pages/search';
 import React from 'react';
-import theme from 'shared/theme';
+import screenOptions from './screenOptions';
 
-const ProfileNav = createStackNavigator();
-
-const screenOptions = {
-  headerStyle: {
-    backgroundColor: theme.colors.screen,
-  },
-  headerTitleStyle: {
-    color: theme.colors.text,
-  },
-};
+const ProfileNavigator = createStackNavigator();
+const SearchNavigator = createStackNavigator();
 
 const ProfileStack = ({ route }) => {
   return (
-    <ProfileNav.Navigator screenOptions={screenOptions}>
-      <ProfileNav.Screen
+    <ProfileNavigator.Navigator screenOptions={screenOptions}>
+      <ProfileNavigator.Screen
         name='Profile'
         component={ProfilePage}
         initialParams={route.params}
         options={{ headerLeft: () => null }}
       />
-    </ProfileNav.Navigator>
+    </ProfileNavigator.Navigator>
   );
 };
 
 const SearchStack = ({ route }) => {
   return (
-    <ProfileNav.Navigator screenOptions={screenOptions}>
-      <ProfileNav.Screen
+    <SearchNavigator.Navigator screenOptions={screenOptions}>
+      <SearchNavigator.Screen
         name='Search'
         component={SearchPage}
         initialParams={route.params}
@@ -39,7 +32,11 @@ const SearchStack = ({ route }) => {
           headerLeft: () => null
         }}
       />
-    </ProfileNav.Navigator>
+      <SearchNavigator.Screen
+        name='MovieDetails'
+        component={MovieDetails}
+      />
+    </SearchNavigator.Navigator>
   );
 };
 

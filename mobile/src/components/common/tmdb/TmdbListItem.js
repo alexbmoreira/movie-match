@@ -1,7 +1,8 @@
 import { Poster } from 'components/common/poster';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
+import { navigate } from 'shared/RootNavigation';
 import MovieInfo from './MovieInfo';
 import PersonInfo from './PersonInfo';
 
@@ -20,15 +21,17 @@ const style = StyleSheet.create({
 
 const TmdbListItem = ({ header, imageLink, item }) => {
   return (
-    <View style={style.resultItem}>
-      <Poster size='sm' title={header} source={{ uri: imageLink }}/>
-      <View style={style.info}>
-        <Title>{header}</Title>
-        {item.type === 'movie' ?
-          <MovieInfo item={item}/> :
-          <PersonInfo item={item}/>}
+    <Pressable onPress={() => navigate('MovieDetails', { movieId: item.id })}>
+      <View style={style.resultItem}>
+        <Poster size='sm' title={header} source={{ uri: imageLink }}/>
+        <View style={style.info}>
+          <Title>{header}</Title>
+          {item.type === 'movie' ?
+            <MovieInfo item={item}/> :
+            <PersonInfo item={item}/>}
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
