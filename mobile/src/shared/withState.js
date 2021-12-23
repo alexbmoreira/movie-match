@@ -12,14 +12,14 @@ const withState = (Component, State, options={}) => {
   /* eslint-disable-next-line react/display-name */
   return observer(class extends React.Component {
     uiState = null;
-    isLoaded = false;
+    isLoading = true;
     hasError = false;
 
     constructor() {
       super();
       makeObservable(this, {
         uiState: observable,
-        isLoaded: observable,
+        isLoading: observable,
         hasError: observable
       });
     }
@@ -39,7 +39,7 @@ const withState = (Component, State, options={}) => {
         }
       }
   
-      this.isLoaded = true;
+      this.isLoading = false;
     }
   
     componentDidCatch() {
@@ -65,7 +65,7 @@ const withState = (Component, State, options={}) => {
     }
   
     render() {
-      if(!this.isLoaded) return <Spinner/>;
+      if(this.isLoading) return <Spinner/>;
 
       return <Component {...this.props} uiState={this.uiState}/>;
     }
