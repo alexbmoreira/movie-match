@@ -1,7 +1,7 @@
 import { Select, TextInput } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 const SEARCH_TYPE_OPTIONS = [
   {
@@ -15,15 +15,10 @@ const SEARCH_TYPE_OPTIONS = [
   }
 ];
 
-const style = StyleSheet.create({
-  searchBar: {
-  }
-});
-
 const SearchBar = observer(({ uiState }) => {
   const { query, type } = uiState;
   return (
-    <View style={style.searchBar}>
+    <View>
       <TextInput
         placeholder='Search for something...'
         value={query}
