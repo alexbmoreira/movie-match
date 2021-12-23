@@ -41,6 +41,7 @@ const Select = ({ items, value, onValueChange, onDonePress, errorMessage, ...res
         useNativeAndroidPickerStyle={false}
         onValueChange={(value) => onValueChange(value)}
         onDonePress={onDonePress}
+        placeholder={{}}
         value={value}
         items={items}
         Icon={() => <FontAwesomeIcon icon={faChevronDown} size={16} color={theme.colors.text} />}

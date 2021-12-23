@@ -8,6 +8,7 @@ import ScreenContainer from './ScreenContainer';
 import Select from './Select';
 import Spinner from './Spinner';
 import TextInput from './TextInput';
+import { TmdbListItem } from './tmdb';
 import UsernameWithAvatar from './UsernameWithAvatar';
 
 export {
@@ -22,5 +23,6 @@ export {
   Select,
   Spinner,
   TextInput,
+  TmdbListItem,
   UsernameWithAvatar,
 };

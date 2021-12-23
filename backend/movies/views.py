@@ -35,6 +35,7 @@ class MovieSearchAPIView(APIView):
                     movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
                 movie['directors'] = self.get_directors(movie['id'])
                 movie['release_year'] = movie['release_date'][0:4] if 'release_date' in movie else ''
+                movie['type'] = 'movie'
 
             request.session['movie_search'] = movies
             request.session['movie_search']['search'] = search
@@ -75,6 +76,7 @@ class ActorSearchAPIView(APIView):
                     actor['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{actor['profile_path']}"
                     actor['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{actor['profile_path']}"
                     actor['profile_link_og'] = f"https://image.tmdb.org/t/p/original{actor['profile_path']}"
+                actor['type'] = 'actor'
 
             request.session['actor_search'] = actors
             request.session['actor_search']['search'] = search
@@ -108,6 +110,7 @@ class CrewSearchAPIView(APIView):
                     member['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{member['profile_path']}"
                     member['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{member['profile_path']}"
                     member['profile_link_og'] = f"https://image.tmdb.org/t/p/original{member['profile_path']}"
+                member['type'] = 'crew'
 
             request.session['crew_search'] = crew
             request.session['crew_search']['search'] = search
@@ -184,6 +187,7 @@ class PopularMoviesAPIView(APIView):
                     movie['poster_link_og'] = f"https://image.tmdb.org/t/p/original{movie['poster_path']}"
                 movie['directors'] = self.get_directors(movie['id'])
                 movie['release_year'] = movie['release_date'][0:4] if 'release_date' in movie else ''
+                movie['type'] = 'movie'
 
             request.session['popular'] = movies
 

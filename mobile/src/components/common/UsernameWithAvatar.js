@@ -10,7 +10,7 @@ const style = StyleSheet.create({
     flexDirection: 'row'
   },
   avatar: {
-    marginRight: '5%'
+    marginRight: 15
   },
   username: {
     alignSelf: 'center'
