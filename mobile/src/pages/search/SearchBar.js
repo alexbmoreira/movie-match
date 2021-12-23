@@ -1,7 +1,6 @@
-import { Select, TextInput } from 'components/common';
+import { FormLayout, Select, TextInput } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { View } from 'react-native';
 
 const SEARCH_TYPE_OPTIONS = [
   {
@@ -18,7 +17,7 @@ const SEARCH_TYPE_OPTIONS = [
 const SearchBar = observer(({ uiState }) => {
   const { query, type } = uiState;
   return (
-    <View>
+    <FormLayout>
       <TextInput
         placeholder='Search for something...'
         value={query}
@@ -31,7 +30,7 @@ const SearchBar = observer(({ uiState }) => {
         items={SEARCH_TYPE_OPTIONS}
         value={type}
       />
-    </View>
+    </FormLayout>
   );
 });
 

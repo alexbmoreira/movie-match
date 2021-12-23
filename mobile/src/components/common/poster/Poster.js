@@ -57,7 +57,7 @@ const PlaceholderPoster = ({ title, size }) => {
   const { poster, posterPlaceholder, text } = style(size);
 
   return (
-    <View style={{ ...poster, ...posterPlaceholder }}>
+    <View style={[poster, posterPlaceholder]}>
       <Text style={text}>{title}</Text>
     </View>
   );

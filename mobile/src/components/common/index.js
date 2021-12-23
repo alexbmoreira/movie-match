@@ -1,5 +1,6 @@
 import Avatar from './Avatar';
 import Button from './Button';
+import Divider from './Divider';
 import ErrorMessage from './ErrorMessage';
 import { FormLayout } from './forms';
 import { CardList, Table } from './lists';
@@ -14,6 +15,7 @@ import UsernameWithAvatar from './UsernameWithAvatar';
 export {
   Avatar,
   Button,
+  Divider,
   ErrorMessage,
   FormLayout,
   CardList,
