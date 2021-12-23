@@ -7,7 +7,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint --max-warnings=0 \"./src/**/*.js\""
+    "lint": "eslint --max-warnings=0 \"./src/**/*.js\" ./*.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
