@@ -3,18 +3,18 @@ import { StyleSheet } from 'react-native';
 import { Text as Txt } from 'react-native-paper';
 
 const defaultStyle = StyleSheet.create({
-  title: {
-    fontSize: 20,
-    lineHeight: 30,
+  headline: {
+    fontSize: 24,
+    lineHeight: 32,
     marginVertical: 2,
-    letterSpacing: 0.15
+    letterSpacing: 0
   }
 });
 
-const Title = ({ style, children }) => {
+const Headline = ({ style, children }) => {
   return (
-    <Txt style={[style, defaultStyle.title]}>{children}</Txt>
+    <Txt style={[style, defaultStyle.headline]}>{children}</Txt>
   );
 };
 
-export default Title;
+export default Headline;

@@ -10,7 +10,7 @@ import Select from './Select';
 import Spinner from './Spinner';
 import TextInput from './TextInput';
 import { TmdbListItem } from './tmdb';
-import { Text, Title } from './typography';
+import { Headline, Text, Title } from './typography';
 import UsernameWithAvatar from './UsernameWithAvatar';
 
 export {
@@ -27,6 +27,7 @@ export {
   Spinner,
   TextInput,
   TmdbListItem,
+  Headline,
   Text,
   Title,
   UsernameWithAvatar,

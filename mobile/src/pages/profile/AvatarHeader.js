@@ -1,7 +1,6 @@
-import { Avatar } from 'components/common';
+import { Avatar, Headline } from 'components/common';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Headline } from 'react-native-paper';
 
 const style = StyleSheet.create({
   avatarHeader: {
