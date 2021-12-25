@@ -1,7 +1,6 @@
-import { ScreenContainer } from 'components/common';
+import { ScreenContainer, Text } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { Text } from 'react-native-paper';
 import { withState } from 'shared';
 import MovieDetailsState from './state/MovieDetailsState';
 

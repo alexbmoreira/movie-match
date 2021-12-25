@@ -1,8 +1,8 @@
 import { PropTypes } from 'prop-types';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Title } from 'react-native-paper';
 import Avatar from './Avatar';
+import { Title } from './typography';
 
 const style = StyleSheet.create({
   usernameWithAvatar: {

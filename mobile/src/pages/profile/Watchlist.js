@@ -1,10 +1,8 @@
-import { CardList } from 'components/common';
+import { CardList, Spinner, Title } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { View } from 'react-native';
-import { Title } from 'react-native-paper';
 import { withState } from 'shared';
-import { Spinner } from '../../components/common';
 import { Movie } from './ListComponents';
 import WatchlistState from './state/WatchlistState';
 

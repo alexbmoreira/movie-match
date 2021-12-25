@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { List as ReactPaperList, Title } from 'react-native-paper';
+import { List as ReactPaperList } from 'react-native-paper';
+import { Title } from '../../typography';
 import CardListItem from './CardListItem';
 
 const style = StyleSheet.create({
