@@ -1,9 +1,8 @@
-import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { theme } from 'shared';
+import { SearchIcon, UserIcon } from 'shared/icons';
 import { ProfileStack, SearchStack } from './stack_navigators';
 
 const Tab = createBottomTabNavigator();
@@ -32,7 +31,7 @@ const MainTabs = ({ route }) => {
         component={SearchStack}
         options={{
           title: 'Search',
-          tabBarIcon: ({ color }) => <FontAwesomeIcon style={style.tabBarIcon} icon={faSearch} color={color} size={24}/>
+          tabBarIcon: ({ size, color }) => <SearchIcon style={style.tabBarIcon} color={color} size={size}/>
         }}
         initialParams={route.params}
       />
@@ -41,7 +40,7 @@ const MainTabs = ({ route }) => {
         component={ProfileStack}
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <FontAwesomeIcon style={style.tabBarIcon} icon={faUser} color={color} size={24}/>
+          tabBarIcon: ({ size, color }) => <UserIcon style={style.tabBarIcon} color={color} size={size}/>
         }}
         initialParams={route.params}
       />

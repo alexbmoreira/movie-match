@@ -1,5 +1,6 @@
 import { movieApi } from 'api';
 import { makeObservable, observable } from 'mobx';
+import TmdbMovie from 'stores/TmdbMovie';
 
 class MovieDetailsState {
   movie = {};
@@ -16,7 +17,7 @@ class MovieDetailsState {
 
   async load() {
     const response = await movieApi.getMetadata('movie', this.movieId);
-    this.movie = response.data;
+    this.movie = new TmdbMovie(response.data);
   }
 }
 
