@@ -1,8 +1,9 @@
-import { Poster, ScreenContainer, Text, Title } from 'components/common';
+import { IconButton, Poster, ScreenContainer, Text, Title } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { withState } from 'shared';
+import { WatchlistIcon } from 'shared/icons';
 import MovieDetailsState from './state/MovieDetailsState';
 
 const style = StyleSheet.create({
@@ -13,7 +14,8 @@ const style = StyleSheet.create({
   info: {
     flexGrow: 1,
     width: 0,
-    marginLeft: 15
+    marginLeft: 15,
+    justifyContent: 'space-between'
   },
   overview: {
     marginTop: 15
@@ -28,8 +30,16 @@ const MovieDetails = observer(({ uiState }) => {
       <View style={style.headingDetails}>
         <Poster source={{ uri: movie.poster_link_md }} size='md' title={movie.title}/>
         <View style={style.info}>
-          <Title>{movie.title}</Title>
-          <Text soft>{`${movie.release_year} • ${movie.runtimeHours}`}</Text>
+          <View>
+            <Title>{movie.title}</Title>
+            <Text soft>{`${movie.release_year} • ${movie.runtimeHours}`}</Text>
+          </View>
+          <IconButton
+            icon={({ size, color }) => (
+              <WatchlistIcon size={size} color={color} />
+            )}
+            onPress={() => console.log('pressed')}
+          />
         </View>
       </View>
       <Text style={style.overview}>{movie.overview}</Text>

@@ -7,14 +7,14 @@ import { Button as Btn } from 'react-native-paper';
 class Button extends React.Component {
   constructor() {
     super();
-    extendObservable(this, { loading: false });
+    extendObservable(this, { isLoading: false });
   }
 
   onPress = async (e, cb) => {
-    if (this.loading) return null;
+    if (this.isLoading) return null;
 
     e.preventDefault();
-    this.loading = true;
+    this.isLoading = true;
     this._handleCallback(e, cb);
   };
 
@@ -22,7 +22,7 @@ class Button extends React.Component {
     try {
       await Promise.resolve(cb(e));
     } finally {
-      this.loading = false;
+      this.isLoading = false;
     }
   };
 
@@ -31,7 +31,11 @@ class Button extends React.Component {
 
     return(
       <View>
-        <Btn onPress={async (e) => this.onPress(e, onPress)} {...rest} loading={this.loading}>{children}</Btn>
+        <Btn
+          onPress={async (e) => this.onPress(e, onPress)}
+          loading={this.isLoading}
+          {...rest}
+        >{children}</Btn>
       </View>
     );
   }
