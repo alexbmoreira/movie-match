@@ -15,7 +15,7 @@ const getPosterDimensions = (size) => {
     };
   case 'md':
     return {
-      width: 154, height: 231
+      width: 122, height: 183
     };
   case 'lg':
   default:
