@@ -20,6 +20,8 @@ class TmdbMovie extends DomainObject {
   }
 
   get runtimeHours() {
+    if(!this.runtime) return null;
+
     return runtimeHumanizer(this.runtime * 60000);
   }
 }
