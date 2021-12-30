@@ -1,4 +1,5 @@
 import { IconButton, Poster, ScreenContainer, Text, Title } from 'components/common';
+import _ from 'lodash';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -17,10 +18,25 @@ const style = StyleSheet.create({
     marginLeft: 15,
     justifyContent: 'space-between'
   },
+  directorList: {
+    marginTop: 10
+  },
   overview: {
     marginTop: 15
   }
 });
+
+const YearAndRuntime = ({ year, runtime }) => {
+  if(runtime) {
+    return (
+      <Text soft>{`${year} • ${runtime}`}</Text>
+    );
+  }
+  
+  return (
+    <Text soft>{year}</Text>
+  );
+};
 
 const MovieDetails = observer(({ uiState }) => {
   const { movie } = uiState;
@@ -32,7 +48,13 @@ const MovieDetails = observer(({ uiState }) => {
         <View style={style.info}>
           <View>
             <Title>{movie.title}</Title>
-            <Text soft>{`${movie.release_year} • ${movie.runtimeHours}`}</Text>
+            <YearAndRuntime year={movie.release_year} runtime={movie.runtimeHours}/>
+            <View style={style.directorList}>
+              <Text>Directed by:</Text>
+              {_.map(movie.directors, (director) => (
+                <Text key={director.id} bold large>{director.name}</Text>
+              ))}
+            </View>
           </View>
           <IconButton
             icon={({ size, color }) => (
