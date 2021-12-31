@@ -1,15 +1,12 @@
 import sys
 
-import requests
-from django.conf import settings
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
-api_key = settings.TMDB_API
+from .tmdb_api_view import TmdbAPIView
 
 
-class MovieSearchAPIView(APIView):
+class MovieSearchAPIView(TmdbAPIView):
 
     def get(self, request):
         search = request.GET.get('search', '')
@@ -24,9 +21,7 @@ class MovieSearchAPIView(APIView):
             request.session['movie_search']['page'] == page
 
         if not cached:
-            query = f"https://api.themoviedb.org/3/search/movie?api_key={api_key}&query={search}&page={page}"
-            response = requests.get(query)
-            movies = response.json()
+            movies = self.make_request('search/movie', query=search, page=page)
 
             for movie in movies['results']:
                 if movie['poster_path']:
@@ -44,8 +39,6 @@ class MovieSearchAPIView(APIView):
         return Response(request.session['movie_search'])
 
     def get_directors(self, movie_id):
-        query = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={api_key}"
-        response = requests.get(query)
-        movie_credits = response.json()
+        movie_credits = self.make_request(f"movie/{movie_id}/credits")
 
         return [dirs for dirs in movie_credits['crew'] if dirs['job'] == 'Director']
