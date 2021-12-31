@@ -20,10 +20,12 @@ class TmdbAPIView(APIView):
         return f"https://image.tmdb.org/t/p/{size}{path}"
 
     def is_cached(self, request, action, **kwargs):
-        if action in request.session and sys.getsizeof(request.session[action]) > 0:
-            for key, value in kwargs.items():
-                if request.session[action][key] != value:
-                    return False
+        if action not in request.session or sys.getsizeof(request.session[action]) == 0:
+            return False
+        
+        for key, value in kwargs.items():
+            if request.session[action][key] != value:
+                return False
         
         return True
 

@@ -6,16 +6,21 @@ from .tmdb_api_view import TmdbAPIView
 class PersonMetadataAPIView(TmdbAPIView):
 
     def get(self, request, person_id):
-        person = self.make_request(f"person/{person_id}")
+        cached = self.is_cached(request, 'person_details', person_id=person_id)
 
-        person['credits'] = self.sort_credits(person_id, person['known_for_department'])
+        if not cached:
+            person = self.make_request(f"person/{person_id}")
 
-        if person['profile_path']:
-            person['profile_link_sm'] = self.get_image('w154', person['profile_path'])
-            person['profile_link_md'] = self.get_image('w500', person['profile_path'])
-            person['profile_link_og'] = self.get_image('original', person['profile_path'])
+            person['credits'] = self.sort_credits(person_id, person['known_for_department'])
 
-        return Response(person)
+            if person['profile_path']:
+                person['profile_link_sm'] = self.get_image('w154', person['profile_path'])
+                person['profile_link_md'] = self.get_image('w500', person['profile_path'])
+                person['profile_link_og'] = self.get_image('original', person['profile_path'])
+
+            self.set_cache(request, 'person_details', person, person_id=person_id)
+
+        return Response(request.session['person_details'])
 
     def sort_credits(self, person_id, known_for):
         person_credits = self.make_request(f"person/{person_id}/movie_credits")
