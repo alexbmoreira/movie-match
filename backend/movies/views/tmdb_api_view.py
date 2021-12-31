@@ -13,3 +13,6 @@ class TmdbAPIView(APIView):
         query = f"https://api.themoviedb.org/3/{endpoint}?api_key={api_key}{params}"
         response = requests.get(query)
         return response.json()
+
+    def get_image(self, size, path):
+        return f"https://image.tmdb.org/t/p/{size}{path}"

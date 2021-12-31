@@ -26,9 +26,9 @@ class ActorSearchAPIView(TmdbAPIView):
 
             for actor in actors['results']:
                 if actor['profile_path']:
-                    actor['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{actor['profile_path']}"
-                    actor['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{actor['profile_path']}"
-                    actor['profile_link_og'] = f"https://image.tmdb.org/t/p/original{actor['profile_path']}"
+                    actor['profile_link_sm'] = self.get_image('w154', actor['profile_path'])
+                    actor['profile_link_md'] = self.get_image('w500', actor['profile_path'])
+                    actor['profile_link_og'] = self.get_image('original', actor['profile_path'])
                 actor['type'] = 'actor'
 
             request.session['actor_search'] = actors

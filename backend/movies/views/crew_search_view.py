@@ -26,9 +26,9 @@ class CrewSearchAPIView(TmdbAPIView):
 
             for member in crew['results']:
                 if member['profile_path']:
-                    member['profile_link_sm'] = f"https://image.tmdb.org/t/p/w154{member['profile_path']}"
-                    member['profile_link_md'] = f"https://image.tmdb.org/t/p/w500{member['profile_path']}"
-                    member['profile_link_og'] = f"https://image.tmdb.org/t/p/original{member['profile_path']}"
+                    member['profile_link_sm'] = self.get_image('w154', member['profile_path'])
+                    member['profile_link_md'] = self.get_image('w500', member['profile_path'])
+                    member['profile_link_og'] = self.get_image('original', member['profile_path'])
                 member['type'] = 'crew'
 
             request.session['crew_search'] = crew
