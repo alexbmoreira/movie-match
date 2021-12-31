@@ -10,9 +10,7 @@ class PopularMoviesAPIView(TmdbAPIView):
     def get(self, request):
         page = int(request.GET.get('page', 1))
 
-        cached = 'popular' in request.session and \
-            sys.getsizeof(request.session['popular']) > 0 and \
-            request.session['popular']['page'] == page
+        cached = self.is_cached(request, 'popular', page=page)
 
         if not cached:
             movies = self.make_request('movie/popular', page=page)
@@ -27,6 +25,7 @@ class PopularMoviesAPIView(TmdbAPIView):
                 movie['type'] = 'movie'
 
             request.session['popular'] = movies
+            request.session['popular']['page'] = page
 
         return Response(request.session['popular'])
 

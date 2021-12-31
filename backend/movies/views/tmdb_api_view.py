@@ -1,3 +1,5 @@
+import sys
+
 import requests
 from django.conf import settings
 from rest_framework.views import APIView
@@ -16,3 +18,11 @@ class TmdbAPIView(APIView):
 
     def get_image(self, size, path):
         return f"https://image.tmdb.org/t/p/{size}{path}"
+
+    def is_cached(self, request, action, **kwargs):
+        if action in request.session and sys.getsizeof(request.session[action]) > 0:
+            for key, value in kwargs.items():
+                if request.session[action][key] != value:
+                    return False
+        
+        return True

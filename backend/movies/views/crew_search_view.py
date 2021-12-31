@@ -15,10 +15,7 @@ class CrewSearchAPIView(TmdbAPIView):
         if search == '':
             return Response(data={'error': 'search param required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        cached = 'crew_search' in request.session and \
-            sys.getsizeof(request.session['crew_search']) > 0 and \
-            request.session['crew_search']['search'] == search and \
-            request.session['crew_search']['page'] == page
+        cached = self.is_cached(request, 'crew_search', search=search, page=page)
 
         if not cached:
             crew = self.make_request('search/person', query=search, page=page)
