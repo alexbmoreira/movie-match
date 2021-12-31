@@ -3,8 +3,8 @@ from django.urls import path
 from .views import (FriendRequestAPIView, FriendshipAPIView,
                     JointWatchlistAPIView, MatchlistDislikeAPIView,
                     MatchlistLikeAPIView, MatchlistMatchAPIView,
-                    ProfileAPIView, ProfileDetailAPIView, UserAPIView,
-                    WatchlistAPIView)
+                    MovieDetailsForUserView, ProfileAPIView,
+                    ProfileDetailAPIView, UserAPIView, WatchlistAPIView)
 
 user_api = UserAPIView.as_view()
 profile_api = ProfileAPIView.as_view()
@@ -16,6 +16,7 @@ likes_api = MatchlistLikeAPIView.as_view()
 dislikes_api = MatchlistDislikeAPIView.as_view()
 matches_api = MatchlistMatchAPIView.as_view()
 joint_watchlist_api = JointWatchlistAPIView.as_view()
+movie_details_api = MovieDetailsForUserView.as_view()
 
 urlpatterns = [
     path("user/requests/", friend_requests_api, name="friend_requests"),
@@ -29,4 +30,5 @@ urlpatterns = [
     path("profiles/<int:user_id>/", profile_detail_api, name="profile_detail"),
     path("profiles/search/<str:search>/", profile_api, name="profiles"),
     path("profiles/<int:user_id>/friends/", friendships_api, name="friendships_all"),
+    path("user/movie_details/<int:movie_id>/", movie_details_api, name="movie_details"),
 ]
