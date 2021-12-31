@@ -1,15 +1,12 @@
 import sys
 
-import requests
-from django.conf import settings
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
-api_key = settings.TMDB_API
+from .tmdb_api_view import TmdbAPIView
 
 
-class ActorSearchAPIView(APIView):
+class ActorSearchAPIView(TmdbAPIView):
 
     def get(self, request):
         search = request.GET.get('search', '')
@@ -24,9 +21,7 @@ class ActorSearchAPIView(APIView):
             request.session['actor_search']['page'] == page
 
         if not cached:
-            query = f"https://api.themoviedb.org/3/search/person?api_key={api_key}&query={search}&page={page}"
-            response = requests.get(query)
-            actors = response.json()
+            actors = self.make_request('search/person', query=search, page=page)
             actors['results'] = [actor for actor in actors['results'] if actor['known_for_department'] == "Acting"]
 
             for actor in actors['results']:
