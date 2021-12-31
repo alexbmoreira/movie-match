@@ -1,5 +1,3 @@
-import sys
-
 from rest_framework.response import Response
 
 from .tmdb_api_view import TmdbAPIView

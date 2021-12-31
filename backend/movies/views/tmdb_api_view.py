@@ -22,11 +22,11 @@ class TmdbAPIView(APIView):
     def is_cached(self, request, action, **kwargs):
         if action not in request.session or sys.getsizeof(request.session[action]) == 0:
             return False
-        
+
         for key, value in kwargs.items():
             if request.session[action][key] != value:
                 return False
-        
+
         return True
 
     def set_cache(self, request, action, action_value, **kwargs):
