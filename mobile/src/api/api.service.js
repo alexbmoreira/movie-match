@@ -36,6 +36,10 @@ export const postRequest = async (url, payload = {}) => {
   return await request(url, payload, api.post);
 };
 
+export const deleteRequest = async (url, payload = {}) => {
+  return await request(url, { data: payload }, api.delete);
+};
+
 export const getRequest = async (url, payload = {}) => {
   return await request(url, payload, api.get);
 };

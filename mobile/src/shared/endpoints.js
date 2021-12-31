@@ -23,10 +23,16 @@ const endpoints = {
     },
     DATA: { 
       with(type, id) {
-        return `/movies/${type}/${id}`;
+        return `/movies/${type}/${id}/`;
       }
     }
-  }
+  },
+  EDIT_WATCHLIST: '/user/watchlist/',
+  MOVIE_DETAILS_FOR_USER: {
+    with(movieId) {
+      return `/user/movie-details/${movieId}/`;
+    }
+  },
 };
 
 export default endpoints;

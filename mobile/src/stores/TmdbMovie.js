@@ -7,6 +7,7 @@ class TmdbMovie extends DomainObject {
   release_year = observable('');
   runtime = observable(null);
   overview = observable('');
+  in_watchlist = observable(false);
 
   constructor(model) {
     super();

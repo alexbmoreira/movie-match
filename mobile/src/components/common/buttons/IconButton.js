@@ -33,7 +33,7 @@ class Button extends React.Component {
   };
 
   render() {
-    const { onPress, icon, style, ...rest } = this.props;
+    const { onPress, icon, style, color, ...rest } = this.props;
 
     return(
       <View>
@@ -42,6 +42,7 @@ class Button extends React.Component {
           onPress={async (e) => this.onPress(e, onPress)}
           style={[style, defaultStyle.iconButton]}
           disabled={this.isDisabled}
+          color={color}
           {...rest}
         />
       </View>

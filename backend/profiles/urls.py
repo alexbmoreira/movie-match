@@ -30,5 +30,5 @@ urlpatterns = [
     path("profiles/<int:user_id>/", profile_detail_api, name="profile_detail"),
     path("profiles/search/<str:search>/", profile_api, name="profiles"),
     path("profiles/<int:user_id>/friends/", friendships_api, name="friendships_all"),
-    path("user/movie_details/<int:movie_id>/", movie_details_api, name="movie_details"),
+    path("user/movie-details/<int:movie_id>/", movie_details_api, name="movie_details"),
 ]
