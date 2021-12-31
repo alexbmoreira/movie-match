@@ -26,3 +26,9 @@ class TmdbAPIView(APIView):
                     return False
         
         return True
+
+    def set_cache(self, request, action, action_value, **kwargs):
+        request.session[action] = action_value
+
+        for key, value in kwargs.items():
+            request.session[action][key] = value

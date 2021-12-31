@@ -29,9 +29,7 @@ class MovieSearchAPIView(TmdbAPIView):
                 movie['release_year'] = movie['release_date'][0:4] if 'release_date' in movie else ''
                 movie['type'] = 'movie'
 
-            request.session['movie_search'] = movies
-            request.session['movie_search']['search'] = search
-            request.session['movie_search']['page'] = page
+            self.set_cache(request, 'movie_search', movies, search=search, page=page)
 
         return Response(request.session['movie_search'])
 

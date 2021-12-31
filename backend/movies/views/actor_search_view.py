@@ -28,8 +28,6 @@ class ActorSearchAPIView(TmdbAPIView):
                     actor['profile_link_og'] = self.get_image('original', actor['profile_path'])
                 actor['type'] = 'actor'
 
-            request.session['actor_search'] = actors
-            request.session['actor_search']['search'] = search
-            request.session['actor_search']['page'] = page
+            self.set_cache(request, 'actor_search', actors, search=search, page=page)
 
         return Response(request.session['actor_search'])

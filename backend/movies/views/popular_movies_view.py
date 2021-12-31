@@ -24,8 +24,7 @@ class PopularMoviesAPIView(TmdbAPIView):
                 movie['release_year'] = movie['release_date'][0:4] if 'release_date' in movie else ''
                 movie['type'] = 'movie'
 
-            request.session['popular'] = movies
-            request.session['popular']['page'] = page
+            self.set_cache(request, 'popular', movies, page=page)
 
         return Response(request.session['popular'])
 
