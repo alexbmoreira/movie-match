@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { withState } from 'shared';
+import { theme, withState } from 'shared';
 import { WatchlistIcon } from 'shared/icons';
 import MovieDetailsState from './state/MovieDetailsState';
 
@@ -39,7 +39,8 @@ const YearAndRuntime = ({ year, runtime }) => {
 };
 
 const MovieDetails = observer(({ uiState }) => {
-  const { movie } = uiState;
+  const { movie, movieDetailsForUser } = uiState;
+  console.log(movieDetailsForUser.in_watchlist);
 
   return (
     <ScreenContainer scroll>
@@ -60,8 +61,8 @@ const MovieDetails = observer(({ uiState }) => {
             icon={({ size, color }) => (
               <WatchlistIcon size={size} color={color} />
             )}
-            onPress={() => uiState.addToWatchlist(movie.in_watchlist)}
-            color={movie.in_watchlist ? 'blue' : 'white'}
+            onPress={() => uiState.addToWatchlist(movieDetailsForUser.in_watchlist)}
+            color={movieDetailsForUser.in_watchlist ? theme.colors.primary : theme.colors.text}
           />
         </View>
       </View>

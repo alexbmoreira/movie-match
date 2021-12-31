@@ -34,6 +34,7 @@ class Button extends React.Component {
 
   render() {
     const { onPress, icon, style, color, ...rest } = this.props;
+    // console.log(color);
 
     return(
       <View>
