@@ -69,7 +69,7 @@ make run-m
 
 > ngrok is required to make API calls from a mobile device
 
-Make sure (ngrok)[https://ngrok.com/download] is installed
+Make sure [ngrok](https://ngrok.com/download) is installed
 
 ```shell
 ngrok http 8000
