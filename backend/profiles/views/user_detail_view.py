@@ -12,7 +12,7 @@ class UserDetailAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, user_id):
-        user = get_object_or_404(User, user__id=user_id)
+        user = get_object_or_404(User, id=user_id)
         serializer = UserSerializer(user)
 
         return Response(data=serializer.data)

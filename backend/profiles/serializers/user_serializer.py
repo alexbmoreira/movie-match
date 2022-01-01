@@ -7,7 +7,7 @@ from .watchlist_movie_serializer import WatchlistMovieSerializer
 
 class UserSerializer(serializers.ModelSerializer):
 
-    watchlist = WatchlistMovieSerializer(many=True, source="watchlist")
+    watchlist = WatchlistMovieSerializer(many=True)
     friends = serializers.SerializerMethodField()
 
     class Meta:

@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ..models import User
-from ..serializers import UserSerializer
+from ..serializers import SimpleUserSerializer
 
 
 class UserSearchAPIView(APIView):
@@ -13,6 +13,6 @@ class UserSearchAPIView(APIView):
     def get(self, request, search=''):
         users = User.objects.search(search)
 
-        serializer = UserSerializer(users, many=True)
+        serializer = SimpleUserSerializer(users, many=True)
 
         return Response(serializer.data)

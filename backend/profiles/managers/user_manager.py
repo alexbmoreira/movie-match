@@ -1,7 +1,7 @@
-from django.db import models
+from django.contrib.auth import models
 
 
-class UserManager(models.Manager):
+class UserManager(models.UserManager):
 
     def search(self, query=''):
         if not query:
