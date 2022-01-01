@@ -1,7 +1,7 @@
 from .friendship_manager import FriendshipManager
-from .profile_manager import ProfileManager
+from .user_manager import UserManager
 
 __all__ = [
-    'ProfileManager',
+    'UserManager',
     'FriendshipManager'
 ]

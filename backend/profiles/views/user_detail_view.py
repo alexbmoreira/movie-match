@@ -3,16 +3,16 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..models import Profile
-from ..serializers import ProfileSerializer
+from ..models import User
+from ..serializers import UserSerializer
 
 
-class ProfileDetailAPIView(APIView):
+class UserDetailAPIView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, user_id):
-        profile = get_object_or_404(Profile, user__id=user_id)
-        serializer = ProfileSerializer(profile)
+        user = get_object_or_404(User, user__id=user_id)
+        serializer = UserSerializer(user)
 
         return Response(data=serializer.data)

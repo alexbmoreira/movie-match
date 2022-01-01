@@ -1,10 +1,18 @@
 from rest_framework import serializers
 
-from ..models import User
+from ..models import Friendship, User
+from .simple_user_serializer import SimpleUserSerializer
+from .watchlist_movie_serializer import WatchlistMovieSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
 
+    watchlist = WatchlistMovieSerializer(many=True, source="watchlist")
+    friends = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ['id', 'username']
+        fields = ['id', 'username', 'watchlist', 'friends']
+
+    def get_friends(self, obj):
+        return SimpleUserSerializer(Friendship.objects.get_friends(obj), many=True).data

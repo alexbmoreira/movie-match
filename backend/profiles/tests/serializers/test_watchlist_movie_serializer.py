@@ -1,6 +1,7 @@
-from django.contrib.auth.models import User
 from django.test import TestCase
 from profiles.serializers import WatchlistMovieSerializer
+
+from ..models import User
 
 
 class WatchlistMovieSerializerTests(TestCase):

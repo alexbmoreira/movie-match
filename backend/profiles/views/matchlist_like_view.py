@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ..models import MatchlistDislike, MatchlistLike, User
-from ..serializers import MatchlistLikeSerializer, ProfileSerializer
+from ..serializers import MatchlistLikeSerializer, UserSerializer
 
 
 class MatchlistLikeAPIView(APIView):
@@ -22,7 +22,7 @@ class MatchlistLikeAPIView(APIView):
 
         serializer = MatchlistLikeSerializer(likes, many=True)
         data = {}
-        data['user'] = ProfileSerializer(request.user.profile).data
+        data['user'] = UserSerializer(request.user).data
         data['likes'] = serializer.data
         return Response(data=data)
 
