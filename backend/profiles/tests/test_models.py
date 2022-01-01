@@ -1,7 +1,6 @@
-from django.contrib.auth.models import User
 from django.test import TestCase
 
-from ..models import FriendRequest, Friendship, Profile
+from ..models import FriendRequest, Friendship, User
 
 
 class FriendRequestTests(TestCase):

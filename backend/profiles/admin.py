@@ -1,9 +1,9 @@
 from django.contrib import admin
 
 from .models import (FriendRequest, Friendship, MatchlistDislike,
-                     MatchlistLike, Profile, WatchlistMovie)
+                     MatchlistLike, User, WatchlistMovie)
 
-admin.site.register(Profile)
+admin.site.register(User)
 admin.site.register(Friendship)
 admin.site.register(FriendRequest)
 admin.site.register(WatchlistMovie)

@@ -1,7 +1,7 @@
-from django.contrib.auth.models import User
 from django.db import models
 
 from .friendship import Friendship
+from .user import User
 
 
 class FriendRequest(models.Model):

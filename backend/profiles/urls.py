@@ -3,12 +3,12 @@ from django.urls import path
 from .views import (FriendRequestAPIView, FriendshipAPIView,
                     JointWatchlistAPIView, MatchlistDislikeAPIView,
                     MatchlistLikeAPIView, MatchlistMatchAPIView,
-                    MovieDetailsForUserView, ProfileAPIView,
-                    ProfileDetailAPIView, UserAPIView, WatchlistAPIView)
+                    MovieDetailsForUserView, UserAPIView, UserDetailAPIView,
+                    UserSearchAPIView, WatchlistAPIView)
 
 user_api = UserAPIView.as_view()
-profile_api = ProfileAPIView.as_view()
-profile_detail_api = ProfileDetailAPIView.as_view()
+user_search_api = UserSearchAPIView.as_view()
+user_detail_api = UserDetailAPIView.as_view()
 friend_requests_api = FriendRequestAPIView.as_view()
 friendships_api = FriendshipAPIView.as_view()
 watchlist_api = WatchlistAPIView.as_view()
@@ -26,9 +26,9 @@ urlpatterns = [
     path("user/watchlist/", watchlist_api, name="watchlist"),
     path("user/joint-watchlist/", joint_watchlist_api, name="joint_watchlist"),
     path("user/", user_api, name="current_user"),
-    path("profiles/", profile_api, name="profiles"),
-    path("profiles/<int:user_id>/", profile_detail_api, name="profile_detail"),
-    path("profiles/search/<str:search>/", profile_api, name="profiles"),
-    path("profiles/<int:user_id>/friends/", friendships_api, name="friendships_all"),
+    path("users/", user_search_api, name="users"),
+    path("users/<int:user_id>/", user_detail_api, name="user_detail"),
+    path("users/search/<str:search>/", user_search_api, name="users"),
+    path("users/<int:user_id>/friends/", friendships_api, name="friendships_all"),
     path("user/movie-details/<int:movie_id>/", movie_details_api, name="movie_details"),
 ]

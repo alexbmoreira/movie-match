@@ -172,3 +172,5 @@ CORS_ORIGIN_WHITELIST = [
 TMDB_API = os.environ.get('TMDB_API')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTH_USER_MODEL = 'profiles.User'

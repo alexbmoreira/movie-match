@@ -1,13 +1,13 @@
-from django.db import models
+from django.contrib.auth import models
 
 
-class ProfileManager(models.Manager):
+class UserManager(models.UserManager):
 
     def search(self, query=''):
         if not query:
             return self.all()
 
-        return self.filter(user__username__icontains=query)
+        return self.filter(username__icontains=query)
 
     def get_indiv_watchlist(self, user, friend):
         user_watchlist = user.watchlist.all()
