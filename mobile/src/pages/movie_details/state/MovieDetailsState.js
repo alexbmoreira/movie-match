@@ -1,17 +1,18 @@
 import { movieApi, watchlistApi } from 'api';
 import { action, makeObservable, observable } from 'mobx';
-import { MovieDetailsForUser, TmdbMovie } from 'stores';
+import { TmdbMovie } from 'stores';
 
 class MovieDetailsState {
   movie = {};
-  movieDetailsForUser = {};
+  in_watchlist = false;
 
   constructor() {
     makeObservable(this, {
       movie: observable,
-      movieDetailsForUser: observable,
+      in_watchlist: observable,
       load: action.bound,
-      addToWatchlist: action.bound
+      setDetailsForUser: action.bound,
+      addToWatchlist: action.bound,
     });
   }
 
@@ -22,20 +23,21 @@ class MovieDetailsState {
   async load() {
     const response = await movieApi.getMetadata('movie', this.movieId);
     this.movie = new TmdbMovie(response.data);
+    await this.setDetailsForUser();
+  }
 
+  async setDetailsForUser() {
     const detailsForUser = await movieApi.getMetadataForUser(this.movieId);
-    this.movieDetailsForUser = new MovieDetailsForUser(detailsForUser.data);
+    this.in_watchlist = detailsForUser.data.in_watchlist;
   }
 
   async addToWatchlist(currentlyInWatchlist) {
-    // console.log('start');
     if(currentlyInWatchlist) {
       await watchlistApi.removeFromWatchlist({ movie: this.movie.id });
     } else {
       await watchlistApi.addToWatchlist({ movie: this.movie.id });
     }
-    this.movieDetailsForUser.in_watchlist = !currentlyInWatchlist;
-    // console.log('end');
+    this.in_watchlist = !currentlyInWatchlist;
   }
 }
 
