@@ -23,6 +23,6 @@ class WatchlistAPIView(APIView):
         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
-        movie = get_object_or_404(WatchlistMovie, **request.data)
+        movie = get_object_or_404(WatchlistMovie, user=request.user, **request.data)
         DestroyWatchlistMovie.run(movie=movie)
         return Response(status=status.HTTP_204_NO_CONTENT)
