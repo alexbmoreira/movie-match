@@ -1,7 +1,6 @@
 from django.test import TestCase
+from profiles.models import User
 from profiles.serializers import WatchlistMovieSerializer
-
-from ..models import User
 
 
 class WatchlistMovieSerializerTests(TestCase):
