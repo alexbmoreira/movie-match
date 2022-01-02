@@ -16,6 +16,11 @@ const ProfileStack = ({ route }) => {
         options={{ headerLeft: () => null }}
       />
       <ProfileNavigator.Screen
+        name='OtherProfile'
+        component={ProfilePage}
+        initialParams={route.params}
+      />
+      <ProfileNavigator.Screen
         name='MovieDetails'
         component={MovieDetails}
       />
