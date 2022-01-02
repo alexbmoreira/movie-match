@@ -54,6 +54,7 @@ const MovieDetails = observer(({ uiState }) => {
             )}
             onPress={() => uiState.addToWatchlist(in_watchlist)}
             color={in_watchlist ? theme.colors.primary : theme.colors.text}
+            size={'sm'}
           />
         </View>
       </View>

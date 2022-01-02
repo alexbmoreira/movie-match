@@ -27,6 +27,7 @@ const ProfileStack = ({ route }) => {
               )}
               onPress={() => navigate('ProfileSettings')}
               color={theme.colors.primary}
+              size={'sm'}
             />
           )
         }}
