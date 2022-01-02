@@ -1,10 +1,10 @@
 import { IconButton, Poster, ScreenContainer, Text, Title } from 'components/common';
-import _ from 'lodash';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { theme, withState } from 'shared';
 import { WatchlistIcon } from 'shared/icons';
+import DirectorList from './DirectorList';
 import MovieDetailsState from './state/MovieDetailsState';
 
 const style = StyleSheet.create({
@@ -17,9 +17,6 @@ const style = StyleSheet.create({
     width: 0,
     marginLeft: 15,
     justifyContent: 'space-between'
-  },
-  directorList: {
-    marginTop: 10
   },
   overview: {
     marginTop: 15
@@ -49,12 +46,7 @@ const MovieDetails = observer(({ uiState }) => {
           <View>
             <Title>{movie.title}</Title>
             <YearAndRuntime year={movie.release_year} runtime={movie.runtimeHours}/>
-            <View style={style.directorList}>
-              <Text>Directed by:</Text>
-              {_.map(movie.directors, (director) => (
-                <Text key={director.id} bold large>{director.name}</Text>
-              ))}
-            </View>
+            <DirectorList directors={movie.directors}/>
           </View>
           <IconButton
             icon={({ size, color }) => (
