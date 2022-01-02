@@ -6,7 +6,6 @@ Watch something everyone can agree on!
 
 ### Requirements
 
-- Django v3.1
 - Postgres v13
 - Node v16.13
 
@@ -30,6 +29,7 @@ Frontend:
 ```shell
 make install-f
 ```
+> **NOTE:** Frontend is not being maintained and likely doesn't work
 
 ### Create the database
 
