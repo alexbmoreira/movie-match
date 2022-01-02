@@ -1,8 +1,10 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { Button } from 'components/common';
+import { IconButton } from 'components/common';
 import { MovieDetails } from 'pages/movie_details';
 import { ProfilePage, ProfileSettings } from 'pages/profile';
 import React from 'react';
+import { theme } from 'shared';
+import { SettingsIcon } from 'shared/icons';
 import { navigate } from 'shared/RootNavigation';
 import screenOptions from './screenOptions';
 
@@ -18,9 +20,14 @@ const ProfileStack = ({ route }) => {
         options={{
           headerLeft: () => null,
           headerRight: () => (
-            <Button mode='contained' onPress={() => navigate('ProfileSettings')}>
-              Settings
-            </Button>
+            <IconButton
+              style={{ marginRight: 10 }}
+              icon={({ size, color }) => (
+                <SettingsIcon size={size} color={color} />
+              )}
+              onPress={() => navigate('ProfileSettings')}
+              color={theme.colors.primary}
+            />
           )
         }}
       />
