@@ -11,7 +11,7 @@ const Friend = ({ model }) => {
 
 const Movie = ({ model }) => {
   return (
-    <Pressable onPress={() => navigate('MovieDetails', { movieId: model.id })}>
+    <Pressable onPress={() => navigate('MovieDetails', { movieId: model.id, title: model.title })}>
       <Poster size='sm' title={model.title} source={{ uri: model.poster_link_sm }}/>
     </Pressable>
   );
