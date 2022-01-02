@@ -5,6 +5,7 @@ import { User } from 'stores';
 class ProfileState {
   userId;
   route;
+  navigation;
 
   user = {};
 
@@ -15,12 +16,15 @@ class ProfileState {
     });
   }
 
-  receiveProps({ route }) {
+  receiveProps({ route, navigation }) {
     this.route = route;
+    this.navigation = navigation;
     this.userId = route.params.userId;
   }
 
   async load() {
+    this.navigation.setOptions({ title: this.route.params.username });
+
     const response = await profileApi.getProfile(this.userId);
     this.user = new User(response.data);
   }
