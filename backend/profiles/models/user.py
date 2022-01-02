@@ -9,6 +9,7 @@ from ..managers import UserManager
 def avatar_color_default():
     return ("#%06x" % random.randint(0, 0xFFFFFF)).upper()
 
+
 class User(AbstractUser):
 
     avatar_color = models.TextField(blank=True, default=avatar_color_default)
