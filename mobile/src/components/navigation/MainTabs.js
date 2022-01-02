@@ -18,7 +18,8 @@ const screenOptions = {
   tabBarActiveTintColor: theme.colors.text,
   tabBarInactiveTintColor: theme.colors.surface,
   tabBarStyle: {
-    backgroundColor: theme.colors.screen
+    backgroundColor: theme.colors.backdrop,
+    borderColor: 'transparent'
   },
   tabBarShowLabel: false
 };
