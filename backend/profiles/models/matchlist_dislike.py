@@ -13,4 +13,4 @@ class MatchlistDislike(models.Model):
         unique_together = ['user', 'friend', 'movie']
 
     def __str__(self):
-        return f"({self.id}) {self.user} disliked {self.movie} in their matchlist with {self.friend}"
+        return f"({self.id}) {self.user.username} disliked {self.movie} in their matchlist with {self.friend}"

@@ -13,4 +13,4 @@ class MatchlistLike(models.Model):
         unique_together = ['user', 'friend', 'movie']
 
     def __str__(self):
-        return f"({self.id}) {self.user} liked {self.movie} in their matchlist with {self.friend}"
+        return f"({self.id}) {self.user.username} liked {self.movie} in their matchlist with {self.friend}"

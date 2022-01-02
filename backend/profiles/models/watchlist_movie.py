@@ -12,4 +12,4 @@ class WatchlistMovie(models.Model):
         unique_together = ['user', 'movie']
 
     def __str__(self):
-        return f"({self.id}) {self.user} wants to watch {self.movie}"
+        return f"({self.id}) {self.user.username} wants to watch {self.movie}"
