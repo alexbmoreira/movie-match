@@ -1,14 +1,14 @@
 import { profileApi } from 'api';
 import { action, makeObservable, observable } from 'mobx';
-import { Profile } from 'stores';
+import { User } from 'stores';
 
 class ProfileState {
   userId;
-  profile = {};
+  user = {};
 
   constructor() {
     makeObservable(this, {
-      profile: observable,
+      user: observable,
       load: action.bound
     });
   }
@@ -19,7 +19,7 @@ class ProfileState {
 
   async load() {
     const response = await profileApi.getProfile(this.userId);
-    this.profile = new Profile(response.data);
+    this.user = new User(response.data);
   }
 }
 

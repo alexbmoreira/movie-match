@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 import React from 'react';
 import { Avatar as Avi } from 'react-native-paper';
+import { theme as defaultTheme } from 'shared';
 
 const getAvatarSize = (size) => {
   switch (size) {
@@ -17,10 +18,21 @@ const getAvatarSize = (size) => {
   }
 };
 
+const theme = (avatar_color) => {
+  return{
+    ...defaultTheme,
+    colors: {
+      ...defaultTheme.colors,
+      primary: avatar_color,
+    },
+  };
+};
+
 const Avatar = ({ user, size, style }) => {
   const avatarSize = getAvatarSize(size);
+
   return (
-    <Avi.Text style={style} size={avatarSize} label={user.userInitial} />
+    <Avi.Text style={style} theme={theme(user.avatar_color)} size={avatarSize} label={user.userInitial} />
   );
 };
 
