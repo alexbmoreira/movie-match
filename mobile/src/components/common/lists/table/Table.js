@@ -4,11 +4,11 @@ import React from 'react';
 import { View } from 'react-native';
 import { List as ReactPaperList } from 'react-native-paper';
 import { Title } from '../../typography';
+import EmptyState from '../EmptyState';
 import TableRow from './TableRow';
 
-const Table = ({ title, models, columns }) => (
-  <View>
-    {title && <Title>{title}</Title>}
+const ListSection = ({ models, columns }) => {
+  return (
     <ReactPaperList.Section>
       {_.map(models, (model, index) => (
         <View key={index}>
@@ -17,7 +17,18 @@ const Table = ({ title, models, columns }) => (
         </View>
       ))}
     </ReactPaperList.Section>
-  </View>
-);
+  );
+};
+
+const Table = ({ title, models, columns }) => {
+  return (
+    <View>
+      {title && <Title>{title}</Title>}
+      {_.isEmpty(models) ?
+        <EmptyState/> :
+        <ListSection models={models} columns={columns}/>}
+    </View>
+  );
+};
 
 export default Table;
