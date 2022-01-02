@@ -1,11 +1,11 @@
 import Movie from './Movie';
-import Profile from './Profile';
+import SimpleUser from './SimpleUser';
 import TmdbMovie from './TmdbMovie';
 import User from './User';
 
 export {
   Movie,
-  Profile,
+  SimpleUser,
   TmdbMovie,
   User,
 };
