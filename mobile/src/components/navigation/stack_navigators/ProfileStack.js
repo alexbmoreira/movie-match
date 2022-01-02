@@ -35,6 +35,7 @@ const ProfileStack = ({ route }) => {
         name='ProfileSettings'
         component={ProfileSettings}
         initialParams={route.params}
+        options={{ title: 'Settings' }}
       />
       <ProfileNavigator.Screen
         name='OtherProfile'
