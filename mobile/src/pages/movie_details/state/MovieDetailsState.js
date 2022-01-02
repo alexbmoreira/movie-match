@@ -3,6 +3,10 @@ import { action, makeObservable, observable } from 'mobx';
 import { TmdbMovie } from 'stores';
 
 class MovieDetailsState {
+  movieId;
+  route;
+  navigation;
+
   movie = {};
   in_watchlist = false;
 
@@ -16,11 +20,15 @@ class MovieDetailsState {
     });
   }
 
-  receiveProps({ route }) {
+  receiveProps({ route, navigation }) {
+    this.route = route;
+    this.navigation = navigation;
     this.movieId = route.params.movieId;
   }
 
   async load() {
+    this.navigation.setOptions({ title: this.route.params.title });
+
     const response = await movieApi.getMetadata('movie', this.movieId);
     this.movie = new TmdbMovie(response.data);
     await this.setDetailsForUser();

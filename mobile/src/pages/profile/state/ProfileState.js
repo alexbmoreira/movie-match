@@ -4,6 +4,8 @@ import { User } from 'stores';
 
 class ProfileState {
   userId;
+  route;
+
   user = {};
 
   constructor() {
@@ -14,6 +16,7 @@ class ProfileState {
   }
 
   receiveProps({ route }) {
+    this.route = route;
     this.userId = route.params.userId;
   }
 
