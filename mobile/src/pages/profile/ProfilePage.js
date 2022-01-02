@@ -8,13 +8,13 @@ import ProfileState from './state/ProfileState';
 import Watchlist from './Watchlist';
 
 const ProfilePage = observer(({ uiState }) => {
-  const { profile } = uiState;
+  const { user } = uiState;
 
   return (
     <ScreenContainer scroll>
-      <AvatarHeader user={profile.user}/>
-      <Watchlist watchlist={profile.watchlist}/>
-      <Table title='Friends' models={profile.friends} columns={FRIENDS_COLUMNS}/>
+      <AvatarHeader user={user}/>
+      <Watchlist watchlist={user.watchlist}/>
+      <Table title='Friends' models={user.friends} columns={FRIENDS_COLUMNS}/>
     </ScreenContainer>
   );
 });

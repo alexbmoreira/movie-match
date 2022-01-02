@@ -7,12 +7,12 @@ const endpoints = {
   USER: '/user/',
   FRIENDS: {
     with(userId) {
-      return `/profiles/${userId}/friends/`;
+      return `/users/${userId}/friends/`;
     }
   },
   PROFILE: {
     with(userId) {
-      return `/profiles/${userId}/`;
+      return `/users/${userId}/`;
     }
   },
   TMDB: {

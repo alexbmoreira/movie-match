@@ -1,22 +1,20 @@
-import { computed, makeObservable, observable } from 'mobx';
-import { DomainObject } from 'shared/stores';
+import { observable } from 'mobx';
+import Movie from './Movie';
+import SimpleUser from './SimpleUser';
 
-class User extends DomainObject {
-  username = observable('');
+class User extends SimpleUser {
+  friends = observable([]);
+  watchlist = observable([]);
 
   constructor(model) {
     super();
-    makeObservable(this, {
-      userInitial: computed
-    });
 
     if (model) {
-      this.merge(model);
+      this.merge(model, {
+        friends: [SimpleUser],
+        watchlist: [Movie]
+      });
     }
-  }
-
-  get userInitial() {
-    return this.username.toUpperCase().charAt(0);
   }
 }
 
