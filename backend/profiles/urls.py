@@ -1,11 +1,12 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .views import CurrentUserView, UserView
+from .views import CurrentUserView, UserView, WatchlistView
 
 router = DefaultRouter()
 
-current_user_api = CurrentUserView.as_view()
+current_user_view = CurrentUserView.as_view()
+watchlist_view = WatchlistView.as_view()
 # user_search_api = UserView.as_view({'get':'list'})
 # user_detail_api = UserView.as_view({'get':'retrieve'})
 # friend_requests_api = FriendRequestAPIView.as_view()
@@ -24,7 +25,7 @@ current_user_api = CurrentUserView.as_view()
 #     path("user/matches/", matches_api, name="matches"),
 #     path("user/watchlist/", watchlist_api, name="watchlist"),
 #     path("user/joint-watchlist/", joint_watchlist_api, name="joint_watchlist"),
-#     path("user/", current_user_api, name="current_user"),
+#     path("user/", current_user_view, name="current_user"),
 #     path("users/", user_search_api, name="users"),
 #     path("users/<int:user_id>/", user_detail_api, name="user_detail"),
 #     path("users/<int:user_id>/friends/", friendships_api, name="friendships_all"),
@@ -34,5 +35,6 @@ current_user_api = CurrentUserView.as_view()
 router.register(r'users', UserView, basename='user')
 
 urlpatterns = [
-    path("user/", current_user_api, name="current_user"),
+    path("user/", current_user_view, name="current_user"),
+    path("user/watchlist/", watchlist_view, name="user_watchlist"),
 ] + router.urls

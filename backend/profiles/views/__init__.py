@@ -7,7 +7,7 @@ from .matchlist_like_view import MatchlistLikeAPIView
 from .matchlist_match_view import MatchlistMatchAPIView
 from .movie_details_for_user_view import MovieDetailsForUserView
 from .user_view import UserView
-from .watchlist_view import WatchlistAPIView
+from .watchlist_view import WatchlistView
 
 __all__ = [
     'FriendRequestAPIView',
@@ -19,5 +19,5 @@ __all__ = [
     'MovieDetailsForUserView',
     'UserView',
     'CurrentUserView',
-    'WatchlistAPIView',
+    'WatchlistView',
 ]

@@ -9,7 +9,7 @@ from ..models import WatchlistMovie
 from ..serializers import WatchlistMovieSerializer
 
 
-class WatchlistAPIView(APIView):
+class WatchlistView(APIView):
 
     permission_classes = (IsAuthenticated,)
 
