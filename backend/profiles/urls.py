@@ -3,12 +3,12 @@ from django.urls import path
 from .views import (FriendRequestAPIView, FriendshipAPIView,
                     JointWatchlistAPIView, MatchlistDislikeAPIView,
                     MatchlistLikeAPIView, MatchlistMatchAPIView,
-                    MovieDetailsForUserView, UserAPIView, UserDetailAPIView,
+                    MovieDetailsForUserView, UserAPIView, UserDetailView,
                     UserSearchView, WatchlistAPIView)
 
 user_api = UserAPIView.as_view()
 user_search_api = UserSearchView.as_view()
-user_detail_api = UserDetailAPIView.as_view()
+user_detail_api = UserDetailView.as_view()
 friend_requests_api = FriendRequestAPIView.as_view()
 friendships_api = FriendshipAPIView.as_view()
 watchlist_api = WatchlistAPIView.as_view()

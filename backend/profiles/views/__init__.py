@@ -5,7 +5,7 @@ from .matchlist_dislike_view import MatchlistDislikeAPIView
 from .matchlist_like_view import MatchlistLikeAPIView
 from .matchlist_match_view import MatchlistMatchAPIView
 from .movie_details_for_user_view import MovieDetailsForUserView
-from .user_detail_view import UserDetailAPIView
+from .user_detail_view import UserDetailView
 from .user_search_view import UserSearchView
 from .user_view import UserAPIView
 from .watchlist_view import WatchlistAPIView
@@ -18,7 +18,7 @@ __all__ = [
     'MatchlistLikeAPIView',
     'MatchlistMatchAPIView',
     'MovieDetailsForUserView',
-    'UserDetailAPIView',
+    'UserDetailView',
     'UserSearchView',
     'UserAPIView',
     'WatchlistAPIView',
