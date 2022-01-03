@@ -4,10 +4,10 @@ from .views import (FriendRequestAPIView, FriendshipAPIView,
                     JointWatchlistAPIView, MatchlistDislikeAPIView,
                     MatchlistLikeAPIView, MatchlistMatchAPIView,
                     MovieDetailsForUserView, UserAPIView, UserDetailAPIView,
-                    UserSearchAPIView, WatchlistAPIView)
+                    UserSearchView, WatchlistAPIView)
 
 user_api = UserAPIView.as_view()
-user_search_api = UserSearchAPIView.as_view()
+user_search_api = UserSearchView.as_view()
 user_detail_api = UserDetailAPIView.as_view()
 friend_requests_api = FriendRequestAPIView.as_view()
 friendships_api = FriendshipAPIView.as_view()
@@ -28,7 +28,6 @@ urlpatterns = [
     path("user/", user_api, name="current_user"),
     path("users/", user_search_api, name="users"),
     path("users/<int:user_id>/", user_detail_api, name="user_detail"),
-    path("users/search/<str:search>/", user_search_api, name="users"),
     path("users/<int:user_id>/friends/", friendships_api, name="friendships_all"),
     path("user/movie-details/<int:movie_id>/", movie_details_api, name="movie_details"),
 ]
