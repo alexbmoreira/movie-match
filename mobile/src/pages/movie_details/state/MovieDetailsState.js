@@ -41,7 +41,7 @@ class MovieDetailsState {
 
   async addToWatchlist(currentlyInWatchlist) {
     if(currentlyInWatchlist) {
-      await watchlistApi.removeFromWatchlist({ movie: this.movie.id });
+      await watchlistApi.removeFromWatchlist(this.movieId);
     } else {
       await watchlistApi.addToWatchlist({ movie: this.movie.id });
     }

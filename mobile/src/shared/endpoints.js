@@ -5,14 +5,14 @@ const endpoints = {
     LOGOUT: '/rest-auth/logout/'
   },
   USER: '/user/',
-  FRIENDS: {
-    with(userId) {
-      return `/users/${userId}/friends/`;
-    }
-  },
   PROFILE: {
     with(userId) {
       return `/users/${userId}/`;
+    },
+    WATCHLIST: {
+      with(userId) {
+        return `/users/${userId}/watchlist`;
+      }
     }
   },
   TMDB: {
@@ -27,7 +27,14 @@ const endpoints = {
       }
     }
   },
-  EDIT_WATCHLIST: '/user/watchlist/',
+  WATCHLIST: {
+    POST: '/user/watchlist/',
+    DELETE: {
+      with(movieId) {
+        return `/user/watchlist/${movieId}/`;
+      }
+    }
+  },
   MOVIE_DETAILS_FOR_USER: {
     with(movieId) {
       return `/user/movie-details/${movieId}/`;
