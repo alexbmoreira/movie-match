@@ -33,19 +33,19 @@ class SearchState {
     if(!this.query || !this.type) return;
     this.isLoading = true;
 
-    const searchParams = { search: this.query };
-    this.type === 'users' ? await this.searchUsers(searchParams) : await this.searchTMDB(searchParams);
+    const params = { search: this.query };
+    this.type === 'users' ? await this.searchUsers(params) : await this.searchTMDB(params);
 
     this.isLoading = false;
   }
 
-  async searchTMDB(searchParams) {
-    const response = await movieApi.makeSearch(this.type, searchParams);
+  async searchTMDB(params) {
+    const response = await movieApi.makeSearch(this.type, params);
     this.results = response.data.results;
   }
 
-  async searchUsers(searchParams) {
-    const response = await profileApi.searchUsers(searchParams);
+  async searchUsers(params) {
+    const response = await profileApi.searchUsers(params);
     this.results = _.map(response.data.results, (user) => new SimpleUser(user));
   }
 }

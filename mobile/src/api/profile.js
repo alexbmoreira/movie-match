@@ -5,8 +5,8 @@ async function getUser(userId) {
   return getRequest(endpoints.PROFILE.with(userId));
 }
 
-async function searchUsers(searchParams) {
-  return getRequest(endpoints.PROFILE.SEARCH, searchParams);
+async function searchUsers(params) {
+  return getRequest(endpoints.PROFILE.SEARCH, params);
 }
 
 export default {
