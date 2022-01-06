@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { MovieDetails } from 'pages/movie_details';
+import { ProfilePage } from 'pages/profile';
 import { SearchPage } from 'pages/search';
 import React from 'react';
 import screenOptions from './screenOptions';
@@ -20,6 +21,11 @@ const SearchStack = ({ route }) => {
       <SearchNavigator.Screen
         name='MovieDetails'
         component={MovieDetails}
+      />
+      <SearchNavigator.Screen
+        name='OtherProfile'
+        component={ProfilePage}
+        initialParams={route.params}
       />
     </SearchNavigator.Navigator>
   );

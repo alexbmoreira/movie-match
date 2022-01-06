@@ -36,8 +36,8 @@ export const postRequest = async (url, payload = {}) => {
   return await request(url, payload, api.post);
 };
 
-export const getRequest = async (url, payload = {}) => {
-  return await request(url, payload, api.get);
+export const getRequest = async (url, params = {}) => {
+  return await request(url, { params }, api.get);
 };
 
 export const deleteRequest = async (url) => {

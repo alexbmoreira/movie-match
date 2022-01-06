@@ -1,7 +1,16 @@
-import { TmdbListItem } from 'components/common';
+import { TmdbListItem, UsernameWithAvatar } from 'components/common';
 import React from 'react';
 
 const ResultItem = ({ model }) => {
+  if(!model.type) {
+    return (
+      <UsernameWithAvatar
+        user={model}
+        size='md'
+      />
+    );
+  }
+
   if(model.type === 'movie') {
     return (
       <TmdbListItem

@@ -6,6 +6,7 @@ const endpoints = {
   },
   USER: '/user/',
   PROFILE: {
+    SEARCH: '/users/',
     with(userId) {
       return `/users/${userId}/`;
     },

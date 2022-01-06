@@ -11,6 +11,9 @@ const SEARCH_TYPE_OPTIONS = [
   },
   {
     label: 'Crew', value: 'crew'
+  },
+  {
+    label: 'Users', value: 'users'
   }
 ];
 
