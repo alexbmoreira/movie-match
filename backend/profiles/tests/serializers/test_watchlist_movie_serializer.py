@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 from profiles.models import User
 from profiles.serializers import WatchlistMovieSerializer
 
@@ -7,10 +7,12 @@ class WatchlistMovieSerializerTests(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(username='username')
-        data = {
+        self.data = {
             'movie': 4995
         }
-        self.serializer = WatchlistMovieSerializer(data=data, context={'user': self.user}) # Add Boogie Nights to user's watchlist
+        self.request = RequestFactory().post('./user/watchlist')
+        self.request.user = self.user
+        self.serializer = WatchlistMovieSerializer(data=self.data, context={'request': self.request}) # Add Boogie Nights to user's watchlist
 
     def test_CreateValid(self):
         # Act

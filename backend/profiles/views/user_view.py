@@ -1,17 +1,42 @@
+from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.views import APIView
 
-from ..serializers import UserSerializer
+from ..models import Friendship, User
+from ..serializers import (SimpleUserSerializer, UserSerializer,
+                           WatchlistMovieSerializer)
 
 
-class UserAPIView(APIView):
+class UserView(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
 
-    permission_classes = (IsAuthenticated,)
+    def get_queryset(self):
+        search = self.request.GET.get('search', '')
+        return User.objects.search(search)
 
-    def get(self, request):
-        user = request.user
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return SimpleUserSerializer
 
-        serializer = UserSerializer(user)
+        return self.serializer_class
 
-        return Response(serializer.data)
+    @action(detail=True)
+    def watchlist(self, request, pk=None):
+        user = self.get_object()
+        watchlist = user.watchlist.all()
+
+        page = self.paginate_queryset(watchlist)
+        if page is not None:
+            serializer = WatchlistMovieSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+    @action(detail=True)
+    def friends(self, request, pk=None):
+        user = self.get_object()
+        friends = Friendship.objects.get_friends(user)
+
+        page = self.paginate_queryset(friends)
+        if page is not None:
+            serializer = SimpleUserSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)

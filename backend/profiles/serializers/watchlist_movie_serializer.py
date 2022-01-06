@@ -11,5 +11,5 @@ class WatchlistMovieSerializer(serializers.ModelSerializer):
         fields = ['id', 'movie']
 
     def create(self, validated_data):
-        user = self.context['user']
+        user = self.context['request'].user
         return CreateWatchlistMovie.run(user=user, **validated_data)

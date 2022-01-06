@@ -1,14 +1,19 @@
+from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from ..serializers import MovieDetailsForUserSerializer
 
 
-class MovieDetailsForUserView(APIView):
+class MovieDetailsForUserView(generics.RetrieveAPIView):
 
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsAuthenticated]
+    serializer_class = MovieDetailsForUserSerializer
 
-    def get(self, request, movie_id):
-        data = MovieDetailsForUserSerializer(request.user, context={'movie_id': movie_id}).data
-        return Response(data=data)
+    def get_object(self):
+        return self.request.user
+
+    def get_serializer_context(self):
+        return {
+            **super().get_serializer_context(),
+            'movie_id': self.kwargs['movie_id']
+        }
