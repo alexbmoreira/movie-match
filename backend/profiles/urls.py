@@ -20,7 +20,7 @@ movie_details_for_user_view = MovieDetailsForUserView.as_view()
 # ]
 
 router.register(r'users', UserView, basename='user')
-router.register(r'user/watchlist', WatchlistView, basename='user')
+router.register(r'user/watchlist', WatchlistView, basename='user-watchlist')
 
 urlpatterns = [
     path("user/", current_user_view, name="current_user"),
