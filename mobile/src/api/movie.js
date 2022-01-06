@@ -1,8 +1,8 @@
 import { endpoints } from 'shared';
 import { getRequest } from './api.service';
 
-async function makeSearch(searchType, searchParams) {
-  return getRequest(endpoints.TMDB.SEARCH.with(searchType), searchParams);
+async function makeSearch(type, params) {
+  return getRequest(endpoints.TMDB.SEARCH.with(type), params);
 }
 
 async function getMetadata(type, id) {

@@ -1,9 +1,5 @@
 import { endpoints } from 'shared';
-import { getRequest, postRequest } from './api.service';
-
-async function getUser() {
-  return getRequest(endpoints.USER);
-}
+import { postRequest } from './api.service';
 
 async function login(data) {
   return postRequest(endpoints.AUTH.LOGIN, data);
@@ -18,7 +14,6 @@ async function logout() {
 }
 
 export default {
-  getUser,
   register,
   login,
   logout,

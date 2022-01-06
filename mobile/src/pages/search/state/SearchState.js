@@ -1,5 +1,7 @@
-import { movieApi } from 'api';
+import { movieApi, profileApi } from 'api';
+import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
+import { SimpleUser } from 'stores';
 
 class SearchState {
   query = '';
@@ -31,11 +33,20 @@ class SearchState {
     if(!this.query || !this.type) return;
     this.isLoading = true;
 
-    const searchParams = { params: { search: this.query } };
-    const response = await movieApi.makeSearch(this.type, searchParams);
-    this.results = response.data.results;
+    const params = { search: this.query };
+    this.type === 'users' ? await this.searchUsers(params) : await this.searchTMDB(params);
 
     this.isLoading = false;
+  }
+
+  async searchTMDB(params) {
+    const response = await movieApi.makeSearch(this.type, params);
+    this.results = response.data.results;
+  }
+
+  async searchUsers(params) {
+    const response = await profileApi.searchUsers(params);
+    this.results = _.map(response.data.results, (user) => new SimpleUser(user));
   }
 }
 

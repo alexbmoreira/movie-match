@@ -25,7 +25,7 @@ class ProfileState {
   async load() {
     this.navigation.setOptions({ title: this.route.params.username });
 
-    const response = await profileApi.getProfile(this.userId);
+    const response = await profileApi.getUser(this.userId);
     this.user = new User(response.data);
   }
 }
