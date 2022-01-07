@@ -1,4 +1,5 @@
 import Avatar from './Avatar';
+import BottomSheet from './BottomSheet';
 import { Button, IconButton } from './buttons';
 import Divider from './Divider';
 import ErrorMessage from './ErrorMessage';
@@ -15,6 +16,7 @@ import UsernameWithAvatar from './UsernameWithAvatar';
 
 export {
   Avatar,
+  BottomSheet,
   Button,
   IconButton,
   Divider,

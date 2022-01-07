@@ -4,7 +4,6 @@ import { action, makeObservable, observable } from 'mobx';
 import React from 'react';
 import { theme } from 'shared';
 import { MenuIcon } from 'shared/icons';
-import { navigate } from 'shared/RootNavigation';
 import { User } from 'stores';
 
 class ProfileState {
@@ -13,10 +12,12 @@ class ProfileState {
   navigation;
 
   user = {};
+  userOptionsSheetOpen = false;
 
   constructor() {
     makeObservable(this, {
       user: observable,
+      userOptionsSheetOpen: observable,
       load: action.bound
     });
   }
@@ -41,12 +42,20 @@ class ProfileState {
           icon={({ size, color }) => (
             <MenuIcon size={size} color={color} />
           )}
-          onPress={() => navigate('ProfileSettings')}
+          onPress={() => this.openUserOptionsSheet()}
           color={theme.colors.primary}
           size={'sm'}
         />
       )
     });
+  }
+
+  openUserOptionsSheet() {
+    this.userOptionsSheetOpen = true;
+  }
+
+  closeUserOptionsSheet() {
+    this.userOptionsSheetOpen = false;
   }
 }
 
