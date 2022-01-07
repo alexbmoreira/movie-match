@@ -27,6 +27,10 @@ const withState = (Component, State, options={}) => {
       if (this.uiState.receiveProps) {
         this.uiState.receiveProps(this.props);
       }
+
+      if(this.uiState.navigationConfig) {
+        this.uiState.navigationConfig();
+      }
   
       if (this.uiState.load) {
         try {

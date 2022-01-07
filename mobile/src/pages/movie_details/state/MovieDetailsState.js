@@ -27,11 +27,13 @@ class MovieDetailsState {
   }
 
   async load() {
-    this.navigation.setOptions({ title: this.route.params.title });
-
     const response = await movieApi.getMetadata('movie', this.movieId);
     this.movie = new TmdbMovie(response.data);
     await this.setDetailsForUser();
+  }
+
+  navigationConfig() {
+    this.navigation.setOptions({ title: this.route.params.title });
   }
 
   async setDetailsForUser() {
