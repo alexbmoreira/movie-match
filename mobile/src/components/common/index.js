@@ -1,10 +1,10 @@
 import Avatar from './Avatar';
-import { BottomSheet } from './bottom_sheet';
 import { Button, IconButton } from './buttons';
 import Divider from './Divider';
 import ErrorMessage from './ErrorMessage';
 import { FormLayout } from './forms';
 import { CardList, Table } from './lists';
+import { BottomSheet } from './menus';
 import { Poster } from './poster';
 import ScreenContainer from './ScreenContainer';
 import Select from './Select';
@@ -16,7 +16,6 @@ import UsernameWithAvatar from './UsernameWithAvatar';
 
 export {
   Avatar,
-  BottomSheet,
   Button,
   IconButton,
   Divider,
@@ -24,6 +23,7 @@ export {
   FormLayout,
   CardList,
   Table,
+  BottomSheet,
   Poster,
   ScreenContainer,
   Select,

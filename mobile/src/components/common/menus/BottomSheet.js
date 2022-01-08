@@ -10,8 +10,8 @@ const BottomSheet = ({ innerRef, children, snapPoints, ...rest }) => {
       renderContent={() => (
         <View
           style={{
-            height: 200,
-            backgroundColor: theme.colors.surface,
+            height: snapPoints[0],
+            backgroundColor: theme.colors.backdrop,
             padding: 16
           }}
         >

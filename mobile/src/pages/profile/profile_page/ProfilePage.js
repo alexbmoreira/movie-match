@@ -1,12 +1,11 @@
-import { BottomSheet, Button, ScreenContainer, Table, Title } from 'components/common';
-// import { Button, ScreenContainer, Table, Title } from 'components/common';
+import { BottomSheet, ScreenContainer, Table } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-// import BottomSheet from 'reanimated-bottom-sheet';
 import { withState } from 'shared';
 import AvatarHeader from './AvatarHeader';
 import { FRIENDS_COLUMNS } from './columns';
 import ProfileState from './state/ProfileState';
+import UserOptions from './UserOptions';
 import Watchlist from './Watchlist';
 
 const ProfilePage = observer(({ uiState }) => {
@@ -21,10 +20,9 @@ const ProfilePage = observer(({ uiState }) => {
       </ScreenContainer>
       <BottomSheet
         innerRef={bottomSheetRef}
-        snapPoints={[200, 0]}
+        snapPoints={[120, 0]}
       >
-        <Title>{user.username}</Title>
-        <Button onPress={() => console.log('send request')}>Send Friend Request</Button>
+        <UserOptions uiState={uiState}/>
       </BottomSheet>
     </React.Fragment>
   );
