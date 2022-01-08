@@ -5,6 +5,7 @@ import SimpleUser from './SimpleUser';
 class User extends SimpleUser {
   friends = observable([]);
   watchlist = observable([]);
+  is_friend = observable();
 
   constructor(model) {
     super();
