@@ -1,5 +1,5 @@
 import Avatar from './Avatar';
-import BottomSheet from './BottomSheet';
+import { BottomSheet } from './bottom_sheet';
 import { Button, IconButton } from './buttons';
 import Divider from './Divider';
 import ErrorMessage from './ErrorMessage';

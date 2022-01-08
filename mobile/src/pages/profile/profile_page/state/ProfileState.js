@@ -12,12 +12,11 @@ class ProfileState {
   navigation;
 
   user = {};
-  userOptionsSheetOpen = false;
+  bottomSheetRef;
 
   constructor() {
     makeObservable(this, {
       user: observable,
-      userOptionsSheetOpen: observable,
       load: action.bound
     });
   }
@@ -26,6 +25,10 @@ class ProfileState {
     this.route = route;
     this.navigation = navigation;
     this.userId = route.params.userId;
+  }
+
+  mount() {
+    this.bottomSheetRef = React.createRef();
   }
 
   async load() {
@@ -42,20 +45,14 @@ class ProfileState {
           icon={({ size, color }) => (
             <MenuIcon size={size} color={color} />
           )}
-          onPress={() => this.openUserOptionsSheet()}
+          onPress={() => {
+            this.bottomSheetRef.current?.snapTo(0);
+          }}
           color={theme.colors.primary}
           size={'sm'}
         />
       )
     });
-  }
-
-  openUserOptionsSheet() {
-    this.userOptionsSheetOpen = true;
-  }
-
-  closeUserOptionsSheet() {
-    this.userOptionsSheetOpen = false;
   }
 }
 
