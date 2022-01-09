@@ -1,7 +1,6 @@
 from django.db import models
 
 from ..managers import FriendRequestManager
-from .friendship import Friendship
 from .user import User
 
 
