@@ -37,6 +37,9 @@ const endpoints = {
       with(userId) {
         return `/friendships/with-user/${userId}/`;
       }
+    },
+    with(friendshipId) {
+      return `/friendships/${friendshipId}/`;
     }
   },
   TMDB: {

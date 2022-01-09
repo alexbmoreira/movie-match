@@ -27,6 +27,7 @@ class ProfileState {
       sendFriendRequest: action.bound,
       acceptFriendRequest: action.bound,
       deleteFriendRequest: action.bound,
+      removeFriend: action.bound,
       userRequesting: computed,
       userRequested: computed,
       userIsAFriend: computed
@@ -100,8 +101,9 @@ class ProfileState {
     this.closeUserOptionsSheet();
   }
 
-  removeFriend() {
-    console.log('remove friend');
+  async removeFriend() {
+    await friendApi.deleteFriendship(this.friendship.id);
+    this.friendship = null;
     this.closeUserOptionsSheet();
   }
 
@@ -124,7 +126,7 @@ class ProfileState {
   }
 
   get userIsAFriend() {
-    return !!(this.friendship?.toJS().user || this.friendship.toJS().friend);
+    return !!(this.friendship?.toJS().user || this.friendship?.toJS().friend);
   }
 }
 

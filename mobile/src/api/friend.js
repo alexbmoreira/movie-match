@@ -9,12 +9,16 @@ async function sendFriendRequest(data) {
   return postRequest(endpoints.FRIEND_REQUESTS, data);
 }
 
-async function acceptFriendRequest(requestId) {
-  return postRequest(endpoints.FRIEND_REQUEST.ACCEPT.with(requestId));
+async function acceptFriendRequest(friendRequestId) {
+  return postRequest(endpoints.FRIEND_REQUEST.ACCEPT.with(friendRequestId));
 }
 
-async function deleteFriendRequest(requestId) {
-  return deleteRequest(endpoints.FRIEND_REQUEST.with(requestId));
+async function deleteFriendRequest(friendRequestId) {
+  return deleteRequest(endpoints.FRIEND_REQUEST.with(friendRequestId));
+}
+
+async function deleteFriendship(friendshipId) {
+  return deleteRequest(endpoints.FRIENDSHIP.with(friendshipId));
 }
 
 async function getFriendship(userId) {
@@ -26,5 +30,6 @@ export default {
   sendFriendRequest,
   acceptFriendRequest,
   deleteFriendRequest,
+  deleteFriendship,
   getFriendship,
 };
