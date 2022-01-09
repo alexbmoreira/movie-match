@@ -1,6 +1,6 @@
 from django.test import TestCase
+from profiles.models import Friendship, User
 
-from ...models import Friendship, User
 from ..factories import FriendshipFactory, UserFactory
 
 

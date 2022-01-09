@@ -2,11 +2,13 @@ from django.test import RequestFactory, TestCase
 from profiles.models import User
 from profiles.serializers import WatchlistMovieSerializer
 
+from ..factories import UserFactory
+
 
 class WatchlistMovieSerializerTests(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user(username='username')
+        self.user = UserFactory(username='peter_griffin')
         self.data = {
             'movie': 4995
         }

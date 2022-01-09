@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from ..interactions import friend_request
 from ..models import FriendRequest
 from .simple_user_serializer import SimpleUserSerializer
 
