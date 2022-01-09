@@ -1,5 +1,6 @@
 from django.db import models
 
+from ..managers import FriendRequestManager
 from .friendship import Friendship
 from .user import User
 
@@ -8,7 +9,8 @@ class FriendRequest(models.Model):
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_requests')
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_requests')
-    active = models.BooleanField(default=True)
+
+    objects = FriendRequestManager()
 
     class Meta:
         unique_together = ['creator', 'receiver']

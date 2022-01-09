@@ -1,8 +1,8 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .views import (CurrentUserView, MovieDetailsForUserView, UserView,
-                    WatchlistView)
+from .views import (CurrentUserView, FriendRequestView, FriendshipView,
+                    MovieDetailsForUserView, UserView, WatchlistView)
 
 router = DefaultRouter()
 
@@ -16,11 +16,12 @@ movie_details_for_user_view = MovieDetailsForUserView.as_view()
 #     path("user/matches/", matches_api, name="matches"),
 #     path("user/watchlist/", watchlist_api, name="watchlist"),
 #     path("user/joint-watchlist/", joint_watchlist_api, name="joint_watchlist"),
-#     path("users/<int:user_id>/friends/", friendships_api, name="friendships_all"),
 # ]
 
 router.register(r'users', UserView, basename='user')
 router.register(r'user/watchlist', WatchlistView, basename='user-watchlist')
+router.register(r'friendships', FriendshipView, basename='friendship')
+router.register(r'friend-requests', FriendRequestView, basename='friend-request')
 
 urlpatterns = [
     path("user/", current_user_view, name="current_user"),

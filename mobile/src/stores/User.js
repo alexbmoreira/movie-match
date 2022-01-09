@@ -6,6 +6,8 @@ class User extends SimpleUser {
   friends = observable([]);
   watchlist = observable([]);
   is_friend = observable();
+  is_friend_requested = observable();
+  is_friend_requesting = observable();
 
   constructor(model) {
     super();
