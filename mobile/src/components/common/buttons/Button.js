@@ -27,10 +27,10 @@ class Button extends React.Component {
   };
 
   render() {
-    const { onPress, children, ...rest } = this.props;
+    const { onPress, children, style, ...rest } = this.props;
 
     return(
-      <View>
+      <View style={style}>
         <Btn
           onPress={async (e) => this.onPress(e, onPress)}
           loading={this.isLoading}

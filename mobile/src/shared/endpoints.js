@@ -12,7 +12,21 @@ const endpoints = {
     },
     WATCHLIST: {
       with(userId) {
-        return `/users/${userId}/watchlist`;
+        return `/users/${userId}/watchlist/`;
+      }
+    }
+  },
+  FRIEND_REQUEST: {
+    WITH_USER: {
+      with(userId) {
+        return `/friend-requests/with-user/${userId}/`;
+      }
+    }
+  },
+  FRIENDSHIP: {
+    WITH_USER: {
+      with(userId) {
+        return `/friendships/with-user/${userId}/`;
       }
     }
   },

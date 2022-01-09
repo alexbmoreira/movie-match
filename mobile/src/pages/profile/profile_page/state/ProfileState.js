@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { profileApi } from 'api';
+import { friendApi, profileApi } from 'api';
 import { IconButton } from 'components/common';
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import React from 'react';
 import { theme } from 'shared';
 import { MenuIcon } from 'shared/icons';
-import { User } from 'stores';
+import { FriendRequest, Friendship, User } from 'stores';
 
 class ProfileState {
   userId;
@@ -13,13 +13,20 @@ class ProfileState {
   navigation;
 
   user = {};
+  friendRequest = {};
+  friendship = {};
   isCurrentUser = false;
   bottomSheetRef;
 
   constructor() {
     makeObservable(this, {
       user: observable,
-      load: action.bound
+      friendRequest: observable,
+      friendship: observable,
+      load: action.bound,
+      userRequesting: computed,
+      userRequested: computed,
+      userIsAFriend: computed
     });
   }
 
@@ -34,11 +41,18 @@ class ProfileState {
   }
 
   async load() {
-    const response = await profileApi.getUser(this.userId);
-    this.user = new User(response.data);
+    const user = await profileApi.getUser(this.userId);
+    this.user = new User(user.data);
     
     const storedUser = await AsyncStorage.getItem('user');
     this.isCurrentUser = JSON.parse(storedUser).id === this.user.id;
+
+    if(!this.isCurrentUser) {
+      const friendRequest = await friendApi.getFriendRequest(this.userId);
+      this.friendRequest = new FriendRequest(friendRequest.data);
+      const friendship = await friendApi.getFriendship(this.userId);
+      this.friendship = new Friendship(friendship.data);
+    }
   }
 
   navigationConfig() {
@@ -67,12 +81,41 @@ class ProfileState {
     this.closeUserOptionsSheet();
   }
 
+  acceptFriendRequest() {
+    console.log('accept friend request');
+    this.closeUserOptionsSheet();
+  }
+
+  declineFriendRequest() {
+    console.log('decline friend request');
+    this.closeUserOptionsSheet();
+  }
+
+  removeFriend() {
+    console.log('remove friend');
+    this.closeUserOptionsSheet();
+  }
+
   openUserOptionsSheet() {
     this.bottomSheetRef.current?.snapTo(0);
   }
 
   closeUserOptionsSheet() {
     this.bottomSheetRef.current?.snapTo(1);
+  }
+
+  get userRequesting() {
+    return this.friendRequest.toJS().receiver &&
+      this.friendRequest.receiver.id === this.user.id;
+  }
+
+  get userRequested() {
+    return this.friendRequest.toJS().creator &&
+      this.friendRequest.creator.id === this.user.id;
+  }
+
+  get userIsAFriend() {
+    return !!(this.friendship.toJS().user || this.friendship.toJS().friend);
   }
 }
 

@@ -3,8 +3,8 @@ import { DomainObject } from 'shared/stores';
 import SimpleUser from './SimpleUser';
 
 class FriendRequest extends DomainObject {
-  creator = observable();
-  receiver = observable();
+  creator = observable(null);
+  receiver = observable(null);
 
   constructor(model) {
     super();

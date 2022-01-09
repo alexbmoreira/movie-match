@@ -9,6 +9,7 @@ class FriendRequestManager(models.Manager):
         return self.model.objects.filter(Q(creator=user) | Q(receiver=user))
 
     def get_friend_request(self, user1, user2):
-        friend_request = get_object_or_404(self.model, Q(creator=user1, receiver=user2) | Q(creator=user2, receiver=user1))
-
-        return friend_request
+        try:
+            return self.model.objects.get(Q(creator=user1, receiver=user2) | Q(creator=user2, receiver=user1))
+        except self.model.DoesNotExist:
+            return None

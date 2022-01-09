@@ -9,9 +9,10 @@ class FriendshipManager(models.Manager):
         return self.model.objects.filter(Q(user=user) | Q(friend=user))
 
     def get_friendship(self, user1, user2):
-        friendship = get_object_or_404(self.model, Q(user=user1, friend=user2) | Q(user=user2, friend=user1))
-
-        return friendship
+        try:
+            return self.model.objects.get(Q(user=user1, friend=user2) | Q(user=user2, friend=user1))
+        except self.model.DoesNotExist:
+            return None
 
     def get_friends(self, user):
         friendships = self.model.objects.select_related("user", "friend").filter(Q(user=user) | Q(friend=user))

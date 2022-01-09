@@ -9,9 +9,6 @@ class UserSerializer(serializers.ModelSerializer):
 
     watchlist = WatchlistMovieSerializer(many=True)
     friends = serializers.SerializerMethodField()
-    is_friend = serializers.SerializerMethodField()
-    is_friend_requested = serializers.SerializerMethodField()
-    is_friend_requesting = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -19,9 +16,6 @@ class UserSerializer(serializers.ModelSerializer):
             'id',
             'username',
             'avatar_color',
-            'is_friend',
-            'is_friend_requested',
-            'is_friend_requesting',
             'watchlist',
             'friends'
         ]

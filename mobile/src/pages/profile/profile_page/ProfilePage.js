@@ -18,12 +18,13 @@ const ProfilePage = observer(({ uiState }) => {
         <Watchlist watchlist={user.watchlist}/>
         <Table title='Friends' models={user.friends} columns={FRIENDS_COLUMNS}/>
       </ScreenContainer>
-      <BottomSheet
-        innerRef={bottomSheetRef}
-        snapPoints={[120, 0]}
-      >
-        <UserOptions uiState={uiState}/>
-      </BottomSheet>
+      {!uiState.isCurrentUser &&
+        <BottomSheet
+          innerRef={bottomSheetRef}
+          snapPoints={[250, 0]}
+        >
+          <UserOptions uiState={uiState}/>
+        </BottomSheet>}
     </React.Fragment>
   );
 });
