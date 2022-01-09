@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from ..interactions.watchlist import CreateWatchlistMovie
 from ..models import WatchlistMovie
 
 
@@ -12,4 +11,4 @@ class WatchlistMovieSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
-        return CreateWatchlistMovie.run(user=user, **validated_data)
+        return WatchlistMovie.objects.create(user=user, **validated_data)

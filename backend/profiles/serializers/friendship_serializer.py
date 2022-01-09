@@ -5,14 +5,9 @@ from .simple_user_serializer import SimpleUserSerializer
 
 
 class FriendshipSerializer(serializers.ModelSerializer):
-
-    friend = serializers.SerializerMethodField()
+    user = SimpleUserSerializer(many=False, read_only=True)
+    friend = SimpleUserSerializer(many=False, read_only=True)
 
     class Meta:
         model = Friendship
-        fields = ['id', 'friend']
-
-    def get_friend(self, obj):
-        user_id = self.context["user_id"]
-        user = obj.friend if obj.friend.id != user_id else obj.user
-        return SimpleUserSerializer(user).data
+        fields = ['id', 'user', 'friend']

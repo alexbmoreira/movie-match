@@ -36,6 +36,10 @@ const withState = (Component, State, options={}) => {
           throw error;
         }
       }
+
+      if(this.uiState.navigationConfig) {
+        this.uiState.navigationConfig();
+      }
   
       this.isLoading = false;
     }

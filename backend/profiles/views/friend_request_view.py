@@ -1,51 +1,32 @@
-from rest_framework import status
+from django.shortcuts import get_object_or_404
+from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
-from ..models import FriendRequest
-from ..serializers import FriendRequestSerializer
+from ..models import FriendRequest, Friendship, User
+from ..serializers import FriendRequestSerializer, FriendshipSerializer
 
 
-class FriendRequestAPIView(APIView):
+class FriendRequestView(viewsets.ModelViewSet):
+    serializer_class = FriendRequestSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = FriendRequest.objects.all()
 
-    permission_classes = (IsAuthenticated,)
+    def get_queryset(self):
+        return FriendRequest.objects.get_friend_requests(self.request.user)
 
-    def get(self, request):
-        kind = request.GET.get('kind', '')
+    @action(detail=False, url_path=r'with-user/(?P<user_id>\w+)')
+    def with_user(self, request, user_id):
+        other_user = get_object_or_404(User, id=user_id)
+        friend_request = FriendRequest.objects.get_friend_request(user1=self.request.user, user2=other_user)
+        serializer = FriendRequestSerializer(friend_request)
+        return Response(serializer.data if friend_request else {})
 
-        if kind == 'sent':
-            friend_requests = FriendRequest.objects.filter(creator=request.user)
-            serializer = FriendRequestSerializer(friend_requests, many=True)
-            return Response(data=serializer.data)
-        elif kind == 'received':
-            friend_requests = FriendRequest.objects.filter(receiver=request.user)
-            serializer = FriendRequestSerializer(friend_requests, many=True)
-            return Response(data=serializer.data)
-
-        return Response(data={'error': 'invalid friend request kind'}, status=status.HTTP_404_NOT_FOUND)
-
-    def post(self, request):
-        request.data['creator'] = request.user.id
-        request.data['active'] = True
-        serializer = FriendRequestSerializer(data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-
-        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request):
-        friend_request = FriendRequest.objects.get(id=request.data['id'])
-        if request.data['action'] == 'accept' and request.user == friend_request.receiver:
-            friend_request.accept()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        elif request.data['action'] == 'cancel' and request.user == friend_request.creator:
-            friend_request.cancel()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        elif request.data['action'] == 'decline' and request.user == friend_request.receiver:
-            friend_request.decline()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    @action(methods=['post'], detail=True)
+    def accept(self, request, pk=None):
+        friend_request = self.get_object()
+        friendship = Friendship.objects.create(user=friend_request.receiver, friend=friend_request.creator)
+        self.perform_destroy(friend_request)
+        serializer = FriendshipSerializer(friendship)
+        return Response(serializer.data)

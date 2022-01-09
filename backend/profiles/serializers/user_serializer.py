@@ -12,7 +12,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'avatar_color', 'watchlist', 'friends']
+        fields = [
+            'id',
+            'username',
+            'avatar_color',
+            'watchlist',
+            'friends'
+        ]
 
     def get_friends(self, obj):
         return SimpleUserSerializer(Friendship.objects.get_friends(obj), many=True).data

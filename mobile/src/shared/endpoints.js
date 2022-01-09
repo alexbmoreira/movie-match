@@ -12,8 +12,34 @@ const endpoints = {
     },
     WATCHLIST: {
       with(userId) {
-        return `/users/${userId}/watchlist`;
+        return `/users/${userId}/watchlist/`;
       }
+    }
+  },
+  FRIEND_REQUESTS: '/friend-requests/',
+  FRIEND_REQUEST: {
+    WITH_USER: {
+      with(userId) {
+        return `/friend-requests/with-user/${userId}/`;
+      }
+    },
+    ACCEPT: {
+      with(requestId) {
+        return `/friend-requests/${requestId}/accept/`;
+      }
+    },
+    with(friendRequestId) {
+      return `/friend-requests/${friendRequestId}/`;
+    }
+  },
+  FRIENDSHIP: {
+    WITH_USER: {
+      with(userId) {
+        return `/friendships/with-user/${userId}/`;
+      }
+    },
+    with(friendshipId) {
+      return `/friendships/${friendshipId}/`;
     }
   },
   TMDB: {
