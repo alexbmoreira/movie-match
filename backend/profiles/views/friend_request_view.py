@@ -19,10 +19,9 @@ class FriendRequestView(viewsets.ModelViewSet):
     @action(detail=False, url_path=r'with-user/(?P<user_id>\w+)')
     def with_user(self, request, user_id):
         other_user = get_object_or_404(User, id=user_id)
-        friendship = FriendRequest.objects.get_friend_request(user1=self.request.user, user2=other_user)
-        serializer = FriendRequestSerializer(friendship)
-        print(serializer.data)
-        return Response(serializer.data)
+        friend_request = FriendRequest.objects.get_friend_request(user1=self.request.user, user2=other_user)
+        serializer = FriendRequestSerializer(friend_request)
+        return Response(serializer.data if friend_request else {})
 
     @action(methods=['post'], detail=True)
     def accept(self, request, pk=None):

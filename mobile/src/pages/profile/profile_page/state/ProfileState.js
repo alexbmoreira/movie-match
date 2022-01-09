@@ -24,6 +24,8 @@ class ProfileState {
       friendRequest: observable,
       friendship: observable,
       load: action.bound,
+      sendFriendRequest: action.bound,
+      cancelFriendRequest: action.bound,
       userRequesting: computed,
       userRequested: computed,
       userIsAFriend: computed
@@ -76,8 +78,17 @@ class ProfileState {
     });
   }
 
-  sendFriendRequest() {
-    console.log('send friend request');
+  async sendFriendRequest() {
+    const currentUser = await AsyncStorage.getItem('user');
+    const payload = { creator_id: JSON.parse(currentUser).id, receiver_id: this.user.id };
+    const response = await friendApi.sendFriendRequest(payload);
+    this.friendRequest = new FriendRequest(response.data);
+    this.closeUserOptionsSheet();
+  }
+
+  async cancelFriendRequest() {
+    await friendApi.deleteFriendRequest(this.friendRequest.id);
+    this.friendRequest = null;
     this.closeUserOptionsSheet();
   }
 
@@ -104,18 +115,18 @@ class ProfileState {
     this.bottomSheetRef.current?.snapTo(1);
   }
 
-  get userRequesting() {
-    return this.friendRequest.toJS().receiver &&
+  get userRequested() {
+    return this.friendRequest?.toJS().receiver &&
       this.friendRequest.receiver.id === this.user.id;
   }
 
-  get userRequested() {
-    return this.friendRequest.toJS().creator &&
+  get userRequesting() {
+    return this.friendRequest?.toJS().creator &&
       this.friendRequest.creator.id === this.user.id;
   }
 
   get userIsAFriend() {
-    return !!(this.friendship.toJS().user || this.friendship.toJS().friend);
+    return !!(this.friendship?.toJS().user || this.friendship.toJS().friend);
   }
 }
 

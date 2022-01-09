@@ -8,39 +8,43 @@ const style= StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center'
   },
-  receivingRequestButtonsContainer: {
+  receivingFriendRequestButtonsContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
-  receivingRequestSubHeader: {
+  friendRequestSubHeader: {
     textAlign: 'center',
     marginBottom: 10
   },
-  receivingRequestButtons: {
+  receiveingFriendRequestButtons: {
     width: '47.5%'
   }
 });
 
-const FriendButton = ({ uiState }) => {
+const FriendButton = observer(({ uiState }) => {
   const { user } = uiState;
+  console.log(uiState.friendRequest);
   if(uiState.userIsAFriend) {
     return (
       <Button mode='contained' onPress={() => uiState.removeFriend()}>{`Unfriend ${user.username}`}</Button>
     );
   }
-  if(uiState.userRequesting) {
-    return (
-      <Button disabled mode='contained' onPress={() => {}}>Friend Request Sent!</Button>
-    );
-  }
   if(uiState.userRequested) {
     return (
       <View>
-        <Text large style={style.receivingRequestSubHeader}>{`${user.username} wants to be your friend!`}</Text>
-        <View style={style.receivingRequestButtonsContainer}>
-          <Button style={style.receivingRequestButtons} mode='contained' onPress={() => uiState.acceptFriendRequest()}>Accept</Button>
-          <Button style={style.receivingRequestButtons} mode='contained' onPress={() => uiState.declineFriendRequest()}>Decline</Button>
+        <Text large style={style.friendRequestSubHeader}>Friend Request Sent!</Text>
+        <Button mode='contained' onPress={() => uiState.cancelFriendRequest()}>Cancel</Button>
+      </View>
+    );
+  }
+  if(uiState.userRequesting) {
+    return (
+      <View>
+        <Text large style={style.friendRequestSubHeader}>{`${user.username} wants to be your friend!`}</Text>
+        <View style={style.receivingFriendRequestButtonsContainer}>
+          <Button style={style.receiveingFriendRequestButtons} mode='contained' onPress={() => uiState.acceptFriendRequest()}>Accept</Button>
+          <Button style={style.receiveingFriendRequestButtons} mode='contained' onPress={() => uiState.declineFriendRequest()}>Decline</Button>
         </View>
       </View>
     );
@@ -52,7 +56,7 @@ const FriendButton = ({ uiState }) => {
   }
 
   return null;
-};
+});
 
 const UserOptions = observer(({ uiState }) => {
   const { user } = uiState;

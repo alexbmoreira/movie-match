@@ -5,15 +5,15 @@ async function getFriendRequest(userId) {
   return getRequest(endpoints.FRIEND_REQUEST.WITH_USER.with(userId));
 }
 
-async function sendFriendRequest() {
-  return getRequest(endpoints.FRIEND_REQUESTS);
+async function sendFriendRequest(data) {
+  return postRequest(endpoints.FRIEND_REQUESTS, data);
 }
 
-async function acceptFriendRequest(requestId, data) {
-  return postRequest(endpoints.FRIEND_REQUESTS.ACCEPT.with(requestId), data);
+async function acceptFriendRequest(requestId) {
+  return postRequest(endpoints.FRIEND_REQUESTS.ACCEPT.with(requestId));
 }
 
-async function declineFriendRequest(requestId) {
+async function deleteFriendRequest(requestId) {
   return deleteRequest(endpoints.FRIEND_REQUEST.with(requestId));
 }
 
@@ -25,6 +25,6 @@ export default {
   getFriendRequest,
   sendFriendRequest,
   acceptFriendRequest,
-  declineFriendRequest,
+  deleteFriendRequest,
   getFriendship,
 };
