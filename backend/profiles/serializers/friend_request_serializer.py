@@ -19,7 +19,3 @@ class FriendRequestSerializer(serializers.ModelSerializer):
             'creator_id': {'source': 'creator', 'write_only': True},
             'receiver_id': {'source': 'receiver', 'write_only': True},
         }
-
-    def create(self, validated_data):
-        print(validated_data)
-        return FriendRequest.objects.create(**validated_data)
