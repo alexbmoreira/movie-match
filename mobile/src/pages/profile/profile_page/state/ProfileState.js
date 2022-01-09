@@ -25,7 +25,8 @@ class ProfileState {
       friendship: observable,
       load: action.bound,
       sendFriendRequest: action.bound,
-      cancelFriendRequest: action.bound,
+      acceptFriendRequest: action.bound,
+      deleteFriendRequest: action.bound,
       userRequesting: computed,
       userRequested: computed,
       userIsAFriend: computed
@@ -86,19 +87,16 @@ class ProfileState {
     this.closeUserOptionsSheet();
   }
 
-  async cancelFriendRequest() {
+  async acceptFriendRequest() {
+    const response = await friendApi.acceptFriendRequest(this.friendRequest.id);
+    this.friendRequest = null;
+    this.friendship = new Friendship(response.data);
+    this.closeUserOptionsSheet();
+  }
+
+  async deleteFriendRequest() {
     await friendApi.deleteFriendRequest(this.friendRequest.id);
     this.friendRequest = null;
-    this.closeUserOptionsSheet();
-  }
-
-  acceptFriendRequest() {
-    console.log('accept friend request');
-    this.closeUserOptionsSheet();
-  }
-
-  declineFriendRequest() {
-    console.log('decline friend request');
     this.closeUserOptionsSheet();
   }
 

@@ -24,7 +24,7 @@ const style= StyleSheet.create({
 
 const FriendButton = observer(({ uiState }) => {
   const { user } = uiState;
-  console.log(uiState.friendRequest);
+
   if(uiState.userIsAFriend) {
     return (
       <Button mode='contained' onPress={() => uiState.removeFriend()}>{`Unfriend ${user.username}`}</Button>
@@ -34,7 +34,7 @@ const FriendButton = observer(({ uiState }) => {
     return (
       <View>
         <Text large style={style.friendRequestSubHeader}>Friend Request Sent!</Text>
-        <Button mode='contained' onPress={() => uiState.cancelFriendRequest()}>Cancel</Button>
+        <Button mode='contained' onPress={() => uiState.deleteFriendRequest()}>Cancel</Button>
       </View>
     );
   }
@@ -44,7 +44,7 @@ const FriendButton = observer(({ uiState }) => {
         <Text large style={style.friendRequestSubHeader}>{`${user.username} wants to be your friend!`}</Text>
         <View style={style.receivingFriendRequestButtonsContainer}>
           <Button style={style.receiveingFriendRequestButtons} mode='contained' onPress={() => uiState.acceptFriendRequest()}>Accept</Button>
-          <Button style={style.receiveingFriendRequestButtons} mode='contained' onPress={() => uiState.declineFriendRequest()}>Decline</Button>
+          <Button style={style.receiveingFriendRequestButtons} mode='contained' onPress={() => uiState.deleteFriendRequest()}>Decline</Button>
         </View>
       </View>
     );

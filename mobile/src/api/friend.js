@@ -10,7 +10,7 @@ async function sendFriendRequest(data) {
 }
 
 async function acceptFriendRequest(requestId) {
-  return postRequest(endpoints.FRIEND_REQUESTS.ACCEPT.with(requestId));
+  return postRequest(endpoints.FRIEND_REQUEST.ACCEPT.with(requestId));
 }
 
 async function deleteFriendRequest(requestId) {
