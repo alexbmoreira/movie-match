@@ -1,11 +1,11 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from ..models import FriendRequest, User
-from ..serializers import FriendRequestSerializer
+from ..models import FriendRequest, Friendship, User
+from ..serializers import FriendRequestSerializer, FriendshipSerializer
 
 
 class FriendRequestView(viewsets.ModelViewSet):
@@ -22,4 +22,12 @@ class FriendRequestView(viewsets.ModelViewSet):
         friendship = FriendRequest.objects.get_friend_request(user1=self.request.user, user2=other_user)
         serializer = FriendRequestSerializer(friendship)
         print(serializer.data)
+        return Response(serializer.data)
+
+    @action(methods=['post'], detail=True)
+    def accept(self, request, pk=None):
+        friend_request = self.get_object()
+        friendship = Friendship.objects.create(user=friend_request.receiver, friend=friend_request.creator)
+        self.perform_destroy(friend_request)
+        serializer = FriendshipSerializer(friendship)
         return Response(serializer.data)

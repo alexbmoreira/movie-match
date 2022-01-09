@@ -1,8 +1,20 @@
 import { endpoints } from 'shared';
-import { getRequest } from './api.service';
+import { deleteRequest, getRequest, postRequest } from './api.service';
 
 async function getFriendRequest(userId) {
   return getRequest(endpoints.FRIEND_REQUEST.WITH_USER.with(userId));
+}
+
+async function sendFriendRequest() {
+  return getRequest(endpoints.FRIEND_REQUESTS);
+}
+
+async function acceptFriendRequest(requestId, data) {
+  return postRequest(endpoints.FRIEND_REQUESTS.ACCEPT.with(requestId), data);
+}
+
+async function declineFriendRequest(requestId) {
+  return deleteRequest(endpoints.FRIEND_REQUEST.with(requestId));
 }
 
 async function getFriendship(userId) {
@@ -11,5 +23,8 @@ async function getFriendship(userId) {
 
 export default {
   getFriendRequest,
-  getFriendship
+  sendFriendRequest,
+  acceptFriendRequest,
+  declineFriendRequest,
+  getFriendship,
 };

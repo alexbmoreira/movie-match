@@ -16,11 +16,20 @@ const endpoints = {
       }
     }
   },
+  FRIEND_REQUESTS: '/friend-requests/',
   FRIEND_REQUEST: {
     WITH_USER: {
       with(userId) {
         return `/friend-requests/with-user/${userId}/`;
       }
+    },
+    ACCEPT: {
+      with(requestId) {
+        return `/friend-requests/${requestId}/accept/`;
+      }
+    },
+    with(friendRequestId) {
+      return `/friend-requests/${friendRequestId}/`;
     }
   },
   FRIENDSHIP: {
