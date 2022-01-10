@@ -21,7 +21,7 @@ const ProfilePage = observer(({ uiState }) => {
       {!uiState.isCurrentUser &&
         <BottomSheet
           innerRef={bottomSheetRef}
-          snapPoints={[250, 0]}
+          snapPoints={[150, 0]}
         >
           <UserOptions uiState={uiState}/>
         </BottomSheet>}

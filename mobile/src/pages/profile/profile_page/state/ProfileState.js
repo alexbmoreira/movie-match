@@ -126,7 +126,7 @@ class ProfileState {
   }
 
   get userIsAFriend() {
-    return !!(this.friendship?.toJS().user || this.friendship?.toJS().friend);
+    return !!this.friendship?.toJS().id;
   }
 }
 
