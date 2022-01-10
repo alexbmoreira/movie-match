@@ -19,7 +19,7 @@ class UserManager(models.UserManager):
 
         return MatchlistLike.objects.filter(user=user, friend=friend, movie__in=mutual_liked_movies)
 
-    def get_indiv_watchlist(self, user, friend):
+    def get_distinct_watchlist(self, user, friend):
         WatchlistMovie = apps.get_model('profiles', 'WatchlistMovie')
 
         user_watchlist = user.watchlist.values('movie')
@@ -42,7 +42,7 @@ class UserManager(models.UserManager):
 
     def get_joint_watchlist(self, user, friend):
         shared = self.get_shared_watchlist(user, friend)
-        indiv = self.get_indiv_watchlist(user, friend)
+        indiv = self.get_distinct_watchlist(user, friend)
         user_likes = user.matchlist_likes.filter(friend=friend)
         user_dislikes = user.matchlist_dislikes.filter(friend=friend)
 
