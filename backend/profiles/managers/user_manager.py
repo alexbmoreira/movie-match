@@ -25,7 +25,10 @@ class UserManager(models.UserManager):
         user_watchlist = user.watchlist.values('movie')
         friend_watchlist = friend.watchlist.values('movie')
 
-        symmetric_difference = user_watchlist.union(friend_watchlist).difference(user_watchlist.intersection(friend_watchlist))
+        union = user_watchlist.union(friend_watchlist)
+        intersection = user_watchlist.intersection(friend_watchlist)
+        symmetric_difference = union.difference(intersection)
+
         distinct_watchlist_movies = [movie['movie'] for movie in symmetric_difference]
 
         return WatchlistMovie.objects.filter(user__in=[user, friend], movie__in=distinct_watchlist_movies)
