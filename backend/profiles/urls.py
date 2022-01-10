@@ -2,8 +2,8 @@ from django.urls import re_path
 from rest_framework.routers import DefaultRouter
 
 from .views import (CurrentUserView, FriendRequestView, FriendshipView,
-                    MatchlistLikeView, MatchlistView, MovieDetailsForUserView,
-                    UserView, WatchlistView)
+                    MatchlistDislikeView, MatchlistLikeView, MatchlistView,
+                    MovieDetailsForUserView, UserView, WatchlistView)
 
 router = DefaultRouter()
 
@@ -25,6 +25,7 @@ router.register(r'user/watchlist', WatchlistView, basename='user-watchlist')
 router.register(r'friendships', FriendshipView, basename='friendship')
 router.register(r'friend-requests', FriendRequestView, basename='friend-request')
 router.register(r'matchlists/(?P<user_id>\w+)/likes', MatchlistLikeView, basename='matchlist-likes')
+router.register(r'matchlists/(?P<user_id>\w+)/dislikes', MatchlistDislikeView, basename='matchlist-dislikes')
 
 urlpatterns = router.urls + [
     re_path(r'user/', current_user_view, name='current-user'),

@@ -22,3 +22,9 @@ class MatchlistLikeView(viewsets.ModelViewSet):
         friend = User.objects.get(id=self.kwargs['user_id'])
         print(self.lookup_url_kwarg)
         return get_object_or_404(MatchlistLike, user=self.request.user, friend=friend, movie=self.kwargs['movie_id'])
+
+    def get_serializer_context(self):
+        return {
+            **super().get_serializer_context(),
+            'user_id': self.kwargs['user_id']
+        }

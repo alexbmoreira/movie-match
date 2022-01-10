@@ -1,51 +1,29 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import status
+from rest_framework import generics, status, viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..models import MatchlistDislike, MatchlistLike, User
-from ..serializers import MatchlistDislikeSerializer, UserSerializer
+from ..models import MatchlistDislike, User
+from ..serializers import MatchlistDislikeSerializer
 
 
-class MatchlistDislikeAPIView(APIView):
+class MatchlistDislikeView(viewsets.ModelViewSet):
+    serializer_class = MatchlistDislikeSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_url_kwarg = 'movie_id'
 
-    permission_classes = (IsAuthenticated,)
+    def get_queryset(self):
+        return MatchlistDislike.objects.filter(user=self.request.user, friend=self.kwargs['user_id'])
 
-    def get(self, request):
-        dislikes = request.user.matchlist_dislikes.all()
+    def get_object(self):
+        friend = User.objects.get(id=self.kwargs['user_id'])
+        print(self.lookup_url_kwarg)
+        return get_object_or_404(MatchlistDislike, user=self.request.user, friend=friend, movie=self.kwargs['movie_id'])
 
-        friend = request.GET.get('friend', '')
-
-        if friend != "":
-            dislikes = dislikes.filter(friend__id=friend)
-
-        serializer = MatchlistDislikeSerializer(dislikes, many=True)
-        data = {}
-        data['user'] = UserSerializer(request.user).data
-        data['dislikes'] = serializer.data
-        return Response(data=data)
-
-    def post(self, request):
-        serializer = MatchlistDislikeSerializer(data=request.data, context={'user_id': request.user.id})
-
-        if serializer.is_valid():
-            if self.check_conflict(request):
-                return Response(status=status.HTTP_409_CONFLICT)
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-
-        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request):
-        matchlist_dislike = get_object_or_404(MatchlistDislike, id=request.data['id'])
-        matchlist_dislike.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-    def check_conflict(self, request):
-        friend = User.objects.get(id=request.data['friend'])
-        try:
-            return MatchlistLike.objects.get(user=request.user, friend=friend, movie=request.data['movie'])
-        except Exception:
-            return None
-
+    def get_serializer_context(self):
+        return {
+            **super().get_serializer_context(),
+            'user_id': self.kwargs['user_id']
+        }
