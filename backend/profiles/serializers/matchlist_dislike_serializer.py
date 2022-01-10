@@ -8,10 +8,9 @@ class MatchlistDislikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = MatchlistDislike
         fields = ['id', 'friend', 'movie']
+        read_only_fields = ['friend']
 
     def create(self, validated_data):
-        user = User.objects.get(id=self.context['user_id'])
-        friend = validated_data.pop('friend')
-        watchlist_movie = MatchlistDislike.objects.create(user=user, friend=friend, movie=validated_data.pop('movie'))
-
-        return watchlist_movie
+        user = self.context['request'].user
+        friend = User.objects.get(id=self.context['user_id'])
+        return MatchlistDislike.objects.create(user=user, friend=friend, **validated_data)

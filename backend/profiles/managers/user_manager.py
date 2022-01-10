@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.contrib.auth import models
 
 
@@ -8,6 +9,15 @@ class UserManager(models.UserManager):
             return self.all()
 
         return self.filter(username__icontains=query)
+
+    def get_matchlist(self, user, friend):
+        MatchlistLike = apps.get_model('profiles', 'MatchlistLike')
+
+        user_likes = user.matchlist_likes.filter(friend=friend).values('movie')
+        friend_likes = friend.matchlist_likes.filter(friend=user).values('movie')
+        mutual_liked_movies = [like['movie'] for like in user_likes.intersection(friend_likes)]
+
+        return MatchlistLike.objects.filter(user=user, friend=friend, movie__in=mutual_liked_movies)
 
     def get_indiv_watchlist(self, user, friend):
         user_watchlist = user.watchlist.all()
