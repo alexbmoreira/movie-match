@@ -1,16 +1,10 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import TableCell from './TableCell';
 
-const style = StyleSheet.create({
-  tableRow: {
-    paddingVertical: 10
-  }
-});
-
-const TableRow = ({ model, columns }) => {
+const TableRow = ({ model, columns, style }) => {
   return (
-    <View style={style.tableRow}>
+    <View style={style}>
       {columns.map((column, index) => (
         <TableCell key={index} model={model} column={column}/>
       ))}

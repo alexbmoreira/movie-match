@@ -3,12 +3,6 @@ import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import theme from 'shared/theme';
 
-// const screenContainerHeight = () => {
-//   const headerHeight = useHeaderHeight();
-//   const tabBarHeight = useBottomTabBarHeight();
-//   return `${100 - headerHeight - tabBarHeight}%`;
-// }
-
 const style = StyleSheet.create({
   screenContainer: {
     display: 'flex',
