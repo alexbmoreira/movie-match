@@ -18,6 +18,9 @@ const style = StyleSheet.create({
   tableRowLast: {
     marginTop: 10,
     marginBottom: 0
+  },
+  emptyState: {
+    marginTop: 10
   }
 });
 
@@ -53,7 +56,7 @@ const Table = ({ title, models, columns, localization }) => {
     <View>
       {title && <Title>{title}</Title>}
       {_.isEmpty(models) ?
-        <EmptyState localization={localization}/> :
+        <View style={style.emptyState}><EmptyState localization={localization}/></View> :
         <ListSection models={models} columns={columns}/>}
     </View>
   );

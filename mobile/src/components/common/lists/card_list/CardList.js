@@ -16,6 +16,9 @@ const style = StyleSheet.create({
   },
   cardListItemLast: {
     marginRight: 0
+  },
+  emptyState: {
+    marginTop: 10
   }
 });
 
@@ -42,7 +45,7 @@ const CardList = ({ title, models, component, localization }) => {
     <View>
       {title && <Title>{title}</Title>}
       {_.isEmpty(models) ?
-        <EmptyState localization={localization}/> :
+        <View style={style.emptyState}><EmptyState localization={localization}/></View> :
         <ListSection models={models} component={component}/>}
     </View>
   );
