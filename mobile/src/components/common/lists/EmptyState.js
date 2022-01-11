@@ -14,10 +14,11 @@ const style = StyleSheet.create({
   }
 });
 
-const EmptyState = () => {
+const EmptyState = ({ localization }) => {
+  const message = localization.emptyState || 'No data to display';
   return (
     <View style={style.emptyState}>
-      <Text>No data to display</Text>
+      <Text>{message}</Text>
     </View>
   );
 };

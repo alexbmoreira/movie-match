@@ -1,9 +1,9 @@
-import { BottomSheet, ScreenContainer, Table } from 'components/common';
+import { BottomSheet, ScreenContainer } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { withState } from 'shared';
 import AvatarHeader from './AvatarHeader';
-import { FRIENDS_COLUMNS } from './columns';
+import Friends from './Friends';
 import ProfileState from './state/ProfileState';
 import UserOptions from './UserOptions';
 import Watchlist from './Watchlist';
@@ -14,9 +14,11 @@ const ProfilePage = observer(({ uiState }) => {
   return (
     <React.Fragment>
       <ScreenContainer scroll>
-        <AvatarHeader user={user}/>
-        <Watchlist watchlist={user.watchlist}/>
-        <Table title='Friends' models={user.friends} columns={FRIENDS_COLUMNS}/>
+        <ScreenContainer.Stack>
+          <AvatarHeader user={user}/>
+          <Watchlist watchlist={user.watchlist}/>
+          <Friends friends={user.friends}/>
+        </ScreenContainer.Stack>
       </ScreenContainer>
       {!uiState.isCurrentUser &&
         <BottomSheet

@@ -5,8 +5,7 @@ import { StyleSheet, View } from 'react-native';
 
 const style = StyleSheet.create({
   directorList: {
-    marginTop: 10,
-    marginBottom: 5
+    marginTop: 10
   },
 });
 

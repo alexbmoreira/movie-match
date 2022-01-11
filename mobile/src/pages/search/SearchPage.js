@@ -6,11 +6,15 @@ import ResultItem from './ResultItem';
 import SearchBar from './SearchBar';
 import SearchState from './state/SearchState';
 
-const RESULT_COLUMNS = [
+const COLUMNS = [
   {
     component: ResultItem
   }
 ];
+
+const LOCALIZATION = {
+  emptyState: 'No results found'
+};
 
 const SearchPage = observer(({ uiState }) => {
   const { results, isLoading } = uiState;
@@ -18,7 +22,7 @@ const SearchPage = observer(({ uiState }) => {
   return (
     <ScreenContainer scroll>
       <SearchBar uiState={uiState}/>
-      {isLoading ? <Spinner/> : <Table models={results} columns={RESULT_COLUMNS}/>}
+      {isLoading ? <Spinner/> : <Table models={results} columns={COLUMNS} localization={LOCALIZATION}/>}
     </ScreenContainer>
   );
 });
