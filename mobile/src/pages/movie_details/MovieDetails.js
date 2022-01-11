@@ -1,4 +1,5 @@
 import { IconButton, Poster, ScreenContainer, Text, Title } from 'components/common';
+import _ from 'lodash';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -15,23 +16,25 @@ const style = StyleSheet.create({
   info: {
     flexGrow: 1,
     width: 0,
-    marginLeft: 15,
     justifyContent: 'space-between'
   },
   overview: {
     marginTop: 15
+  },
+  poster: {
+    marginRight: 15
+  },
+  iconRow: {
+    marginTop: 15
   }
 });
 
-const YearAndRuntime = ({ year, runtime }) => {
-  if(runtime) {
-    return (
-      <Text soft>{`${year} • ${runtime}`}</Text>
-    );
-  }
-  
+const YearAndRuntime = ({ movie }) => {
+  const year = movie.release_year || '';
+  const delimiter = (movie.release_year && movie.runtimeHours) ? ' • ' : '';
+  const runtime = movie.runtimeHours || '';
   return (
-    <Text soft>{year}</Text>
+    <Text soft>{year}{delimiter}{runtime}</Text>
   );
 };
 
@@ -41,22 +44,24 @@ const MovieDetails = observer(({ uiState }) => {
   return (
     <ScreenContainer scroll>
       <View style={style.headingDetails}>
-        <Poster source={{ uri: movie.poster_link_md }} size='md' title={movie.title}/>
+        {movie.poster_link_md && <Poster style={style.poster} source={{ uri: movie.poster_link_md }} size='md' title={movie.title}/>}
         <View style={style.info}>
           <View>
             <Title>{movie.title}</Title>
-            <YearAndRuntime year={movie.release_year} runtime={movie.runtimeHours}/>
-            <DirectorList directors={movie.directors}/>
+            <YearAndRuntime movie={movie}/>
+            {!_.isEmpty(movie.directors) && <DirectorList directors={movie.directors}/>}
           </View>
-          <IconButton
-            icon={({ size, color }) => (
-              <WatchlistIcon size={size} color={color} />
-            )}
-            onPress={() => uiState.addToWatchlist(in_watchlist)}
-            color={in_watchlist ? theme.colors.primary : theme.colors.text}
-            size={'sm'}
-          />
         </View>
+      </View>
+      <View style={style.iconRow}>
+        <IconButton
+          icon={({ size, color }) => (
+            <WatchlistIcon size={size} color={color} />
+          )}
+          onPress={() => uiState.addToWatchlist(in_watchlist)}
+          color={in_watchlist ? theme.colors.primary : theme.colors.text}
+          size={'sm'}
+        />
       </View>
       <Text style={style.overview}>{movie.overview}</Text>
     </ScreenContainer>
