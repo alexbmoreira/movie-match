@@ -1,8 +1,17 @@
 import { Button, FormLayout, ScreenContainer, Text, TextInput, Title } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { withState } from 'shared';
 import AuthState from './state/AuthState';
+
+const style = StyleSheet.create({
+  registerRedirect: {
+    display: 'flex',
+    alignItems: 'center'
+  }
+});
 
 const Register = observer(({ uiState, navigation }) => {
   const { username, email, password, password2, errors } = uiState;
@@ -40,8 +49,12 @@ const Register = observer(({ uiState, navigation }) => {
           Register
         </Button>
       </FormLayout>
-      <Text>Already have an account?</Text>
-      <Text onPress={() => navigation.navigate('Login')}>Log In</Text>
+      <View style={style.registerRedirect}>
+        <Text bold>Already have and account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text>Log In</Text>
+        </TouchableOpacity>
+      </View>
     </ScreenContainer>
   );
 });

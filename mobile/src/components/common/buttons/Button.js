@@ -13,7 +13,6 @@ class Button extends React.Component {
   onPress = async (e, cb) => {
     if (this.isLoading) return null;
 
-    e.preventDefault();
     this.isLoading = true;
     this._handleCallback(e, cb);
   };
