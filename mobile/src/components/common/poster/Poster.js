@@ -53,7 +53,7 @@ const defaultStyle = StyleSheet.create((size) => {
   };
 });
 
-const PlaceholderPoster = ({ title, size }) => {
+const PlaceholderPoster = observer(({ title, size }) => {
   const { poster, posterPlaceholder, text } = defaultStyle(size);
 
   return (
@@ -61,7 +61,7 @@ const PlaceholderPoster = ({ title, size }) => {
       <Text style={text}>{title}</Text>
     </View>
   );
-};
+});
 
 const Poster = observer(({ style, source, size, title, uiState }) => {
   const { isLoading } = uiState;

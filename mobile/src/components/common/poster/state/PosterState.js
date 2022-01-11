@@ -1,17 +1,17 @@
 import { action, makeObservable, observable } from 'mobx';
 
 class PosterState {
-  loading = true;
+  isLoading = true;
   
   constructor() {
     makeObservable(this, {
-      loading: observable,
+      isLoading: observable,
       setLoading: action.bound
     });
   }
 
-  setLoading(loading) {
-    this.loading = loading;
+  setLoading(isLoading) {
+    this.isLoading = isLoading;
   }
 }
 
