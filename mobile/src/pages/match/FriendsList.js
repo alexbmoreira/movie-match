@@ -23,14 +23,14 @@ const COLUMNS = [
 ];
 
 const LOCALIZATION = {
-  emptyState: 'This user has no friends'
+  emptyState: 'You have no friends'
 };
 
 const FriendsList = observer(({ uiState }) => {
   const { friends } = uiState;
   return (
     <ScreenContainer scroll>
-      <Table title='Watch a Movie' models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
+      <Table title='Friends' models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
     </ScreenContainer>
   );
 });

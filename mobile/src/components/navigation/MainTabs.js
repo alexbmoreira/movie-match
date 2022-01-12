@@ -16,10 +16,10 @@ const style = StyleSheet.create({
 
 const screenOptions = {
   headerShown: false,
-  tabBarActiveTintColor: theme.colors.text,
+  tabBarActiveTintColor: theme.colors.backdrop,
   tabBarInactiveTintColor: theme.colors.surface,
   tabBarStyle: {
-    backgroundColor: theme.colors.backdrop,
+    backgroundColor: theme.colors.surface,
     borderColor: 'transparent'
   },
   tabBarShowLabel: false

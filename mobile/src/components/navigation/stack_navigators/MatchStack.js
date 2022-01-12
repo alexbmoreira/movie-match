@@ -14,7 +14,7 @@ const MatchStack = ({ route }) => {
         initialParams={route.params}
         options={{
           headerLeft: () => null,
-          title: 'Friends List'
+          title: 'Watch A Movie'
         }}
       />
       <MatchNavigator.Screen
