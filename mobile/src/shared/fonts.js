@@ -1,7 +1,11 @@
 import { createIconSet } from '@expo/vector-icons';
 
 const glyphMap = {
-  'match-cards': ''
+  'add-to-watchlist': '',
+  'search': '',
+  'settings': '',
+  'user': '',
+  'match-cards': '',
 };
 
 const expoAssetId = require('assets/fonts/match-cut.ttf');
