@@ -32,6 +32,11 @@ const endpoints = {
       return `/friend-requests/${friendRequestId}/`;
     }
   },
+  FRIENDS: {
+    with(userId) {
+      return `/users/${userId}/friends/`;
+    }
+  },
   FRIENDSHIP: {
     WITH_USER: {
       with(userId) {
@@ -60,6 +65,11 @@ const endpoints = {
       with(movieId) {
         return `/user/watchlist/${movieId}/`;
       }
+    }
+  },
+  JOINT_WATCHLIST: {
+    with(friendId) {
+      return `/joint-watchlists/${friendId}/`;
     }
   },
   MOVIE_DETAILS_FOR_USER: {

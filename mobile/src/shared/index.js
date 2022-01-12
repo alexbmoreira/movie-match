@@ -7,5 +7,5 @@ export {
   endpoints,
   runtimeHumanizer,
   theme,
-  withState,
+  withState
 };

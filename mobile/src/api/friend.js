@@ -25,6 +25,10 @@ async function getFriendship(userId) {
   return getRequest(endpoints.FRIENDSHIP.WITH_USER.with(userId));
 }
 
+async function getFriends(userId) {
+  return getRequest(endpoints.FRIENDS.with(userId));
+}
+
 export default {
   getFriendRequest,
   sendFriendRequest,
@@ -32,4 +36,5 @@ export default {
   deleteFriendRequest,
   deleteFriendship,
   getFriendship,
+  getFriends
 };
