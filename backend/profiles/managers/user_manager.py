@@ -39,9 +39,9 @@ class UserManager(models.UserManager):
         user_watchlist = user.watchlist.values('movie')
         friend_watchlist = friend.watchlist.values('movie')
 
-        distinct_watchlist_movies = [movie['movie'] for movie in user_watchlist.intersection(friend_watchlist)]
+        shared_watchlist_movies = [movie['movie'] for movie in user_watchlist.intersection(friend_watchlist)]
 
-        return WatchlistMovie.objects.filter(user=user, movie__in=distinct_watchlist_movies)
+        return WatchlistMovie.objects.filter(user=user, movie__in=shared_watchlist_movies)
 
     def get_joint_watchlist(self, user, friend):
         shared = self.get_shared_watchlist(user, friend)
