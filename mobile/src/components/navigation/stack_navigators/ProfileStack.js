@@ -29,7 +29,8 @@ const ProfileStack = ({ route }) => {
               color={theme.colors.primary}
               size={'sm'}
             />
-          )
+          ),
+          title: ''
         }}
       />
       <ProfileNavigator.Screen
@@ -42,10 +43,12 @@ const ProfileStack = ({ route }) => {
         name='OtherProfile'
         component={ProfilePage}
         initialParams={route.params}
+        options={{ title: '' }}
       />
       <ProfileNavigator.Screen
         name='MovieDetails'
         component={MovieDetails}
+        options={{ title: '' }}
       />
     </ProfileNavigator.Navigator>
   );

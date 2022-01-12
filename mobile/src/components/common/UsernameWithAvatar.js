@@ -1,7 +1,6 @@
 import { PropTypes } from 'prop-types';
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { push } from 'shared/RootNavigation';
 import Avatar from './Avatar';
 import { Title } from './typography';
 
@@ -18,9 +17,9 @@ const style = StyleSheet.create({
   }
 });
 
-const UsernameWithAvatar = ({ user, size }) => {
+const UsernameWithAvatar = ({ user, size, onPress }) => {
   return (
-    <Pressable onPress={() => push('OtherProfile', { userId: user.id, username: user.username })}>
+    <Pressable onPress={() => onPress()}>
       <View style={style.usernameWithAvatar}>
         <Avatar style={style.avatar} size={size} user={user} />
         <Title style={style.username}>{user.username}</Title>

@@ -21,11 +21,13 @@ const SearchStack = ({ route }) => {
       <SearchNavigator.Screen
         name='MovieDetails'
         component={MovieDetails}
+        options={{ title: '' }}
       />
       <SearchNavigator.Screen
         name='OtherProfile'
         component={ProfilePage}
         initialParams={route.params}
+        options={{ title: '' }}
       />
     </SearchNavigator.Navigator>
   );
