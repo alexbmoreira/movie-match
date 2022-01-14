@@ -1,9 +1,9 @@
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-import { matchlistApi } from 'api';
+import { getRequest } from 'api';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
+import { endpoints } from 'shared';
 import { Movie } from 'stores';
-import { profileApi } from '../../../api';
 // import { navigate } from 'shared/RootNavigation';
 
 class MatchScreenState {
@@ -27,9 +27,9 @@ class MatchScreenState {
   }
 
   async load() {
-    const userResponse = await profileApi.getUser(this.friendId);
+    const userResponse = await getRequest(endpoints.PROFILE.with(this.friendId));
     this.friend = userResponse.data;
-    const response = await matchlistApi.getJointWatchlist(this.friendId);
+    const response = await getRequest(endpoints.JOINT_WATCHLIST.with(this.friendId));
     this.jointWatchlist = _.map(response.data.results, (movie) => new Movie(movie));
   }
 

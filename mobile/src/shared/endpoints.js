@@ -60,10 +60,12 @@ const endpoints = {
     }
   },
   WATCHLIST: {
-    POST: '/user/watchlist/',
-    DELETE: {
-      with(movieId) {
-        return `/user/watchlist/${movieId}/`;
+    with(userId) {
+      return `/users/${userId}/watchlist/`;
+    },
+    MOVIE: {
+      with(userId, movieId) {
+        return `/users/${userId}/watchlist/${movieId}/`;
       }
     }
   },

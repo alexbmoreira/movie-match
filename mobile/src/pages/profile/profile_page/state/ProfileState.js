@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { friendApi, profileApi } from 'api';
+import { deleteRequest, getRequest, postRequest } from 'api';
 import { IconButton } from 'components/common';
 import { action, computed, makeObservable, observable } from 'mobx';
 import React from 'react';
-import { theme } from 'shared';
+import { endpoints, theme } from 'shared';
 import { MenuIcon } from 'shared/icons';
 import { FriendRequest, Friendship, User } from 'stores';
 
@@ -45,16 +45,17 @@ class ProfileState {
   }
 
   async load() {
-    const user = await profileApi.getUser(this.userId);
+    const user = await getRequest(endpoints.PROFILE.with(this.userId));
     this.user = new User(user.data);
     
     const storedUser = await AsyncStorage.getItem('user');
     this.isCurrentUser = JSON.parse(storedUser).id === this.user.id;
-
+    
     if(!this.isCurrentUser) {
-      const friendRequest = await friendApi.getFriendRequest(this.userId);
+      
+      const friendRequest = await getRequest(endpoints.FRIEND_REQUEST.WITH_USER.with(this.userId));
       this.friendRequest = new FriendRequest(friendRequest.data);
-      const friendship = await friendApi.getFriendship(this.userId);
+      const friendship = await getRequest(endpoints.FRIENDSHIP.WITH_USER.with(this.userId));
       this.friendship = new Friendship(friendship.data);
     }
   }
@@ -83,26 +84,26 @@ class ProfileState {
   async sendFriendRequest() {
     const currentUser = await AsyncStorage.getItem('user');
     const payload = { creator_id: JSON.parse(currentUser).id, receiver_id: this.user.id };
-    const response = await friendApi.sendFriendRequest(payload);
+    const response = await postRequest(endpoints.FRIEND_REQUESTS, payload);
     this.friendRequest = new FriendRequest(response.data);
     this.closeUserOptionsSheet();
   }
 
   async acceptFriendRequest() {
-    const response = await friendApi.acceptFriendRequest(this.friendRequest.id);
+    const response = await postRequest(endpoints.FRIEND_REQUEST.ACCEPT.with(this.friendRequest.id));
     this.friendRequest = null;
     this.friendship = new Friendship(response.data);
     this.closeUserOptionsSheet();
   }
 
   async deleteFriendRequest() {
-    await friendApi.deleteFriendRequest(this.friendRequest.id);
+    await deleteRequest(endpoints.FRIEND_REQUEST.with(this.friendRequest.id));
     this.friendRequest = null;
     this.closeUserOptionsSheet();
   }
 
   async removeFriend() {
-    await friendApi.deleteFriendship(this.friendship.id);
+    await deleteRequest(endpoints.FRIENDSHIP.with(this.friendship.id));
     this.friendship = null;
     this.closeUserOptionsSheet();
   }
