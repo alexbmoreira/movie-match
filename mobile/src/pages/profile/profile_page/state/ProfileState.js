@@ -83,6 +83,7 @@ class ProfileState {
   }
 
   async sendFriendRequest() {
+    // TODO - Error handling
     const currentUser = await AsyncStorage.getItem('user');
     const payload = { creator_id: JSON.parse(currentUser).id, receiver_id: this.user.id };
 
@@ -92,6 +93,7 @@ class ProfileState {
   }
 
   async acceptFriendRequest() {
+    // TODO - Error handling
     const friendship = await postRequest(endpoints.FRIEND_REQUEST.ACCEPT.with(this.friendRequest.id));
     this.friendship = new Friendship(friendship);
     this.friendRequest = null;

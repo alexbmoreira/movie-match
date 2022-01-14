@@ -19,7 +19,7 @@ class MovieDetailsState {
       movie: observable,
       watchlistMovie: observable,
       load: action.bound,
-      addToWatchlist: action.bound,
+      editWatchlist: action.bound,
       inWatchlist: computed
     });
   }
@@ -45,7 +45,8 @@ class MovieDetailsState {
     this.navigation.setOptions({ title: this.route.params.title });
   }
 
-  async addToWatchlist() {
+  async editWatchlist() {
+    // TODO - Error handling
     if(this.inWatchlist) {
       await deleteRequest(endpoints.WATCHLIST.MOVIE.with(this.user.id, this.movieId));
       this.watchlistMovie = null;
