@@ -41,13 +41,13 @@ class SearchState {
   }
 
   async searchTMDB(params) {
-    const response = await getRequest(endpoints.TMDB.SEARCH.with(this.type), params);
-    this.results = response.data.results;
+    const results = await getRequest(endpoints.TMDB.SEARCH.with(this.type), params);
+    this.results = results.results;
   }
 
   async searchUsers(params) {
-    const response = await getRequest(endpoints.PROFILE.SEARCH, params);
-    this.results = _.map(response.data.results, (user) => new SimpleUser(user));
+    const results = await getRequest(endpoints.PROFILE.SEARCH, params);
+    this.results = _.map(results.results, (user) => new SimpleUser(user));
   }
 }
 

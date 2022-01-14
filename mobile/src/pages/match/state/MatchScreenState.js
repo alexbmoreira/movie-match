@@ -3,7 +3,7 @@ import { getRequest } from 'api';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import { endpoints } from 'shared';
-import { Movie } from 'stores';
+import { Movie, SimpleUser } from 'stores';
 // import { navigate } from 'shared/RootNavigation';
 
 class MatchScreenState {
@@ -27,10 +27,11 @@ class MatchScreenState {
   }
 
   async load() {
-    const userResponse = await getRequest(endpoints.PROFILE.with(this.friendId));
-    this.friend = userResponse.data;
-    const response = await getRequest(endpoints.JOINT_WATCHLIST.with(this.friendId));
-    this.jointWatchlist = _.map(response.data.results, (movie) => new Movie(movie));
+    const friend = await getRequest(endpoints.PROFILE.with(this.friendId));
+    this.friend = new SimpleUser(friend);
+
+    const jointWatchlist = await getRequest(endpoints.JOINT_WATCHLIST.with(this.friendId));
+    this.jointWatchlist = _.map(jointWatchlist.results, (movie) => new Movie(movie));
   }
 
   navigationConfig() {

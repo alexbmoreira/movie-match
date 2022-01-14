@@ -11,11 +11,11 @@ class ProfileState {
   userId;
   route;
   navigation;
+  currentUser;
 
   user = {};
   friendRequest = {};
   friendship = {};
-  isCurrentUser = false;
   bottomSheetRef;
 
   constructor() {
@@ -30,7 +30,8 @@ class ProfileState {
       removeFriend: action.bound,
       userRequesting: computed,
       userRequested: computed,
-      userIsAFriend: computed
+      userIsAFriend: computed,
+      isCurrentUser: computed
     });
   }
 
@@ -46,17 +47,17 @@ class ProfileState {
 
   async load() {
     const user = await getRequest(endpoints.PROFILE.with(this.userId));
-    this.user = new User(user.data);
+    this.user = new User(user);
     
     const storedUser = await AsyncStorage.getItem('user');
-    this.isCurrentUser = JSON.parse(storedUser).id === this.user.id;
+    this.currentUser = new User(JSON.parse(storedUser));
     
     if(!this.isCurrentUser) {
-      
       const friendRequest = await getRequest(endpoints.FRIEND_REQUEST.WITH_USER.with(this.userId));
-      this.friendRequest = new FriendRequest(friendRequest.data);
+      this.friendRequest = new FriendRequest(friendRequest);
+
       const friendship = await getRequest(endpoints.FRIENDSHIP.WITH_USER.with(this.userId));
-      this.friendship = new Friendship(friendship.data);
+      this.friendship = new Friendship(friendship);
     }
   }
 
@@ -84,15 +85,16 @@ class ProfileState {
   async sendFriendRequest() {
     const currentUser = await AsyncStorage.getItem('user');
     const payload = { creator_id: JSON.parse(currentUser).id, receiver_id: this.user.id };
-    const response = await postRequest(endpoints.FRIEND_REQUESTS, payload);
-    this.friendRequest = new FriendRequest(response.data);
+
+    const friendRequest = await postRequest(endpoints.FRIEND_REQUESTS, payload);
+    this.friendRequest = new FriendRequest(friendRequest);
     this.closeUserOptionsSheet();
   }
 
   async acceptFriendRequest() {
-    const response = await postRequest(endpoints.FRIEND_REQUEST.ACCEPT.with(this.friendRequest.id));
+    const friendship = await postRequest(endpoints.FRIEND_REQUEST.ACCEPT.with(this.friendRequest.id));
+    this.friendship = new Friendship(friendship);
     this.friendRequest = null;
-    this.friendship = new Friendship(response.data);
     this.closeUserOptionsSheet();
   }
 
@@ -128,6 +130,10 @@ class ProfileState {
 
   get userIsAFriend() {
     return !!this.friendship?.toJS().id;
+  }
+
+  get isCurrentUser() {
+    return this.currentUser.id === this.user.id;
   }
 }
 

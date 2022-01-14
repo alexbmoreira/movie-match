@@ -19,7 +19,6 @@ class MovieDetailsState {
       movie: observable,
       watchlistMovie: observable,
       load: action.bound,
-      setDetailsForUser: action.bound,
       addToWatchlist: action.bound,
       inWatchlist: computed
     });
@@ -35,18 +34,15 @@ class MovieDetailsState {
     const storedUser = await AsyncStorage.getItem('user');
     this.user = new User(JSON.parse(storedUser));
 
-    const response = await getRequest(endpoints.TMDB.DATA.with('movie', this.movieId));
-    this.movie = new TmdbMovie(response.data);
-    await this.setDetailsForUser();
+    const movie = await getRequest(endpoints.TMDB.DATA.with('movie', this.movieId));
+    this.movie = new TmdbMovie(movie);
+
+    const watchlistMovie = await getRequest(endpoints.WATCHLIST.MOVIE.with(this.user.id, this.movieId));
+    this.watchlistMovie = new Movie(watchlistMovie);
   }
 
   navigationConfig() {
     this.navigation.setOptions({ title: this.route.params.title });
-  }
-
-  async setDetailsForUser() {
-    const response = await getRequest(endpoints.WATCHLIST.MOVIE.with(this.user.id, this.movieId));
-    this.watchlistMovie = new Movie(response.data);
   }
 
   async addToWatchlist() {
@@ -54,8 +50,8 @@ class MovieDetailsState {
       await deleteRequest(endpoints.WATCHLIST.MOVIE.with(this.user.id, this.movieId));
       this.watchlistMovie = null;
     } else {
-      const response = await postRequest(endpoints.WATCHLIST.with(this.user.id), { movie: this.movie.id });
-      this.watchlistMovie = new Movie(response.data);
+      const watchlistMovie = await postRequest(endpoints.WATCHLIST.with(this.user.id), { movie: this.movie.id });
+      this.watchlistMovie = new Movie(watchlistMovie);
     }
   }
 

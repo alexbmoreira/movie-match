@@ -24,8 +24,8 @@ class FriendsListState {
     const storedUser = await AsyncStorage.getItem('user');
     this.currentUser = JSON.parse(storedUser);
 
-    const response = await getRequest(endpoints.FRIENDS.with(this.currentUser.id));
-    this.friends = _.map(response.data.results, friend => new User(friend));
+    const friends = await getRequest(endpoints.FRIENDS.with(this.currentUser.id));
+    this.friends = _.map(friends.results, friend => new User(friend));
   }
 }
 
