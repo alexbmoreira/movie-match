@@ -73,12 +73,7 @@ const endpoints = {
     with(friendId) {
       return `/joint-watchlists/${friendId}/`;
     }
-  },
-  MOVIE_DETAILS_FOR_USER: {
-    with(movieId) {
-      return `/user/movie-details/${movieId}/`;
-    }
-  },
+  }
 };
 
 export default endpoints;

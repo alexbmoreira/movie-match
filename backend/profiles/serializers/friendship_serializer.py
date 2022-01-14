@@ -1,12 +1,12 @@
 from rest_framework import serializers
 
 from ..models import Friendship
-from .simple_user_serializer import SimpleUserSerializer
+from .user_serializer import UserSerializer
 
 
 class FriendshipSerializer(serializers.ModelSerializer):
-    user = SimpleUserSerializer(many=False, read_only=True)
-    friend = SimpleUserSerializer(many=False, read_only=True)
+    user = UserSerializer(many=False, read_only=True)
+    friend = UserSerializer(many=False, read_only=True)
 
     class Meta:
         model = Friendship

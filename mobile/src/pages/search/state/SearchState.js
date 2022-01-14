@@ -2,7 +2,7 @@ import { getRequest } from 'api';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import { endpoints } from 'shared';
-import { SimpleUser } from 'stores';
+import { User } from 'stores';
 
 class SearchState {
   query = '';
@@ -47,7 +47,7 @@ class SearchState {
 
   async searchUsers(params) {
     const results = await getRequest(endpoints.PROFILE.SEARCH, params);
-    this.results = _.map(results.results, (user) => new SimpleUser(user));
+    this.results = _.map(results.results, (user) => new User(user));
   }
 }
 

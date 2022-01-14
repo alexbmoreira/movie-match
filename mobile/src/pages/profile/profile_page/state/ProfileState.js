@@ -1,11 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { deleteRequest, getRequest, postRequest } from 'api';
 import { IconButton } from 'components/common';
+import _ from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import React from 'react';
 import { endpoints, theme } from 'shared';
 import { MenuIcon } from 'shared/icons';
-import { FriendRequest, Friendship, User } from 'stores';
+import { FriendRequest, Friendship, Movie, User } from 'stores';
 
 class ProfileState {
   userId;
@@ -14,6 +15,8 @@ class ProfileState {
   currentUser;
 
   user = {};
+  friends = {};
+  watchlist = {};
   friendRequest = {};
   friendship = {};
   bottomSheetRef;
@@ -21,6 +24,8 @@ class ProfileState {
   constructor() {
     makeObservable(this, {
       user: observable,
+      friends: observable,
+      watchlist: observable,
       friendRequest: observable,
       friendship: observable,
       load: action.bound,
@@ -48,6 +53,10 @@ class ProfileState {
   async load() {
     const user = await getRequest(endpoints.PROFILE.with(this.userId));
     this.user = new User(user);
+    const watchlist = await getRequest(endpoints.WATCHLIST.with(this.userId));
+    this.watchlist = _.map(watchlist.results, movie => new Movie(movie));
+    const friends = await getRequest(endpoints.FRIENDS.with(this.userId));
+    this.friends = _.map(friends.results, friend => new User(friend));
     
     const storedUser = await AsyncStorage.getItem('user');
     this.currentUser = new User(JSON.parse(storedUser));

@@ -15,14 +15,14 @@ class ProfileSettingsState {
   }
   async logout() {
     this.errors = {};
-    const { data, errors } = await postRequest(endpoints.AUTH.LOGOUT);
+    const data = await postRequest(endpoints.AUTH.LOGOUT);
 
-    if(data) {
+    if(!data.errors) {
       await AsyncStorage.removeItem('access_token');
       await AsyncStorage.removeItem('user');
       navigate('Login');
     } else {
-      this.errors = errors;
+      this.errors = data.errors;
     }
   }
 }

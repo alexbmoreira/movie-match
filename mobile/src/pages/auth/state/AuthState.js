@@ -45,7 +45,7 @@ class AuthState {
 
   async login() {
     this.errors = {};
-    const { data, errors } = await postRequest(
+    const data = await postRequest(
       endpoints.AUTH.LOGIN,
       {
         username: this.username,
@@ -53,16 +53,16 @@ class AuthState {
       }
     );
 
-    if(data) {
+    if(!data.errors) {
       await this.authSuccess(data.key, data.user);
     } else {
-      this.errors = errors;
+      this.errors = data.errors;
     }
   }
 
   async register() {
     this.errors = {};
-    const { data, errors } = await postRequest(
+    const data = await postRequest(
       endpoints.AUTH.REGISTER,
       {
         username: this.username,
@@ -72,10 +72,10 @@ class AuthState {
       }
     );
 
-    if(data) {
+    if(!data.errors) {
       await this.authSuccess(data.key, data.user);
     } else {
-      this.errors = errors;
+      this.errors = data.errors;
     }
   }
 

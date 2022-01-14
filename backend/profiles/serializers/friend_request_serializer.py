@@ -1,12 +1,12 @@
 from rest_framework import serializers
 
 from ..models import FriendRequest
-from .simple_user_serializer import SimpleUserSerializer
+from .user_serializer import UserSerializer
 
 
 class FriendRequestSerializer(serializers.ModelSerializer):
-    creator = SimpleUserSerializer(many=False, read_only=True)
-    receiver = SimpleUserSerializer(many=False, read_only=True)
+    creator = UserSerializer(many=False, read_only=True)
+    receiver = UserSerializer(many=False, read_only=True)
 
     class Meta:
         model = FriendRequest

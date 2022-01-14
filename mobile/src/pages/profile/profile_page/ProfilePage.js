@@ -9,15 +9,15 @@ import UserOptions from './UserOptions';
 import Watchlist from './Watchlist';
 
 const ProfilePage = observer(({ uiState }) => {
-  const { user, bottomSheetRef } = uiState;
+  const { user, friends, watchlist, bottomSheetRef } = uiState;
 
   return (
     <React.Fragment>
       <ScreenContainer scroll>
         <ScreenContainer.Stack>
           <AvatarHeader user={user}/>
-          <Watchlist watchlist={user.watchlist}/>
-          <Friends friends={user.friends}/>
+          <Watchlist watchlist={watchlist}/>
+          <Friends friends={friends}/>
         </ScreenContainer.Stack>
       </ScreenContainer>
       {!uiState.isCurrentUser &&
