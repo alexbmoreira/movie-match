@@ -11,5 +11,5 @@ class WatchlistMovieSerializer(serializers.ModelSerializer):
         fields = ['id', 'movie']
 
     def create(self, validated_data):
-        user = get_object_or_404(User, id=self.context['view'].kwargs['user_id'])
+        user = User.objects.get(id=self.context['view'].kwargs['user_id'])
         return WatchlistMovie.objects.create(user=user, **validated_data)

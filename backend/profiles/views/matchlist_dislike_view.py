@@ -3,12 +3,13 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from ..models import MatchlistDislike, User
+from ..permissions import IsFriend
 from ..serializers import MatchlistDislikeSerializer
 
 
 class MatchlistDislikeView(viewsets.ModelViewSet):
     serializer_class = MatchlistDislikeSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsFriend]
     lookup_url_kwarg = 'movie_id'
 
     def get_queryset(self):
