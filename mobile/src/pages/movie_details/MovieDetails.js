@@ -39,7 +39,7 @@ const YearAndRuntime = ({ movie }) => {
 };
 
 const MovieDetails = observer(({ uiState }) => {
-  const { movie, in_watchlist } = uiState;
+  const { movie, inWatchlist } = uiState;
 
   return (
     <ScreenContainer scroll>
@@ -58,8 +58,8 @@ const MovieDetails = observer(({ uiState }) => {
           icon={({ size, color }) => (
             <WatchlistIcon size={size} color={color} />
           )}
-          onPress={() => uiState.addToWatchlist(in_watchlist)}
-          color={in_watchlist ? theme.colors.primary : theme.colors.text}
+          onPress={() => uiState.addToWatchlist(inWatchlist)}
+          color={inWatchlist ? theme.colors.primary : theme.colors.text}
           size={'sm'}
         />
       </View>
