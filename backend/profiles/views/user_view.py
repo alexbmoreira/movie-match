@@ -22,16 +22,6 @@ class UserView(viewsets.ModelViewSet):
         return self.serializer_class
 
     @action(detail=True)
-    def watchlist(self, request, pk=None):
-        user = self.get_object()
-        watchlist = user.watchlist.all()
-
-        page = self.paginate_queryset(watchlist)
-        if page is not None:
-            serializer = WatchlistMovieSerializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-    @action(detail=True)
     def friends(self, request, pk=None):
         user = self.get_object()
         friends = Friendship.objects.get_friends(user)
