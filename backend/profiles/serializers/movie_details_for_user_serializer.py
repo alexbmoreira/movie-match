@@ -17,4 +17,4 @@ class MovieDetailsForUserSerializer(serializers.ModelSerializer):
 
     def get_in_watchlist(self, obj):
         movie_id = self.context['movie_id']
-        return WatchlistMovie.objects.filter(user=obj, movie=movie_id).count() > 0
+        return WatchlistMovie.objects.filter(user=obj, movie=movie_id).exists()
