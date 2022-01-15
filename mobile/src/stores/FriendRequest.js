@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 import { DomainObject } from 'shared/stores';
-import SimpleUser from './SimpleUser';
+import User from './User';
 
 class FriendRequest extends DomainObject {
   creator = observable(null);
@@ -11,8 +11,8 @@ class FriendRequest extends DomainObject {
 
     if (model) {
       this.merge(model, {
-        creator: SimpleUser,
-        receiver: SimpleUser
+        creator: User,
+        receiver: User
       });
     }
   }

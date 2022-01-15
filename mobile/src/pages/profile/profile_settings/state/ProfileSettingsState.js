@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { authApi } from 'api';
+import { postRequest } from 'api';
 import { action, makeObservable, observable } from 'mobx';
+import { endpoints } from 'shared';
 import { navigate } from 'shared/RootNavigation';
 
 class ProfileSettingsState {
@@ -14,14 +15,14 @@ class ProfileSettingsState {
   }
   async logout() {
     this.errors = {};
-    const { data, errors } = await authApi.logout();
+    const data = await postRequest(endpoints.AUTH.LOGOUT);
 
-    if(data) {
+    if(!data.errors) {
       await AsyncStorage.removeItem('access_token');
       await AsyncStorage.removeItem('user');
       navigate('Login');
     } else {
-      this.errors = errors;
+      this.errors = data.errors;
     }
   }
 }

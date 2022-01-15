@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { friendApi } from 'api';
+import { getRequest } from 'api';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
+import { endpoints } from 'shared';
 import { User } from 'stores';
 // import { navigate } from 'shared/RootNavigation';
 
@@ -23,8 +24,8 @@ class FriendsListState {
     const storedUser = await AsyncStorage.getItem('user');
     this.currentUser = JSON.parse(storedUser);
 
-    const response = await friendApi.getFriends(this.currentUser.id);
-    this.friends = _.map(response.data.results, friend => new User(friend));
+    const friends = await getRequest(endpoints.FRIENDS.with(this.currentUser.id));
+    this.friends = _.map(friends.results, friend => new User(friend));
   }
 }
 

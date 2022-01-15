@@ -1,23 +1,23 @@
-import { observable } from 'mobx';
-import Movie from './Movie';
-import SimpleUser from './SimpleUser';
+import { computed, makeObservable, observable } from 'mobx';
+import { DomainObject } from 'shared/stores';
 
-class User extends SimpleUser {
-  friends = observable([]);
-  watchlist = observable([]);
-  is_friend = observable();
-  is_friend_requested = observable();
-  is_friend_requesting = observable();
+class User extends DomainObject {
+  username = observable('');
+  avatar_color = observable('');
 
   constructor(model) {
     super();
+    makeObservable(this, {
+      userInitial: computed
+    });
 
     if (model) {
-      this.merge(model, {
-        friends: [SimpleUser],
-        watchlist: [Movie]
-      });
+      this.merge(model);
     }
+  }
+
+  get userInitial() {
+    return this.username.toUpperCase().charAt(0);
   }
 }
 

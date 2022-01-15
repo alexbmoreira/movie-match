@@ -1,5 +1,4 @@
 from django.test import RequestFactory, TestCase
-from profiles.models import User
 from profiles.serializers import FriendRequestSerializer
 
 from ..factories import UserFactory
@@ -14,7 +13,9 @@ class FriendRequestSerializerTests(TestCase):
         "creator_id": self.creator.id,
         "receiver_id": self.receiver.id
       }
-      self.serializer = FriendRequestSerializer(data=self.data)
+      self.request = RequestFactory().post('./user/watchlist')
+      self.request.user = self.creator
+      self.serializer = FriendRequestSerializer(data=self.data, context={'request': self.request})
 
     def test_CreateValid(self):
         # Act

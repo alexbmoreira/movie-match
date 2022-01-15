@@ -3,8 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 
 from ..models import Friendship, User
-from ..serializers import (SimpleUserSerializer, UserSerializer,
-                           WatchlistMovieSerializer)
+from ..serializers import UserSerializer
 
 
 class UserView(viewsets.ModelViewSet):
@@ -15,22 +14,6 @@ class UserView(viewsets.ModelViewSet):
         search = self.request.GET.get('search', '')
         return User.objects.search(search)
 
-    def get_serializer_class(self):
-        if self.action == 'list':
-            return SimpleUserSerializer
-
-        return self.serializer_class
-
-    @action(detail=True)
-    def watchlist(self, request, pk=None):
-        user = self.get_object()
-        watchlist = user.watchlist.all()
-
-        page = self.paginate_queryset(watchlist)
-        if page is not None:
-            serializer = WatchlistMovieSerializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
     @action(detail=True)
     def friends(self, request, pk=None):
         user = self.get_object()
@@ -38,5 +21,5 @@ class UserView(viewsets.ModelViewSet):
 
         page = self.paginate_queryset(friends)
         if page is not None:
-            serializer = SimpleUserSerializer(page, many=True)
+            serializer = UserSerializer(page, many=True)
             return self.get_paginated_response(serializer.data)

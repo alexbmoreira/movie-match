@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { authApi } from 'api';
+import { postRequest } from 'api';
 import { action, makeObservable, observable } from 'mobx';
+import { endpoints } from 'shared';
 import { navigate } from 'shared/RootNavigation';
 
 class AuthState {
@@ -44,31 +45,37 @@ class AuthState {
 
   async login() {
     this.errors = {};
-    const { data, errors } = await authApi.login({
-      username: this.username,
-      password: this.password
-    });
+    const data = await postRequest(
+      endpoints.AUTH.LOGIN,
+      {
+        username: this.username,
+        password: this.password
+      }
+    );
 
-    if(data) {
+    if(!data.errors) {
       await this.authSuccess(data.key, data.user);
     } else {
-      this.errors = errors;
+      this.errors = data.errors;
     }
   }
 
   async register() {
     this.errors = {};
-    const { data, errors } = await authApi.register({
-      username: this.username,
-      email: this.email,
-      password1: this.password,
-      password2: this.password2
-    });
+    const data = await postRequest(
+      endpoints.AUTH.REGISTER,
+      {
+        username: this.username,
+        email: this.email,
+        password1: this.password,
+        password2: this.password2
+      }
+    );
 
-    if(data) {
+    if(!data.errors) {
       await this.authSuccess(data.key, data.user);
     } else {
-      this.errors = errors;
+      this.errors = data.errors;
     }
   }
 

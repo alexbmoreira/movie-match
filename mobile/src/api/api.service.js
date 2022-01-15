@@ -21,8 +21,8 @@ api.interceptors.request.use(
 
 const request = async (url, payload, func) => {
   try {
-    const response = await func(url, payload);
-    return { data: response.data };
+    const { data } = await func(url, payload);
+    return data;
   } catch (e) {
     if (e.response.data) {
       return { errors: e.response.data };

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models import MatchlistDislike, User
+from ..models import MatchlistDislike
 
 
 class MatchlistDislikeSerializer(serializers.ModelSerializer):
@@ -11,6 +11,6 @@ class MatchlistDislikeSerializer(serializers.ModelSerializer):
         read_only_fields = ['friend']
 
     def create(self, validated_data):
-        user = self.context['request'].user
-        friend = User.objects.get(id=self.context['user_id'])
-        return MatchlistDislike.objects.create(user=user, friend=friend, **validated_data)
+        validated_data['user_id'] = self.context['request'].user.id
+        validated_data['friend_id'] = self.context['user_id']
+        return MatchlistDislike.objects.create(**validated_data)

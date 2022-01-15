@@ -1,6 +1,8 @@
-import { movieApi, watchlistApi } from 'api';
-import { action, makeObservable, observable } from 'mobx';
-import { TmdbMovie } from 'stores';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { deleteRequest, getRequest, postRequest } from 'api';
+import { action, computed, makeObservable, observable } from 'mobx';
+import { endpoints } from 'shared';
+import { Movie, TmdbMovie, User } from 'stores';
 
 class MovieDetailsState {
   movieId;
@@ -8,15 +10,17 @@ class MovieDetailsState {
   navigation;
 
   movie = {};
-  in_watchlist = false;
+  user = {};
+  watchlistMovie = {};
 
   constructor() {
     makeObservable(this, {
+      user: observable,
       movie: observable,
-      in_watchlist: observable,
+      watchlistMovie: observable,
       load: action.bound,
-      setDetailsForUser: action.bound,
-      addToWatchlist: action.bound,
+      editWatchlist: action.bound,
+      inWatchlist: computed
     });
   }
 
@@ -27,27 +31,33 @@ class MovieDetailsState {
   }
 
   async load() {
-    const response = await movieApi.getMetadata('movie', this.movieId);
-    this.movie = new TmdbMovie(response.data);
-    await this.setDetailsForUser();
+    const storedUser = await AsyncStorage.getItem('user');
+    this.user = new User(JSON.parse(storedUser));
+
+    const movie = await getRequest(endpoints.TMDB.DATA.with('movie', this.movieId));
+    this.movie = new TmdbMovie(movie);
+
+    const watchlistMovie = await getRequest(endpoints.WATCHLIST.MOVIE.with(this.user.id, this.movieId));
+    this.watchlistMovie = new Movie(watchlistMovie);
   }
 
   navigationConfig() {
     this.navigation.setOptions({ title: this.route.params.title });
   }
 
-  async setDetailsForUser() {
-    const detailsForUser = await movieApi.getMetadataForUser(this.movieId);
-    this.in_watchlist = detailsForUser.data.in_watchlist;
+  async editWatchlist() {
+    // TODO - Error handling
+    if(this.inWatchlist) {
+      await deleteRequest(endpoints.WATCHLIST.MOVIE.with(this.user.id, this.movieId));
+      this.watchlistMovie = null;
+    } else {
+      const watchlistMovie = await postRequest(endpoints.WATCHLIST.with(this.user.id), { movie: this.movie.id });
+      this.watchlistMovie = new Movie(watchlistMovie);
+    }
   }
 
-  async addToWatchlist(currentlyInWatchlist) {
-    if(currentlyInWatchlist) {
-      await watchlistApi.removeFromWatchlist(this.movieId);
-    } else {
-      await watchlistApi.addToWatchlist({ movie: this.movie.id });
-    }
-    this.in_watchlist = !currentlyInWatchlist;
+  get inWatchlist() {
+    return this.watchlistMovie?.toJS().id;
   }
 }
 

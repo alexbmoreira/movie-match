@@ -1,14 +1,14 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
 
 from ..models import MatchlistLike, User
+from ..permissions import IsFriend
 from ..serializers import MatchlistLikeSerializer
 
 
 class MatchlistLikeView(viewsets.ModelViewSet):
     serializer_class = MatchlistLikeSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsFriend]
     lookup_url_kwarg = 'movie_id'
 
     def get_queryset(self):

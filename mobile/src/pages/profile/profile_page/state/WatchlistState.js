@@ -1,6 +1,8 @@
-import { movieApi } from 'api';
+import { getRequest } from 'api';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
+import { endpoints } from 'shared';
+import { Movie } from 'stores';
 
 class WatchlistState {
   watchlist = [];
@@ -22,8 +24,8 @@ class WatchlistState {
 
   async getWatchlistMetadata() {
     return Promise.all(_.map(this.watchlist, async (movie) => {
-      const response = await movieApi.getMetadata('movie', movie.movie);
-      return response.data;
+      const watchlistMovie = await getRequest(endpoints.TMDB.DATA.with('movie', movie.movie));
+      return new Movie(watchlistMovie);
     }));
   }
 }
