@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models import MatchlistDislike, User
+from ..models import MatchlistDislike
 
 
 class MatchlistDislikeSerializer(serializers.ModelSerializer):

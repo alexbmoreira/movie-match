@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models import MatchlistLike, User
+from ..models import MatchlistLike
 
 
 class MatchlistLikeSerializer(serializers.ModelSerializer):

@@ -1,5 +1,4 @@
 from django.test import RequestFactory, TestCase
-from profiles.models import User
 from profiles.serializers import WatchlistMovieSerializer
 
 from ..factories import UserFactory

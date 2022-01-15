@@ -1,4 +1,3 @@
-from django.db.models import Q
 from rest_framework import permissions
 
 from .models import Friendship
