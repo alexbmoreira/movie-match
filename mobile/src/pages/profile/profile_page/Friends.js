@@ -1,10 +1,10 @@
-import { Table, UsernameWithAvatar } from 'components/common';
+import { CardList, UserCard } from 'components/common';
 import React from 'react';
 import { push } from 'shared/RootNavigation';
 
 const Friend = ({ model }) => {
   return (
-    <UsernameWithAvatar
+    <UserCard
       key={model.id}
       user={model}
       size='md'
@@ -13,19 +13,13 @@ const Friend = ({ model }) => {
   );
 };
 
-const COLUMNS = [
-  {
-    component: Friend
-  }
-];
-
 const LOCALIZATION = {
   emptyState: 'This user has no friends'
 };
 
 const Friends = ({ friends }) => {
   return (
-    <Table title='Friends' models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
+    <CardList title='Friends' models={friends} component={Friend} localization={LOCALIZATION}/>
   );
 };
 

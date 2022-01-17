@@ -6,11 +6,11 @@ import theme from 'shared/theme';
 const style = StyleSheet.create({
   screenContainer: {
     display: 'flex',
-    margin: '5%',
-    height: '95%',
-    backgroundColor: theme.colors.screen
+    overflow: 'visible',
+    backgroundColor: theme.colors.screen,
+    padding: 20
   },
-  center: { 
+  center: {
     justifyContent: 'center'
   },
   background: {

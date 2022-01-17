@@ -11,9 +11,9 @@ const defaultStyle = StyleSheet.create({
   }
 });
 
-const Title = ({ style, children }) => {
+const Title = ({ style, children, ...rest }) => {
   return (
-    <Txt style={[style, defaultStyle.title]}>{children}</Txt>
+    <Txt style={[style, defaultStyle.title]} {...rest}>{children}</Txt>
   );
 };
 

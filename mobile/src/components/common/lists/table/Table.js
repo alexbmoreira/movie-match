@@ -2,12 +2,15 @@ import Divider from 'components/common/Divider';
 import _ from 'lodash';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { List as ReactPaperList } from 'react-native-paper';
-import { Title } from '../../typography';
+import { FlatList } from 'react-native-gesture-handler';
 import EmptyState from '../EmptyState';
 import TableRow from './TableRow';
 
 const style = StyleSheet.create({
+  flatList: {
+    overflow: 'visible',
+    height: '100%' 
+  },
   tableRow: {
     marginVertical: 10
   },
@@ -35,29 +38,24 @@ const getActiveRowStyle = (index, size) => {
   }
 };
 
-const ListSection = ({ models, columns }) => {
-  return (
-    <ReactPaperList.Section>
-      {_.map(models, (model, index) => {
-        const activeRowStyle = getActiveRowStyle(index, _.size(models));
-        return (
-          <View key={index}>
-            {index > 0 && <Divider/>}
-            <TableRow model={model} columns={columns} style={activeRowStyle}/>
-          </View>
-        );
-      })}
-    </ReactPaperList.Section>
-  );
-};
-
-const Table = ({ title, models, columns, localization }) => {
+const Table = ({ models, columns, Header, localization }) => {
   return (
     <View>
-      {title && <Title>{title}</Title>}
-      {_.isEmpty(models) ?
-        <View style={style.emptyState}><EmptyState localization={localization}/></View> :
-        <ListSection models={models} columns={columns}/>}
+      <FlatList
+        style={style.flatList}
+        data={models}
+        renderItem={({ item, index }) => {
+          const activeRowStyle = getActiveRowStyle(index, _.size(models));
+          return (
+            <View key={index}>
+              <TableRow model={item} columns={columns} style={activeRowStyle}/>
+            </View>
+          );
+        }}
+        ItemSeparatorComponent={Divider}
+        ListEmptyComponent={() => <View style={style.emptyState}><EmptyState localization={localization}/></View>}
+        ListHeaderComponent={Header}
+      />
     </View>
   );
 };

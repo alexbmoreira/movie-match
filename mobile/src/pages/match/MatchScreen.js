@@ -8,7 +8,7 @@ import MatchScreenState from './state/MatchScreenState';
 const MatchScreen = observer(({ uiState }) => {
   const { jointWatchlist } = uiState;
   return (
-    <ScreenContainer scroll>
+    <ScreenContainer>
       <Title>Match Screen</Title>
       {_.map(jointWatchlist, movie => {
         return <Text key={movie.id}>{movie.movie}</Text>;
