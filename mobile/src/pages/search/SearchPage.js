@@ -20,9 +20,8 @@ const SearchPage = observer(({ uiState }) => {
   const { results, isLoading } = uiState;
 
   return (
-    <ScreenContainer scroll>
-      <SearchBar uiState={uiState}/>
-      {isLoading ? <Spinner/> : <Table models={results} columns={COLUMNS} localization={LOCALIZATION}/>}
+    <ScreenContainer>
+      {isLoading ? <Spinner/> : <Table Header={() => (<SearchBar uiState={uiState}/>)} models={results} columns={COLUMNS} localization={LOCALIZATION}/>}
     </ScreenContainer>
   );
 });

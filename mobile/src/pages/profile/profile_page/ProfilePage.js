@@ -13,7 +13,7 @@ const ProfilePage = observer(({ uiState }) => {
 
   return (
     <React.Fragment>
-      <ScreenContainer scroll>
+      <ScreenContainer>
         <ScreenContainer.Stack>
           <AvatarHeader user={user}/>
           <Watchlist watchlist={watchlist}/>

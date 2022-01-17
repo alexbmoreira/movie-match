@@ -22,7 +22,7 @@ const defaultStyle = StyleSheet.create({
   }
 });
 
-const Text = ({ style, soft, italic, bold, large, children }) => {
+const Text = ({ style, soft, italic, bold, large, children, ...rest }) => {
   const activeStyles = [style, defaultStyle.text];
   if(soft) activeStyles.push(defaultStyle.soft);
   if(italic) activeStyles.push(defaultStyle.italic);
@@ -30,7 +30,7 @@ const Text = ({ style, soft, italic, bold, large, children }) => {
   if(large) activeStyles.push(defaultStyle.large);
 
   return (
-    <Txt style={activeStyles}>{children}</Txt>
+    <Txt style={activeStyles} {...rest}>{children}</Txt>
   );
 };
 

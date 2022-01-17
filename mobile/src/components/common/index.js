@@ -12,6 +12,7 @@ import Spinner from './Spinner';
 import TextInput from './TextInput';
 import { TmdbListItem } from './tmdb';
 import { Headline, Text, Title } from './typography';
+import UserCard from './UserCard';
 import UsernameWithAvatar from './UsernameWithAvatar';
 
 export {
@@ -33,5 +34,6 @@ export {
   Headline,
   Text,
   Title,
+  UserCard,
   UsernameWithAvatar,
 };

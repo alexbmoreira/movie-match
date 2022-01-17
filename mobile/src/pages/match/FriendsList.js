@@ -1,4 +1,4 @@
-import { ScreenContainer, Table, UsernameWithAvatar } from 'components/common';
+import { ScreenContainer, Table, Title, UsernameWithAvatar } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { withState } from 'shared';
@@ -29,8 +29,8 @@ const LOCALIZATION = {
 const FriendsList = observer(({ uiState }) => {
   const { friends } = uiState;
   return (
-    <ScreenContainer scroll>
-      <Table title='Friends' models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
+    <ScreenContainer>
+      <Table Header={() => <Title>Friends</Title>} models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
     </ScreenContainer>
   );
 });
