@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { theme } from 'shared';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   emptyState: {
     backgroundColor: theme.colors.backdrop,
     display: 'flex',
@@ -17,7 +17,7 @@ const style = StyleSheet.create({
 const EmptyState = ({ localization }) => {
   const message = localization.emptyState || 'No data to display';
   return (
-    <View style={style.emptyState}>
+    <View style={_style.emptyState}>
       <Text>{message}</Text>
     </View>
   );

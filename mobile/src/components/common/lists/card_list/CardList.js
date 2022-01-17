@@ -7,7 +7,7 @@ import { Title } from '../../typography';
 import EmptyState from '../EmptyState';
 import CardListItem from './CardListItem';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   scrollView: {
     overflow: 'visible'
   },
@@ -28,10 +28,10 @@ const ListSection = ({ models, component }) => {
       <ScrollView
         horizontal 
         showsHorizontalScrollIndicator={false}
-        style={style.scrollView}
+        style={_style.scrollView}
       >
         {_.map(models, (model, index) => (
-          <View key={index} style={[style.cardListItem, (index === models.length - 1 && style.cardListItemLast)]}>
+          <View key={index} style={[_style.cardListItem, (index === models.length - 1 && _style.cardListItemLast)]}>
             <CardListItem model={model} component={component}/>
           </View>
         ))}
@@ -45,7 +45,7 @@ const CardList = ({ title, models, component, localization }) => {
     <View>
       {title && <Title>{title}</Title>}
       {_.isEmpty(models) ?
-        <View style={style.emptyState}><EmptyState localization={localization}/></View> :
+        <View style={_style.emptyState}><EmptyState localization={localization}/></View> :
         <ListSection models={models} component={component}/>}
     </View>
   );

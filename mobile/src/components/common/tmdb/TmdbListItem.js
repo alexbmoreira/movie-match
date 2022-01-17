@@ -6,7 +6,7 @@ import { Title } from '../typography';
 import MovieInfo from './MovieInfo';
 import PersonInfo from './PersonInfo';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   resultItem: {
     display: 'flex',
     flexDirection: 'row'
@@ -25,11 +25,11 @@ const style = StyleSheet.create({
 const TmdbListItem = ({ header, imageLink, item }) => {
   return (
     <Pressable onPress={() => item.type === 'movie' && navigate('MovieDetails', { movieId: item.id, title: item.title })}>
-      <View style={style.resultItem}>
+      <View style={_style.resultItem}>
         <Poster size='sm' title={header} source={{ uri: imageLink }}/>
-        <View style={style.info}>
+        <View style={_style.info}>
           <Title>{header}</Title>
-          <View style={style.detailedInfo}>
+          <View style={_style.detailedInfo}>
             {item.type === 'movie' ?
               <MovieInfo item={item}/> :
               <PersonInfo item={item}/>}

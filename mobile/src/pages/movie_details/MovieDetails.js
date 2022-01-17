@@ -8,7 +8,7 @@ import { WatchlistIcon } from 'shared/icons';
 import DirectorList from './DirectorList';
 import MovieDetailsState from './state/MovieDetailsState';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   headingDetails: {
     display: 'flex',
     flexDirection: 'row'
@@ -43,9 +43,9 @@ const MovieDetails = observer(({ uiState }) => {
 
   return (
     <ScreenContainer scroll>
-      <View style={style.headingDetails}>
-        {movie.poster_link_md && <Poster style={style.poster} source={{ uri: movie.poster_link_md }} size='md' title={movie.title}/>}
-        <View style={style.info}>
+      <View style={_style.headingDetails}>
+        {movie.poster_link_md && <Poster style={_style.poster} source={{ uri: movie.poster_link_md }} size='md' title={movie.title}/>}
+        <View style={_style.info}>
           <View>
             <Title>{movie.title}</Title>
             <YearAndRuntime movie={movie}/>
@@ -53,7 +53,7 @@ const MovieDetails = observer(({ uiState }) => {
           </View>
         </View>
       </View>
-      <View style={style.iconRow}>
+      <View style={_style.iconRow}>
         <IconButton
           icon={({ size, color }) => (
             <WatchlistIcon size={size} color={color} />
@@ -63,7 +63,7 @@ const MovieDetails = observer(({ uiState }) => {
           size={'sm'}
         />
       </View>
-      <Text style={style.overview}>{movie.overview}</Text>
+      <Text style={_style.overview}>{movie.overview}</Text>
     </ScreenContainer>
   );
 });

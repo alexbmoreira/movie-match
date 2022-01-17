@@ -25,7 +25,7 @@ const getPosterDimensions = (size) => {
   }
 };
 
-const defaultStyle = StyleSheet.create((size) => {
+const _style = StyleSheet.create((size) => {
   const { width, height } = getPosterDimensions(size);
   return {
     poster: {
@@ -54,7 +54,7 @@ const defaultStyle = StyleSheet.create((size) => {
 });
 
 const PlaceholderPoster = observer(({ title, size }) => {
-  const { poster, posterPlaceholder, text } = defaultStyle(size);
+  const { poster, posterPlaceholder, text } = _style(size);
 
   return (
     <View style={[poster, posterPlaceholder]}>
@@ -70,7 +70,7 @@ const Poster = observer(({ style, source, size, title, uiState }) => {
   return (
     <View style={style}>
       <Image
-        style={defaultStyle(size).poster}
+        style={_style(size).poster}
         source={source}
         onLoadStart={() => uiState.setLoading(true)}
         onLoadEnd={() => { if(source.uri) uiState.setLoading(false); }}
