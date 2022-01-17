@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import theme from 'shared/theme';
 import { Text } from './typography';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   errorMessage: {
     color: theme.colors.error
   }
@@ -14,7 +14,7 @@ const ErrorMessage = ({ message }) => {
 
   return(
     <View>
-      <Text style={style.errorMessage}>{message}</Text>
+      <Text style={_style.errorMessage}>{message}</Text>
     </View>
   );
 };

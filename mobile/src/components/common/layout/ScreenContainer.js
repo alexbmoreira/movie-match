@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import theme from 'shared/theme';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   screenContainer: {
     display: 'flex',
     overflow: 'visible',
@@ -19,16 +19,16 @@ const style = StyleSheet.create({
 });
 
 const ScreenContainer = ({ children, center, scroll }) => {
-  const activeStyle = [
-    style.screenContainer,
-    (center && style.center)
+  const style = [
+    _style.screenContainer,
+    (center && _style.center)
   ];
 
   const Container = scroll ? ScrollView : View;
 
   return(
-    <Container style={style.background}>
-      <View style={activeStyle}>
+    <Container style={_style.background}>
+      <View style={style}>
         {children}
       </View>
     </Container>

@@ -2,7 +2,7 @@ import { Avatar, Headline } from 'components/common';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   avatarHeader: {
     display: 'flex',
     alignItems: 'center',
@@ -12,7 +12,7 @@ const style = StyleSheet.create({
 
 const AvatarHeader = ({ user }) => {
   return (
-    <View style={style.avatarHeader}>
+    <View style={_style.avatarHeader}>
       <Avatar user={user} size={'lg'}/>
       <Headline>{user.username}</Headline>
     </View>

@@ -6,7 +6,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import { theme } from 'shared';
 import ErrorMessage from './ErrorMessage';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   inputIOS: {
     fontSize: 16,
     paddingVertical: 8,
@@ -37,7 +37,7 @@ const Select = ({ items, value, onValueChange, onDonePress, errorMessage, ...res
   return(
     <View>
       <RNPickerSelect
-        style={style}
+        style={_style}
         useNativeAndroidPickerStyle={false}
         onValueChange={(value) => onValueChange(value)}
         onDonePress={onDonePress}

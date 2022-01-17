@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { withState } from 'shared';
 import AuthState from './state/AuthState';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   registerRedirect: {
     display: 'flex',
     alignItems: 'center'
@@ -49,7 +49,7 @@ const Register = observer(({ uiState, navigation }) => {
           Register
         </Button>
       </FormLayout>
-      <View style={style.registerRedirect}>
+      <View style={_style.registerRedirect}>
         <Text bold>Already have and account?</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text>Log In</Text>

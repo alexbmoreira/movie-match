@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text as Txt } from 'react-native-paper';
 
-const defaultStyle = StyleSheet.create({
+const _style = StyleSheet.create({
   title: {
     fontSize: 22,
     lineHeight: 30,
@@ -13,7 +13,7 @@ const defaultStyle = StyleSheet.create({
 
 const Title = ({ style, children, ...rest }) => {
   return (
-    <Txt style={[style, defaultStyle.title]} {...rest}>{children}</Txt>
+    <Txt style={[style, _style.title]} {...rest}>{children}</Txt>
   );
 };
 

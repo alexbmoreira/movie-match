@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { FriendsList, MatchScreen } from 'pages/match';
+import { FriendsList } from 'pages/lists';
+import { MatchScreen } from 'pages/match';
 import React from 'react';
 import screenOptions from './screenOptions';
 

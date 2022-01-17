@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Text as Txt } from 'react-native-paper';
 import { theme } from 'shared';
 
-const defaultStyle = StyleSheet.create({
+const _style = StyleSheet.create({
   text: {
     fontSize: 15
   },
@@ -23,11 +23,11 @@ const defaultStyle = StyleSheet.create({
 });
 
 const Text = ({ style, soft, italic, bold, large, children, ...rest }) => {
-  const activeStyles = [style, defaultStyle.text];
-  if(soft) activeStyles.push(defaultStyle.soft);
-  if(italic) activeStyles.push(defaultStyle.italic);
-  if(bold) activeStyles.push(defaultStyle.bold);
-  if(large) activeStyles.push(defaultStyle.large);
+  const activeStyles = [style, _style.text];
+  if(soft) activeStyles.push(_style.soft);
+  if(italic) activeStyles.push(_style.italic);
+  if(bold) activeStyles.push(_style.bold);
+  if(large) activeStyles.push(_style.large);
 
   return (
     <Txt style={activeStyles} {...rest}>{children}</Txt>

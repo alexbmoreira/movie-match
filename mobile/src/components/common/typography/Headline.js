@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text as Txt } from 'react-native-paper';
 
-const defaultStyle = StyleSheet.create({
+const _style = StyleSheet.create({
   headline: {
     fontSize: 26,
     lineHeight: 32,
@@ -12,7 +12,7 @@ const defaultStyle = StyleSheet.create({
 
 const Headline = ({ style, children }) => {
   return (
-    <Txt style={[style, defaultStyle.headline]}>{children}</Txt>
+    <Txt style={[style, _style.headline]}>{children}</Txt>
   );
 };
 

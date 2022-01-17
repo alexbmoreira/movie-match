@@ -3,7 +3,7 @@ import { StyleSheet, TextInput as Input, View } from 'react-native';
 import { theme } from 'shared';
 import ErrorMessage from './ErrorMessage';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   textInput: {
     fontSize: 16,
     paddingVertical: 8,
@@ -22,7 +22,7 @@ const TextInput = ({ placeholder, value, onChange, errorMessage, ...rest }) => {
   return(
     <View>
       <Input
-        style={style.textInput}
+        style={_style.textInput}
         placeholder={placeholder}
         value={value}
         onChangeText={onChange}

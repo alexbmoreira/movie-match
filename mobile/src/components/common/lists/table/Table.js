@@ -6,7 +6,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import EmptyState from '../EmptyState';
 import TableRow from './TableRow';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   flatList: {
     overflow: 'visible',
     height: '100%' 
@@ -30,11 +30,11 @@ const style = StyleSheet.create({
 const getActiveRowStyle = (index, size) => {
   switch (index) {
   case 0:
-    return style.tableRowFirst;
+    return _style.tableRowFirst;
   case (size - 1):
-    return style.tableRowLast;
+    return _style.tableRowLast;
   default:
-    return style.tableRow;
+    return _style.tableRow;
   }
 };
 
@@ -42,7 +42,7 @@ const Table = ({ models, columns, Header, localization }) => {
   return (
     <View>
       <FlatList
-        style={style.flatList}
+        style={_style.flatList}
         data={models}
         renderItem={({ item, index }) => {
           const activeRowStyle = getActiveRowStyle(index, _.size(models));
@@ -53,7 +53,7 @@ const Table = ({ models, columns, Header, localization }) => {
           );
         }}
         ItemSeparatorComponent={Divider}
-        ListEmptyComponent={() => <View style={style.emptyState}><EmptyState localization={localization}/></View>}
+        ListEmptyComponent={() => <View style={_style.emptyState}><EmptyState localization={localization}/></View>}
         ListHeaderComponent={Header}
       />
     </View>

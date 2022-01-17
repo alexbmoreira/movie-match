@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import theme from 'shared/theme';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   spinner: {
     display: 'flex',
     height: 50,
@@ -16,7 +16,7 @@ const style = StyleSheet.create({
 
 const Spinner = () => {
   return (
-    <ActivityIndicator style={style.spinner} size={36} animating={true} color={theme.colors.primary} />
+    <ActivityIndicator style={_style.spinner} size={36} animating={true} color={theme.colors.primary} />
   );
 };
 

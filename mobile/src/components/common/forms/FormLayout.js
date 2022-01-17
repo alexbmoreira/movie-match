@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   formLayout: {
     marginBottom: '4%',
   }
@@ -16,7 +16,7 @@ const FormLayout = ({ children }) => {
       return c;
     } else {
       return (
-        <View style={style.formLayout}>
+        <View style={_style.formLayout}>
           {c}
         </View>
       );

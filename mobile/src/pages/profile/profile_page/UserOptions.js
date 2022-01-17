@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-const style= StyleSheet.create({
+const _style= StyleSheet.create({
   title: {
     marginBottom: 15,
     textAlign: 'center'
@@ -33,7 +33,7 @@ const FriendButton = observer(({ uiState }) => {
   if(uiState.userRequested) {
     return (
       <View>
-        <Text large style={style.friendRequestSubHeader}>Friend Request Sent!</Text>
+        <Text large style={_style.friendRequestSubHeader}>Friend Request Sent!</Text>
         <Button mode='contained' onPress={() => uiState.deleteFriendRequest()}>Cancel</Button>
       </View>
     );
@@ -41,10 +41,10 @@ const FriendButton = observer(({ uiState }) => {
   if(uiState.userRequesting) {
     return (
       <View>
-        <Text large style={style.friendRequestSubHeader}>{`${user.username} wants to be your friend!`}</Text>
-        <View style={style.receivingFriendRequestButtonsContainer}>
-          <Button style={style.receiveingFriendRequestButtons} mode='contained' onPress={() => uiState.acceptFriendRequest()}>Accept</Button>
-          <Button style={style.receiveingFriendRequestButtons} mode='contained' onPress={() => uiState.deleteFriendRequest()}>Decline</Button>
+        <Text large style={_style.friendRequestSubHeader}>{`${user.username} wants to be your friend!`}</Text>
+        <View style={_style.receivingFriendRequestButtonsContainer}>
+          <Button style={_style.receiveingFriendRequestButtons} mode='contained' onPress={() => uiState.acceptFriendRequest()}>Accept</Button>
+          <Button style={_style.receiveingFriendRequestButtons} mode='contained' onPress={() => uiState.deleteFriendRequest()}>Decline</Button>
         </View>
       </View>
     );
@@ -63,7 +63,7 @@ const UserOptions = observer(({ uiState }) => {
 
   return (
     <React.Fragment>
-      <Title style={style.title}>{user.username}</Title>
+      <Title style={_style.title}>{user.username}</Title>
       <FriendButton uiState={uiState}/>
     </React.Fragment>
   );

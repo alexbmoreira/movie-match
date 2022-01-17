@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import Avatar from './Avatar';
 import { Title } from './typography';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   usernameWithAvatar: {
     display: 'flex',
     flexDirection: 'row'
@@ -20,9 +20,9 @@ const style = StyleSheet.create({
 const UsernameWithAvatar = ({ user, size, onPress }) => {
   return (
     <Pressable onPress={() => onPress()}>
-      <View style={style.usernameWithAvatar}>
-        <Avatar style={style.avatar} size={size} user={user} />
-        <Title style={style.username}>{user.username}</Title>
+      <View style={_style.usernameWithAvatar}>
+        <Avatar style={_style.avatar} size={size} user={user} />
+        <Title style={_style.username}>{user.username}</Title>
       </View>
     </Pressable>
   );

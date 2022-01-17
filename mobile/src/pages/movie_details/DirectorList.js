@@ -3,7 +3,7 @@ import _ from 'lodash';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   directorList: {
     marginTop: 10
   },
@@ -17,7 +17,7 @@ const DirectorName = ({ name, isTruncated }) => {
 
 const DirectorList = ({ directors }) => {
   return (
-    <View style={style.directorList}>
+    <View style={_style.directorList}>
       <Text>Directed by:</Text>
       {_.map(_.slice(directors, 0, 2), (director, index) => {
         const isTruncated = index == 1 && _.size(directors) > 2;

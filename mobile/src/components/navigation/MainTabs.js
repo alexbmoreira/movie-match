@@ -8,7 +8,7 @@ import MatchStack from './stack_navigators/MatchStack';
 
 const Tab = createBottomTabNavigator();
 
-const style = StyleSheet.create({
+const _style = StyleSheet.create({
   tabBarIcon: {
     color: theme.colors.text
   }
@@ -33,7 +33,7 @@ const MainTabs = ({ route }) => {
         component={MatchStack}
         options={{
           title: 'Match',
-          tabBarIcon: ({ size, color }) => <MatchCardsIcon style={style.tabBarIcon} color={color} size={size}/>
+          tabBarIcon: ({ size, color }) => <MatchCardsIcon style={_style.tabBarIcon} color={color} size={size}/>
         }}
         initialParams={route.params}
       />
@@ -42,7 +42,7 @@ const MainTabs = ({ route }) => {
         component={SearchStack}
         options={{
           title: 'Search',
-          tabBarIcon: ({ size, color }) => <SearchIcon style={style.tabBarIcon} color={color} size={size}/>
+          tabBarIcon: ({ size, color }) => <SearchIcon style={_style.tabBarIcon} color={color} size={size}/>
         }}
         initialParams={route.params}
       />
@@ -51,7 +51,7 @@ const MainTabs = ({ route }) => {
         component={ProfileStack}
         options={{
           title: 'Profile',
-          tabBarIcon: ({ size, color }) => <UserIcon style={style.tabBarIcon} color={color} size={size}/>
+          tabBarIcon: ({ size, color }) => <UserIcon style={_style.tabBarIcon} color={color} size={size}/>
         }}
         initialParams={route.params}
       />
