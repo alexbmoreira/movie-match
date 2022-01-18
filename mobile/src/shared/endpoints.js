@@ -73,6 +73,20 @@ const endpoints = {
     with(friendId) {
       return `/joint-watchlists/${friendId}/`;
     }
+  },
+  MATCHLIST_LIKE: {
+    ALL: {
+      with(friendId) {
+        return `/matchlists/${friendId}/likes/`;
+      }
+    }
+  },
+  MATCHLIST_DISLIKE: {
+    ALL: {
+      with(friendId) {
+        return `/matchlists/${friendId}/dislikes/`;
+      }
+    }
   }
 };
 

@@ -20,7 +20,7 @@ const getPosterDimensions = (size) => {
   case 'lg':
   default:
     return {
-      width: 500, height: 750
+      width: 350, height: 490
     };
   }
 };
