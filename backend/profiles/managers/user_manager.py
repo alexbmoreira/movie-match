@@ -46,10 +46,10 @@ class UserManager(models.UserManager):
     def get_joint_watchlist(self, user, friend):
         shared = self.get_shared_watchlist(user, friend)
         indiv = self.get_distinct_watchlist(user, friend)
-        user_likes = user.matchlist_likes.filter(friend=friend)
-        user_dislikes = user.matchlist_dislikes.filter(friend=friend)
+        user_likes = user.matchlist_likes.filter(friend=friend).values_list('movie', flat=True)
+        user_dislikes = user.matchlist_dislikes.filter(friend=friend).values_list('movie', flat=True)
 
-        shared = [wm for wm in shared if wm not in user_likes and wm not in user_dislikes]
-        indiv = [wm for wm in indiv if wm not in user_likes and wm not in user_dislikes]
+        shared = [wm for wm in shared if wm.movie not in user_likes and wm.movie not in user_dislikes]
+        indiv = [wm for wm in indiv if wm.movie not in user_likes and wm.movie not in user_dislikes]
 
         return shared + indiv

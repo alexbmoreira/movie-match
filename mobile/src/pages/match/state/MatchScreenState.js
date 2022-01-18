@@ -1,5 +1,5 @@
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getRequest } from 'api';
+import { getRequest, postRequest } from 'api';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import { endpoints } from 'shared';
@@ -18,6 +18,7 @@ class MatchScreenState {
       friend: observable,
       jointWatchlist: observable,
       load: action.bound,
+      likeMovie: action.bound
     });
   }
 
@@ -44,6 +45,20 @@ class MatchScreenState {
       const jointWatchlistMovie = await getRequest(endpoints.TMDB.DATA.with('movie', movie.movie));
       return new TmdbMovie(jointWatchlistMovie);
     }));
+  }
+
+  async likeMovie(movie) {
+    await postRequest(
+      endpoints.MATCHLIST_LIKE.ALL.with(this.friendId),
+      { movie: movie.id }
+    );
+  }
+
+  async dislikeMovie(movie) {
+    await postRequest(
+      endpoints.MATCHLIST_DISLIKE.ALL.with(this.friendId),
+      { movie: movie.id }
+    );
   }
 }
 

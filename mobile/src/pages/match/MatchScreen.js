@@ -43,11 +43,18 @@ const MatchScreen = observer(({ uiState }) => {
         <CardStack
           style={_style.cardStack}
           verticalSwipe={false}
-          onSwipedRight={() => console.log('liked')}
-          onSwipedLeft={() => console.log('disliked')}
         >
           {_.map(jointWatchlist, movie => {
-            return <Card key={movie.id} style={_style.card}><MovieCard movie={movie}/></Card>;
+            return (
+              <Card
+                key={movie.id}
+                style={_style.card}
+                onSwipedRight={() => uiState.likeMovie(movie)}
+                onSwipedLeft={() => uiState.dislikeMovie(movie)}
+              >
+                <MovieCard movie={movie}/>
+              </Card>
+            );
           })}
         </CardStack></View>
     </ScreenContainer>
