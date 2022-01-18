@@ -3,7 +3,8 @@ import { getRequest } from 'api';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import { endpoints } from 'shared';
-import { Movie, User } from 'stores';
+import { User } from 'stores';
+import TmdbMovie from '../../../stores/TmdbMovie';
 // import { navigate } from 'shared/RootNavigation';
 
 class MatchScreenState {
@@ -31,11 +32,18 @@ class MatchScreenState {
     this.friend = new User(friend);
 
     const jointWatchlist = await getRequest(endpoints.JOINT_WATCHLIST.with(this.friendId));
-    this.jointWatchlist = _.map(jointWatchlist.results, (movie) => new Movie(movie));
+    this.jointWatchlist = await this.getJointWatchlistMetadata(jointWatchlist.results);
   }
 
   navigationConfig() {
     this.navigation.setOptions({ title: this.friend.username });
+  }
+
+  async getJointWatchlistMetadata(jointWatchlist) {
+    return Promise.all(_.map(jointWatchlist, async (movie) => {
+      const jointWatchlistMovie = await getRequest(endpoints.TMDB.DATA.with('movie', movie.movie));
+      return new TmdbMovie(jointWatchlistMovie);
+    }));
   }
 }
 
