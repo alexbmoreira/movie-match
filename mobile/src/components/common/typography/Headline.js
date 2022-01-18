@@ -7,12 +7,22 @@ const _style = StyleSheet.create({
     fontSize: 26,
     lineHeight: 32,
     marginVertical: 2,
+  },
+  italic: {
+    fontStyle: 'italic'
+  },
+  bold: {
+    fontWeight: '700'
   }
 });
 
-const Headline = ({ style, children }) => {
+const Headline = ({ style, italic, bold, children }) => {
+  const activeStyles = [style, _style.headline];
+  if(italic) activeStyles.push(_style.italic);
+  if(bold) activeStyles.push(_style.bold);
+
   return (
-    <Txt style={[style, _style.headline]}>{children}</Txt>
+    <Txt style={activeStyles}>{children}</Txt>
   );
 };
 

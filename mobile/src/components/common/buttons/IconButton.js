@@ -20,7 +20,7 @@ const getIconSize = (size) => {
   }
 };
 
-const defaultStyle = StyleSheet.create({
+const _style = StyleSheet.create({
   iconButton: {
     margin: 0
   }
@@ -55,7 +55,7 @@ class IconButton extends React.Component {
 
     return(
       <TouchableOpacity onPress={async (e) => this.onPress(e, onPress)} disabled={this.isDisabled}>
-        <View style={[style, defaultStyle.iconButton]} {...rest}>
+        <View style={[style, _style.iconButton]} {...rest}>
           <Icon color={color} size={iconSize}/>
         </View>
       </TouchableOpacity>

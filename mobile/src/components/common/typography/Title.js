@@ -8,12 +8,22 @@ const _style = StyleSheet.create({
     lineHeight: 30,
     marginVertical: 2,
     letterSpacing: 0.15
+  },
+  italic: {
+    fontStyle: 'italic'
+  },
+  bold: {
+    fontWeight: '700'
   }
 });
 
-const Title = ({ style, children, ...rest }) => {
+const Title = ({ style, italic, bold, children, ...rest }) => {
+  const activeStyles = [style, _style.title];
+  if(italic) activeStyles.push(_style.italic);
+  if(bold) activeStyles.push(_style.bold);
+
   return (
-    <Txt style={[style, _style.title]} {...rest}>{children}</Txt>
+    <Txt style={activeStyles} {...rest}>{children}</Txt>
   );
 };
 

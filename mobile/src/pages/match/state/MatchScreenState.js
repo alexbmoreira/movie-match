@@ -1,11 +1,8 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getRequest, postRequest } from 'api';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import { endpoints } from 'shared';
-import { User } from 'stores';
-import TmdbMovie from '../../../stores/TmdbMovie';
-// import { navigate } from 'shared/RootNavigation';
+import { TmdbMovie, User } from 'stores';
 
 class MatchScreenState {
   errors = {};
