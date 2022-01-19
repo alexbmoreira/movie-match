@@ -17,7 +17,7 @@ const MatchActions = observer(({ uiState }) => {
     <FormLayout>
       <Button mode='contained' onPress={() => console.log(`go to matches with ${friend.username}`)}>View Matches</Button>
       <Button mode='contained' onPress={() => navigate('LikesList', { friendId: friend.id })}>View Likes</Button>
-      <Button mode='contained' onPress={() => console.log(`go to dislikes with ${friend.username}`)}>View Dislikes</Button>
+      <Button mode='contained' onPress={() => navigate('DislikesList', { friendId: friend.id })}>View Dislikes</Button>
     </FormLayout>
   );
 });
