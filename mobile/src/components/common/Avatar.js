@@ -13,6 +13,8 @@ const getAvatarSize = (size) => {
     return 48;
   case 'lg':
     return 60;
+  case 'xl':
+    return 72;
   default:
     return 60;
   }
@@ -37,7 +39,7 @@ const Avatar = ({ user, size, style }) => {
 };
 
 Avatar.propTypes = {
-  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg'])
+  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl'])
 };
 
 export default Avatar;

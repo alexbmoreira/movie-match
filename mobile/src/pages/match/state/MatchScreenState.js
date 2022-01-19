@@ -1,8 +1,10 @@
 import { getRequest, postRequest } from 'api';
+import { IconButton } from 'components/common';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import React from 'react';
-import { endpoints } from 'shared';
+import { endpoints, theme } from 'shared';
+import { MenuIcon } from 'shared/icons';
 import { TmdbMovie, User } from 'stores';
 
 class MatchScreenState {
@@ -10,6 +12,7 @@ class MatchScreenState {
   navigation;
   friendId;
   swiperRef;
+  bottomSheetRef;
 
   errors = {};
   friend = {};
@@ -33,6 +36,7 @@ class MatchScreenState {
 
   mount() {
     this.swiperRef = React.createRef();
+    this.bottomSheetRef = React.createRef();
   }
 
   async load() {
@@ -44,7 +48,22 @@ class MatchScreenState {
   }
 
   navigationConfig() {
-    this.navigation.setOptions({ title: this.friend.username });
+    this.navigation.setOptions({
+      title: this.friend.username,
+      headerRight: () => (
+        <IconButton
+          style={{ marginRight: 10 }}
+          icon={({ size, color }) => (
+            <MenuIcon size={size} color={color} />
+          )}
+          onPress={() => {
+            this.bottomSheetRef.current?.snapTo(0);
+          }}
+          color={theme.colors.primary}
+          size={'sm'}
+        />
+      )
+    });
   }
 
   async getJointWatchlistMetadata(jointWatchlist) {
