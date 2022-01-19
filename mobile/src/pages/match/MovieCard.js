@@ -1,10 +1,9 @@
-import { IconButton, Text, Title } from 'components/common';
+import { Headline, Text } from 'components/common';
 import { LinearGradient } from 'expo-linear-gradient';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { ImageBackground, StyleSheet, View } from 'react-native';
+import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { theme } from 'shared';
-import { InfoIcon } from 'shared/icons';
 import { navigate } from 'shared/RootNavigation';
 
 const _style = StyleSheet.create({
@@ -38,18 +37,13 @@ const MovieCard = observer(({ movie }) => {
         imageStyle={{ borderRadius: theme.roundness }}
       >
         <LinearGradient colors={[(theme.colors.backdrop + '00'), (theme.colors.backdrop + 'FF')]} style={_style.details}>
-          <View>
-            <Title>{movie.title}</Title>
-            <Text bold>{movie.release_year}</Text>
-          </View>
-          <IconButton
-            icon={({ size, color }) => (
-              <InfoIcon size={size} color={color}/>
-            )}
+          <TouchableOpacity
+            activeOpacity={0.7}
             onPress={() => navigate('MovieDetails', { movieId: movie.id, title: movie.title })}
-            color={theme.colors.text}
-            size={'sm'}
-          />
+          >
+            <Headline bold>{movie.title}</Headline>
+            <Text>{movie.release_year}</Text>
+          </TouchableOpacity>
         </LinearGradient>
       </ImageBackground>
     </View>

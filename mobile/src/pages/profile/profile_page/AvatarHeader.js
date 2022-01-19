@@ -1,4 +1,4 @@
-import { Avatar, Headline } from 'components/common';
+import { Avatar } from 'components/common';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -13,8 +13,7 @@ const _style = StyleSheet.create({
 const AvatarHeader = ({ user }) => {
   return (
     <View style={_style.avatarHeader}>
-      <Avatar user={user} size={'lg'}/>
-      <Headline>{user.username}</Headline>
+      <Avatar user={user} size={'xl'}/>
     </View>
   );
 };

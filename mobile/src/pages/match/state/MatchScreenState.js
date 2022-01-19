@@ -1,13 +1,19 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getRequest, postRequest } from 'api';
+import { IconButton } from 'components/common';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
-import { endpoints } from 'shared';
-import { User } from 'stores';
-import TmdbMovie from '../../../stores/TmdbMovie';
-// import { navigate } from 'shared/RootNavigation';
+import React from 'react';
+import { endpoints, theme } from 'shared';
+import { MenuIcon } from 'shared/icons';
+import { TmdbMovie, User } from 'stores';
 
 class MatchScreenState {
+  route;
+  navigation;
+  friendId;
+  swiperRef;
+  bottomSheetRef;
+
   errors = {};
   friend = {};
   jointWatchlist = [];
@@ -28,6 +34,11 @@ class MatchScreenState {
     this.friendId = route.params.friendId;
   }
 
+  mount() {
+    this.swiperRef = React.createRef();
+    this.bottomSheetRef = React.createRef();
+  }
+
   async load() {
     const friend = await getRequest(endpoints.PROFILE.with(this.friendId));
     this.friend = new User(friend);
@@ -37,7 +48,22 @@ class MatchScreenState {
   }
 
   navigationConfig() {
-    this.navigation.setOptions({ title: this.friend.username });
+    this.navigation.setOptions({
+      title: this.friend.username,
+      headerRight: () => (
+        <IconButton
+          style={{ marginRight: 10 }}
+          icon={({ size, color }) => (
+            <MenuIcon size={size} color={color} />
+          )}
+          onPress={() => {
+            this.bottomSheetRef.current?.snapTo(0);
+          }}
+          color={theme.colors.primary}
+          size={'sm'}
+        />
+      )
+    });
   }
 
   async getJointWatchlistMetadata(jointWatchlist) {
@@ -47,17 +73,17 @@ class MatchScreenState {
     }));
   }
 
-  async likeMovie(movie) {
+  async likeMovie(movieIndex) {
     await postRequest(
       endpoints.MATCHLIST_LIKE.ALL.with(this.friendId),
-      { movie: movie.id }
+      { movie: this.jointWatchlist[movieIndex].id }
     );
   }
 
-  async dislikeMovie(movie) {
+  async dislikeMovie(movieIndex) {
     await postRequest(
       endpoints.MATCHLIST_DISLIKE.ALL.with(this.friendId),
-      { movie: movie.id }
+      { movie: this.jointWatchlist[movieIndex].id }
     );
   }
 }

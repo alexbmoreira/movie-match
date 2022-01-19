@@ -14,7 +14,6 @@ const _style = StyleSheet.create({
     fontStyle: 'italic'
   },
   bold: {
-    marginVertical: 2,
     fontWeight: '700'
   },
   large: {
