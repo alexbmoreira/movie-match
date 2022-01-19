@@ -1,5 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { FriendsList } from 'pages/lists';
+import { FriendsList, LikesList } from 'pages/lists';
 import { MatchScreen } from 'pages/match';
 import { MovieDetails } from 'pages/movie_details';
 import React from 'react';
@@ -18,6 +18,11 @@ const MatchStack = ({ route }) => {
           headerLeft: () => null,
           title: 'Friends'
         }}
+      />
+      <MatchNavigator.Screen
+        name='LikesList'
+        component={LikesList}
+        initialParams={route.params}
       />
       <MatchNavigator.Screen
         name='MatchScreen'

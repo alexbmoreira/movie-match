@@ -22,15 +22,15 @@ const _style = StyleSheet.create({
   }
 });
 
-const TmdbListItem = ({ header, imageLink, item }) => {
+const TmdbListItem = ({ header, imageLink, item, type }) => {
   return (
-    <Pressable onPress={() => item.type === 'movie' && navigate('MovieDetails', { movieId: item.id, title: item.title })}>
+    <Pressable onPress={() => type === 'movie' && navigate('MovieDetails', { movieId: item.id, title: item.title })}>
       <View style={_style.resultItem}>
         <Poster size='sm' title={header} source={{ uri: imageLink }}/>
         <View style={_style.info}>
           <Title>{header}</Title>
           <View style={_style.detailedInfo}>
-            {item.type === 'movie' ?
+            {type === 'movie' ?
               <MovieInfo item={item}/> :
               <PersonInfo item={item}/>}
           </View>

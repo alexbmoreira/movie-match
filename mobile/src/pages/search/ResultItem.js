@@ -19,6 +19,7 @@ const ResultItem = ({ model }) => {
         header={model.title}
         imageLink={model.poster_link_sm}
         item={model}
+        type={model.type}
       />
     );
   }
@@ -28,6 +29,7 @@ const ResultItem = ({ model }) => {
       header={model.name}
       imageLink={model.profile_link_sm}
       item={model}
+      type={model.type}
     />
   );
 };

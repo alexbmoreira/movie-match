@@ -2,6 +2,7 @@ import { Button, FormLayout, Title } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { navigate } from 'shared/RootNavigation';
 
 const _style= StyleSheet.create({
   title: {
@@ -15,7 +16,7 @@ const MatchActions = observer(({ uiState }) => {
   return (
     <FormLayout>
       <Button mode='contained' onPress={() => console.log(`go to matches with ${friend.username}`)}>View Matches</Button>
-      <Button mode='contained' onPress={() => console.log(`go to likes with ${friend.username}`)}>View Likes</Button>
+      <Button mode='contained' onPress={() => navigate('LikesList', { friendId: friend.id })}>View Likes</Button>
       <Button mode='contained' onPress={() => console.log(`go to dislikes with ${friend.username}`)}>View Dislikes</Button>
     </FormLayout>
   );
