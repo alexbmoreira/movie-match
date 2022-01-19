@@ -1,10 +1,16 @@
 import { getRequest, postRequest } from 'api';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
+import React from 'react';
 import { endpoints } from 'shared';
 import { TmdbMovie, User } from 'stores';
 
 class MatchScreenState {
+  route;
+  navigation;
+  friendId;
+  swiperRef;
+
   errors = {};
   friend = {};
   jointWatchlist = [];
@@ -23,6 +29,10 @@ class MatchScreenState {
     this.route = route;
     this.navigation = navigation;
     this.friendId = route.params.friendId;
+  }
+
+  mount() {
+    this.swiperRef = React.createRef();
   }
 
   async load() {
@@ -44,17 +54,17 @@ class MatchScreenState {
     }));
   }
 
-  async likeMovie(movie) {
+  async likeMovie(movieIndex) {
     await postRequest(
       endpoints.MATCHLIST_LIKE.ALL.with(this.friendId),
-      { movie: movie.id }
+      { movie: this.jointWatchlist[movieIndex].id }
     );
   }
 
-  async dislikeMovie(movie) {
+  async dislikeMovie(movieIndex) {
     await postRequest(
       endpoints.MATCHLIST_DISLIKE.ALL.with(this.friendId),
-      { movie: movie.id }
+      { movie: this.jointWatchlist[movieIndex].id }
     );
   }
 }

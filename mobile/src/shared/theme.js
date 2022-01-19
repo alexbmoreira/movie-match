@@ -12,7 +12,9 @@ const theme = {
     background: '#7D7E88',
     screen: '#404142',
     backdrop: '#363838',
-    error: '#ED1F1F'
+    error: '#ED1F1F',
+    like: '#61BC56',
+    dislike: '#BD2F2F'
   },
 };
 

@@ -12,9 +12,9 @@ const getSurfaceSize = (size) => {
   case 'md':
     return 48;
   case 'lg':
-    return 72;
+    return 78;
   default:
-    return 72;
+    return 78;
   }
 };
 

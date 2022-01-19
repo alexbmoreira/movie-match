@@ -51,7 +51,7 @@ const _style = StyleSheet.create({
 });
 
 const MatchScreen = observer(({ uiState }) => {
-  const { jointWatchlist, friend } = uiState;
+  const { jointWatchlist, friend, swiperRef } = uiState;
   return (
     <ScreenContainer>
       <View style={_style.userRow}>
@@ -62,14 +62,15 @@ const MatchScreen = observer(({ uiState }) => {
         <CardStack
           style={_style.cardStack}
           verticalSwipe={false}
+          onSwipedRight={(movieIndex) => uiState.likeMovie(movieIndex)}
+          onSwipedLeft={(movieIndex) => uiState.dislikeMovie(movieIndex)}
+          ref={swiperRef}
         >
           {_.map(jointWatchlist, movie => {
             return (
               <Card
                 key={movie.id}
                 style={_style.card}
-                onSwipedRight={() => uiState.likeMovie(movie)}
-                onSwipedLeft={() => uiState.dislikeMovie(movie)}
               >
                 <MovieCard movie={movie}/>
               </Card>
@@ -78,11 +79,11 @@ const MatchScreen = observer(({ uiState }) => {
         </CardStack>
       </View>
       <View style={_style.actionRow}>
-        <Surface.Pressable size='lg' onPress={() => console.log('disliked')}>
-          <DislikeIcon size={32} color={'#FF0000'}/>
+        <Surface.Pressable size='lg' onPress={() => swiperRef.current.swipeLeft()}>
+          <DislikeIcon size={36} color={theme.colors.dislike}/>
         </Surface.Pressable>
-        <Surface.Pressable size='lg' onPress={() => console.log('liked')}>
-          <LikeIcon size={32} color={'#00FF00'}/>
+        <Surface.Pressable size='lg' onPress={() => swiperRef.current.swipeRight()}>
+          <LikeIcon size={36} color={theme.colors.like}/>
         </Surface.Pressable>
       </View>
     </ScreenContainer>

@@ -8,6 +8,7 @@ const DislikeIcon = ({ size, color, ...rest }) => (
     color={color}
     size={size}
     {...rest} 
+    style={{ transform: [{ rotateY: '180deg' }] }}
   />
 );
 
