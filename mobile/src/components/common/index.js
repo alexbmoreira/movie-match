@@ -9,6 +9,7 @@ import { BottomSheet } from './menus';
 import { Poster } from './poster';
 import Select from './Select';
 import Spinner from './Spinner';
+import { Surface } from './surface';
 import TextInput from './TextInput';
 import { TmdbListItem } from './tmdb';
 import { Headline, Text, Title } from './typography';
@@ -29,6 +30,7 @@ export {
   Poster,
   Select,
   Spinner,
+  Surface,
   TextInput,
   TmdbListItem,
   Headline,

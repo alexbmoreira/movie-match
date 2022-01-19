@@ -38,7 +38,7 @@ const Login = observer(({ uiState, navigation }) => {
       </FormLayout>
       <View style={_style.registerRedirect}>
         <Text bold>{'Don\'t have an Account?'}</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')} activeOpacity={0.7}>
           <Text>Register</Text>
         </TouchableOpacity>
       </View>

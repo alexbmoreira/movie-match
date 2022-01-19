@@ -15,6 +15,8 @@ const getIconSize = (size) => {
     return 30;
   case 'lg':
     return 36;
+  case 'xl':
+    return 54;
   default:
     return 24;
   }
@@ -54,7 +56,7 @@ class IconButton extends React.Component {
     const iconSize = getIconSize(size);
 
     return(
-      <TouchableOpacity onPress={async (e) => this.onPress(e, onPress)} disabled={this.isDisabled}>
+      <TouchableOpacity onPress={async (e) => this.onPress(e, onPress)} disabled={this.isDisabled} activeOpacity={0.7}>
         <View style={[style, _style.iconButton]} {...rest}>
           <Icon color={color} size={iconSize}/>
         </View>
@@ -64,7 +66,7 @@ class IconButton extends React.Component {
 }
 
 IconButton.propTypes = {
-  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg'])
+  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl'])
 };
 
 export default observer(IconButton);
