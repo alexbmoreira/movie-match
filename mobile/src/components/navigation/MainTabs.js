@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { theme } from 'shared';
 import { MatchCardsIcon, SearchIcon, UserIcon } from 'shared/icons';
 import { ProfileStack, SearchStack } from './stack_navigators';
@@ -8,16 +7,10 @@ import MatchStack from './stack_navigators/MatchStack';
 
 const Tab = createBottomTabNavigator();
 
-const _style = StyleSheet.create({
-  tabBarIcon: {
-    color: theme.colors.text
-  }
-});
-
 const screenOptions = {
   headerShown: false,
-  tabBarActiveTintColor: theme.colors.backdrop,
-  tabBarInactiveTintColor: theme.colors.surface,
+  tabBarActiveTintColor: theme.colors.primary,
+  tabBarInactiveTintColor: theme.colors.text,
   tabBarStyle: {
     backgroundColor: theme.colors.surface,
     borderColor: 'transparent'
@@ -33,7 +26,7 @@ const MainTabs = ({ route }) => {
         component={MatchStack}
         options={{
           title: 'Match',
-          tabBarIcon: ({ size, color }) => <MatchCardsIcon style={_style.tabBarIcon} color={color} size={size}/>
+          tabBarIcon: ({ size, color }) => <MatchCardsIcon color={color} size={size}/>
         }}
         initialParams={route.params}
       />
@@ -42,7 +35,7 @@ const MainTabs = ({ route }) => {
         component={SearchStack}
         options={{
           title: 'Search',
-          tabBarIcon: ({ size, color }) => <SearchIcon style={_style.tabBarIcon} color={color} size={size}/>
+          tabBarIcon: ({ size, color }) => <SearchIcon color={color} size={size}/>
         }}
         initialParams={route.params}
       />
@@ -51,7 +44,7 @@ const MainTabs = ({ route }) => {
         component={ProfileStack}
         options={{
           title: 'Profile',
-          tabBarIcon: ({ size, color }) => <UserIcon style={_style.tabBarIcon} color={color} size={size}/>
+          tabBarIcon: ({ size, color }) => <UserIcon color={color} size={size}/>
         }}
         initialParams={route.params}
       />
