@@ -12,7 +12,10 @@ class MatchlistLikeView(viewsets.ModelViewSet):
     lookup_url_kwarg = 'movie_id'
 
     def get_queryset(self):
-        return MatchlistLike.objects.filter(user=self.request.user, friend=self.kwargs['user_id'])
+        return MatchlistLike.objects.filter(
+            user=self.request.user,
+            friend=self.kwargs['user_id']
+        ).order_by('-created_at')
 
     def get_object(self):
         friend = User.objects.get(id=self.kwargs['user_id'])
