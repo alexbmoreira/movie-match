@@ -22,7 +22,7 @@ const COLUMNS = [
 ];
 
 const LOCALIZATION = {
-  emptyState: 'You matched on any movies yet'
+  emptyState: 'You haven\'t matched on any movies yet'
 };
 
 const Matchlist = observer(({ uiState }) => {
