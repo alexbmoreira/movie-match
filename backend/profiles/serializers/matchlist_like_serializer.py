@@ -7,8 +7,8 @@ class MatchlistLikeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MatchlistLike
-        fields = ['id', 'friend', 'movie']
-        read_only_fields = ['friend']
+        fields = ['id', 'friend', 'movie', 'created_at']
+        read_only_fields = ['friend', 'created_at']
 
     def create(self, validated_data):
         validated_data['user_id'] = self.context['request'].user.id

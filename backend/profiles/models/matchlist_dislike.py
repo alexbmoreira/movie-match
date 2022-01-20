@@ -8,6 +8,7 @@ class MatchlistDislike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='matchlist_dislikes')
     friend = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.IntegerField(blank=True, default=list)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ['user', 'friend', 'movie']
