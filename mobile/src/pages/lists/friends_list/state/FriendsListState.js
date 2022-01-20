@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import { endpoints } from 'shared';
 import { User } from 'stores';
-// import { navigate } from 'shared/RootNavigation';
 
 class FriendsListState {
   currentUser;

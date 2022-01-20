@@ -87,7 +87,12 @@ const endpoints = {
         return `/matchlists/${friendId}/dislikes/`;
       }
     }
-  }
+  },
+  MATCHLIST: {
+    with(friendId) {
+      return `/matchlists/${friendId}/`;
+    }
+  },
 };
 
 export default endpoints;
