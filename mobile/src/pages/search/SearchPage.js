@@ -1,6 +1,7 @@
-import { ScreenContainer, Spinner, Table } from 'components/common';
+import { Spinner, Table } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { View } from 'react-native';
 import { withState } from 'shared';
 import ResultItem from './ResultItem';
 import SearchBar from './SearchBar';
@@ -20,9 +21,16 @@ const SearchPage = observer(({ uiState }) => {
   const { results, isLoading } = uiState;
 
   return (
-    <ScreenContainer>
-      {isLoading ? <Spinner/> : <Table Header={() => (<SearchBar uiState={uiState}/>)} models={results} columns={COLUMNS} localization={LOCALIZATION}/>}
-    </ScreenContainer>
+    <View>
+      {isLoading ?
+        <Spinner/> :
+        <Table
+          Header={() => (<SearchBar uiState={uiState}/>)}
+          models={results}
+          columns={COLUMNS}
+          localization={LOCALIZATION}
+        />}
+    </View>
   );
 });
 

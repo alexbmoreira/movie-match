@@ -9,7 +9,7 @@ import TableRow from './TableRow';
 const _style = StyleSheet.create({
   flatList: {
     overflow: 'visible',
-    height: '100%' 
+    height: '100%'
   },
   tableRow: {
     marginVertical: 10
@@ -23,7 +23,8 @@ const _style = StyleSheet.create({
     marginBottom: 0
   },
   emptyState: {
-    marginTop: 10
+    marginTop: 10,
+    marginHorizontal: 10
   }
 });
 
@@ -53,8 +54,13 @@ const Table = ({ models, columns, Header, localization }) => {
           );
         }}
         ItemSeparatorComponent={Divider}
-        ListEmptyComponent={() => <View style={_style.emptyState}><EmptyState localization={localization}/></View>}
+        ListEmptyComponent={() => (
+          <View style={_style.emptyState}>
+            <EmptyState localization={localization}/>
+          </View>
+        )}
         ListHeaderComponent={Header}
+        ListFooterComponent={() => <View style={{ marginBottom: 10 }}/>}
       />
     </View>
   );

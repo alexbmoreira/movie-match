@@ -9,7 +9,8 @@ import PersonInfo from './PersonInfo';
 const _style = StyleSheet.create({
   resultItem: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    paddingHorizontal: 10
   },
   info: {
     flexGrow: 1,
