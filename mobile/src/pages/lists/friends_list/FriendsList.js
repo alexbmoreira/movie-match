@@ -1,7 +1,6 @@
 import { Table, UserListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { View } from 'react-native';
 import { withState } from 'shared';
 import { push } from 'shared/RootNavigation';
 import FriendsListState from './state/FriendsListState';
@@ -28,9 +27,7 @@ const LOCALIZATION = {
 const FriendsList = observer(({ uiState }) => {
   const { friends } = uiState;
   return (
-    <View style={{ marginTop: 10 }}>
-      <Table models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
-    </View>
+    <Table models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
   );
 });
 

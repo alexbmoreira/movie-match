@@ -1,7 +1,6 @@
 import { Table, TmdbListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { View } from 'react-native';
 import { withState } from 'shared';
 import MatchlistState from './state/MatchlistState';
 
@@ -29,9 +28,7 @@ const LOCALIZATION = {
 const Matchlist = observer(({ uiState }) => {
   const { matches } = uiState;
   return (
-    <View style={{ marginTop: 10 }}>
-      <Table models={matches} columns={COLUMNS} localization={LOCALIZATION}/>
-    </View>
+    <Table models={matches} columns={COLUMNS} localization={LOCALIZATION}/>
   );
 });
 
