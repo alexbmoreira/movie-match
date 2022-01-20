@@ -1,4 +1,4 @@
-import { Table, UsernameWithAvatar } from 'components/common';
+import { Table, UserListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { View } from 'react-native';
@@ -8,10 +8,8 @@ import FriendsListState from './state/FriendsListState';
 
 const Friend = ({ model }) => {
   return (
-    <UsernameWithAvatar
-      key={model.id}
+    <UserListItem
       user={model}
-      size='md'
       onPress={() => push('MatchScreen', { friendId: model.id })}
     />
   );

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text } from '../typography';
+import { Text } from '../../../typography';
 
 const _style = StyleSheet.create({
   department: {
