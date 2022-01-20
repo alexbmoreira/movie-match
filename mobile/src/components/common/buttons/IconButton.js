@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { PropTypes } from 'prop-types';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from '../gesture_handlers';
 
 const getIconSize = (size) => {
   switch (size) {
@@ -56,7 +56,7 @@ class IconButton extends React.Component {
     const iconSize = getIconSize(size);
 
     return(
-      <TouchableOpacity onPress={async (e) => this.onPress(e, onPress)} disabled={this.isDisabled} activeOpacity={0.7}>
+      <TouchableOpacity onPress={async (e) => this.onPress(e, onPress)} disabled={this.isDisabled}>
         <View style={[style, _style.iconButton]} {...rest}>
           <Icon color={color} size={iconSize}/>
         </View>

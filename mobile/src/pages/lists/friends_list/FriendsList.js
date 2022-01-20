@@ -1,4 +1,4 @@
-import { ScreenContainer, Table, UsernameWithAvatar } from 'components/common';
+import { Table, UserListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { withState } from 'shared';
@@ -7,10 +7,8 @@ import FriendsListState from './state/FriendsListState';
 
 const Friend = ({ model }) => {
   return (
-    <UsernameWithAvatar
-      key={model.id}
+    <UserListItem
       user={model}
-      size='md'
       onPress={() => push('MatchScreen', { friendId: model.id })}
     />
   );
@@ -29,9 +27,7 @@ const LOCALIZATION = {
 const FriendsList = observer(({ uiState }) => {
   const { friends } = uiState;
   return (
-    <ScreenContainer>
-      <Table models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
-    </ScreenContainer>
+    <Table models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
   );
 });
 

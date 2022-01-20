@@ -1,8 +1,7 @@
-import { Button, FormLayout, ScreenContainer, Text, TextInput, Title } from 'components/common';
+import { Button, FormLayout, ScreenContainer, Text, TextInput, Title, TouchableOpacity } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { withState } from 'shared';
 import AuthState from './state/AuthState';
 
@@ -51,7 +50,7 @@ const Register = observer(({ uiState, navigation }) => {
       </FormLayout>
       <View style={_style.registerRedirect}>
         <Text bold>Already have and account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Login')} activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text>Log In</Text>
         </TouchableOpacity>
       </View>

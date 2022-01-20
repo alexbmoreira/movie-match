@@ -17,7 +17,7 @@ const _style = StyleSheet.create({
 const EmptyState = ({ localization }) => {
   const message = localization.emptyState || 'No data to display';
   return (
-    <View style={_style.emptyState}>
+    <View style={[_style.emptyState]}>
       <Text>{message}</Text>
     </View>
   );

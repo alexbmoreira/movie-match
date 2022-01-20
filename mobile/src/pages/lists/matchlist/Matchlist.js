@@ -1,4 +1,4 @@
-import { ScreenContainer, Table, TmdbListItem } from 'components/common';
+import { Table, TmdbListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { withState } from 'shared';
@@ -28,9 +28,7 @@ const LOCALIZATION = {
 const Matchlist = observer(({ uiState }) => {
   const { matches } = uiState;
   return (
-    <ScreenContainer>
-      <Table models={matches} columns={COLUMNS} localization={LOCALIZATION}/>
-    </ScreenContainer>
+    <Table models={matches} columns={COLUMNS} localization={LOCALIZATION}/>
   );
 });
 
