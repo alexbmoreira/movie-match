@@ -1,8 +1,8 @@
-import { Headline, Text } from 'components/common';
+import { Headline, Text, TouchableOpacity } from 'components/common';
 import { LinearGradient } from 'expo-linear-gradient';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, StyleSheet, View } from 'react-native';
 import { theme } from 'shared';
 import { navigate } from 'shared/RootNavigation';
 
@@ -38,7 +38,6 @@ const MovieCard = observer(({ movie }) => {
       >
         <LinearGradient colors={[(theme.colors.backdrop + '00'), (theme.colors.backdrop + 'FF')]} style={_style.details}>
           <TouchableOpacity
-            activeOpacity={0.7}
             onPress={() => navigate('MovieDetails', { movieId: movie.id, title: movie.title })}
           >
             <Headline bold>{movie.title}</Headline>

@@ -1,8 +1,8 @@
 import { Poster } from 'components/common/poster';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 import { navigate } from 'shared/RootNavigation';
+import { TouchableHighlight } from '../../../gesture_handlers';
 import { Title } from '../../../typography';
 import MovieInfo from './MovieInfo';
 import PersonInfo from './PersonInfo';

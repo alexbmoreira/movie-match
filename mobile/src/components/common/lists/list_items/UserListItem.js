@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { TouchableHighlight } from '../../gesture_handlers';
 import UsernameWithAvatar from '../../UsernameWithAvatar';
 
 const _style = StyleSheet.create({
