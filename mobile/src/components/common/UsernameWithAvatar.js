@@ -7,7 +7,8 @@ import { Title } from './typography';
 const _style = StyleSheet.create({
   usernameWithAvatar: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    paddingHorizontal: 10
   },
   avatar: {
     marginRight: 15

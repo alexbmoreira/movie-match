@@ -1,6 +1,7 @@
-import { ScreenContainer, Table, UsernameWithAvatar } from 'components/common';
+import { Table, UsernameWithAvatar } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { View } from 'react-native';
 import { withState } from 'shared';
 import { push } from 'shared/RootNavigation';
 import FriendsListState from './state/FriendsListState';
@@ -29,9 +30,9 @@ const LOCALIZATION = {
 const FriendsList = observer(({ uiState }) => {
   const { friends } = uiState;
   return (
-    <ScreenContainer>
+    <View style={{ marginTop: 10 }}>
       <Table models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
-    </ScreenContainer>
+    </View>
   );
 });
 

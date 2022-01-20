@@ -1,6 +1,7 @@
-import { ScreenContainer, Table, TmdbListItem } from 'components/common';
+import { Table, TmdbListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { View } from 'react-native';
 import { withState } from 'shared';
 import DislikesListState from './state/DislikesListState';
 
@@ -28,9 +29,9 @@ const LOCALIZATION = {
 const DislikesList = observer(({ uiState }) => {
   const { dislikes } = uiState;
   return (
-    <ScreenContainer>
+    <View style={{ marginTop: 10 }}>
       <Table models={dislikes} columns={COLUMNS} localization={LOCALIZATION}/>
-    </ScreenContainer>
+    </View>
   );
 });
 
