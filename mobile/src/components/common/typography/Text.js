@@ -5,7 +5,7 @@ import { theme } from 'shared';
 
 const _style = StyleSheet.create({
   text: {
-    fontSize: 15
+    fontSize: 16
   },
   soft: {
     color: theme.colors.surface
@@ -17,7 +17,7 @@ const _style = StyleSheet.create({
     fontWeight: '700'
   },
   large: {
-    fontSize: 18
+    fontSize: 20
   }
 });
 

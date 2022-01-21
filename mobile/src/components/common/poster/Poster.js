@@ -9,6 +9,10 @@ import PosterState from './state/PosterState';
 
 const getPosterDimensions = (size) => {
   switch (size) {
+  case 'xs':
+    return {
+      width: 66, height: 100
+    };
   case 'sm':
     return {
       width: 92, height: 138
@@ -20,7 +24,7 @@ const getPosterDimensions = (size) => {
   case 'lg':
   default:
     return {
-      width: 350, height: 490
+      width: 336, height: 470
     };
   }
 };
@@ -81,7 +85,7 @@ const Poster = observer(({ style, source, size, title, uiState }) => {
 });
 
 Poster.propTypes = {
-  size: PropTypes.oneOf(['sm', 'md', 'lg'])
+  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg'])
 };
 
 export default withState(Poster, PosterState);
