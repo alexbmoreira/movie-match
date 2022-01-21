@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { navigate } from 'shared/RootNavigation';
 import { TouchableHighlight } from '../../../gesture_handlers';
-import { Title } from '../../../typography';
+import { Text } from '../../../typography';
 import MovieInfo from './MovieInfo';
 import PersonInfo from './PersonInfo';
 
@@ -28,9 +28,9 @@ const TmdbListItem = ({ header, imageLink, item, type }) => {
   return (
     <TouchableHighlight onPress={() => type === 'movie' && navigate('MovieDetails', { movieId: item.id, title: item.title })}>
       <View style={_style.resultItem}>
-        <Poster size='sm' title={header} source={{ uri: imageLink }}/>
+        <Poster size='xs' title={header} source={{ uri: imageLink }}/>
         <View style={_style.info}>
-          <Title>{header}</Title>
+          <Text large bold>{header}</Text>
           <View style={_style.detailedInfo}>
             {type === 'movie' ?
               <MovieInfo item={item}/> :
