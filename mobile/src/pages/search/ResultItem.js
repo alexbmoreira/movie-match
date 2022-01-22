@@ -1,13 +1,12 @@
-import { TmdbListItem, UsernameWithAvatar } from 'components/common';
+import { TmdbListItem, UserListItem } from 'components/common';
 import React from 'react';
 import { push } from 'shared/RootNavigation';
 
 const ResultItem = ({ model }) => {
   if(!model.type) {
     return (
-      <UsernameWithAvatar
+      <UserListItem
         user={model}
-        size='md'
         onPress={() => push('OtherProfile', { userId: model.id, username: model.username })}
       />
     );
