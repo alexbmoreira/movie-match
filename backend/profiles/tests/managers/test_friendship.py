@@ -23,8 +23,8 @@ class GetFriendshipTests(FriendshipTests):
 
         self.assertEqual(friendships.count(), 2)
         self.assertIsInstance(friendships[0], Friendship)
-        self.assertEqual(friendships[0].friend, self.user2)
-        self.assertEqual(friendships[1].user, self.user3)
+        self.assertIn(self.user2, [f.friend for f in friendships])
+        self.assertIn(self.user3, [f.user for f in friendships])
 
     def test_ReturnsNoFriendshipsWhenNoneExist(self):
         friendships = Friendship.objects.get_friendships(self.user4)

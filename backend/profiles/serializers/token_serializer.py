@@ -9,4 +9,4 @@ class TokenSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TokenModel
-        fields = ('key', 'user')
+        fields = ['key', 'user']

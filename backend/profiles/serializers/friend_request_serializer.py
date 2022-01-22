@@ -11,8 +11,9 @@ class FriendRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = FriendRequest
         fields = [
-            'id', 'creator', 'receiver', 'receiver_id'
+            'id', 'creator', 'receiver', 'receiver_id', 'created_at'
         ]
+        read_only_fields = ['created_at']
         extra_kwargs = {
             'receiver_id': {'source': 'receiver', 'write_only': True},
         }
