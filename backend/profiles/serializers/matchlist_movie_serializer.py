@@ -7,4 +7,5 @@ class MatchlistMovieSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MatchlistLike
-        fields = ['id', 'friend', 'movie']
+        fields = ['id', 'friend', 'movie', 'created_at']
+        read_only_fields = ['friend', 'created_at']
