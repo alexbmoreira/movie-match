@@ -12,6 +12,7 @@ class MatchlistDislike(models.Model):
 
     class Meta:
         unique_together = ['user', 'friend', 'movie']
+        ordering = ['-created_at']
 
     def __str__(self):
         return f"({self.id}) {self.user.username} disliked {self.movie} in their matchlist with {self.friend}"
