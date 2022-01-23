@@ -6,7 +6,8 @@ const _style = StyleSheet.create({
   avatarHeader: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 15
   }
 });
 
