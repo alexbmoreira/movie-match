@@ -18,15 +18,19 @@ const _style = StyleSheet.create({
   },
   large: {
     fontSize: 20
+  },
+  small: {
+    fontSize: 14
   }
 });
 
-const Text = ({ style, soft, italic, bold, large, children, ...rest }) => {
+const Text = ({ style, soft, italic, bold, large, small, children, ...rest }) => {
   const activeStyles = [style, _style.text];
   if(soft) activeStyles.push(_style.soft);
   if(italic) activeStyles.push(_style.italic);
   if(bold) activeStyles.push(_style.bold);
   if(large) activeStyles.push(_style.large);
+  if(small) activeStyles.push(_style.small);
 
   return (
     <Txt style={activeStyles} {...rest}>{children}</Txt>

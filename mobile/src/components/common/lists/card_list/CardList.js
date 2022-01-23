@@ -40,10 +40,22 @@ const ListSection = ({ models, component }) => {
   );
 };
 
+const ListTitle = ({ title }) => {
+  if(_.isString(title)) {
+    return (
+      <Title>{title}</Title>
+    );
+  }
+
+  const TitleComponent = title;
+
+  return <TitleComponent/>;
+};
+
 const CardList = ({ title, models, component, localization }) => {
   return (
     <View>
-      {title && <Title>{title}</Title>}
+      {title && <ListTitle title={title}/>}
       {_.isEmpty(models) ?
         <View style={_style.emptyState}><EmptyState localization={localization}/></View> :
         <ListSection models={models} component={component}/>}

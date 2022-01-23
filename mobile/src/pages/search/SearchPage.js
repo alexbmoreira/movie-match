@@ -25,7 +25,7 @@ const SearchPage = observer(({ uiState }) => {
       {isLoading ?
         <Spinner/> :
         <Table
-          Header={() => (<SearchBar uiState={uiState}/>)}
+          Header={() => <SearchBar uiState={uiState}/>}
           models={results}
           columns={COLUMNS}
           localization={LOCALIZATION}

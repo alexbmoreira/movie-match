@@ -1,4 +1,5 @@
 import Divider from 'components/common/Divider';
+import _ from 'lodash';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -22,11 +23,12 @@ const Table = ({ models, columns, Header, localization }) => {
       <FlatList
         style={_style.flatList}
         data={models}
-        renderItem={({ item, index }) => {
+        renderItem={({ item }) => {
           return (
-            <TableRow key={index} model={item} columns={columns}/>
+            <TableRow model={item} columns={columns}/>
           );
         }}
+        keyExtractor={(_, index) => index.toString()}
         ItemSeparatorComponent={Divider}
         ListEmptyComponent={() => (
           <View style={_style.emptyState}>
@@ -34,6 +36,7 @@ const Table = ({ models, columns, Header, localization }) => {
           </View>
         )}
         ListHeaderComponent={Header}
+        ListFooterComponent={() => !_.isEmpty(models) && <Divider offset={0}/>}
       />
     </View>
   );

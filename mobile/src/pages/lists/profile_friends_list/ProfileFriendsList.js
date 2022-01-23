@@ -3,13 +3,13 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { withState } from 'shared';
 import { push } from 'shared/RootNavigation';
-import FriendsListState from './state/FriendsListState';
+import ProfileFriendsListState from './state/ProfileFriendsListState';
 
 const Friend = ({ model }) => {
   return (
     <UserListItem
       user={model}
-      onPress={() => push('MatchScreen', { friendId: model.id })}
+      onPress={() => push('OtherProfile', { userId: model.id, username: model.username })}
     />
   );
 };
@@ -21,14 +21,14 @@ const COLUMNS = [
 ];
 
 const LOCALIZATION = {
-  emptyState: 'You have no friends'
+  emptyState: 'This user has no friends'
 };
 
-const FriendsList = observer(({ uiState }) => {
+const ProfileFriendsList = observer(({ uiState }) => {
   const { friends } = uiState;
   return (
     <Table models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
   );
 });
 
-export default withState(FriendsList, FriendsListState);
+export default withState(ProfileFriendsList, ProfileFriendsListState);

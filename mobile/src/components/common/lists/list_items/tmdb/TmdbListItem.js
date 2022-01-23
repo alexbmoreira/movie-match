@@ -11,7 +11,8 @@ const _style = StyleSheet.create({
   resultItem: {
     display: 'flex',
     flexDirection: 'row',
-    padding: 10
+    paddingVertical: 10,
+    paddingHorizontal: 15
   },
   info: {
     flexGrow: 1,

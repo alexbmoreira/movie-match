@@ -10,7 +10,8 @@ const _style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    borderRadius: theme.roundness
+    borderRadius: theme.roundness,
+    marginBottom: 10
   }
 });
 

@@ -5,7 +5,8 @@ import UsernameWithAvatar from '../../UsernameWithAvatar';
 
 const _style = StyleSheet.create({
   userListItem: {
-    padding: 10
+    paddingVertical: 10,
+    paddingHorizontal: 15
   }
 });
 
@@ -14,7 +15,6 @@ const UserListItem = ({ user, onPress }) => {
     <TouchableHighlight onPress={onPress}>
       <View style={_style.userListItem}>
         <UsernameWithAvatar
-          key={user.id}
           user={user}
           size='md'
         />

@@ -1,25 +1,36 @@
-import { BottomSheet, ScreenContainer } from 'components/common';
+import { TextListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { View } from 'react-native';
 import { withState } from 'shared';
+import { BottomSheet, Divider, Table } from '../../../components/common';
 import AvatarHeader from './AvatarHeader';
-import Friends from './Friends';
 import ProfileState from './state/ProfileState';
 import UserOptions from './UserOptions';
 import Watchlist from './Watchlist';
 
-const ProfilePage = observer(({ uiState }) => {
-  const { user, friends, watchlist, bottomSheetRef } = uiState;
+const AvatarAndWatchlist = observer(({ uiState }) => {
+  const { user, watchlist } = uiState;
 
   return (
-    <React.Fragment>
-      <ScreenContainer>
-        <ScreenContainer.Stack>
-          <AvatarHeader user={user}/>
-          <Watchlist watchlist={watchlist}/>
-          <Friends friends={friends}/>
-        </ScreenContainer.Stack>
-      </ScreenContainer>
+    <View style={{ paddingTop: 20 }}>
+      <AvatarHeader user={user}/>
+      <Watchlist user={user} watchlist={watchlist}/>
+      <Divider offset={0}/>
+    </View>
+  );
+});
+
+const ProfilePage = observer(({ uiState }) => {
+  const { profileListPages, bottomSheetRef } = uiState;
+
+  return (
+    <View>
+      <Table
+        Header={() => <AvatarAndWatchlist uiState={uiState}/>}
+        models={profileListPages}
+        columns={[{ component: TextListItem }]}
+      />
       {!uiState.isCurrentUser &&
         <BottomSheet
           innerRef={bottomSheetRef}
@@ -27,7 +38,7 @@ const ProfilePage = observer(({ uiState }) => {
         >
           <UserOptions uiState={uiState}/>
         </BottomSheet>}
-    </React.Fragment>
+    </View>
   );
 });
 
