@@ -154,6 +154,11 @@ class ProfileState {
         value: 'Friends',
         navigate: 'ProfileFriendsList',
         params: { userId: this.userId }
+      },
+      {
+        value: 'Watchlist',
+        navigate: 'Watchlist',
+        params: { userId: this.userId }
       }
     ];
   }
