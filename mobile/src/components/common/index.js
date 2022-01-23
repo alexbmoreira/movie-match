@@ -6,7 +6,7 @@ import { FormLayout } from './forms';
 import { TouchableHighlight, TouchableOpacity } from './gesture_handlers';
 import { ScreenContainer } from './layout';
 import { CardList, Table } from './lists';
-import { TmdbListItem, UserListItem } from './lists/list_items';
+import { TextListItem, TmdbListItem, UserListItem } from './lists/list_items';
 import { BottomSheet } from './menus';
 import { Poster } from './poster';
 import Select from './Select';
@@ -29,6 +29,7 @@ export {
   ScreenContainer,
   CardList,
   Table,
+  TextListItem,
   TmdbListItem,
   UserListItem,
   BottomSheet,

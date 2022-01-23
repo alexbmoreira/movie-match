@@ -36,7 +36,8 @@ class ProfileState {
       userRequesting: computed,
       userRequested: computed,
       userIsAFriend: computed,
-      isCurrentUser: computed
+      isCurrentUser: computed,
+      profileListPages: computed
     });
   }
 
@@ -145,6 +146,16 @@ class ProfileState {
 
   get isCurrentUser() {
     return this.currentUser.id === this.user.id;
+  }
+
+  get profileListPages() {
+    return [
+      {
+        value: 'Friends',
+        navigate: 'ProfileFriendsList',
+        params: { userId: this.userId }
+      }
+    ];
   }
 }
 

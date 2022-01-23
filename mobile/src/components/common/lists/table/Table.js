@@ -22,11 +22,12 @@ const Table = ({ models, columns, Header, localization }) => {
       <FlatList
         style={_style.flatList}
         data={models}
-        renderItem={({ item, index }) => {
+        renderItem={({ item }) => {
           return (
-            <TableRow key={index} model={item} columns={columns}/>
+            <TableRow model={item} columns={columns}/>
           );
         }}
+        keyExtractor={(_, index) => index.toString()}
         ItemSeparatorComponent={Divider}
         ListEmptyComponent={() => (
           <View style={_style.emptyState}>

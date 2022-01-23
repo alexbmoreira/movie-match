@@ -14,7 +14,6 @@ const UserListItem = ({ user, onPress }) => {
     <TouchableHighlight onPress={onPress}>
       <View style={_style.userListItem}>
         <UsernameWithAvatar
-          key={user.id}
           user={user}
           size='md'
         />

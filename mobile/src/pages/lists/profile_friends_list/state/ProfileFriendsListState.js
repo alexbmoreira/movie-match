@@ -5,8 +5,10 @@ import { action, makeObservable, observable } from 'mobx';
 import { endpoints } from 'shared';
 import { User } from 'stores';
 
-class FriendsListState {
-  currentUser;
+class ProfileFriendsListState {
+  userId;
+  route;
+  navigation;
 
   errors = {};
   friends = [];
@@ -19,13 +21,21 @@ class FriendsListState {
     });
   }
 
-  async load() {
-    const storedUser = await AsyncStorage.getItem('user');
-    this.currentUser = JSON.parse(storedUser);
+  receiveProps({ route, navigation }) {
+    this.route = route;
+    this.navigation = navigation;
+    this.userId = route.params.userId;
+  }
 
-    const friends = await getRequest(endpoints.FRIENDS.with(this.currentUser.id));
+  async load() {
+    if(!this.userId) {
+      const storedUser = await AsyncStorage.getItem('user');
+      this.userId = JSON.parse(storedUser).id;
+    }
+
+    const friends = await getRequest(endpoints.FRIENDS.with(this.userId));
     this.friends = _.map(friends.results, friend => new User(friend));
   }
 }
 
-export default FriendsListState;
+export default ProfileFriendsListState;

@@ -11,14 +11,13 @@ const _style = StyleSheet.create({
   },
   divider: {
     backgroundColor: theme.colors.surface,
-    width: Dimensions.get('window').width - 10,
   }
 });
 
-const Divider = ({ style }) => {
+const Divider = ({ style, offset=10 }) => {
   return (
     <View style={_style.dividerContainer}>
-      <Div style={[style, _style.divider]}/>
+      <Div style={[style, _style.divider, { width: Dimensions.get('window').width - offset }]}/>
     </View>
   );
 };
