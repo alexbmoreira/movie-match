@@ -1,5 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { ProfileFriendsList } from 'pages/lists';
+import { ProfileFriendsList, Watchlist } from 'pages/lists';
 import { MovieDetails } from 'pages/movie_details';
 import { ProfilePage } from 'pages/profile';
 import { SearchPage } from 'pages/search';
@@ -35,6 +35,12 @@ const SearchStack = ({ route }) => {
         component={ProfileFriendsList}
         initialParams={route.params}
         options={{ title: 'Friends' }}
+      />
+      <SearchNavigator.Screen
+        name='Watchlist'
+        component={Watchlist}
+        initialParams={route.params}
+        options={{ title: 'Watchlist' }}
       />
     </SearchNavigator.Navigator>
   );

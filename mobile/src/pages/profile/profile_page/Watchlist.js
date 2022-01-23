@@ -3,16 +3,16 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { withState } from 'shared';
-import { navigate } from 'shared/RootNavigation';
+import { navigate, push } from 'shared/RootNavigation';
 import WatchlistState from './state/WatchlistState';
 
 const _style = StyleSheet.create({
   watchlist: {
-    marginVertical: 20
+    marginTop: 10
   },
   watchlistTouchable: {
     paddingHorizontal: 15,
-    paddingVertical: 0,
+    paddingBottom: 10,
   }
 });
 
@@ -46,10 +46,10 @@ const WatchlistTitle = () => {
   );
 };
 
-const Watchlist = observer(({ uiState }) => {
+const Watchlist = observer(({ user, uiState }) => {
   return (
     <View style={_style.watchlist}>
-      <TouchableHighlight style={_style.watchlistTouchable} onPress={() => console.log('visit watchlist')}>
+      <TouchableHighlight style={_style.watchlistTouchable} onPress={() => push('Watchlist', { userId: user.id })}>
         <CardList title={WatchlistTitle} models={uiState.watchlist} component={Movie} localization={LOCALIZATION}/>
       </TouchableHighlight>
     </View>

@@ -15,7 +15,7 @@ const AvatarAndWatchlist = observer(({ uiState }) => {
   return (
     <View style={{ paddingTop: 20 }}>
       <AvatarHeader user={user}/>
-      <Watchlist watchlist={watchlist}/>
+      <Watchlist user={user} watchlist={watchlist}/>
       <Divider offset={0}/>
     </View>
   );
