@@ -8,9 +8,6 @@ import WatchlistState from './state/WatchlistState';
 
 const _style = StyleSheet.create({
   watchlist: {
-    marginTop: 10
-  },
-  watchlistTouchable: {
     paddingHorizontal: 15,
     paddingBottom: 10,
   }
@@ -18,7 +15,7 @@ const _style = StyleSheet.create({
 
 const CustomSpinner = () => {
   return (
-    <View style={[_style.watchlist, _style.watchlistTouchable]}>
+    <View style={_style.watchlist}>
       <Title>Watchlist</Title>
       <Spinner/>
     </View>
@@ -48,11 +45,9 @@ const WatchlistTitle = () => {
 
 const Watchlist = observer(({ user, uiState }) => {
   return (
-    <View style={_style.watchlist}>
-      <TouchableHighlight style={_style.watchlistTouchable} onPress={() => push('Watchlist', { userId: user.id })}>
-        <CardList title={WatchlistTitle} models={uiState.watchlist} component={Movie} localization={LOCALIZATION}/>
-      </TouchableHighlight>
-    </View>
+    <TouchableHighlight style={_style.watchlist} onPress={() => push('Watchlist', { userId: user.id })}>
+      <CardList title={WatchlistTitle} models={uiState.watchlist} component={Movie} localization={LOCALIZATION}/>
+    </TouchableHighlight>
   );
 });
 
