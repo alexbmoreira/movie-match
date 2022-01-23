@@ -14,7 +14,7 @@ const _style = StyleSheet.create({
   }
 });
 
-const Divider = ({ style, offset=10 }) => {
+const Divider = ({ style, offset=15 }) => {
   return (
     <View style={_style.dividerContainer}>
       <Div style={[style, _style.divider, { width: Dimensions.get('window').width - offset }]}/>

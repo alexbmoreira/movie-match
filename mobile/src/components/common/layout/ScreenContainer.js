@@ -8,7 +8,7 @@ const _style = StyleSheet.create({
     display: 'flex',
     overflow: 'visible',
     backgroundColor: theme.colors.screen,
-    padding: 20
+    padding: 15
   },
   center: {
     justifyContent: 'center'

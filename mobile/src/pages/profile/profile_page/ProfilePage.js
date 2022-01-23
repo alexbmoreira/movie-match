@@ -1,4 +1,4 @@
-import { ScreenContainer, TextListItem } from 'components/common';
+import { TextListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { View } from 'react-native';
@@ -13,11 +13,9 @@ const AvatarAndWatchlist = observer(({ uiState }) => {
   const { user, watchlist } = uiState;
 
   return (
-    <View>
-      <ScreenContainer>
-        <AvatarHeader user={user}/>
-        <Watchlist watchlist={watchlist}/>
-      </ScreenContainer>
+    <View style={{ paddingTop: 20 }}>
+      <AvatarHeader user={user}/>
+      <Watchlist watchlist={watchlist}/>
       <Divider offset={0}/>
     </View>
   );

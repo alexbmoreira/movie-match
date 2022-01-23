@@ -5,7 +5,8 @@ import UsernameWithAvatar from '../../UsernameWithAvatar';
 
 const _style = StyleSheet.create({
   userListItem: {
-    padding: 10
+    paddingVertical: 10,
+    paddingHorizontal: 15
   }
 });
 
