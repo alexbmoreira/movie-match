@@ -5,7 +5,7 @@ import ErrorMessage from './ErrorMessage';
 import { FormLayout } from './forms';
 import { TouchableHighlight, TouchableOpacity } from './gesture_handlers';
 import { ScreenContainer } from './layout';
-import { CardList, Table } from './lists';
+import { CardList, InteractiveTable, Table } from './lists';
 import { TextListItem, TmdbListItem, UserListItem } from './lists/list_items';
 import { BottomSheet } from './menus';
 import { Poster } from './poster';
@@ -28,6 +28,7 @@ export {
   TouchableOpacity,
   ScreenContainer,
   CardList,
+  InteractiveTable,
   Table,
   TextListItem,
   TmdbListItem,
