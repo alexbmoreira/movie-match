@@ -1,9 +1,9 @@
-import { Table, UserListItem } from 'components/common';
+import { InteractiveTable, UserListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { withState } from 'shared';
+import { endpoints } from 'shared';
 import { push } from 'shared/RootNavigation';
-import ProfileFriendsListState from './state/ProfileFriendsListState';
+import { User } from 'stores';
 
 const Friend = ({ model }) => {
   return (
@@ -24,11 +24,10 @@ const LOCALIZATION = {
   emptyState: 'This user has no friends'
 };
 
-const ProfileFriendsList = observer(({ uiState }) => {
-  const { friends } = uiState;
+const ProfileFriendsList = observer(({ route }) => {
   return (
-    <Table models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
+    <InteractiveTable Model={User} endpoint={endpoints.FRIENDS.with(route.params.userId)} columns={COLUMNS} localization={LOCALIZATION}/>
   );
 });
 
-export default withState(ProfileFriendsList, ProfileFriendsListState);
+export default ProfileFriendsList;
