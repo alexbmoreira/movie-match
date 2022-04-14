@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import Spinner from '../../Spinner';
 import EmptyState from '../EmptyState';
 import TableRow from './TableRow';
 
@@ -18,7 +19,7 @@ const _style = StyleSheet.create({
   }
 });
 
-const Table = ({ models, columns, Header, localization, onEndReached }) => {
+const Table = ({ models, columns, Header, localization, onEndReached, loading }) => {
   return (
     <View>
       <FlatList
@@ -37,7 +38,11 @@ const Table = ({ models, columns, Header, localization, onEndReached }) => {
           </View>
         )}
         ListHeaderComponent={Header}
-        ListFooterComponent={() => !_.isEmpty(models) && <Divider offset={0}/>}
+        ListFooterComponent={() => !_.isEmpty(models) && 
+          <View>
+            <Divider offset={0}/>
+            {loading && <Spinner/>}
+          </View>}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.5}
       />
@@ -46,7 +51,8 @@ const Table = ({ models, columns, Header, localization, onEndReached }) => {
 };
 
 Table.defaultProps = {
-  onEndReached: () => {}
+  onEndReached: () => {},
+  loading: false
 };
 
 export default observer(Table);

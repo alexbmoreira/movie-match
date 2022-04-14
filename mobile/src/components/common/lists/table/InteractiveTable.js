@@ -18,11 +18,13 @@ class InteractiveTableState {
     totalPages: 1,
     totalCount: 0
   };
+  loading = false;
 
   constructor() {
     makeObservable(this, {
       models: observable,
       pagination: observable,
+      loading: observable,
       load: action.bound,
       fetchResults: action.bound,
       updateModels: action.bound,
@@ -40,6 +42,7 @@ class InteractiveTableState {
   }
 
   async fetchResults() {
+    this.loading = true;
     const response = await getRequest(this.constructUrl(this.endpoint, this.pagination));
     this.updateModels(_.map(response.results, model => new this.Model(model)));
 
@@ -54,6 +57,8 @@ class InteractiveTableState {
     } else {
       this.models = this.models.concat(data);
     }
+
+    this.loading = false;
   }
 
   constructUrl(endpoint, pagination) {
@@ -77,10 +82,12 @@ class InteractiveTableState {
 }
 
 const InteractiveTable = observer(({ uiState, ...rest }) => {
-  const { models } = uiState;
+  const { models, loading } = uiState;
 
   return (
-    <Table models={models} onEndReached={() => uiState.nextPage()} {...rest}/>
+    <React.Fragment>
+      <Table models={models} loading={loading} onEndReached={() => uiState.nextPage()} {...rest}/>
+    </React.Fragment>
   );
 });
 
