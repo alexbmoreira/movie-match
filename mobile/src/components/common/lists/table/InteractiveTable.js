@@ -3,13 +3,20 @@ import _ from 'lodash';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { withState } from 'shared';
+import { Url, withState } from 'shared';
 import Table from './Table';
 
 class InteractiveTableState {
   endpoint;
   Model;
   models = observable([]);
+  pagination = observable({
+    currentPage: 1,
+    nextPage: null,
+    previousPage: null,
+    totalPages: 1,
+    totalCount: 0
+  });
 
   receiveProps({ Model, endpoint }) {
     this.Model = Model;
@@ -17,8 +24,28 @@ class InteractiveTableState {
   }
 
   async load() {
-    this.models = await getRequest(this.endpoint);
-    this.models = _.map(this.models.results, model => new this.Model(model));
+    await this.fetchResults();
+  }
+
+  async fetchResults() {
+    const response = await getRequest(this.constructUrl(this.endpoint, this.pagination));
+    this.models = _.map(response.results, model => new this.Model(model));
+
+    this.pagination.currentPage = response.current;
+    this.pagination.nextPage = response.next;
+    this.pagination.previousPage = response.previous;
+  }
+
+  constructUrl(endpoint, pagination) {
+    const url = new Url(endpoint);
+
+    this.__addPaginationParams(url, pagination);
+  
+    return url.toString();
+  }
+
+  __addPaginationParams(url, pagination) {
+    url.params['page'] = pagination.currentPage;
   }
 }
 
