@@ -1,5 +1,6 @@
 import Divider from 'components/common/Divider';
 import _ from 'lodash';
+import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -17,7 +18,7 @@ const _style = StyleSheet.create({
   }
 });
 
-const Table = ({ models, columns, Header, localization }) => {
+const Table = ({ models, columns, Header, localization, onEndReached }) => {
   return (
     <View>
       <FlatList
@@ -37,9 +38,15 @@ const Table = ({ models, columns, Header, localization }) => {
         )}
         ListHeaderComponent={Header}
         ListFooterComponent={() => !_.isEmpty(models) && <Divider offset={0}/>}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.5}
       />
     </View>
   );
 };
 
-export default Table;
+Table.defaultProps = {
+  onEndReached: () => {}
+};
+
+export default observer(Table);
