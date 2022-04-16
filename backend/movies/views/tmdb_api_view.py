@@ -2,7 +2,6 @@ import sys
 
 import requests
 from django.conf import settings
-from rest_framework.views import APIView
 
 api_key = settings.TMDB_API
 
