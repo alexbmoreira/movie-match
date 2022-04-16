@@ -1,11 +1,10 @@
-import { Avatar, BottomSheet, ScreenContainer, Surface } from 'components/common';
+import { Avatar, BottomSheet, Icon, ScreenContainer, Surface } from 'components/common';
 import _ from 'lodash';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import CardStack, { Card } from 'react-native-card-stack-swiper';
 import { theme, withState } from 'shared';
-import { DislikeIcon, LikeIcon } from 'shared/icons';
 import MovieCard from './MovieCard';
 import MatchScreenState from './state/MatchScreenState';
 import UserOptions from './UserOptions';
@@ -80,10 +79,10 @@ const MatchScreen = observer(({ uiState }) => {
         </View>
         <View style={_style.actionRow}>
           <Surface.Pressable size='lg' onPress={() => swiperRef.current.swipeLeft()}>
-            <DislikeIcon size={36} color={theme.colors.dislike}/>
+            <Icon name='dislike' size={36} color={theme.colors.dislike}/>
           </Surface.Pressable>
           <Surface.Pressable size='lg' onPress={() => swiperRef.current.swipeRight()}>
-            <LikeIcon size={36} color={theme.colors.like}/>
+            <Icon name='like' size={36} color={theme.colors.like}/>
           </Surface.Pressable>
         </View>
       </ScreenContainer>

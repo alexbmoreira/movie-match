@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Icon } from 'components/common';
 import React from 'react';
 import { theme } from 'shared';
-import { MatchCardsIcon, SearchIcon, UserIcon } from 'shared/icons';
 import { ProfileStack, SearchStack } from './stack_navigators';
 import MatchStack from './stack_navigators/MatchStack';
 
@@ -26,7 +26,7 @@ const MainTabs = ({ route }) => {
         component={MatchStack}
         options={{
           title: 'Match',
-          tabBarIcon: ({ size, color }) => <MatchCardsIcon color={color} size={size}/>
+          tabBarIcon: ({ size, color }) => <Icon name='match-cards' color={color} size={size}/>
         }}
         initialParams={route.params}
       />
@@ -35,7 +35,7 @@ const MainTabs = ({ route }) => {
         component={SearchStack}
         options={{
           title: 'Search',
-          tabBarIcon: ({ size, color }) => <SearchIcon color={color} size={size}/>
+          tabBarIcon: ({ size, color }) => <Icon name='search' color={color} size={size}/>
         }}
         initialParams={route.params}
       />
@@ -44,7 +44,7 @@ const MainTabs = ({ route }) => {
         component={ProfileStack}
         options={{
           title: 'Profile',
-          tabBarIcon: ({ size, color }) => <UserIcon color={color} size={size}/>
+          tabBarIcon: ({ size, color }) => <Icon name='user' color={color} size={size}/>
         }}
         initialParams={route.params}
       />

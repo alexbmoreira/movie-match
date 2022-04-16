@@ -1,11 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { deleteRequest, getRequest, postRequest } from 'api';
-import { IconButton } from 'components/common';
+import { Icon, IconButton } from 'components/common';
 import _ from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import React from 'react';
 import { endpoints, theme } from 'shared';
-import { MenuIcon } from 'shared/icons';
 import { FriendRequest, Friendship, Movie, User } from 'stores';
 
 class ProfileState {
@@ -79,7 +78,7 @@ class ProfileState {
           <IconButton
             style={{ marginRight: 10 }}
             icon={({ size, color }) => (
-              <MenuIcon size={size} color={color} />
+              <Icon name='menu' size={size} color={color} />
             )}
             onPress={() => {
               this.bottomSheetRef.current?.snapTo(0);

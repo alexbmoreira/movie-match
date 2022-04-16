@@ -1,10 +1,9 @@
-import { IconButton, Poster, ScreenContainer, Text, Title } from 'components/common';
+import { Icon, IconButton, Poster, ScreenContainer, Text, Title } from 'components/common';
 import _ from 'lodash';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { theme, withState } from 'shared';
-import { WatchlistIcon } from 'shared/icons';
 import DirectorList from './DirectorList';
 import MovieDetailsState from './state/MovieDetailsState';
 
@@ -56,7 +55,7 @@ const MovieDetails = observer(({ uiState }) => {
       <View style={_style.iconRow}>
         <IconButton
           icon={({ size, color }) => (
-            <WatchlistIcon size={size} color={color} />
+            <Icon name='add-to-watchlist' size={size} color={color} />
           )}
           onPress={() => uiState.editWatchlist(inWatchlist)}
           color={inWatchlist ? theme.colors.primary : theme.colors.text}
