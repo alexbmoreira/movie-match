@@ -44,7 +44,7 @@ const Table = ({ models, columns, Header, localization, onEndReached, loading })
             {loading && <Spinner/>}
           </View>}
         onEndReached={onEndReached}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.1}
       />
     </View>
   );
