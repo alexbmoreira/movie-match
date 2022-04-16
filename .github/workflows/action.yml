@@ -30,19 +30,6 @@ jobs:
         POSTGRES_HOST: postgres
         POSTGRES_PORT: 5432
 
-  frontend:
-    name: Front-end
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: make install-f
-    - name: Linting
-      run: make lint-f
-
   mobile:
     name: Mobile
     runs-on: ubuntu-latest
