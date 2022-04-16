@@ -30,3 +30,12 @@ class FriendRequestView(viewsets.ModelViewSet):
         self.perform_destroy(friend_request)
         serializer = FriendshipSerializer(friendship)
         return Response(serializer.data)
+
+    @action(detail=False, url_path=r'incoming')
+    def incoming(self, request):
+        friend_requests = FriendRequest.objects.get_incoming(user=self.request.user)
+
+        page = self.paginate_queryset(friend_requests)
+        if page is not None:
+            serializer = FriendRequestSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)

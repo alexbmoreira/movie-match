@@ -3,6 +3,7 @@ import { LikesList } from './likes_list';
 import { Matchlist } from './matchlist';
 import { MatchScreenFriendsList } from './match_screen_friends_list';
 import { ProfileFriendsList } from './profile_friends_list';
+import { ProfileFriendRequestsList } from './profile_friend_requests_list';
 import { Watchlist } from './watchlist';
 
 export {
@@ -11,5 +12,6 @@ export {
   Matchlist,
   MatchScreenFriendsList,
   ProfileFriendsList,
+  ProfileFriendRequestsList,
   Watchlist
 };

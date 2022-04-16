@@ -16,7 +16,10 @@ const endpoints = {
       }
     }
   },
-  FRIEND_REQUESTS: '/friend-requests/',
+  FRIEND_REQUESTS: {
+    ALL: '/friend-requests/',
+    INCOMING: '/friend-requests/incoming/'
+  },
   FRIEND_REQUEST: {
     WITH_USER: {
       with(userId) {
