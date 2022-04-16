@@ -1,9 +1,8 @@
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react';
+import { MatchCutIcons } from '../fonts';
 
 const LikeIcon = ({ size, color, ...rest }) => (
-  <FontAwesomeIcon icon={faThumbsUp} color={color} size={size} {...rest}/>
+  <MatchCutIcons name={'thumbs-up'} color={color} size={size} {...rest}/>
 );
 
 export default LikeIcon;

@@ -6,6 +6,10 @@ const glyphMap = {
   'settings': '',
   'user': '',
   'match-cards': '',
+  'ellipsis-h': '',
+  'remove': '',
+  'thumbs-up': '',
+  'thumbs-down': '',
 };
 
 const expoAssetId = require('assets/fonts/match-cut.ttf');
