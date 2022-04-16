@@ -1,5 +1,5 @@
 import React from 'react';
-import { MatchCutIcons } from '../fonts';
+import { MatchCutIcons } from 'shared/fonts';
 
 const SearchIcon = ({ size, color, ...rest }) => (
   <MatchCutIcons name={'settings'} color={color} size={size} {...rest}/>

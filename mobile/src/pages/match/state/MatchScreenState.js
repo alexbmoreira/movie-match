@@ -1,10 +1,9 @@
 import { getRequest, postRequest } from 'api';
-import { IconButton } from 'components/common';
+import { Icon, IconButton } from 'components/common';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import React from 'react';
 import { endpoints, theme } from 'shared';
-import { MenuIcon } from 'shared/icons';
 import { TmdbMovie, User } from 'stores';
 
 class MatchScreenState {
@@ -54,7 +53,7 @@ class MatchScreenState {
         <IconButton
           style={{ marginRight: 10 }}
           icon={({ size, color }) => (
-            <MenuIcon size={size} color={color} />
+            <Icon name='menu' size={size} color={color} />
           )}
           onPress={() => {
             this.bottomSheetRef.current?.snapTo(0);

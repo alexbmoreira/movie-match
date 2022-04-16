@@ -1,5 +1,5 @@
 import React from 'react';
-import { MatchCutIcons } from '../fonts';
+import { MatchCutIcons } from 'shared/fonts';
 
 const UserIcon = ({ size, color, ...rest }) => (
   <MatchCutIcons name={'user'} color={color} size={size} {...rest}/>

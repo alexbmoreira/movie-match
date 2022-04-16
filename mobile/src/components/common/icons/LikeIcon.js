@@ -1,5 +1,5 @@
 import React from 'react';
-import { MatchCutIcons } from '../fonts';
+import { MatchCutIcons } from 'shared/fonts';
 
 const LikeIcon = ({ size, color, ...rest }) => (
   <MatchCutIcons name={'thumbs-up'} color={color} size={size} {...rest}/>

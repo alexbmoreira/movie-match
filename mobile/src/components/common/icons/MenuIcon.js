@@ -1,5 +1,5 @@
 import React from 'react';
-import { MatchCutIcons } from '../fonts';
+import { MatchCutIcons } from 'shared/fonts';
 
 const MenuIcon = ({ size, color, ...rest }) => (
   <MatchCutIcons name={'ellipsis-h'} color={color} size={size} {...rest}/>

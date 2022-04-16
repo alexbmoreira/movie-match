@@ -4,6 +4,7 @@ import Divider from './Divider';
 import ErrorMessage from './ErrorMessage';
 import { FormLayout } from './forms';
 import { TouchableHighlight, TouchableOpacity } from './gesture_handlers';
+import { Icon } from './icons';
 import { ScreenContainer } from './layout';
 import { CardList, InteractiveTable, Table } from './lists';
 import { TextListItem, TmdbListItem, UserListItem } from './lists/list_items';
@@ -26,6 +27,7 @@ export {
   FormLayout,
   TouchableHighlight,
   TouchableOpacity,
+  Icon,
   ScreenContainer,
   CardList,
   InteractiveTable,
