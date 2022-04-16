@@ -1,7 +1,8 @@
 import CardList from './card_list';
-import Table from './table';
+import { InteractiveTable, Table } from './table';
 
 export {
   CardList,
+  InteractiveTable,
   Table
 };

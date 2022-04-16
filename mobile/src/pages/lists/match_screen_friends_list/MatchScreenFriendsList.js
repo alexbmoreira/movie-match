@@ -1,9 +1,9 @@
-import { Table, UserListItem } from 'components/common';
+import { InteractiveTable, UserListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { withState } from 'shared';
+import { endpoints } from 'shared';
 import { push } from 'shared/RootNavigation';
-import MatchScreenFriendsListState from './state/MatchScreenFriendsListState';
+import { User } from 'stores';
 
 const Friend = ({ model }) => {
   return (
@@ -24,11 +24,12 @@ const LOCALIZATION = {
   emptyState: 'You have no friends'
 };
 
-const MatchScreenFriendsList = observer(({ uiState }) => {
-  const { friends } = uiState;
+const MatchScreenFriendsList = observer(({ route }) => {
   return (
-    <Table models={friends} columns={COLUMNS} localization={LOCALIZATION}/>
+    <React.Fragment>
+      <InteractiveTable Model={User} endpoint={endpoints.FRIENDS.with(route.params.userId)} columns={COLUMNS} localization={LOCALIZATION}/>
+    </React.Fragment>
   );
 });
 
-export default withState(MatchScreenFriendsList, MatchScreenFriendsListState);
+export default MatchScreenFriendsList;

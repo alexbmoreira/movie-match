@@ -21,7 +21,7 @@ run-m:
 	$(MOBILE) expo start
 
 run-m-clean:
-	$(MOBILE) expo start
+	$(MOBILE) npm run start-clean
 
 migrate:
 	$(BACKEND) python manage.py makemigrations $(app) && python manage.py migrate $(app)

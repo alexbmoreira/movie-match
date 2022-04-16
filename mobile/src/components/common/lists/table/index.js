@@ -1,3 +1,7 @@
+import InteractiveTable from './InteractiveTable';
 import Table from './Table';
 
-export default Table;
+export {
+  InteractiveTable,
+  Table
+};
