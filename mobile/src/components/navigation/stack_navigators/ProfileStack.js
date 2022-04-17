@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { Icon, IconButton } from 'components/common';
-import { ProfileFriendsList, Watchlist } from 'pages/lists';
+import { ProfileFriendRequestsList, ProfileFriendsList, Watchlist } from 'pages/lists';
 import { MovieDetails } from 'pages/movie_details';
 import { ProfilePage, ProfileSettings } from 'pages/profile';
 import React from 'react';
@@ -50,6 +50,12 @@ const ProfileStack = ({ route }) => {
         component={ProfileFriendsList}
         initialParams={route.params}
         options={{ title: 'Friends' }}
+      />
+      <ProfileNavigator.Screen
+        name='ProfileFriendRequestsList'
+        component={ProfileFriendRequestsList}
+        initialParams={route.params}
+        options={{ title: 'Friend Requests' }}
       />
       <ProfileNavigator.Screen
         name='Watchlist'

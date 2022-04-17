@@ -96,7 +96,7 @@ class ProfileState {
     const currentUser = await AsyncStorage.getItem('user');
     const payload = { creator_id: JSON.parse(currentUser).id, receiver_id: this.user.id };
 
-    const friendRequest = await postRequest(endpoints.FRIEND_REQUESTS, payload);
+    const friendRequest = await postRequest(endpoints.FRIEND_REQUESTS.ALL, payload);
     this.friendRequest = new FriendRequest(friendRequest);
     this.closeUserOptionsSheet();
   }
@@ -148,7 +148,7 @@ class ProfileState {
   }
 
   get profileListPages() {
-    return [
+    const links = [
       {
         value: 'Friends',
         navigate: 'ProfileFriendsList',
@@ -160,6 +160,15 @@ class ProfileState {
         params: { userId: this.userId }
       }
     ];
+
+    if (this.isCurrentUser) {
+      links.push({
+        value: 'Friend Requests',
+        navigate: 'ProfileFriendRequestsList'
+      });
+    }
+
+    return links;
   }
 }
 

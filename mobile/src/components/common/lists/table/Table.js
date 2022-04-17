@@ -3,9 +3,10 @@ import _ from 'lodash';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import SwipeableFlatList from 'react-native-swipeable-list';
 import Spinner from '../../Spinner';
 import EmptyState from '../EmptyState';
+import { QuickActionSet } from './quick_actions';
 import TableRow from './TableRow';
 
 const _style = StyleSheet.create({
@@ -19,10 +20,18 @@ const _style = StyleSheet.create({
   }
 });
 
-const Table = ({ models, columns, Header, localization, onEndReached, loading }) => {
+const Table = ({
+  models,
+  columns,
+  Header,
+  localization,
+  onEndReached,
+  loading,
+  quickActions
+}) => {
   return (
     <View>
-      <FlatList
+      <SwipeableFlatList
         style={_style.flatList}
         data={models}
         renderItem={({ item }) => {
@@ -45,6 +54,9 @@ const Table = ({ models, columns, Header, localization, onEndReached, loading })
           </View>}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.1}
+        shouldBounceOnMount={false}
+        maxSwipeDistance={80 * _.size(quickActions)}
+        renderQuickActions={({ item }) => quickActions && <QuickActionSet item={item} quickActions={quickActions}/>}
       />
     </View>
   );

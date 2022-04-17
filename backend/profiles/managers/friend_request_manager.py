@@ -12,3 +12,6 @@ class FriendRequestManager(models.Manager):
             return self.model.objects.get(Q(creator=user1, receiver=user2) | Q(creator=user2, receiver=user1))
         except self.model.DoesNotExist:
             return None
+
+    def get_incoming(self, user):
+        return self.model.objects.filter(receiver=user)
