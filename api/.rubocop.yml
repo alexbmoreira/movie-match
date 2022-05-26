@@ -1,0 +1,221 @@
+require: rubocop-rails
+
+AllCops:
+  Exclude:
+    - Gemfile
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+  DisplayCopNames: true
+  TargetRubyVersion: 2.6
+
+Rails/ActiveRecordAliases:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  EnforcedStyleForLeadingUnderscores: required
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: key
+  EnforcedColonStyle: key
+  EnforcedLastArgumentHashStyle: always_ignore
+
+Style/BarePercentLiterals:
+  EnforcedStyle: percent_q
+
+Style/Documentation:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/Semicolon:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - '**/*.rake'
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*'
+
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/ArgumentAlignment:
+  Enabled: false
+
+# This replaces the old Style/Blocks. The default for this is still stupid
+# (multiline blocks are do/end and single-line blocks are {/}), but it now
+# performs a semantic analysis, allowing for the more nuanced version proposed
+# by Jim Weirich around 2004. If a block is used as part of an assignment or
+# method chaining, prefer {/} delimiters; if not, prefer do/end delimiters. It
+# isn't *quite* that simple in all circumstances, but we can add them to one of
+# three groups: ProceduralMethods (prefer do/end), FunctionalMethods ({/}), and
+# ignored (because it does not matter).
+Style/BlockDelimiters:
+  Enabled: false
+  EnforcedStyle: semantic
+  Exclude:
+    - '**/*factory.rb'
+  ProceduralMethods:
+    # Methods that are known to be procedural in nature but look functional from
+    # their usage, e.g.
+    #
+    #   time = Benchmark.realtime do
+    #     foo.bar
+    #   end
+    #
+    # Here, the return value of the block is discarded but the return value of
+    # `Benchmark.realtime` is used.
+    - benchmark
+    - bm
+    - bmbm
+    - create
+    - each_with_object
+    - measure
+    - new
+    - realtime
+    - tap
+    - with_object
+    - assert_raises
+    - solr_search
+    - solr_paginated
+    - all_of
+    - any_of
+  FunctionalMethods:
+    # Methods that are known to be functional in nature but look procedural from
+    # their usage, e.g.
+    #
+    #   let(:foo) { Foo.new }
+    #
+    # Here, the return value of `Foo.new` is used to define a `foo` helper but
+    # doesn't appear to be used from the return value of `let`.
+    - let
+    - let!
+    - subject
+    - watch
+  IgnoredMethods:
+    # Methods that can be either procedural or functional and cannot be
+    # categorised from their usage alone, e.g.
+    #
+    #   foo = lambda do |x|
+    #     puts "Hello, #{x}"
+    #   end
+    #
+    #   foo = lambda do |x|
+    #     x * 100
+    #   end
+    #
+    # Here, it is impossible to tell from the return value of `lambda` whether
+    # the inner block's return value is significant.
+    - lambda
+    - proc
+    - it
+    - around
+    - before
+
+Style/FormatString:
+  Enabled: false
+
+Style/NegatedIf:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Style/CommentAnnotation:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/ClassCheck:
+  EnforcedStyle: kind_of?
+
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
+
+Style/CommandLiteral:
+  EnforcedStyle: percent_x
+
+Style/RedundantPercentQ:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 25
+  CountComments: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 100
+  Exclude:
+    - test/**/*
+    - db/migrate/**/*
+
+Style/MethodDefParentheses:
+  Exclude:
+    - test/**/*
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Lint/BigDecimalNew:
+  AutoCorrect: true
+  Enabled: true
+
+Lint/RedundantCopDisableDirective:
+  Severity: convention
+
+# Migration/DepartmentName:
+#   Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
