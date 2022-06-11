@@ -5,9 +5,16 @@ module Api
       skip_after_action :verify_authorized, only: [:login_user, :register]
 
       def register
-        user = User.new(user_params)
+        inputs = {
+          username: user_params[:username],
+          email: user_params[:email],
+          password: user_params[:password],
+          password_confirmation: user_params[:password_confirmation]
+        }
 
-        auto_login(user) if user.save
+        user = Sessions::Register.run(inputs)
+
+        auto_login(user) if user.valid?
 
         respond_with user, serializer: versioned_class(UserAuthSerializer)
       end
