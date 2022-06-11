@@ -22,10 +22,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: make install-b
-    - name: Linting
-      run: make lint-b
-    - name: Tests
-      run: make test
       env:
         POSTGRES_HOST: postgres
         POSTGRES_PORT: 5432
