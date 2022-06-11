@@ -5,7 +5,6 @@ on: [push]
 jobs:
   backend:
     name: Back-end
-    container: python:3.8-buster
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -20,12 +19,9 @@ jobs:
           --health-retries 5
     steps:
     - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: make install-b
-    - name: Linting
-      run: make lint-b
-    - name: Tests
-      run: make test
+    - uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       env:
         POSTGRES_HOST: postgres
         POSTGRES_PORT: 5432

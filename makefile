@@ -3,7 +3,7 @@ FRONTEND=cd frontend &&
 MOBILE=cd mobile &&
 
 install-b:
-	$(BACKEND) pip install -r requirements.txt
+	$(BACKEND) bundle install
 
 install-f:
 	$(FRONTEND) npm install
@@ -12,7 +12,7 @@ install-m:
 	$(MOBILE) yarn install
 
 run-b:
-	$(BACKEND) python manage.py runserver
+	$(BACKEND) bin/rails s
 
 run-f:
 	$(FRONTEND) npm run serve
@@ -24,16 +24,7 @@ run-m-clean:
 	$(MOBILE) npm run start-clean
 
 migrate:
-	$(BACKEND) python manage.py makemigrations $(app) && python manage.py migrate $(app)
-
-test:
-	$(BACKEND) python manage.py test $(app)
-
-shell:
-	$(BACKEND) python manage.py shell
-
-lint-b:
-	scripts/lint.sh
+	$(BACKEND) bin/rails db:migrate
 
 lint-f:
 	$(FRONTEND) npm run lint
