@@ -5,11 +5,12 @@ module Api
       skip_after_action :verify_authorized, only: [:login_user, :register]
 
       def register
+        params = user_params
         inputs = {
-          username: user_params[:username],
-          email: user_params[:email],
-          password: user_params[:password],
-          password_confirmation: user_params[:password_confirmation]
+          username: params[:username],
+          email: params[:email],
+          password: params[:password],
+          password_confirmation: params[:password_confirmation]
         }
 
         user = Sessions::Register.run(inputs)
