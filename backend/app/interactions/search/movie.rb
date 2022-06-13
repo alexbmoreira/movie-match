@@ -3,7 +3,7 @@ module Search
     string :query
 
     def execute
-      results = Tmdb::Search.new.query(query).fetch
+      results = tmdb_fetch
 
       results.map do |result|
         MovieDb::Movie.new(
@@ -14,6 +14,12 @@ module Search
           poster_path: result['poster_path']
         )
       end
+    end
+
+    private
+
+    def tmdb_fetch
+      Tmdb::Search.new.query(query).fetch
     end
   end
 end
