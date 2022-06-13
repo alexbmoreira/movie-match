@@ -51,6 +51,12 @@ group :development do
   # gem 'spring'
 end
 
+group :test do
+  gem 'factory_bot_rails'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-mocks'
+  gem 'rspec-rails'
+end
 
 gem 'pundit', '~> 2.2'
 gem 'sorcery'
