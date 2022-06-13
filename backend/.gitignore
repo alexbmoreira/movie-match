@@ -34,3 +34,6 @@
 
 # Byebug logs
 .byebug_history
+
+# Environment Variables
+.env
