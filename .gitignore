@@ -5,8 +5,8 @@
 .vscode
 
 # Virtual Environments
-*venv*
-*env*
+*venv/
+*env/
 
 # Accidental npm install
 node_modules/
