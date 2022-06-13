@@ -25,6 +25,8 @@ jobs:
       env:
         POSTGRES_HOST: postgres
         POSTGRES_PORT: 5432
+    - name: Bundle Install
+      run: make install-b
     - name: Specs
       run: |
         export RAILS_ENV=test
