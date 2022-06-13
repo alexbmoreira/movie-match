@@ -28,5 +28,7 @@ module Backend
     config.api_only = true
 
     ActiveValidators.activate(:email)
+
+    Tmdb::Api.key(ENV['TMDB_API_KEY'])
   end
 end
