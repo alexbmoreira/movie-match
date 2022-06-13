@@ -1,10 +1,10 @@
 module Api
   module Edge
     class UserAuthSerializer < ApplicationSerializer
+      type 'users'
+
       attributes :username,
         :email
-
-      attribute(:attribute) { object }
     end
   end
 end
