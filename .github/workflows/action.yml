@@ -28,7 +28,7 @@ jobs:
     - name: Specs
       run: |
         export RAILS_ENV=test
-        bundle exec rspec
+        make test
 
   mobile:
     name: Mobile

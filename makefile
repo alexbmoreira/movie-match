@@ -26,6 +26,9 @@ run-m-clean:
 migrate:
 	$(BACKEND) bin/rails db:migrate
 
+test:
+	$(BACKEND) bundle exec rspec
+
 lint-f:
 	$(FRONTEND) npm run lint
 
