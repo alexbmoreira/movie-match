@@ -8,29 +8,37 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres
+        image: postgres:12
+        ports:
+          - 5432:5432
         env:
-          POSTGRES_PASSWORD: root
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
-    - uses: actions/checkout@v2
-    - uses: ruby/setup-ruby@v1
-      with:
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      env:
-        POSTGRES_HOST: postgres
-        POSTGRES_PORT: 5432
-    - name: Bundle Install
-      run: make install-b
-    - name: Specs
-      run: |
-        export RAILS_ENV=test
-        make test
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+      - name: Install dependent libraries
+        run: sudo apt-get install libpq-dev
+      - name: Bundle install
+        run: |
+          gem install bundler
+          cd backend && bundle install --jobs 4 --retry 3
+      - name: Setup Database
+        run: |
+          cp backend/config/database.yml.match-cut backend/config/database.yml
+          cd backend && bundle exec rake db:create
+          bundle exec rake db:schema:load
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+      - name: Run RSpec
+        run: make test
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
 
   mobile:
     name: Mobile
