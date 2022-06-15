@@ -1,8 +1,8 @@
 module Api
   module V1
     class SessionsController < ApplicationController
-      skip_before_action :require_login, only: [:login_user, :register]
-      skip_after_action :verify_authorized, only: [:login_user, :register]
+      skip_before_action :require_login, only: [:login_user, :register, :logout_user]
+      skip_after_action :verify_authorized, only: [:login_user, :register, :logout_user]
 
       def register
         params = user_params
@@ -30,6 +30,10 @@ module Api
         return failed_login_response unless user
 
         respond_with user, serializer: versioned_class(UserAuthSerializer)
+      end
+
+      def logout_user
+        logout
       end
 
       private

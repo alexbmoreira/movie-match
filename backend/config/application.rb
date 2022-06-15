@@ -11,6 +11,9 @@ module Backend
     # Use the responders controller from the responders gem
     config.app_generators.scaffold_controller :responders_controller
 
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_namespace_key'
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 

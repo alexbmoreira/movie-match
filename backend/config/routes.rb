@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resource :sessions, only: [:show] do
         post :login_user
         post :register
-        delete :logout
+        delete :logout_user
       end
 
       resource :search, only: [:show]
