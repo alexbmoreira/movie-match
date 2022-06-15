@@ -6,7 +6,7 @@ module Api
 
       def show
         results = Search::Search.run(query: params[:query], type: params[:type])
-        respond_with results, each_serializer: result_serializer
+        respond_with results, each_serializer: result_serializer, include: [:known_for]
       end
 
       private
@@ -15,6 +15,8 @@ module Api
         case params[:type]
         when 'movie'
           TmdbMovieSerializer
+        when 'person'
+          TmdbPersonSerializer
         end
       end
     end

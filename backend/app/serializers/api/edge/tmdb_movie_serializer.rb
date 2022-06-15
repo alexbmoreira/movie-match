@@ -1,6 +1,6 @@
 module Api
   module Edge
-    class TmdbMovieSerializer < ActiveModel::Serializer
+    class TmdbMovieSerializer < ApplicationSerializer
       type 'tmdbMovies'
 
       attributes :id,
