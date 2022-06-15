@@ -1,7 +1,6 @@
 module Api
   module V1
     class SearchesController < ApplicationController
-      skip_before_action :require_login, only: [:show]
       skip_after_action :verify_authorized, only: [:show]
 
       def show
