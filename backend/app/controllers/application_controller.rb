@@ -1,6 +1,3 @@
-require 'application_responder'
-require 'user_context'
-
 class ApplicationController < ActionController::API
   self.responder = ApplicationResponder
 
