@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'application#not_found'
+  root to: 'application#not_authorized'
 
   namespace :api do
     namespace :v1 do
