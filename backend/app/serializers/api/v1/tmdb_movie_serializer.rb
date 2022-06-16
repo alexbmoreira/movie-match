@@ -5,7 +5,6 @@ module Api
 
       attributes :id,
         :title,
-        :overview,
         :release_date,
         :poster_path
     end
