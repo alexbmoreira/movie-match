@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Search::Search do
+  wrap_user_context { create(:user) }
+
   let(:params) {
     {
       query: 'spiderman',
@@ -15,6 +17,15 @@ describe Search::Search do
 
     it do
       expect_any_instance_of(Search::Movie).to receive(:run)
+      subject
+    end
+  end
+
+  context 'when the type is person' do
+    let(:type) { 'person' }
+
+    it do
+      expect_any_instance_of(Search::Person).to receive(:run)
       subject
     end
   end

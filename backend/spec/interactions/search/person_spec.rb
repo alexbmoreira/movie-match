@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Search::Person do
+  wrap_user_context { create(:user) }
+
   let(:params) {
     {
       query: 'spiderman'
