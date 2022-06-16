@@ -6,7 +6,7 @@ module Sessions
     string :password_confirmation
 
     def execute
-      user = User.new(user_params)
+      user = User.new(inputs)
 
       errors.merge!(user.errors) unless user.save
 
