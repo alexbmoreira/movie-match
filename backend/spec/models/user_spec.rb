@@ -65,4 +65,16 @@ describe User do
 
     it { is_expected.to be_invalid }
   end
+
+  context 'when a username has already been taken' do
+    before { create(:user, username: username) }
+
+    it { is_expected.to be_invalid }
+  end
+
+  context 'when an email has already been taken' do
+    before { create(:user, email: email) }
+
+    it { is_expected.to be_invalid }
+  end
 end
