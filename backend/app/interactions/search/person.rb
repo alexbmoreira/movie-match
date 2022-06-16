@@ -6,7 +6,7 @@ module Search
       results = tmdb_fetch
 
       results.map do |result|
-        MovieDb::Person.new(result)
+        TmdbPerson.new(result)
       end
     end
 
