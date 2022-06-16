@@ -25,6 +25,7 @@ class ApplicationResponder < ActionController::Responder
     }
     given_options = {
       adapter: :json_api,
+      key_transform: :camel_lower,
       scope: scope
     }.merge!(given_options)
 
