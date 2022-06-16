@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Search::Movie do
+  wrap_user_context
+
   let(:params) {
     {
       query: 'spiderman'
