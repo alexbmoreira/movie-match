@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Search::Person do
-  wrap_user_context { create(:user) }
+  wrap_user_context
 
   let(:params) {
     {
