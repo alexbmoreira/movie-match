@@ -24,6 +24,8 @@ jobs:
         run: |
           gem install bundler
           cd backend && bundle install --jobs 4 --retry 3
+      - name: Lint Backend
+        run: make lint-b
       - name: Setup Database
         run: |
           cd backend && bundle exec rake db:create

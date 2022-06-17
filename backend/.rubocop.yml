@@ -11,6 +11,8 @@ AllCops:
     - 'vendor/**/*'
   DisplayCopNames: true
   TargetRubyVersion: 2.6
+  NewCops: enable
+  SuggestExtensions: false
 
 Rails/ActiveRecordAliases:
   Exclude:
@@ -33,6 +35,11 @@ Layout/HashAlignment:
 
 Style/BarePercentLiterals:
   EnforcedStyle: percent_q
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
+    - 'spec/rails_helper.rb'
 
 Style/Documentation:
   Enabled: false
@@ -207,9 +214,6 @@ Lint/BigDecimalNew:
 
 Lint/RedundantCopDisableDirective:
   Severity: convention
-
-# Migration/DepartmentName:
-#   Enabled: false
 
 Style/HashEachMethods:
   Enabled: true
