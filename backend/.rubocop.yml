@@ -34,6 +34,11 @@ Layout/HashAlignment:
 Style/BarePercentLiterals:
   EnforcedStyle: percent_q
 
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
+    - 'spec/rails_helper.rb'
+
 Style/Documentation:
   Enabled: false
 
