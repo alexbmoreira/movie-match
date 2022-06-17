@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    username { Faker::Games::Pokemon.name }
+    username { Faker::Games::Pokemon.name.gsub(/[-\s']/, '_') }
     email { Faker::Internet.email }
     password {
       password = Faker::Internet.password(
