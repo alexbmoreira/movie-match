@@ -29,6 +29,9 @@ migrate:
 test:
 	$(BACKEND) bundle exec rspec
 
+lint-b:
+	$(BACKEND) bin/rubocop --fail-level=warn
+
 lint-f:
 	$(FRONTEND) npm run lint
 
