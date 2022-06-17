@@ -8,7 +8,9 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, email: true, format: {
     without: /[^\s]+\s+[^\s]+/
   }
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true, format: {
+    with: /\A(?=.{3,20}$)(?![_.])(?!.*[_.]{3})[a-zA-Z0-9._]+(?<![_.])\z/
+  }
 
   validate :password_requirements, if: -> { password_update }
 
@@ -30,7 +32,7 @@ class User < ApplicationRecord
   end
 
   def password_update
-    new_record? || will_save_changes_to_crypted_password?
+    new_record? || will_save_change_to_crypted_password?
   end
 end
 
