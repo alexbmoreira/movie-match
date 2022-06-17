@@ -3,7 +3,7 @@ module FriendRequests
     string :id
 
     def execute
-      FriendRequest.find(id)
+      policy_scope(FriendRequest).find(id)
     end
   end
 end
