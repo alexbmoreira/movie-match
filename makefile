@@ -30,7 +30,7 @@ test:
 	$(BACKEND) bundle exec rspec
 
 lint-b:
-	$(BACKEND) bin/rubocop --fail-level=warn
+	$(BACKEND) bin/rubocop
 
 lint-f:
 	$(FRONTEND) npm run lint

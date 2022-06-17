@@ -213,9 +213,6 @@ Lint/BigDecimalNew:
 Lint/RedundantCopDisableDirective:
   Severity: convention
 
-# Migration/DepartmentName:
-#   Enabled: false
-
 Style/HashEachMethods:
   Enabled: true
 
