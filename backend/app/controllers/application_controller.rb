@@ -11,6 +11,7 @@ class ApplicationController < ActionController::API
 
   before_action :require_login, except: [:not_found, :not_authorized]
   after_action :verify_authorized, except: [:not_found, :not_authorized]
+  after_action :verify_policy_scoped, except: [:not_found, :not_authorized]
   around_action :set_current_user
   around_action :enforce_pundit
   before_action :force_json
@@ -40,6 +41,7 @@ class ApplicationController < ActionController::API
       yield
 
       skip_authorization if context.was_authorized?
+      skip_policy_scope if context.was_policy_scoped?
     end
   end
 end

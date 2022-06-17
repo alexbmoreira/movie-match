@@ -26,4 +26,16 @@ class InteractionAuthContext
   def authorize
     @_was_authorized = true
   end
+
+  def self.policy_scope
+    current&.policy_scope
+  end
+
+  def was_policy_scoped?
+    !!@_was_scoped
+  end
+
+  def policy_scope
+    @_was_scoped = true
+  end
 end
