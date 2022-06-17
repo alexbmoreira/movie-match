@@ -9,7 +9,7 @@ class User < ApplicationRecord
     without: /[^\s]+\s+[^\s]+/
   }
   validates :username, presence: true, uniqueness: true, format: {
-    with: /\A(?=.{3,20}$)(?![_.])(?!.*[_.]{3})[a-zA-Z0-9._]+(?<![_.])\z/
+    with: /\A(?=.{3,25}$)(?![_.])(?!.*[_.]{3})[a-zA-Z0-9._]+(?<![_.])\z/
   }
 
   validate :password_requirements, if: -> { password_update }
