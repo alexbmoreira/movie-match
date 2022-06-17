@@ -28,11 +28,12 @@ class ApplicationResponder < ActionController::Responder
       key_transform: :camel_lower,
       scope: scope
     }.merge!(given_options)
-
-    super(resource_to_render, given_options)
+    InteractionAuthContext.with_context do
+      super(resource_to_render, given_options)
+    end
   end
 
-  def has_view_rendering? # rubocop:disable PredicateName
+  def has_view_rendering? # rubocop:disable Naming/PredicateName
     false
   end
 
