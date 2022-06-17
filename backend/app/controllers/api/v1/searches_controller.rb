@@ -1,8 +1,6 @@
 module Api
   module V1
     class SearchesController < ApplicationController
-      skip_after_action :verify_authorized, only: [:show]
-
       def show
         results = Search::Search.run(query: params[:query], type: params[:type])
         respond_with results, each_serializer: result_serializer, include: [:known_for]
