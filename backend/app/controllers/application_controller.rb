@@ -12,6 +12,7 @@ class ApplicationController < ActionController::API
   before_action :require_login, except: [:not_found, :not_authorized]
   after_action :verify_authorized, except: [:not_found, :not_authorized]
   around_action :set_current_user
+  around_action :enforce_pundit
   before_action :force_json
 
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
@@ -32,5 +33,13 @@ class ApplicationController < ActionController::API
     UserContext.with_context(
       current_user, {}, &block
     )
+  end
+
+  def enforce_pundit
+    InteractionAuthContext.with_context do |context|
+      yield
+
+      skip_authorization if context.was_authorized?
+    end
   end
 end

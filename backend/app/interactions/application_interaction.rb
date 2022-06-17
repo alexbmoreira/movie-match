@@ -20,4 +20,10 @@ class ApplicationInteraction < ActiveInteraction::Base
 
     authorize(self, "#{self.class.to_s.demodulize.underscore}?".to_sym, policy_class: policy_klass)
   end
+
+  def run
+    super
+
+    InteractionAuthContext.authorize if pundit_policy_authorized?
+  end
 end
