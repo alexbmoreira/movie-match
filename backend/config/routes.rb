@@ -10,6 +10,9 @@ Rails.application.routes.draw do
       end
 
       resource :search, only: [:show]
+
+      resources :tmdb_movies, path: '/movies', only: [:show]
+      resources :tmdb_people, path: '/people', only: [:show]
     end
   end
 end
