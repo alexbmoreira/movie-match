@@ -1,0 +1,70 @@
+{
+  "adult": false,
+  "gender": 2,
+  "id": 287,
+  "known_for": [
+    {
+      "adult": false,
+      "backdrop_path": "/rr7E0NoGKxvbkb89eR1GwfoYjpA.jpg",
+      "genre_ids": [
+        18
+      ],
+      "id": 550,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Fight Club",
+      "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
+      "poster_path": "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+      "release_date": "1999-10-15",
+      "title": "Fight Club",
+      "video": false,
+      "vote_average": 8.4,
+      "vote_count": 24224
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/yVPcPk96E6Qffiyez2oJc7OKD2A.jpg",
+      "genre_ids": [
+        18,
+        28,
+        53,
+        10752
+      ],
+      "id": 16869,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Inglourious Basterds",
+      "overview": "In Nazi-occupied France during World War II, a group of Jewish-American soldiers known as \"The Basterds\" are chosen specifically to spread fear throughout the Third Reich by scalping and brutally killing Nazis. The Basterds, lead by Lt. Aldo Raine soon cross paths with a French-Jewish teenage girl who runs a movie theater in Paris which is targeted by the soldiers.",
+      "poster_path": "/7sfbEnaARXDDhKm0CZ7D7uc2sbo.jpg",
+      "release_date": "2009-08-19",
+      "title": "Inglourious Basterds",
+      "video": false,
+      "vote_average": 8.2,
+      "vote_count": 18775
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/dYjZ27hDw2QFaEIfzbNGwW0IkV9.jpg",
+      "genre_ids": [
+        80,
+        9648,
+        53
+      ],
+      "id": 807,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "Se7en",
+      "overview": "Two homicide detectives are on a desperate hunt for a serial killer whose crimes are based on the \"seven deadly sins\" in this dark and haunting film that takes viewers from the tortured remains of one victim to the next. The seasoned Det. Sommerset researches each sin in an effort to get inside the killer's mind, while his novice partner, Mills, scoffs at his efforts to unravel the case.",
+      "poster_path": "/69Sns8WoET6CfaYlIkHbla4l7nC.jpg",
+      "release_date": "1995-09-22",
+      "title": "Se7en",
+      "video": false,
+      "vote_average": 8.4,
+      "vote_count": 17167
+    }
+  ],
+  "known_for_department": "Acting",
+  "name": "Brad Pitt",
+  "popularity": 37.167,
+  "profile_path": "/cckcYc2v0yh1tc9QjRelptcOBko.jpg"
+}
