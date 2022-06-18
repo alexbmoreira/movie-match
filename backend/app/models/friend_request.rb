@@ -6,6 +6,9 @@ class FriendRequest < ApplicationRecord
   validates :creator, comparison: { other_than: :receiver }
   validate :inverse_user_uniqueness
 
+  scope :sent, ->(user) { where(creator: user) }
+  scope :received, ->(user) { where(receiver: user) }
+
   private
 
   def inverse_user_uniqueness
@@ -25,8 +28,8 @@ end
 #  id          :bigint           not null, primary key
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  creator_id  :bigint
-#  receiver_id :bigint
+#  creator_id  :bigint           not null
+#  receiver_id :bigint           not null
 #
 # Indexes
 #

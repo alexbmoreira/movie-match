@@ -14,7 +14,7 @@ describe FriendRequest do
 
   it { is_expected.to be_valid }
 
-  context 'when there is already a request between with one user' do
+  context 'when there is already a request with one user' do
     before { create(:friend_request, creator: creator, receiver: create(:user)) }
 
     it { is_expected.to be_valid }
@@ -34,6 +34,12 @@ describe FriendRequest do
 
   context 'when request is to self' do
     let(:receiver) { creator }
+
+    it { is_expected.to be_invalid }
+  end
+
+  context 'when request does not have a receiver' do
+    let(:receiver) { nil }
 
     it { is_expected.to be_invalid }
   end
