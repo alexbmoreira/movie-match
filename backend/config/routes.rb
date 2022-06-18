@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resources :tmdb_people, path: '/people', only: [:show]
 
       resources :friend_requests
+      resources :friendships
     end
   end
 end
