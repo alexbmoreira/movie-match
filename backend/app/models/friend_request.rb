@@ -25,8 +25,8 @@ end
 #  id          :bigint           not null, primary key
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  creator_id  :bigint
-#  receiver_id :bigint
+#  creator_id  :bigint           not null
+#  receiver_id :bigint           not null
 #
 # Indexes
 #
