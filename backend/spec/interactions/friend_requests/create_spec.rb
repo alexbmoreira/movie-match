@@ -14,10 +14,4 @@ describe FriendRequests::Create do
   subject { described_class.run!(params) }
 
   it { expect { subject }.to change { FriendRequest.count }.by(1) }
-
-  context 'when creating an invalid request' do
-    let(:receiver) { creator }
-
-    it { expect { subject }.to raise_error ActiveInteraction::InvalidInteractionError }
-  end
 end
