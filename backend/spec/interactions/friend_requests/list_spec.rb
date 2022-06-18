@@ -3,8 +3,8 @@ require 'rails_helper'
 describe FriendRequests::List do
   wrap_user_context { creator }
 
-  let(:creator) { create(:user) }
-  let(:receiver) { create(:user) }
+  let(:creator) { create(:user, username: 'hippopotamus') }
+  let(:receiver) { create(:user, username: 'sardine') }
   let!(:friend_request1) { create(:friend_request, creator: creator) }
   let!(:friend_request2) { create(:friend_request, receiver: creator) }
   let!(:friend_request3) { create(:friend_request, creator: creator) }

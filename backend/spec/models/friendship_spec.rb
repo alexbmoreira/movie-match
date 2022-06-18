@@ -7,8 +7,8 @@ describe Friendship do
       friend: friend
     }
   }
-  let(:user) { create(:user) }
-  let(:friend) { create(:user) }
+  let(:user) { create(:user, username: 'hippopotamus') }
+  let(:friend) { create(:user, username: 'sardine') }
 
   subject { described_class.create(params) }
 
