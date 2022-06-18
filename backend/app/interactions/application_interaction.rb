@@ -25,5 +25,6 @@ class ApplicationInteraction < ActiveInteraction::Base
     super
 
     InteractionAuthContext.authorize if pundit_policy_authorized?
+    InteractionAuthContext.policy_scope if pundit_policy_scoped?
   end
 end
