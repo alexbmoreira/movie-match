@@ -7,5 +7,9 @@ module FriendRequests
     def list?
       true
     end
+
+    def create?
+      true
+    end
   end
 end

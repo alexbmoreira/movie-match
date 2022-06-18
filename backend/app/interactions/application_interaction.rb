@@ -1,6 +1,7 @@
 class ApplicationInteraction < ActiveInteraction::Base
   include Pundit::Authorization
   include CurrentUserContext
+  include VerifyScoped
 
   def self.can_run?(*args)
     new(*args)

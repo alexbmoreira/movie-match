@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
 
   before_action :require_login, except: [:not_found, :not_authorized]
   after_action :verify_authorized, except: [:not_found, :not_authorized]
-  after_action :verify_policy_scoped, except: [:not_found, :not_authorized]
+  after_action :verify_policy_scoped, only: [:index, :show] # rubocop:disable Rails/LexicallyScopedActionFilter
   around_action :set_current_user
   around_action :enforce_pundit
   before_action :force_json
