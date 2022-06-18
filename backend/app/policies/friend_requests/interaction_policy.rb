@@ -11,5 +11,9 @@ module FriendRequests
     def create?
       true
     end
+
+    def destroy?
+      record.friend_request.creator.id == user.id || record.friend_request.receiver.id == user.id
+    end
   end
 end
