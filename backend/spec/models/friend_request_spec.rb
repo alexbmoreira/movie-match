@@ -7,8 +7,8 @@ describe FriendRequest do
       receiver: receiver
     }
   }
-  let(:creator) { create(:user) }
-  let(:receiver) { create(:user) }
+  let(:creator) { create(:user, username: 'hippopotamus') }
+  let(:receiver) { create(:user, username: 'sardine') }
 
   subject { described_class.create(params) }
 
