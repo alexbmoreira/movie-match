@@ -14,8 +14,8 @@ Rails.application.routes.draw do
       resources :tmdb_movies, path: '/movies', only: [:show]
       resources :tmdb_people, path: '/people', only: [:show]
 
-      resources :friend_requests
-      resources :friendships
+      resources :friend_requests, only: [:show, :index, :create, :destroy]
+      resources :friendships, only: [:show, :index, :destroy]
     end
   end
 end

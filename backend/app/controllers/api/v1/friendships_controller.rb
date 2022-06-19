@@ -12,6 +12,18 @@ module Api
           each_serializer: versioned_class(FriendshipSerializer),
           include: [:user, :friend]
       end
+
+      def destroy
+        respond_with Friendships::Destroy.run(friendship: find_friendship!),
+          serializer: versioned_class(FriendRequestSerializer),
+          include: [:creator, :receiver]
+      end
+
+      private
+
+      def find_friendship!
+        Friendships::Find.run!(id: params[:id])
+      end
     end
   end
 end
