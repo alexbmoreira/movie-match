@@ -15,7 +15,7 @@ module Api
 
       def destroy
         respond_with Friendships::Destroy.run(friendship: find_friendship!),
-          serializer: versioned_class(FriendRequestSerializer),
+          serializer: versioned_class(FriendshipSerializer),
           include: [:creator, :receiver]
       end
 
