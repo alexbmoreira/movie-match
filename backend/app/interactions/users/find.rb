@@ -3,7 +3,7 @@ module Users
     string :id
 
     def execute
-      policy_scope(User).where(id)
+      policy_scope(User).find(id)
     end
   end
 end
