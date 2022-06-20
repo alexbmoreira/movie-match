@@ -25,6 +25,12 @@ module Api
           include: [:creator, :receiver]
       end
 
+      def accept
+        respond_with FriendRequests::Accept.run(friend_request: find_friend_request!),
+          serializer: versioned_class(FriendshipSerializer),
+          include: [:user, :friend]
+      end
+
       private
 
       def find_friend_request!
