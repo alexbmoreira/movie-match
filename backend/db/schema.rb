@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_18_045207) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_22_020210) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,8 +55,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_18_045207) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "watchlist_movies", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "movie_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "movie_id"], name: "index_watchlist_movies_on_user_id_and_movie_id", unique: true
+    t.index ["user_id"], name: "index_watchlist_movies_on_user_id"
+  end
+
   add_foreign_key "friend_requests", "users", column: "creator_id"
   add_foreign_key "friend_requests", "users", column: "receiver_id"
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
+  add_foreign_key "watchlist_movies", "users"
 end
