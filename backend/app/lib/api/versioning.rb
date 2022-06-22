@@ -24,7 +24,7 @@ module Api
     end
 
     def _cached_api_base
-      @__cached_api_base ||= "#{api_namespace.gsub('::', '').underscore}_"
+      @__cached_api_base ||= "#{api_namespace.gsub('::', '').underscore}_v1_"
     end
 
     module ClassMethods

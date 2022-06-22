@@ -7,6 +7,18 @@ module Api
 
       belongs_to :user, serializer: versioned_class(UserDetailSerializer)
       belongs_to :friend, serializer: versioned_class(UserDetailSerializer)
+
+      link(:self) do
+        methods = []
+        methods << 'DELETE' if Friendships::Destroy.can_run?(friendship: object)
+
+        {
+          href: scope.versioned_url_for(:friendship, object),
+          meta: {
+            methods: methods
+          }
+        }
+      end
     end
   end
 end

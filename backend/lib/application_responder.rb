@@ -19,10 +19,11 @@ class ApplicationResponder < ActionController::Responder
 
   def display(resource, given_options = {})
     resource_to_render = resource.kind_of?(ActiveInteraction::Base) ? resource.result : resource
-    scope = {
+    scope = Api::SerializationScope.new(
+      user: controller.current_user,
       collection: resource_to_render.respond_to?(:each),
       primary_resource_type: resource_to_render.try(:model) || resource_to_render.class
-    }
+    )
     given_options = {
       adapter: :json_api,
       key_transform: :camel_lower,
