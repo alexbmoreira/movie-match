@@ -4,7 +4,7 @@ module Api
       type 'watchlistMovies'
 
       attributes :created_at,
-        :movie_id
+        :movie
 
       belongs_to :user, serializer: versioned_class(UserDetailSerializer)
     end
