@@ -20,6 +20,8 @@ Rails.application.routes.draw do
         end
       end
       resources :friendships, only: [:show, :index, :destroy]
+
+      resources :watchlist_movies, only: [:show, :index, :create, :destroy]
     end
   end
 end
