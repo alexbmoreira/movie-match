@@ -35,5 +35,8 @@ module Backend
     ActiveValidators.activate(:email)
 
     Tmdb::Api.key(ENV['TMDB_API_KEY'])
+
+    Rails.application.routes.default_url_options[:protocol] = ENV['PROTOCOL']
+    Rails.application.routes.default_url_options[:host] = ENV['DOMAIN']
   end
 end
