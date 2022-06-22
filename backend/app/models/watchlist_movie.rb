@@ -2,6 +2,10 @@ class WatchlistMovie < ApplicationRecord
   belongs_to :user
 
   validates :user, uniqueness: { scope: :movie_id }
+
+  def movie
+    TmdbMovie.new(Tmdb::Movie.detail(movie_id))
+  end
 end
 
 # == Schema Information
