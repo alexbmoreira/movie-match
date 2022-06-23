@@ -190,6 +190,7 @@ Layout/LineLength:
   Exclude:
     - test/**/*
     - db/migrate/**/*
+  IgnoredPatterns: ['\A#']
 
 Style/MethodDefParentheses:
   Exclude:
