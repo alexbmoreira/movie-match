@@ -11,7 +11,7 @@ module MatchlistActions
       TmdbMovie.new(Tmdb::Movie.detail(movie_id))
     end
 
-    def action
+    def self.action
       name.demodulize.underscore
     end
 
