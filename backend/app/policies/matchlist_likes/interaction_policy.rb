@@ -7,5 +7,13 @@ module MatchlistLikes
     def list?
       true
     end
+
+    def create?
+      true
+    end
+
+    def destroy?
+      record.matchlist_like.user.id == user.id
+    end
   end
 end
