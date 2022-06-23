@@ -18,7 +18,7 @@ module MatchlistActions
     private
 
     def unique_movie_for_friend
-      return unless self.class.where(user: user, movie_id: movie_id, friend: friend).
+      return unless MatchlistActions::Base.where(user: user, movie_id: movie_id, friend: friend).
                     where.not(id: id).
                     exists?
 
