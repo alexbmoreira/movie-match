@@ -1,6 +1,6 @@
 module Api
   class SerializationScope
-    include Pundit
+    include Pundit::Authorization
     include Api::Versioning
 
     attr_reader :user,

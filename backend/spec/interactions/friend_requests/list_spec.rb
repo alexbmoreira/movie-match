@@ -5,9 +5,10 @@ describe FriendRequests::List do
 
   let(:creator) { create(:user, username: 'hippopotamus') }
   let(:receiver) { create(:user, username: 'sardine') }
-  let!(:friend_request1) { create(:friend_request, creator: creator) }
-  let!(:friend_request2) { create(:friend_request, receiver: creator) }
-  let!(:friend_request3) { create(:friend_request, creator: creator) }
+  let(:other_user) { create(:user, username: 'eagle') }
+  let!(:friend_request1) { create(:friend_request, creator: creator, receiver: other_user) }
+  let!(:friend_request2) { create(:friend_request, receiver: creator, creator: other_user) }
+  let!(:friend_request3) { create(:friend_request, creator: creator, receiver: other_user) }
   let!(:friend_request4) { create(:friend_request) }
 
   subject { described_class.run! }
