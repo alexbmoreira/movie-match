@@ -4,7 +4,7 @@ describe WatchlistMovies::Find do
   wrap_user_context { user }
 
   let(:user) { create(:user) }
-  let(:watchlist_movie) { create(:watchlist_movie, user: user) }
+  let(:watchlist_movie) { create(:watchlist_movie, user:) }
   let(:params) {
     {
       id: watchlist_movie.id.to_s

@@ -5,19 +5,15 @@ describe MatchlistActions::Destroy do
 
   let(:user) { create(:user) }
   let(:friend) { create(:user, username: 'sardine') }
-  let!(:matchlist_action) { create(:matchlist_like, user: user, friend: friend) }
-  let(:params) {
-    {
-      matchlist_action: matchlist_action
-    }
-  }
+  let!(:matchlist_action) { create(:matchlist_like, user:, friend:) }
+  let(:params) { { matchlist_action: } }
 
   subject { described_class.run!(params) }
 
   it { expect { subject }.to change { MatchlistActions::MatchlistLike.count }.by(-1) }
 
   context 'when destroying a dislike' do
-    let!(:matchlist_action) { create(:matchlist_dislike, user: user, friend: friend) }
+    let!(:matchlist_action) { create(:matchlist_dislike, user:, friend:) }
 
     it { expect { subject }.to change { MatchlistActions::MatchlistDislike.count }.by(-1) }
   end

@@ -8,9 +8,9 @@ module Search
     def execute
       case type
       when 'movie'
-        compose(Movie, query: query)
+        compose(Movie, query:)
       when 'person'
-        compose(Person, query: query)
+        compose(Person, query:)
       end
     end
   end

@@ -5,7 +5,7 @@ describe FriendRequests::Find do
 
   let(:creator) { create(:user, username: 'hippopotamus') }
   let(:receiver) { create(:user, username: 'sardine') }
-  let(:friend_request) { create(:friend_request, creator: creator, receiver: receiver) }
+  let(:friend_request) { create(:friend_request, creator:, receiver:) }
   let(:params) {
     {
       id: friend_request.id.to_s

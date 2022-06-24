@@ -27,7 +27,7 @@ class ApplicationResponder < ActionController::Responder
     given_options = {
       adapter: :json_api,
       key_transform: :camel_lower,
-      scope: scope
+      scope:
     }.merge!(given_options)
     InteractionAuthContext.with_context do
       super(resource_to_render, given_options)

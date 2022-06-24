@@ -5,11 +5,7 @@ describe FriendRequests::Accept do
 
   let(:user) { create(:user) }
   let!(:friend_request) { create(:friend_request, receiver: user) }
-  let(:params) {
-    {
-      friend_request: friend_request
-    }
-  }
+  let(:params) { { friend_request: } }
 
   subject { described_class.run!(params) }
 

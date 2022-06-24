@@ -1,14 +1,10 @@
 require 'rails_helper'
 
 describe FriendRequest do
-  let(:params) {
-    {
-      creator: creator,
-      receiver: receiver
-    }
-  }
   let(:creator) { create(:user, username: 'hippopotamus') }
   let(:receiver) { create(:user, username: 'sardine') }
+
+  let(:params) { { creator:, receiver: } }
 
   subject { described_class.create(params) }
 
@@ -21,7 +17,7 @@ describe FriendRequest do
   end
 
   context 'when there is already a request between the two users' do
-    before { create(:friend_request, creator: creator, receiver: receiver) }
+    before { create(:friend_request, creator:, receiver:) }
 
     it { is_expected.to be_invalid }
   end

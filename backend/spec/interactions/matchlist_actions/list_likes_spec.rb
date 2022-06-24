@@ -5,9 +5,9 @@ describe MatchlistActions::ListLikes do
 
   let(:user) { create(:user) }
   let(:friend) { create(:user, username: 'sardine') }
-  let!(:matchlist_like1) { create(:matchlist_like, user: user, friend: friend) }
+  let!(:matchlist_like1) { create(:matchlist_like, user:, friend:) }
   let!(:matchlist_like2) { create(:matchlist_like) }
-  let!(:matchlist_dislike) { create(:matchlist_dislike, user: user, friend: friend) }
+  let!(:matchlist_dislike) { create(:matchlist_dislike, user:, friend:) }
 
   subject { described_class.run! }
 

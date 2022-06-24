@@ -134,7 +134,8 @@ Style/BlockComments:
     - 'spec/spec_helper.rb'
     - 'spec/rails_helper.rb'
 Style/BlockDelimiters:
-  Enabled: true
+  Exclude:
+    - 'spec/**/*_spec.rb'
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/ClassCheck:
@@ -171,6 +172,9 @@ Style/HashEachMethods:
   Enabled: true
 Style/HashExcept: # new in 1.7
   Enabled: true
+Style/HashSyntax:
+  EnforcedStyle: ruby19_no_mixed_keys
+  EnforcedShorthandSyntax: either
 Style/HashTransformKeys:
   Enabled: true
 Style/HashTransformValues:

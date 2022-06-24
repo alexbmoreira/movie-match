@@ -1,14 +1,10 @@
 require 'rails_helper'
 
 describe Friendship do
-  let(:params) {
-    {
-      user: user,
-      friend: friend
-    }
-  }
   let(:user) { create(:user, username: 'hippopotamus') }
   let(:friend) { create(:user, username: 'sardine') }
+
+  let(:params) { { user:, friend: } }
 
   subject { described_class.create(params) }
 
@@ -21,7 +17,7 @@ describe Friendship do
   end
 
   context 'when there is already a friendship between the two users' do
-    before { create(:friendship, user: user, friend: friend) }
+    before { create(:friendship, user:, friend:) }
 
     it { is_expected.to be_invalid }
   end

@@ -4,12 +4,8 @@ describe WatchlistMovies::Destroy do
   wrap_user_context { user }
 
   let(:user) { create(:user) }
-  let!(:watchlist_movie) { create(:watchlist_movie, user: user) }
-  let(:params) {
-    {
-      watchlist_movie: watchlist_movie
-    }
-  }
+  let!(:watchlist_movie) { create(:watchlist_movie, user:) }
+  let(:params) { { watchlist_movie: } }
 
   subject { described_class.run!(params) }
 

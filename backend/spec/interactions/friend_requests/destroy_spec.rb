@@ -5,11 +5,7 @@ describe FriendRequests::Destroy do
 
   let(:user) { create(:user) }
   let!(:friend_request) { create(:friend_request, creator: user) }
-  let(:params) {
-    {
-      friend_request: friend_request
-    }
-  }
+  let(:params) { { friend_request: } }
 
   subject { described_class.run!(params) }
 

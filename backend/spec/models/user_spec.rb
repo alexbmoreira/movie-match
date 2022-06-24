@@ -1,18 +1,12 @@
 require 'rails_helper'
 
 describe User do
-  let(:params) {
-    {
-      username: username,
-      email: email,
-      password: password,
-      password_confirmation: password_confirmation
-    }
-  }
   let(:username) { 'alexmoreira' }
   let(:email) { 'alexmoreira@gmail.com' }
   let(:password) { "#{Faker::Internet.password(min_length: 10, max_length: 20, mix_case: true, special_characters: true)}a1" } # rubocop:disable Layout/LineLength
   let(:password_confirmation) { password }
+
+  let(:params) { { username:, email:, password:, password_confirmation: } }
 
   subject { described_class.create(params) }
 
@@ -67,13 +61,13 @@ describe User do
   end
 
   context 'when a username has already been taken' do
-    before { create(:user, username: username) }
+    before { create(:user, username:) }
 
     it { is_expected.to be_invalid }
   end
 
   context 'when an email has already been taken' do
-    before { create(:user, email: email) }
+    before { create(:user, email:) }
 
     it { is_expected.to be_invalid }
   end
