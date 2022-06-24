@@ -10,220 +10,303 @@ AllCops:
     - 'tmp/**/*'
     - 'vendor/**/*'
   DisplayCopNames: true
-  TargetRubyVersion: 2.6
-  NewCops: enable
+  TargetRubyVersion: 3.1
   SuggestExtensions: false
 
-Rails/ActiveRecordAliases:
-  Exclude:
-    - 'spec/**/*_spec.rb'
+Gemspec/DateAssignment: # new in 1.10
+  Enabled: true
+Gemspec/RequireMFA: # new in 1.23
+  Enabled: true
 
-Rails/SkipsModelValidations:
-  Exclude:
-    - 'spec/**/*_spec.rb'
-
-Style/FrozenStringLiteralComment:
+Layout/ArgumentAlignment:
   Enabled: false
-
-Naming/MemoizedInstanceVariableName:
-  EnforcedStyleForLeadingUnderscores: required
-
+Layout/DotPosition:
+  EnforcedStyle: trailing
 Layout/HashAlignment:
   EnforcedHashRocketStyle: key
   EnforcedColonStyle: key
   EnforcedLastArgumentHashStyle: always_ignore
-
-Style/BarePercentLiterals:
-  EnforcedStyle: percent_q
-
-Style/BlockComments:
-  Exclude:
-    - 'spec/spec_helper.rb'
-    - 'spec/rails_helper.rb'
-
-Style/Documentation:
-  Enabled: false
-
-Style/Lambda:
-  Enabled: false
-
-Style/Semicolon:
-  Exclude:
-    - 'spec/**/*_spec.rb'
-
-Style/ClassAndModuleChildren:
-  Enabled: false
-
-Layout/MultilineOperationIndentation:
-  EnforcedStyle: indented
-
-Layout/DotPosition:
-  EnforcedStyle: trailing
-
-Metrics/BlockLength:
-  Exclude:
-    - 'spec/**/*'
-    - '**/*.rake'
-
-Metrics/ModuleLength:
-  Exclude:
-    - 'spec/**/*'
-
-Layout/ParameterAlignment:
-  EnforcedStyle: with_fixed_indentation
-
-Layout/ArgumentAlignment:
-  Enabled: false
-
-# This replaces the old Style/Blocks. The default for this is still stupid
-# (multiline blocks are do/end and single-line blocks are {/}), but it now
-# performs a semantic analysis, allowing for the more nuanced version proposed
-# by Jim Weirich around 2004. If a block is used as part of an assignment or
-# method chaining, prefer {/} delimiters; if not, prefer do/end delimiters. It
-# isn't *quite* that simple in all circumstances, but we can add them to one of
-# three groups: ProceduralMethods (prefer do/end), FunctionalMethods ({/}), and
-# ignored (because it does not matter).
-Style/BlockDelimiters:
-  Enabled: false
-  EnforcedStyle: semantic
-  Exclude:
-    - '**/*factory.rb'
-  ProceduralMethods:
-    # Methods that are known to be procedural in nature but look functional from
-    # their usage, e.g.
-    #
-    #   time = Benchmark.realtime do
-    #     foo.bar
-    #   end
-    #
-    # Here, the return value of the block is discarded but the return value of
-    # `Benchmark.realtime` is used.
-    - benchmark
-    - bm
-    - bmbm
-    - create
-    - each_with_object
-    - measure
-    - new
-    - realtime
-    - tap
-    - with_object
-    - assert_raises
-    - solr_search
-    - solr_paginated
-    - all_of
-    - any_of
-  FunctionalMethods:
-    # Methods that are known to be functional in nature but look procedural from
-    # their usage, e.g.
-    #
-    #   let(:foo) { Foo.new }
-    #
-    # Here, the return value of `Foo.new` is used to define a `foo` helper but
-    # doesn't appear to be used from the return value of `let`.
-    - let
-    - let!
-    - subject
-    - watch
-  IgnoredMethods:
-    # Methods that can be either procedural or functional and cannot be
-    # categorised from their usage alone, e.g.
-    #
-    #   foo = lambda do |x|
-    #     puts "Hello, #{x}"
-    #   end
-    #
-    #   foo = lambda do |x|
-    #     x * 100
-    #   end
-    #
-    # Here, it is impossible to tell from the return value of `lambda` whether
-    # the inner block's return value is significant.
-    - lambda
-    - proc
-    - it
-    - around
-    - before
-
-Style/FormatString:
-  Enabled: false
-
-Style/NegatedIf:
-  Enabled: false
-
-Style/NumericLiterals:
-  Enabled: false
-
-Style/CommentAnnotation:
-  Enabled: false
-
-Style/AsciiComments:
-  Enabled: false
-
-Style/ClassCheck:
-  EnforcedStyle: kind_of?
-
-Style/RegexpLiteral:
-  EnforcedStyle: mixed
-
-Style/CommandLiteral:
-  EnforcedStyle: percent_x
-
-Style/RedundantPercentQ:
-  Enabled: false
-
-Metrics/AbcSize:
-  Enabled: false
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/MethodLength:
-  Max: 25
-  CountComments: false
-
-Metrics/PerceivedComplexity:
-  Enabled: false
-
+Layout/LineEndStringConcatenationIndentation: # new in 1.18
+  Enabled: true
 Layout/LineLength:
   Max: 100
   Exclude:
     - test/**/*
     - db/migrate/**/*
-  IgnoredPatterns: ['\A#']
+  AllowedPatterns: ['\A#']
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+Layout/SpaceBeforeBrackets: # new in 1.7
+  Enabled: true
 
-Style/MethodDefParentheses:
-  Exclude:
-    - test/**/*
-
-Style/DoubleNegation:
-  Enabled: false
-
-Style/WordArray:
-  Enabled: false
-
-Style/SymbolArray:
-  Enabled: false
-
+Lint/AmbiguousAssignment: # new in 1.7
+  Enabled: true
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*_spec.rb'
-
+Lint/AmbiguousOperatorPrecedence: # new in 1.21
+  Enabled: true
+Lint/AmbiguousRange: # new in 1.19
+  Enabled: true
 Lint/BigDecimalNew:
   AutoCorrect: true
   Enabled: true
-
+Lint/DeprecatedConstants: # new in 1.8
+  Enabled: true
+Lint/DuplicateBranch: # new in 1.3
+  Enabled: true
+Lint/DuplicateRegexpCharacterClassElement: # new in 1.1
+  Enabled: true
 Lint/EmptyBlock:
   Enabled: false
-
+Lint/EmptyClass: # new in 1.3
+  Enabled: true
+Lint/EmptyInPattern: # new in 1.16
+  Enabled: true
+Lint/IncompatibleIoSelectWithFiberScheduler: # new in 1.21
+  Enabled: true
+Lint/LambdaWithoutLiteralBlock: # new in 1.8
+  Enabled: true
+Lint/NoReturnInBeginEndBlocks: # new in 1.2
+  Enabled: true
+Lint/NumberedParameterAssignment: # new in 1.9
+  Enabled: true
+Lint/OrAssignmentToConstant: # new in 1.9
+  Enabled: true
 Lint/RedundantCopDisableDirective:
   Severity: convention
+Lint/RedundantDirGlobSort: # new in 1.8
+  Enabled: true
+Lint/RefinementImportMethods: # new in 1.27
+  Enabled: true
+Lint/RequireRelativeSelfPath: # new in 1.22
+  Enabled: true
+Lint/SymbolConversion: # new in 1.9
+  Enabled: true
+Lint/ToEnumArguments: # new in 1.1
+  Enabled: true
+Lint/TripleQuotes: # new in 1.9
+  Enabled: true
+Lint/UnexpectedBlockArity: # new in 1.5
+  Enabled: true
+Lint/UnmodifiedReduceAccumulator: # new in 1.1
+  Enabled: true
+Lint/UselessRuby2Keywords: # new in 1.23
+  Enabled: true
 
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - '**/*.rake'
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 25
+  CountComments: false
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*'
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Naming/BlockForwarding: # new in 1.24
+  Enabled: true
+Naming/MemoizedInstanceVariableName:
+  EnforcedStyleForLeadingUnderscores: required
+
+Security/CompoundHash: # new in 1.28
+  Enabled: true
+Security/IoMethods: # new in 1.22
+  Enabled: true
+
+Style/ArgumentsForwarding: # new in 1.1
+  Enabled: true
+Style/AsciiComments:
+  Enabled: false
+Style/BarePercentLiterals:
+  EnforcedStyle: percent_q
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
+    - 'spec/rails_helper.rb'
+Style/BlockDelimiters:
+  Enabled: true
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ClassCheck:
+  EnforcedStyle: kind_of?
+Style/CollectionCompact: # new in 1.2
+  Enabled: true
+Style/CommandLiteral:
+  EnforcedStyle: percent_x
+Style/CommentAnnotation:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/DocumentDynamicEvalDefinition: # new in 1.1
+  Enabled: true
+Style/DoubleNegation:
+  Enabled: false
+Style/EndlessMethod: # new in 1.8
+  Enabled: true
+Style/EnvHome: # new in 1.29
+  Enabled: true
+Style/FetchEnvVar: # new in 1.28
+  Enabled: true
+Style/FileRead: # new in 1.24
+  Enabled: true
+Style/FileWrite: # new in 1.24
+  Enabled: true
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/FormatString:
+  Enabled: false
+Style/HashConversion: # new in 1.10
+  Enabled: true
 Style/HashEachMethods:
   Enabled: true
-
+Style/HashExcept: # new in 1.7
+  Enabled: true
 Style/HashTransformKeys:
   Enabled: true
-
 Style/HashTransformValues:
+  Enabled: true
+Style/IfWithBooleanLiteralBranches: # new in 1.9
+  Enabled: true
+Style/InPatternThen: # new in 1.16
+  Enabled: true
+Style/Lambda:
+  Enabled: false
+Style/MapToHash: # new in 1.24
+  Enabled: true
+Style/MethodDefParentheses:
+  Exclude:
+    - test/**/*
+Style/MultilineInPatternThen: # new in 1.16
+  Enabled: true
+Style/NegatedIf:
+  Enabled: false
+Style/NegatedIfElseCondition: # new in 1.2
+  Enabled: true
+Style/NestedFileDirname: # new in 1.26
+  Enabled: true
+Style/NilLambda: # new in 1.3
+  Enabled: true
+Style/NumberedParameters: # new in 1.22
+  Enabled: true
+Style/NumberedParametersLimit: # new in 1.22
+  Enabled: true
+Style/NumericLiterals:
+  Enabled: false
+Style/ObjectThen: # new in 1.28
+  Enabled: true
+Style/OpenStructUse: # new in 1.23
+  Enabled: true
+Style/QuotedSymbols: # new in 1.16
+  Enabled: true
+Style/RedundantArgument: # new in 1.4
+  Enabled: true
+Style/RedundantInitialize: # new in 1.27
+  Enabled: true
+Style/RedundantPercentQ:
+  Enabled: false
+Style/RedundantSelfAssignmentBranch: # new in 1.19
+  Enabled: true
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
+Style/SelectByRegexp: # new in 1.22
+  Enabled: true
+Style/Semicolon:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+Style/StringChars: # new in 1.12
+  Enabled: true
+Style/SwapValues: # new in 1.1
+  Enabled: true
+Style/SymbolArray:
+  Enabled: false
+Style/WordArray:
+  Enabled: false
+
+Rails/ActionControllerTestCase: # new in 2.14
+  Enabled: true
+Rails/ActiveRecordAliases:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+Rails/ActiveRecordCallbacksOrder: # new in 2.7
+  Enabled: true
+Rails/AddColumnIndex: # new in 2.11
+  Enabled: true
+Rails/AfterCommitOverride: # new in 2.8
+  Enabled: true
+Rails/AttributeDefaultBlockValue: # new in 2.9
+  Enabled: true
+Rails/CompactBlank: # new in 2.13
+  Enabled: true
+Rails/DeprecatedActiveModelErrorsMethods: # new in 2.14
+  Enabled: true
+Rails/DuplicateAssociation: # new in 2.14
+  Enabled: true
+Rails/DuplicateScope: # new in 2.14
+  Enabled: true
+Rails/DurationArithmetic: # new in 2.13
+  Enabled: true
+Rails/EagerEvaluationLogMessage: # new in 2.11
+  Enabled: true
+Rails/ExpandedDateRange: # new in 2.11
+  Enabled: true
+Rails/FindById: # new in 2.7
+  Enabled: true
+Rails/I18nLazyLookup: # new in 2.14
+  Enabled: true
+Rails/I18nLocaleAssignment: # new in 2.11
+  Enabled: true
+Rails/I18nLocaleTexts: # new in 2.14
+  Enabled: true
+Rails/Inquiry: # new in 2.7
+  Enabled: true
+Rails/MailerName: # new in 2.7
+  Enabled: true
+Rails/MatchRoute: # new in 2.7
+  Enabled: true
+Rails/MigrationClassName: # new in 2.14
+  Enabled: true
+Rails/NegateInclude: # new in 2.7
+  Enabled: true
+Rails/Pluck: # new in 2.7
+  Enabled: true
+Rails/PluckInWhere: # new in 2.7
+  Enabled: true
+Rails/RedundantPresenceValidationOnBelongsTo: # new in 2.13
+  Enabled: true
+Rails/RedundantTravelBack: # new in 2.12
+  Enabled: true
+Rails/RenderInline: # new in 2.7
+  Enabled: true
+Rails/RenderPlainText: # new in 2.7
+  Enabled: true
+Rails/RootJoinChain: # new in 2.13
+  Enabled: true
+Rails/ShortI18n: # new in 2.7
+  Enabled: true
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+Rails/SquishedSQLHeredocs: # new in 2.8
+  Enabled: true
+Rails/TimeZoneAssignment: # new in 2.10
+  Enabled: true
+Rails/TransactionExitStatement: # new in 2.14
+  Enabled: true
+Rails/UnusedIgnoredColumns: # new in 2.11
+  Enabled: true
+Rails/WhereEquals: # new in 2.9
+  Enabled: true
+Rails/WhereExists: # new in 2.7
+  Enabled: true
+Rails/WhereNot: # new in 2.8
   Enabled: true
