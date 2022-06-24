@@ -6,13 +6,12 @@ describe MatchlistActions::ListLikes do
   let(:user) { create(:user) }
   let(:friend) { create(:user, username: 'sardine') }
   let!(:matchlist_like1) { create(:matchlist_like, user: user, friend: friend) }
-  let!(:matchlist_like2) { create(:matchlist_like, user: user, friend: friend) }
-  let!(:matchlist_like3) { create(:matchlist_like) }
+  let!(:matchlist_like2) { create(:matchlist_like) }
   let!(:matchlist_dislike) { create(:matchlist_dislike, user: user, friend: friend) }
 
   subject { described_class.run! }
 
-  it { is_expected.to have(2).matchlist_likes }
-  it { expect(subject).to_not include(matchlist_like3) }
+  it { is_expected.to have(1).matchlist_likes }
+  it { expect(subject).to_not include(matchlist_like2) }
   it { expect(subject).to_not include(matchlist_dislike) }
 end
