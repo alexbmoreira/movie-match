@@ -5,7 +5,7 @@ describe Friendships::Find do
 
   let(:user) { create(:user, username: 'hippopotamus') }
   let(:friend) { create(:user, username: 'sardine') }
-  let(:friendship) { create(:friendship, user: user, friend: friend) }
+  let(:friendship) { create(:friendship, user:, friend:) }
   let(:params) {
     {
       id: friendship.id.to_s

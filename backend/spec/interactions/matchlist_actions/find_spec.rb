@@ -5,7 +5,7 @@ describe MatchlistActions::Find do
 
   let(:user) { create(:user) }
   let(:friend) { create(:user, username: 'sardine') }
-  let(:matchlist_action) { create(:matchlist_like, user: user, friend: friend) }
+  let(:matchlist_action) { create(:matchlist_like, user:, friend:) }
   let(:params) {
     {
       id: matchlist_action.id.to_s
@@ -23,7 +23,7 @@ describe MatchlistActions::Find do
   end
 
   context 'when finding a dislike' do
-    let(:matchlist_action) { create(:matchlist_dislike, user: user, friend: friend) }
+    let(:matchlist_action) { create(:matchlist_dislike, user:, friend:) }
 
     it { is_expected.to eq(matchlist_action) }
   end

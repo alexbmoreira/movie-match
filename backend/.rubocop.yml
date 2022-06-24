@@ -10,220 +10,308 @@ AllCops:
     - 'tmp/**/*'
     - 'vendor/**/*'
   DisplayCopNames: true
-  TargetRubyVersion: 2.6
-  NewCops: enable
+  TargetRubyVersion: 3.1
   SuggestExtensions: false
 
-Rails/ActiveRecordAliases:
-  Exclude:
-    - 'spec/**/*_spec.rb'
+Gemspec/DateAssignment:
+  Enabled: true
+Gemspec/RequireMFA:
+  Enabled: true
 
-Rails/SkipsModelValidations:
-  Exclude:
-    - 'spec/**/*_spec.rb'
-
-Style/FrozenStringLiteralComment:
+Layout/ArgumentAlignment:
   Enabled: false
-
-Naming/MemoizedInstanceVariableName:
-  EnforcedStyleForLeadingUnderscores: required
-
+Layout/DotPosition:
+  EnforcedStyle: trailing
 Layout/HashAlignment:
   EnforcedHashRocketStyle: key
   EnforcedColonStyle: key
   EnforcedLastArgumentHashStyle: always_ignore
-
-Style/BarePercentLiterals:
-  EnforcedStyle: percent_q
-
-Style/BlockComments:
-  Exclude:
-    - 'spec/spec_helper.rb'
-    - 'spec/rails_helper.rb'
-
-Style/Documentation:
-  Enabled: false
-
-Style/Lambda:
-  Enabled: false
-
-Style/Semicolon:
-  Exclude:
-    - 'spec/**/*_spec.rb'
-
-Style/ClassAndModuleChildren:
-  Enabled: false
-
-Layout/MultilineOperationIndentation:
-  EnforcedStyle: indented
-
-Layout/DotPosition:
-  EnforcedStyle: trailing
-
-Metrics/BlockLength:
-  Exclude:
-    - 'spec/**/*'
-    - '**/*.rake'
-
-Metrics/ModuleLength:
-  Exclude:
-    - 'spec/**/*'
-
-Layout/ParameterAlignment:
-  EnforcedStyle: with_fixed_indentation
-
-Layout/ArgumentAlignment:
-  Enabled: false
-
-# This replaces the old Style/Blocks. The default for this is still stupid
-# (multiline blocks are do/end and single-line blocks are {/}), but it now
-# performs a semantic analysis, allowing for the more nuanced version proposed
-# by Jim Weirich around 2004. If a block is used as part of an assignment or
-# method chaining, prefer {/} delimiters; if not, prefer do/end delimiters. It
-# isn't *quite* that simple in all circumstances, but we can add them to one of
-# three groups: ProceduralMethods (prefer do/end), FunctionalMethods ({/}), and
-# ignored (because it does not matter).
-Style/BlockDelimiters:
-  Enabled: false
-  EnforcedStyle: semantic
-  Exclude:
-    - '**/*factory.rb'
-  ProceduralMethods:
-    # Methods that are known to be procedural in nature but look functional from
-    # their usage, e.g.
-    #
-    #   time = Benchmark.realtime do
-    #     foo.bar
-    #   end
-    #
-    # Here, the return value of the block is discarded but the return value of
-    # `Benchmark.realtime` is used.
-    - benchmark
-    - bm
-    - bmbm
-    - create
-    - each_with_object
-    - measure
-    - new
-    - realtime
-    - tap
-    - with_object
-    - assert_raises
-    - solr_search
-    - solr_paginated
-    - all_of
-    - any_of
-  FunctionalMethods:
-    # Methods that are known to be functional in nature but look procedural from
-    # their usage, e.g.
-    #
-    #   let(:foo) { Foo.new }
-    #
-    # Here, the return value of `Foo.new` is used to define a `foo` helper but
-    # doesn't appear to be used from the return value of `let`.
-    - let
-    - let!
-    - subject
-    - watch
-  IgnoredMethods:
-    # Methods that can be either procedural or functional and cannot be
-    # categorised from their usage alone, e.g.
-    #
-    #   foo = lambda do |x|
-    #     puts "Hello, #{x}"
-    #   end
-    #
-    #   foo = lambda do |x|
-    #     x * 100
-    #   end
-    #
-    # Here, it is impossible to tell from the return value of `lambda` whether
-    # the inner block's return value is significant.
-    - lambda
-    - proc
-    - it
-    - around
-    - before
-
-Style/FormatString:
-  Enabled: false
-
-Style/NegatedIf:
-  Enabled: false
-
-Style/NumericLiterals:
-  Enabled: false
-
-Style/CommentAnnotation:
-  Enabled: false
-
-Style/AsciiComments:
-  Enabled: false
-
-Style/ClassCheck:
-  EnforcedStyle: kind_of?
-
-Style/RegexpLiteral:
-  EnforcedStyle: mixed
-
-Style/CommandLiteral:
-  EnforcedStyle: percent_x
-
-Style/RedundantPercentQ:
-  Enabled: false
-
-Metrics/AbcSize:
-  Enabled: false
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/MethodLength:
-  Max: 25
-  CountComments: false
-
-Metrics/PerceivedComplexity:
-  Enabled: false
-
+Layout/LineEndStringConcatenationIndentation:
+  Enabled: true
 Layout/LineLength:
   Max: 100
   Exclude:
     - test/**/*
     - db/migrate/**/*
-  IgnoredPatterns: ['\A#']
+  AllowedPatterns: ['\A#']
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+Layout/SpaceBeforeBrackets:
+  Enabled: true
 
-Style/MethodDefParentheses:
-  Exclude:
-    - test/**/*
-
-Style/DoubleNegation:
-  Enabled: false
-
-Style/WordArray:
-  Enabled: false
-
-Style/SymbolArray:
-  Enabled: false
-
+Lint/AmbiguousAssignment:
+  Enabled: true
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*_spec.rb'
-
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: true
+Lint/AmbiguousRange:
+  Enabled: true
 Lint/BigDecimalNew:
   AutoCorrect: true
   Enabled: true
-
+Lint/DeprecatedConstants:
+  Enabled: true
+Lint/DuplicateBranch:
+  Enabled: true
+Lint/DuplicateRegexpCharacterClassElement:
+  Enabled: true
 Lint/EmptyBlock:
   Enabled: false
-
+Lint/EmptyClass:
+  Enabled: true
+Lint/EmptyInPattern:
+  Enabled: true
+Lint/IncompatibleIoSelectWithFiberScheduler:
+  Enabled: true
+Lint/LambdaWithoutLiteralBlock:
+  Enabled: true
+Lint/NoReturnInBeginEndBlocks:
+  Enabled: true
+Lint/NumberedParameterAssignment:
+  Enabled: true
+Lint/OrAssignmentToConstant:
+  Enabled: true
 Lint/RedundantCopDisableDirective:
   Severity: convention
+Lint/RedundantDirGlobSort:
+  Enabled: true
+Lint/RefinementImportMethods:
+  Enabled: true
+Lint/RequireRelativeSelfPath:
+  Enabled: true
+Lint/SymbolConversion:
+  Enabled: true
+Lint/ToEnumArguments:
+  Enabled: true
+Lint/TripleQuotes:
+  Enabled: true
+Lint/UnexpectedBlockArity:
+  Enabled: true
+Lint/UnmodifiedReduceAccumulator:
+  Enabled: true
+Lint/UselessRuby2Keywords:
+  Enabled: true
 
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - '**/*.rake'
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 25
+  CountComments: false
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*'
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Naming/BlockForwarding:
+  Enabled: true
+  EnforcedStyle: explicit
+Naming/MemoizedInstanceVariableName:
+  EnforcedStyleForLeadingUnderscores: required
+
+Security/CompoundHash:
+  Enabled: true
+Security/IoMethods:
+  Enabled: true
+
+Style/ArgumentsForwarding:
+  Enabled: true
+Style/AsciiComments:
+  Enabled: false
+Style/BarePercentLiterals:
+  EnforcedStyle: percent_q
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
+    - 'spec/rails_helper.rb'
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*.rb'
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ClassCheck:
+  EnforcedStyle: kind_of?
+Style/CollectionCompact:
+  Enabled: true
+Style/CommandLiteral:
+  EnforcedStyle: percent_x
+Style/CommentAnnotation:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/DocumentDynamicEvalDefinition:
+  Enabled: true
+Style/DoubleNegation:
+  Enabled: false
+Style/EndlessMethod:
+  Enabled: true
+Style/EnvHome:
+  Enabled: true
+Style/FetchEnvVar:
+  Enabled: true
+Style/FileRead:
+  Enabled: true
+Style/FileWrite:
+  Enabled: true
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/FormatString:
+  Enabled: false
+Style/HashConversion:
+  Enabled: true
 Style/HashEachMethods:
   Enabled: true
-
+Style/HashExcept:
+  Enabled: true
+Style/HashSyntax:
+  EnforcedStyle: ruby19_no_mixed_keys
+  EnforcedShorthandSyntax: either
 Style/HashTransformKeys:
   Enabled: true
-
 Style/HashTransformValues:
+  Enabled: true
+Style/IfWithBooleanLiteralBranches:
+  Enabled: true
+Style/InPatternThen:
+  Enabled: true
+Style/Lambda:
+  Enabled: false
+Style/MapToHash:
+  Enabled: true
+Style/MethodDefParentheses:
+  Exclude:
+    - test/**/*
+Style/MultilineInPatternThen:
+  Enabled: true
+Style/NegatedIf:
+  Enabled: false
+Style/NegatedIfElseCondition:
+  Enabled: true
+Style/NestedFileDirname:
+  Enabled: true
+Style/NilLambda:
+  Enabled: true
+Style/NumberedParameters:
+  Enabled: true
+Style/NumberedParametersLimit:
+  Enabled: true
+Style/NumericLiterals:
+  Enabled: false
+Style/ObjectThen:
+  Enabled: true
+Style/OpenStructUse:
+  Enabled: true
+Style/QuotedSymbols:
+  Enabled: true
+Style/RedundantArgument:
+  Enabled: true
+Style/RedundantInitialize:
+  Enabled: true
+Style/RedundantPercentQ:
+  Enabled: false
+Style/RedundantSelfAssignmentBranch:
+  Enabled: true
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
+Style/SelectByRegexp:
+  Enabled: true
+Style/Semicolon:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+Style/StringChars:
+  Enabled: true
+Style/SwapValues:
+  Enabled: true
+Style/SymbolArray:
+  Enabled: false
+Style/WordArray:
+  Enabled: false
+
+Rails/ActionControllerTestCase:
+  Enabled: true
+Rails/ActiveRecordAliases:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+Rails/ActiveRecordCallbacksOrder:
+  Enabled: true
+Rails/AddColumnIndex:
+  Enabled: true
+Rails/AfterCommitOverride:
+  Enabled: true
+Rails/AttributeDefaultBlockValue:
+  Enabled: true
+Rails/CompactBlank:
+  Enabled: true
+Rails/DeprecatedActiveModelErrorsMethods:
+  Enabled: true
+Rails/DuplicateAssociation:
+  Enabled: true
+Rails/DuplicateScope:
+  Enabled: true
+Rails/DurationArithmetic:
+  Enabled: true
+Rails/EagerEvaluationLogMessage:
+  Enabled: true
+Rails/ExpandedDateRange:
+  Enabled: true
+Rails/FindById:
+  Enabled: true
+Rails/I18nLazyLookup:
+  Enabled: true
+Rails/I18nLocaleAssignment:
+  Enabled: true
+Rails/I18nLocaleTexts:
+  Enabled: true
+Rails/Inquiry:
+  Enabled: true
+Rails/MailerName:
+  Enabled: true
+Rails/MatchRoute:
+  Enabled: true
+Rails/MigrationClassName:
+  Enabled: true
+Rails/NegateInclude:
+  Enabled: true
+Rails/Pluck:
+  Enabled: true
+Rails/PluckInWhere:
+  Enabled: true
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: true
+Rails/RedundantTravelBack:
+  Enabled: true
+Rails/RenderInline:
+  Enabled: true
+Rails/RenderPlainText:
+  Enabled: true
+Rails/RootJoinChain:
+  Enabled: true
+Rails/ShortI18n:
+  Enabled: true
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+Rails/SquishedSQLHeredocs:
+  Enabled: true
+Rails/TimeZoneAssignment:
+  Enabled: true
+Rails/TransactionExitStatement:
+  Enabled: true
+Rails/UnusedIgnoredColumns:
+  Enabled: true
+Rails/WhereEquals:
+  Enabled: true
+Rails/WhereExists:
+  Enabled: true
+Rails/WhereNot:
   Enabled: true

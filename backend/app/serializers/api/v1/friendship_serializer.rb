@@ -15,7 +15,7 @@ module Api
         {
           href: scope.versioned_url_for(:friendship, object),
           meta: {
-            methods: methods
+            methods:
           }
         }
       end

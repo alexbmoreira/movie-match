@@ -4,7 +4,7 @@ describe WatchlistMovies::List do
   wrap_user_context { user }
 
   let(:user) { create(:user) }
-  let!(:watchlist_movie1) { create(:watchlist_movie, user: user) }
+  let!(:watchlist_movie1) { create(:watchlist_movie, user:) }
   let!(:watchlist_movie2) { create(:watchlist_movie) }
 
   subject { described_class.run! }

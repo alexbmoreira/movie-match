@@ -5,11 +5,7 @@ describe Friendships::Destroy do
 
   let(:user) { create(:user) }
   let!(:friendship) { create(:friendship, friend: user) }
-  let(:params) {
-    {
-      friendship: friendship
-    }
-  }
+  let(:params) { { friendship: } }
 
   subject { described_class.run!(params) }
 
