@@ -22,9 +22,10 @@ Rails.application.routes.draw do
       resources :friendships, only: [:show, :index, :destroy]
 
       resources :watchlist_movies, only: [:show, :index, :create, :destroy]
-      resources :matchlist_actions, only: [:show]
-      resources :matchlist_likes, only: [:show, :index, :create, :destroy]
-      resources :matchlist_dislikes, only: [:show, :index, :create, :destroy]
+
+      resources :matchlist_actions, only: [:show, :destroy]
+      resources :matchlist_likes, only: [:show, :index, :create]
+      resources :matchlist_dislikes, only: [:show, :index, :create]
     end
   end
 end
