@@ -213,6 +213,9 @@ Lint/BigDecimalNew:
   AutoCorrect: true
   Enabled: true
 
+Lint/EmptyBlock:
+  Enabled: false
+
 Lint/RedundantCopDisableDirective:
   Severity: convention
 
