@@ -3,7 +3,7 @@ import axios from 'axios';
 import { NGROK_HOST } from 'react-native-dotenv';
 
 const api = axios.create({
-  baseURL: `${NGROK_HOST}/api`,
+  baseURL: `${NGROK_HOST}/api/v1`,
 });
 
 api.interceptors.request.use(
