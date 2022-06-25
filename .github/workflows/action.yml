@@ -25,7 +25,7 @@ jobs:
           gem install bundler
           cd backend && bundle install --jobs 4 --retry 3
       - name: Lint Backend
-        run: make lint-b
+        run: cd backend && bin/rubocop
       - name: Setup Database
         run: |
           cd backend && bundle exec rake db:create
@@ -35,7 +35,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
       - name: Run RSpec
-        run: make test
+        run: cd backend && bundle exec rspec
         env:
           RAILS_ENV: test
           POSTGRES_USER: postgres
@@ -51,6 +51,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - name: Install dependencies
-        run: make install-m
+        run: cd frontend && yarn install
       - name: Linting
-        run: make lint-m 
+        run: cd frontend && yarn lint
