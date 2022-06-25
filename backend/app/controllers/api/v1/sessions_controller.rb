@@ -14,10 +14,10 @@ module Api
 
       def login_user
         params = user_params
-        email = params[:email]&.strip
+        username = params[:username]&.strip
         password = params[:password]
 
-        user = login(email, password)
+        user = login(username, password)
 
         return failed_login_response unless user
 
