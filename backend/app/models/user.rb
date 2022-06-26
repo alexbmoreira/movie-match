@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
-  # validates :password, length: { minimum: 8 }, if: -> { password_update }
+  validates :password, length: { minimum: 8 }, if: -> { password_update }
   validates :password, confirmation: true, if: -> { password_update }
   validates :password_confirmation, presence: true, if: -> { password_update }
 
@@ -20,7 +20,7 @@ class User < ApplicationRecord
     return false if password.nil?
 
     rules = {
-      lowercase: /[a-zA-Z]+/,
+      letter: /[a-zA-Z]+/,
       number: /\d+/
     }
 
