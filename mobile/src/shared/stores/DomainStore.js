@@ -33,8 +33,34 @@ const getSingle = (response, type) => {
   return _.head(store.findAll(type));
 };
 
+function load(endpoint) {
+  if (_.isString(endpoint)) {
+    return api.get(endpoint);
+  } else if (_.isObject(endpoint) && _.has(endpoint, 'url')) {
+    return api.get(endpoint.url, { params: endpoint.params || {} });
+  } else {
+    throw new Error(`Endpoint must be a string or an object {url, params}. Instead received: ${endpoint}`);
+  }
+}
+
 class DomainStore {
   _repository = new JsonApiDataStore();
+
+  async _compose(endpoints) {
+    const _endpoints = _.isArray(endpoints) ? endpoints : [endpoints];
+    const requests = _endpoints.map(endpoint => {
+      return load(endpoint);
+    });
+    const result = [];
+    for (const response of await Promise.all(requests)) {
+      if (response.data) {
+        result.push(this._repository.syncWithMeta(response.data));
+      } else {
+        result.push(response);
+      }
+    }
+    return result;
+  }
 
   _getAll(type, filters, _class) {
     const __class = arguments.length === 2 ? filters : _class;

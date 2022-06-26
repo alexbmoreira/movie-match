@@ -18,7 +18,7 @@ class ProfileSettingsState {
     const data = await postRequest(endpoints.AUTH.LOGOUT);
 
     if(!data.errors) {
-      await AsyncStorage.removeItem('access_token');
+      await AsyncStorage.removeItem('set-cookie');
       await AsyncStorage.removeItem('user');
       navigate('Login');
     } else {

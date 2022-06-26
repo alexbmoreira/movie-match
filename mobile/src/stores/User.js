@@ -2,12 +2,12 @@ import { computed, makeObservable, observable } from 'mobx';
 import { DomainObject } from 'shared/stores';
 
 class User extends DomainObject {
-  username = observable('');
-  avatar_color = observable('');
+  username = '';
 
   constructor(model) {
     super();
     makeObservable(this, {
+      username: observable,
       userInitial: computed
     });
 

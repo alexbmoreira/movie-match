@@ -45,7 +45,7 @@ const Avatar = ({ user, size, style }) => {
     return (
       <View style={{ position: 'relative' }}>
         <Avi.Image style={[style, { zIndex: 10, position: 'absolute' }]} theme={{ colors: { primary:'transparent' } }} size={avatarSize} source={{ uri: avatar }} />
-        <Avi.Text style={style} theme={theme(user.avatar_color)} size={avatarSize} label={user.userInitial} />
+        <Avi.Text style={style} theme={theme(user.avatarColor)} size={avatarSize} label={user.userInitial} />
       </View>
     );
   }
