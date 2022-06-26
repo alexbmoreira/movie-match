@@ -4517,6 +4517,11 @@ json5@^2.1.2:
   dependencies:
     minimist "^1.2.5"
 
+jsonapi-datastore@^0.4.0-beta:
+  version "0.4.0-beta"
+  resolved "https://registry.yarnpkg.com/jsonapi-datastore/-/jsonapi-datastore-0.4.0-beta.tgz#b499fce924d45e2bc3c6178681520063e2361f10"
+  integrity sha512-RkI3oL1Ww6HefMEVZXdBLmdVY/s4P5FlRzccyXb7QmsuyTQqYDXgI8QN6Py8QJRZF05f4b4gecdeBz/oTOgRVA==
+
 jsonfile@^2.1.0:
   version "2.4.0"
   resolved "https://registry.npmjs.org/jsonfile/-/jsonfile-2.4.0.tgz"
