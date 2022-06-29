@@ -1,7 +1,22 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
-  # validates :password, length: { minimum: 8 }, if: -> { password_update }
+  enum avatar_color: {
+    red: 0,
+    blue: 1,
+    green: 2,
+    pink: 3,
+    ruby: 4,
+    teal: 5,
+    viridian: 6,
+    saffron: 7,
+    marigold: 8,
+    pewter: 9,
+    champagne: 10,
+    blue_violet: 11
+  }
+
+  validates :password, length: { minimum: 8 }, if: -> { password_update }
   validates :password, confirmation: true, if: -> { password_update }
   validates :password_confirmation, presence: true, if: -> { password_update }
 
@@ -20,7 +35,7 @@ class User < ApplicationRecord
     return false if password.nil?
 
     rules = {
-      lowercase: /[a-zA-Z]+/,
+      letter: /[a-zA-Z]+/,
       number: /\d+/
     }
 
@@ -42,6 +57,7 @@ end
 #
 #  id                                  :bigint           not null, primary key
 #  access_count_to_reset_password_page :integer          default(0)
+#  avatar_color                        :integer          default("red"), not null
 #  crypted_password                    :string
 #  email                               :string           not null
 #  last_activity_at                    :datetime

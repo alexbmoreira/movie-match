@@ -49,7 +49,7 @@ describe User do
   end
 
   context 'when password is invalid' do
-    let(:password) { 'abc' }
+    let(:password) { 'abc1' }
 
     it { is_expected.to be_invalid }
   end
