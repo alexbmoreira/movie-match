@@ -1,7 +1,7 @@
 class WatchlistMoviePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      WatchlistMovie.where(user: user)
+      WatchlistMovie.all
     end
   end
 end
