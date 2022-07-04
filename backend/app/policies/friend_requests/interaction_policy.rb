@@ -19,5 +19,9 @@ module FriendRequests
     def accept?
       record.friend_request.receiver.id == user.id
     end
+
+    def find_with_user?
+      true
+    end
   end
 end

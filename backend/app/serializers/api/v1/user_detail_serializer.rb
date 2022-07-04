@@ -7,6 +7,22 @@ module Api
 
       attribute(:avatar_color) { Avatar.color(object.avatar_color.to_sym) }
       attribute(:avatar_initial) { Avatar.initial(object.username) }
+
+      has_one(:friend_request) { FriendRequests::FindWithUser.run!(user: object) }
+      has_one(:friendship) { Friendships::FindWithUser.run!(user: object) }
+
+      link(:send_friend_request) do
+        next if object.id == scope.user.id
+        next if Friendships::FindWithUser.run!(user: object)
+        next if FriendRequests::FindWithUser.run!(user: object)
+
+        {
+          href: scope.versioned_url_for(:friend_requests),
+          meta: {
+            methods: ['POST']
+          }
+        }
+      end
     end
   end
 end

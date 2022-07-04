@@ -21,7 +21,11 @@ Rails.application.routes.draw do
           post :accept
         end
       end
-      resources :friendships, only: [:show, :index, :destroy]
+      resources :friendships, only: [:show, :index, :destroy] do
+        collection do
+          get :list_for_user, path: '/list_for_user/:user_id'
+        end
+      end
 
       resources :watchlist_movies, only: [:show, :index, :create, :destroy]
 
