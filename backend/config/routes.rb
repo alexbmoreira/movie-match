@@ -27,7 +27,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :watchlist_movies, only: [:show, :index, :create, :destroy]
+      resources :watchlist_movies, only: [:show, :index, :create, :destroy] do
+        collection do
+          get :list_for_user, path: '/list_for_user/:user_id'
+        end
+      end
 
       resources :matchlist_actions, only: [:show, :destroy]
       resources :matchlist_likes, only: [:show, :index, :create]

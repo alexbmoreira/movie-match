@@ -26,7 +26,17 @@ module Api
           include: [:user]
       end
 
+      def list_for_user
+        respond_with WatchlistMovies::ListForUser.run!(user: find_user!),
+          each_serializer: versioned_class(WatchlistMovieSerializer),
+          include: [:user]
+      end
+
       private
+
+      def find_user!
+        Users::Find.run!(id: params[:user_id])
+      end
 
       def find_watchlist_movie!
         WatchlistMovies::Find.run!(id: params[:id])
