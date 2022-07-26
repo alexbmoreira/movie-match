@@ -8,6 +8,7 @@ class FriendRequest < ApplicationRecord
 
   scope :sent, ->(user) { where(creator: user) }
   scope :received, ->(user) { where(receiver: user) }
+  scope :for_user, ->(user) { where('creator_id = ? OR receiver_id = ?', user.id, user.id) }
 
   private
 

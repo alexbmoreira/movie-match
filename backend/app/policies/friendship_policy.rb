@@ -1,7 +1,7 @@
 class FriendshipPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      Friendship.for_user(user)
+      Friendship.all
     end
   end
 end
