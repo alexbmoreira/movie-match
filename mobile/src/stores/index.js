@@ -4,6 +4,7 @@ import Movie from './Movie';
 import TmdbMovie from './TmdbMovie';
 import User from './User';
 import UserAuth from './UserAuth';
+import WatchlistMovie from './WatchlistMovie';
 
 export {
   FriendRequest,
@@ -11,5 +12,6 @@ export {
   Movie,
   TmdbMovie,
   User,
-  UserAuth
+  UserAuth,
+  WatchlistMovie
 };

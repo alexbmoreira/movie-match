@@ -4,7 +4,7 @@ import { DomainObject } from 'shared/stores';
 
 class TmdbMovie extends DomainObject {
   title = observable('');
-  release_year = observable('');
+  releaseYear = observable('');
   runtime = observable(null);
   overview = observable('');
 

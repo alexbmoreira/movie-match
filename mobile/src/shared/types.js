@@ -1,5 +1,6 @@
 const types = {
-  USER: 'users'
+  USER: 'users',
+  WATCHLIST_MOVIE: 'watchlistMovies'
 };
 
 export default types;

@@ -23,9 +23,11 @@ const CustomSpinner = () => {
 };
 
 const Movie = ({ model }) => {
+  const { movie } = model;
+
   return (
-    <Pressable onPress={() => navigate('MovieDetails', { movieId: model.id, title: model.title })}>
-      <Poster size='sm' title={model.title} source={{ uri: model.poster_link_sm }}/>
+    <Pressable onPress={() => navigate('MovieDetails', { movieId: movie.id, title: movie.title })}>
+      <Poster size='sm' title={movie.title} source={{ uri: movie.poster_link_sm }}/>
     </Pressable>
   );
 };

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import React from 'react';
 import { endpoints, theme, types } from 'shared';
-import { User } from 'stores';
+import { User, WatchlistMovie } from 'stores';
 import { DomainStore } from 'shared/stores';
 
 class ProfileState {
@@ -37,12 +37,15 @@ class ProfileState {
 
   async load() {
     await this.store._compose([
-      endpoints.USER.with(this.userId)
+      endpoints.USER.with(this.userId),
+      endpoints.WATCHLIST.FOR_USER.with(this.userId)
     ]);
 
     this.user = new User(
       this.store._getSingle(types.USER, { id: this.userId })
     );
+
+    this.watchlist = this.store._getAll(types.WATCHLIST_MOVIE, WatchlistMovie);
   }
 }
 

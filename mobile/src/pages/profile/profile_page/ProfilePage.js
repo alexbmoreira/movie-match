@@ -10,13 +10,13 @@ import UserOptions from './UserOptions';
 import Watchlist from './Watchlist';
 
 const AvatarAndWatchlist = observer(({ uiState }) => {
-  const { user } = uiState;
+  const { user, watchlist } = uiState;
 
   return (
     <View style={{ paddingTop: 20 }}>
       <AvatarHeader user={user}/>
-      {/* <Watchlist user={user} watchlist={watchlist}/>
-      <Divider offset={0}/> */}
+      <Watchlist user={user} watchlist={watchlist}/>
+      <Divider offset={0}/>
     </View>
   );
 });
