@@ -13,36 +13,36 @@ const _style = StyleSheet.create({
 });
 
 const Register = observer(({ uiState, navigation }) => {
-  const { username, email, password, password2, errors } = uiState;
+  const { user, errors } = uiState;
   return (
     <ScreenContainer center>
       <Title>Create an Account</Title>
       <FormLayout>
         <TextInput
           placeholder='Username'
-          value={username}
-          onChange={value => uiState.updateUsername(value)}
+          value={user.username}
+          onChange={value => user.merge({ username: value })}
           errorMessage={errors.username}
         />
         <TextInput
           placeholder='Email'
-          value={email}
-          onChange={value => uiState.updateEmail(value)}
+          value={user.email}
+          onChange={value => user.merge({ email: value })}
           errorMessage={errors.email}
         />
         <TextInput
           placeholder='Password'
-          value={password}
-          onChange={value => uiState.updatePassword(value)}
+          value={user.password}
+          onChange={value => user.merge({ password: value })}
           secureTextEntry
-          errorMessage={errors.password1}
+          errorMessage={errors.password}
         />
         <TextInput
           placeholder='Confirm Password'
-          value={password2}
-          onChange={value => uiState.updatePassword2(value)}
+          value={user.passwordConfirmation}
+          onChange={value => user.merge({ passwordConfirmation: value })}
           secureTextEntry
-          errorMessage={errors.password2}
+          errorMessage={errors.passwordConfirmation}
         />
         <Button mode='contained' onPress={uiState.register}>
           Register

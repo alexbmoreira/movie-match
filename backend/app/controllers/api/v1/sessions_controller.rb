@@ -7,7 +7,7 @@ module Api
       def register
         user = Sessions::Register.run(user_params)
 
-        auto_login(user) if user.valid?
+        auto_login(user.result) if user.valid?
 
         respond_with user, serializer: versioned_class(UserAuthSerializer)
       end

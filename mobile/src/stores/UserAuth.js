@@ -1,13 +1,19 @@
 import { computed, makeObservable, observable } from 'mobx';
 import { DomainObject } from 'shared/stores';
 
-class User extends DomainObject {
+class UserAuth extends DomainObject {
   username = '';
+  email = '';
+  password = '';
+  passwordConfirmation = '';
 
   constructor(model) {
     super();
     makeObservable(this, {
       username: observable,
+      email: observable,
+      password: observable,
+      passwordConfirmation: observable,
       userInitial: computed
     });
 
@@ -21,4 +27,4 @@ class User extends DomainObject {
   }
 }
 
-export default User;
+export default UserAuth;

@@ -13,23 +13,23 @@ const _style = StyleSheet.create({
 });
 
 const Login = observer(({ uiState, navigation }) => {
-  const { username, password, errors } = uiState;
+  const { user, errors } = uiState;
+
   return (
     <ScreenContainer center>
       <Title>Log In to Match Cut</Title>
       <FormLayout>
         <TextInput
           placeholder='Username'
-          value={username}
-          onChange={value => uiState.updateUsername(value)}
-          errorMessage={errors.username}
+          value={user.username}
+          onChange={value => user.merge({ username: value })}
         />
         <TextInput
           placeholder='Password'
-          value={password}
-          onChange={value => uiState.updatePassword(value)}
+          value={user.password}
+          onChange={value => user.merge({ password: value })}
           secureTextEntry
-          errorMessage={errors.password}
+          errorMessage={errors.base}
         />
         <Button mode='contained' onPress={uiState.login}>
           Log In

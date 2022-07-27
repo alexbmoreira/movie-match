@@ -1,9 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View } from 'react-native';
 import { Icon } from 'components/common';
 import React from 'react';
 import { theme } from 'shared';
-import { ProfileStack, SearchStack } from './stack_navigators';
-import MatchStack from './stack_navigators/MatchStack';
+import { ProfileStack } from './stack_navigators';
+// import { ProfileStack, SearchStack, MatchStack } from './stack_navigators';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +24,7 @@ const MainTabs = ({ route }) => {
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
         name='MatchStack'
-        component={MatchStack}
+        component={View}
         options={{
           title: 'Match',
           tabBarIcon: ({ size, color }) => <Icon name='match-cards' color={color} size={size}/>
@@ -32,7 +33,7 @@ const MainTabs = ({ route }) => {
       />
       <Tab.Screen
         name='SearchStack'
-        component={SearchStack}
+        component={View}
         options={{
           title: 'Search',
           tabBarIcon: ({ size, color }) => <Icon name='search' color={color} size={size}/>

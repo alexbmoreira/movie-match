@@ -1,10 +1,8 @@
-import { CardList, Poster, Spinner, Text, Title, TouchableHighlight } from 'components/common';
+import { CardList, Poster, Text, Title, TouchableHighlight } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { withState } from 'shared';
 import { navigate, push } from 'shared/RootNavigation';
-import WatchlistState from './state/WatchlistState';
 
 const _style = StyleSheet.create({
   watchlist: {
@@ -13,19 +11,12 @@ const _style = StyleSheet.create({
   }
 });
 
-const CustomSpinner = () => {
-  return (
-    <View style={_style.watchlist}>
-      <Title>Watchlist</Title>
-      <Spinner/>
-    </View>
-  );
-};
-
 const Movie = ({ model }) => {
+  const { movie } = model;
+
   return (
-    <Pressable onPress={() => navigate('MovieDetails', { movieId: model.id, title: model.title })}>
-      <Poster size='sm' title={model.title} source={{ uri: model.poster_link_sm }}/>
+    <Pressable onPress={() => navigate('MovieDetails', { movieId: movie.id, title: movie.title })}>
+      <Poster size='sm' title={movie.title} source={{ uri: movie.poster_link_sm }}/>
     </Pressable>
   );
 };
@@ -43,12 +34,12 @@ const WatchlistTitle = () => {
   );
 };
 
-const Watchlist = observer(({ user, uiState }) => {
+const Watchlist = observer(({ user, watchlist }) => {
   return (
     <TouchableHighlight style={_style.watchlist} onPress={() => push('Watchlist', { userId: user.id })}>
-      <CardList title={WatchlistTitle} models={uiState.watchlist} component={Movie} localization={LOCALIZATION}/>
+      <CardList title={WatchlistTitle} models={watchlist} component={Movie} localization={LOCALIZATION}/>
     </TouchableHighlight>
   );
 });
 
-export default withState(Watchlist, WatchlistState, { customSpinner: CustomSpinner });
+export default Watchlist;

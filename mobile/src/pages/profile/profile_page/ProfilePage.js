@@ -22,11 +22,12 @@ const AvatarAndWatchlist = observer(({ uiState }) => {
 });
 
 const ProfilePage = observer(({ uiState }) => {
-  const { profileListPages, bottomSheetRef } = uiState;
+  // const { profileListPages, bottomSheetRef } = uiState;
 
   return (
     <View>
-      <Table
+      <AvatarAndWatchlist uiState={uiState}/>
+      {/* <Table
         Header={() => <AvatarAndWatchlist uiState={uiState}/>}
         models={profileListPages}
         columns={[{ component: TextListItem }]}
@@ -37,7 +38,7 @@ const ProfilePage = observer(({ uiState }) => {
           snapPoints={[150, 0]}
         >
           <UserOptions uiState={uiState}/>
-        </BottomSheet>}
+        </BottomSheet>} */}
     </View>
   );
 });
