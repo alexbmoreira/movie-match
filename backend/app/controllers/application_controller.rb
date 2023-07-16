@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
   self.responder = ApplicationResponder
+
+  include Pundit::Authorization
   include ActionController::Cookies
   include Api::Versioning
 
@@ -7,6 +9,8 @@ class ApplicationController < ActionController::API
 
   before_action :authorize
   before_action :force_json
+  around_action :enforce_pundit
+  around_action :set_current_user
 
   def force_json
     request.format = :json
@@ -48,5 +52,24 @@ class ApplicationController < ActionController::API
 
   def authorize
     render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+  end
+
+  def set_current_user(&block) # rubocop:disable Naming/AccessorMethodName
+    UserContext.with_context(
+      @user, {}, &block
+    )
+  end
+
+  def current_user
+    @user
+  end
+
+  def enforce_pundit
+    InteractionAuthContext.with_context do |context|
+      yield
+
+      skip_authorization if context.was_authorized?
+      skip_policy_scope if context.was_policy_scoped?
+    end
   end
 end

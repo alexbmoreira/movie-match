@@ -5,7 +5,7 @@ module FriendRequests
     def execute
       friendship = Friendship.new(
         user: friend_request.creator,
-        friend: current_user
+        friend: @user
       )
 
       if friendship.save

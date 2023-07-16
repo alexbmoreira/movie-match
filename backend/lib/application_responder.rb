@@ -1,6 +1,11 @@
 class ApplicationResponder < ActionController::Responder
   include Responders::CollectionResponder
 
+  def to_format
+    @user = @controller.current_user
+    super
+  end
+
   protected
 
   def api_location
