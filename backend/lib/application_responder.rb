@@ -20,7 +20,7 @@ class ApplicationResponder < ActionController::Responder
   def display(resource, given_options = {})
     resource_to_render = resource.kind_of?(ActiveInteraction::Base) ? resource.result : resource
     scope = Api::SerializationScope.new(
-      user: controller.current_user,
+      user: @user,
       collection: resource_to_render.respond_to?(:each),
       primary_resource_type: resource_to_render.try(:model) || resource_to_render.class
     )
@@ -44,7 +44,7 @@ class ApplicationResponder < ActionController::Responder
     if get?
       display resource
     elsif post?
-      display resource, status: :created, location: api_location
+      display resource, status: :created
     elsif put? || patch?
       display resource, status: :ok
     else
