@@ -4,7 +4,6 @@ import { endpoints, types } from 'shared';
 import { navigate } from 'shared/RootNavigation';
 import { DomainStore } from 'shared/stores';
 import { UserAuth } from 'stores';
-import _ from 'lodash';
 
 class AuthState {
   store = new DomainStore();
@@ -27,7 +26,7 @@ class AuthState {
   }
 
   async login() {
-    const { response, model, errors } = await this.store.post(
+    const { model, errors } = await this.store.post(
       endpoints.AUTH.LOGIN,
       types.USER,
       this.user
@@ -35,12 +34,12 @@ class AuthState {
 
     this.errors = errors;
     if (model) {
-      this.authSuccess(_.get(response, 'data.jwt'), model);
+      this.authSuccess(model);
     }
   }
 
   async register() {
-    const { response, model, errors } = await this.store.post(
+    const { model, errors } = await this.store.post(
       endpoints.AUTH.REGISTER,
       types.USER,
       this.user
@@ -48,7 +47,7 @@ class AuthState {
 
     this.errors = errors;
     if (model) {
-      this.authSuccess(_.get(response, 'data.jwt'), model);
+      this.authSuccess(model);
     }
   }
 
@@ -62,8 +61,8 @@ class AuthState {
     }
   }
 
-  async authSuccess(token, user) {
-    await AsyncStorage.setItem('token', token);
+  async authSuccess(user) {
+    await AsyncStorage.setItem('token', user.token);
     await AsyncStorage.setItem('user', JSON.stringify(user));
     navigate('Main', { userId: user.id, username: user.username });
   }

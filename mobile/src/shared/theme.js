@@ -1,20 +1,28 @@
 import { DefaultTheme } from 'react-native-paper';
 
+const space = '#202139';
+const charcoal = '#384259';
+const slate = '#708090';
+const sky = '#87CEEB';
+const alice = '#F0F8FF';
+const forest = '#228B22';
+const firetruck = '#B22222';
+
 const theme = {
   ...DefaultTheme,
   roundness: 10,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#8ac3f2',
-    accent: '#F2C649',
-    surface: '#7D7E88',
-    text: '#E2E2E2',
-    background: '#7D7E88',
-    screen: '#404142',
-    backdrop: '#363838',
-    error: '#B30D02',
-    like: '#8dd952',
-    dislike: '#B30D02'
+    primary: sky,
+    accent: slate,
+    surface: charcoal,
+    text: alice,
+    background: space,
+    screen: space,
+    backdrop: charcoal,
+    error: firetruck,
+    like: forest,
+    dislike: firetruck
   },
 };
 

@@ -10,7 +10,7 @@ module Api
             token = encode_token({ user_id: user.id })
             persist_jwt_token(token)
           end
-          respond_with user, serializer: versioned_class(UserSerializer)
+          respond_with user, serializer: versioned_class(UserAuthSerializer), token: token
         end
       end
 
@@ -21,7 +21,7 @@ module Api
           if user&.authenticate(user_params[:password])
             token = encode_token({ user_id: user.id })
             persist_jwt_token(token)
-            respond_with user, serializer: versioned_class(UserSerializer)
+            respond_with user, serializer: versioned_class(UserAuthSerializer), token: token
           else
             failed_login_response
           end
