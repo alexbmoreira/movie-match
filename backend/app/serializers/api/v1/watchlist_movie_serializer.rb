@@ -6,7 +6,7 @@ module Api
       attributes :created_at,
         :movie
 
-      belongs_to :user, serializer: versioned_class(UserAuthSerializer)
+      belongs_to :user, serializer: versioned_class(UserSerializer)
     end
   end
 end

@@ -14,7 +14,7 @@ module Api
       end
 
       def create
-        inputs = watchlist_movie_params.merge!(user: current_user)
+        inputs = watchlist_movie_params.merge!(user: @user)
         respond_with WatchlistMovies::Create.run(inputs),
           serializer: versioned_class(WatchlistMovieSerializer),
           include: [:user]

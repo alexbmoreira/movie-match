@@ -1,6 +1,6 @@
 module Api
   module V1
-    class UserAuthSerializer < ApplicationSerializer
+    class UserSerializer < ApplicationSerializer
       type 'users'
 
       attributes :username,

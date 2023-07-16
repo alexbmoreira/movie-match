@@ -35,7 +35,7 @@ class AuthState {
 
     this.errors = errors;
     if (model) {
-      this.authSuccess(_.get(response, 'headers.set-cookie')[0], model);
+      this.authSuccess(_.get(response, 'data.jwt'), model);
     }
   }
 
@@ -48,12 +48,12 @@ class AuthState {
 
     this.errors = errors;
     if (model) {
-      this.authSuccess(_.get(response, 'headers.set-cookie')[0], model);
+      this.authSuccess(_.get(response, 'data.jwt'), model);
     }
   }
 
   async resolveAuth() {
-    const token = await AsyncStorage.getItem('set-cookie');
+    const token = await AsyncStorage.getItem('token');
     const user = await AsyncStorage.getItem('user');
     if (token && user) {
       navigate('Main', { userId: JSON.parse(user).id, username: JSON.parse(user).username });
@@ -62,8 +62,8 @@ class AuthState {
     }
   }
 
-  async authSuccess(key, user) {
-    await AsyncStorage.setItem('set-cookie', key);
+  async authSuccess(token, user) {
+    await AsyncStorage.setItem('token', token);
     await AsyncStorage.setItem('user', JSON.stringify(user));
     navigate('Main', { userId: user.id, username: user.username });
   }

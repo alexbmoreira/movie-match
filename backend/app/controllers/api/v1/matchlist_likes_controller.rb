@@ -9,7 +9,7 @@ module Api
 
       def create
         inputs = matchlist_like_params.merge!(
-          user: current_user,
+          user: @user,
           friend: find_friend!
         )
         respond_with MatchlistActions::CreateLike.run(inputs),

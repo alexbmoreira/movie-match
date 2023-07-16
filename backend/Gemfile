@@ -59,7 +59,8 @@ group :test do
 end
 
 gem 'pundit', '~> 2.2'
-gem 'sorcery'
+gem 'jwt'
+gem 'bcrypt'
 gem 'pg'
 gem 'annotate'
 gem 'responders'

@@ -5,8 +5,8 @@ module Api
 
       attributes :created_at
 
-      belongs_to :creator, serializer: versioned_class(UserAuthSerializer)
-      belongs_to :receiver, serializer: versioned_class(UserAuthSerializer)
+      belongs_to :creator, serializer: versioned_class(UserSerializer)
+      belongs_to :receiver, serializer: versioned_class(UserSerializer)
 
       link(:self) do
         methods = []
