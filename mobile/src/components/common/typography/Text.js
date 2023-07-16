@@ -5,6 +5,7 @@ import { theme } from 'shared';
 
 const _style = StyleSheet.create({
   text: {
+    color: theme.colors.text,
     fontSize: 16
   },
   soft: {
@@ -25,7 +26,7 @@ const _style = StyleSheet.create({
 });
 
 const Text = ({ style, soft, italic, bold, large, small, children, ...rest }) => {
-  const activeStyles = [style, _style.text];
+  const activeStyles = [_style.text, style];
   if(soft) activeStyles.push(_style.soft);
   if(italic) activeStyles.push(_style.italic);
   if(bold) activeStyles.push(_style.bold);

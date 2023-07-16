@@ -9,7 +9,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   async (config) => {
-    const cookie = await AsyncStorage.getItem('set-cookie');
+    const cookie = await AsyncStorage.getItem('token');
     if (cookie) {
       config.headers.Cookie = `${cookie}`;
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import theme from 'shared/theme';
 
@@ -24,7 +24,7 @@ const ScreenContainer = ({ children, center, scroll }) => {
     (center && _style.center)
   ];
 
-  const Container = scroll ? ScrollView : View;
+  const Container = scroll ? ScrollView : SafeAreaView;
 
   return(
     <Container style={_style.background}>

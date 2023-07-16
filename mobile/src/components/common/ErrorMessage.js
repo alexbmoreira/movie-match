@@ -5,6 +5,7 @@ import { Text } from './typography';
 
 const _style = StyleSheet.create({
   errorMessage: {
+    marginTop: 4,
     color: theme.colors.error
   }
 });

@@ -9,6 +9,9 @@ const _style = StyleSheet.create({
   registerRedirect: {
     display: 'flex',
     alignItems: 'center'
+  },
+  title: {
+    marginBottom: 12
   }
 });
 
@@ -16,7 +19,7 @@ const Register = observer(({ uiState, navigation }) => {
   const { user, errors } = uiState;
   return (
     <ScreenContainer center>
-      <Title>Create an Account</Title>
+      <Title style={_style.title}>Create an Account</Title>
       <FormLayout>
         <TextInput
           placeholder='Username'

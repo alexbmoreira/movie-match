@@ -9,6 +9,9 @@ const _style = StyleSheet.create({
   registerRedirect: {
     display: 'flex',
     alignItems: 'center'
+  },
+  title: {
+    marginBottom: 12
   }
 });
 
@@ -17,7 +20,7 @@ const Login = observer(({ uiState, navigation }) => {
 
   return (
     <ScreenContainer center>
-      <Title>Log In to Match Cut</Title>
+      <Title style={_style.title}>Log In to Match Cut</Title>
       <FormLayout>
         <TextInput
           placeholder='Username'
