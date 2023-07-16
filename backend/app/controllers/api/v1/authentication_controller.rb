@@ -17,13 +17,13 @@ module Api
       def login
         ActiveRecord::Base.transaction do
           user = User.find_by(username: user_params[:username])
-    
+
           if user&.authenticate(user_params[:password])
             token = encode_token({ user_id: user.id })
             persist_jwt_token(token)
             respond_with user, serializer: versioned_class(UserSerializer)
           else
-            return failed_login_response unless user
+            failed_login_response
           end
         end
       end
