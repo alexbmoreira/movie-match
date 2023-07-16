@@ -1,10 +1,10 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { deleteRequest, getRequest, postRequest } from 'api';
-import { Icon, IconButton } from 'components/common';
-import _ from 'lodash';
-import { action, computed, makeObservable, observable } from 'mobx';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { deleteRequest, getRequest, postRequest } from 'api';
+// import { Icon, IconButton } from 'components/common';
+// import _ from 'lodash';
+import { action, makeObservable, observable } from 'mobx';
 import React from 'react';
-import { endpoints, theme, types } from 'shared';
+import { endpoints, types } from 'shared';
 import { User, WatchlistMovie } from 'stores';
 import { DomainStore } from 'shared/stores';
 
