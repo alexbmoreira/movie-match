@@ -1,8 +1,8 @@
 const endpoints = {
   AUTH: {
-    LOGIN: '/sessions/login_user/',
-    REGISTER: '/sessions/register/',
-    LOGOUT: '/sessions/logout/'
+    LOGIN: '/login/',
+    REGISTER: '/register/',
+    LOGOUT: '/logout/'
   },
   USER: {
     with(userId) {
