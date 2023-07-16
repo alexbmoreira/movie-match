@@ -2,7 +2,7 @@ module Api
   module V1
     class AuthenticationController < ApplicationController
       skip_before_action :authorize, only: [:register, :login, :logout]
-    
+
       def register
         ActiveRecord::Base.transaction do
           user = User.new(user_params)
@@ -13,7 +13,7 @@ module Api
           respond_with user, serializer: versioned_class(UserSerializer)
         end
       end
-    
+
       def login
         ActiveRecord::Base.transaction do
           user = User.find_by(username: user_params[:username])
@@ -27,12 +27,12 @@ module Api
           end
         end
       end
-    
+
       def logout
         cookies.delete(:jwt)
         respond_with({ message: 'Logged out' })
       end
-    
+
       private
 
       def failed_login_response
@@ -47,7 +47,7 @@ module Api
           params, only: [:email, :username, :password, :passwordConfirmation]
         )
       end
-    
+
       def set_jwt_token(token)
         cookies.signed[:jwt] = {
           value:  token,
