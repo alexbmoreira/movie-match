@@ -8,7 +8,7 @@ module Api
           user = User.new(user_params)
           if user.save
             token = encode_token({ user_id: user.id })
-            set_jwt_token(token)
+            persist_jwt_token(token)
           end
           respond_with user, serializer: versioned_class(UserSerializer)
         end
@@ -20,7 +20,7 @@ module Api
     
           if user&.authenticate(user_params[:password])
             token = encode_token({ user_id: user.id })
-            set_jwt_token(token)
+            persist_jwt_token(token)
             respond_with user, serializer: versioned_class(UserSerializer)
           else
             return failed_login_response unless user
@@ -48,7 +48,7 @@ module Api
         )
       end
 
-      def set_jwt_token(token)
+      def persist_jwt_token(token)
         cookies.signed[:jwt] = {
           value:  token,
           httponly: true,
@@ -56,6 +56,6 @@ module Api
           same_site: :none
         }
       end
-    end    
+    end
   end
 end
