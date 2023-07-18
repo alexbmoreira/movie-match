@@ -19,12 +19,6 @@ module Api
           include: [:user, :friend]
       end
 
-      def list_for_user
-        respond_with Friendships::ListForUser.run!(user: find_user!),
-          each_serializer: versioned_class(FriendshipSerializer),
-          include: [:user, :friend]
-      end
-
       private
 
       def find_user!

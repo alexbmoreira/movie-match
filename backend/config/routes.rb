@@ -9,7 +9,11 @@ Rails.application.routes.draw do
 
       resource :search, only: [:show]
 
-      resources :users, only: [:show]
+      resources :users, only: [:show] do
+        member do
+          get :friends
+        end
+      end
 
       resources :tmdb_movies, path: '/movies', only: [:show]
       resources :tmdb_people, path: '/people', only: [:show]

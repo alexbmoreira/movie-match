@@ -3,5 +3,9 @@ module Users
     def find?
       true
     end
+
+    def friends?
+      true
+    end
   end
 end

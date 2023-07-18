@@ -7,19 +7,17 @@ const endpoints = {
   USER: {
     with(userId) {
       return `/users/${userId}/`;
+    },
+    FRIENDS: {
+      with(userId) {
+        return `/users/${userId}/friends/`;
+      }
     }
   },
   WATCHLIST: {
     FOR_USER: {
       with(userId) {
         return `/watchlist_movies/list_for_user/${userId}/`;
-      }
-    }
-  },
-  FRIENDSHIPS: {
-    FOR_USER: {
-      with(userId) {
-        return `/friendships/list_for_user/${userId}/`;
       }
     }
   }

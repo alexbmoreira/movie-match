@@ -6,6 +6,11 @@ module Api
           serializer: versioned_class(UserDetailSerializer),
           include: [:friend_request, :friendship]
       end
+
+      def friends
+        respond_with Users::Friends.run!(params),
+          each_serializer: versioned_class(UserDetailSerializer)
+      end
     end
   end
 end

@@ -38,16 +38,4 @@ api.interceptors.response.use(function (response) {
   return Promise.reject(error);
 });
 
-export const postRequest = async (url, payload = {}) => {
-  return payload;
-};
-
-export const getRequest = async (url, params = {}) => {
-  return params;
-};
-
-export const deleteRequest = async (url) => {
-  return url;
-};
-
 export default api;

@@ -4,7 +4,7 @@
 import { action, makeObservable, observable, computed } from 'mobx';
 import React from 'react';
 import { endpoints, types } from 'shared';
-import { User, WatchlistMovie, Friendship } from 'stores';
+import { User, WatchlistMovie } from 'stores';
 import { authStore, DomainStore } from 'shared/stores';
 
 class ProfileState {
@@ -16,14 +16,12 @@ class ProfileState {
 
   user = {};
   watchlist = [];
-  friendships = [];
   bottomSheetRef;
 
   constructor() {
     makeObservable(this, {
       user: observable,
       watchlist: observable,
-      friendships: observable,
       load: action.bound,
       isCurrentUser: computed
     });
@@ -42,8 +40,7 @@ class ProfileState {
   async load() {
     await this.store._compose([
       endpoints.USER.with(this.userId),
-      endpoints.WATCHLIST.FOR_USER.with(this.userId),
-      endpoints.FRIENDSHIPS.FOR_USER.with(this.userId)
+      endpoints.WATCHLIST.FOR_USER.with(this.userId)
     ]);
 
     this.user = new User(
@@ -51,7 +48,6 @@ class ProfileState {
     );
 
     this.watchlist = this.store._getAll(types.WATCHLIST_MOVIE, WatchlistMovie);
-    this.friendships = this.store._getAll(types.FRIENDSHIP, Friendship);
   }
 
   get profileListPages() {

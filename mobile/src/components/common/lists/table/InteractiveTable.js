@@ -1,14 +1,17 @@
-import { getRequest } from 'api';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Url, withState } from 'shared';
 import Table from './Table';
+import { DomainStore } from 'shared/stores';
 
 class InteractiveTableState {
-  endpoint;
   Model;
+  endpoint;
+  type;
+
+  store = new DomainStore();
 
   models = [];
   pagination = {
@@ -32,9 +35,10 @@ class InteractiveTableState {
     });
   }
 
-  receiveProps({ Model, endpoint }) {
+  receiveProps({ Model, endpoint, type }) {
     this.Model = Model;
     this.endpoint = endpoint;
+    this.type = type;
   }
 
   async load() {
@@ -43,12 +47,18 @@ class InteractiveTableState {
 
   async fetchResults() {
     this.loading = true;
-    const response = await getRequest(this.constructUrl(this.endpoint, this.pagination));
-    this.updateModels(_.map(response.results, model => new this.Model(model)));
+    
+    const composed = await this.store._compose([
+      this.constructUrl(this.endpoint, this.pagination)
+    ]);
+    const meta = composed[0].meta || {};
+    const data = composed[0].data || [];
 
-    this.pagination.currentPage = response.current;
-    this.pagination.nextPage = response.next;
-    this.pagination.previousPage = response.previous;
+    this.updateModels(_.map(this.__getModels(data)));
+
+    this.pagination.currentPage = meta.currentPage;
+    this.pagination.nextPage = meta.nextPage;
+    this.pagination.previousPage = meta.previousPage;
   }
 
   updateModels(data) {
@@ -71,6 +81,12 @@ class InteractiveTableState {
 
   __addPaginationParams(url, pagination) {
     url.params['page'] = pagination.currentPage;
+  }
+
+  __getModels(data) {
+    const filtered = _.filter(data, { _type: this.type });
+
+    return filtered.map(m => new this.Model(m));
   }
 
   async nextPage() {

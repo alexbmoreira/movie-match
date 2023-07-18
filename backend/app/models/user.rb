@@ -16,6 +16,11 @@ class User < ApplicationRecord
     blue_violet: 11
   }
 
+  has_many :friendships
+  has_many :initiated_friends, through: :friendships, source: :friend
+  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
+  has_many :received_friends, through: :inverse_friendships, source: :user
+
   validates :password, length: { minimum: 8 }, if: :password
   validates :password, confirmation: true, if: :password
   validates :password_confirmation, presence: true, if: :password
@@ -28,6 +33,10 @@ class User < ApplicationRecord
   }
 
   validate :password_requirements, if: :password
+
+  def friends
+    initiated_friends + received_friends
+  end
 
   private
 
