@@ -40,7 +40,7 @@ class ProfileState {
   async load() {
     await this.store._compose([
       endpoints.USER.with(this.userId),
-      endpoints.WATCHLIST.FOR_USER.with(this.userId)
+      endpoints.USER.WATCHLIST.with(this.userId)
     ]);
 
     this.user = new User(

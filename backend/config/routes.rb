@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :users, only: [:show] do
         member do
           get :friends
+          get :watchlist
         end
       end
 
@@ -22,17 +23,8 @@ Rails.application.routes.draw do
           post :accept
         end
       end
-      resources :friendships, only: [:show, :index, :destroy] do
-        collection do
-          get :list_for_user, path: '/list_for_user/:user_id'
-        end
-      end
-
-      resources :watchlist_movies, only: [:show, :index, :create, :destroy] do
-        collection do
-          get :list_for_user, path: '/list_for_user/:user_id'
-        end
-      end
+      resources :friendships, only: [:show, :index, :destroy]
+      resources :watchlist_movies, only: [:show, :create, :destroy]
 
       resources :matchlist_actions, only: [:show, :destroy]
       resources :matchlist_likes, only: [:show, :index, :create]

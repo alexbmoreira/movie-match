@@ -11,6 +11,11 @@ module Api
         respond_with Users::Friends.run!(params),
           each_serializer: versioned_class(UserDetailSerializer)
       end
+
+      def watchlist
+        respond_with Users::Watchlist.run!(params),
+          each_serializer: versioned_class(WatchlistMovieSerializer)
+      end
     end
   end
 end

@@ -7,5 +7,9 @@ module Users
     def friends?
       true
     end
+
+    def watchlist?
+      true
+    end
   end
 end

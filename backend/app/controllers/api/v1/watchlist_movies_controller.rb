@@ -7,12 +7,6 @@ module Api
           include: [:user]
       end
 
-      def index
-        respond_with WatchlistMovies::List.run!(params),
-          each_serializer: versioned_class(WatchlistMovieSerializer),
-          include: [:user]
-      end
-
       def create
         inputs = watchlist_movie_params.merge!(user: @user)
         respond_with WatchlistMovies::Create.run(inputs),
@@ -23,12 +17,6 @@ module Api
       def destroy
         respond_with WatchlistMovies::Destroy.run(watchlist_movie: find_watchlist_movie!),
           serializer: versioned_class(WatchlistMovieSerializer),
-          include: [:user]
-      end
-
-      def list_for_user
-        respond_with WatchlistMovies::ListForUser.run!(user: find_user!),
-          each_serializer: versioned_class(WatchlistMovieSerializer),
           include: [:user]
       end
 

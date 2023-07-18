@@ -12,12 +12,10 @@ const endpoints = {
       with(userId) {
         return `/users/${userId}/friends/`;
       }
-    }
-  },
-  WATCHLIST: {
-    FOR_USER: {
+    },
+    WATCHLIST: {
       with(userId) {
-        return `/watchlist_movies/list_for_user/${userId}/`;
+        return `/users/${userId}/watchlist/`;
       }
     }
   },

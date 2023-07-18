@@ -11,7 +11,8 @@ const screenOptions = {
     shadowOffset: {
       height: 0,
     },
-  }
+  },
+  cardOverlayEnabled: true
 };
 
 export default screenOptions;
