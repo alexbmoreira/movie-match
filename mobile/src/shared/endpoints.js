@@ -20,6 +20,9 @@ const endpoints = {
         return `/watchlist_movies/list_for_user/${userId}/`;
       }
     }
+  },
+  FRIEND_REQUESTS: {
+    ALL: '/friend_requests/'
   }
 };
 

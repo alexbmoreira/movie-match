@@ -5,7 +5,6 @@ import { withState } from 'shared';
 import WatchlistState from './state/WatchlistState';
 
 const Movie = ({ model }) => {
-  console.log(model);
   return (
     <TmdbListItem
       header={model.title}

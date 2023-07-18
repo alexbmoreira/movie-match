@@ -26,11 +26,6 @@ module Api
         end
       end
 
-      def logout
-        cookies.delete(:jwt)
-        respond_with({ message: 'Logged out' })
-      end
-
       private
 
       def failed_login_response
@@ -42,7 +37,7 @@ module Api
 
       def user_params
         ActiveModelSerializers::Deserialization.jsonapi_parse(
-          params, only: [:email, :username, :password, :passwordConfirmation]
+          params, only: [:email, :username, :password, :password_confirmation]
         )
       end
     end

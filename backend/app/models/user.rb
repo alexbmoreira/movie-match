@@ -17,9 +17,11 @@ class User < ApplicationRecord
   }
 
   has_many :friendships
-  has_many :initiated_friends, through: :friendships, source: :friend
+  has_many :initiated_friends, through: :friendships, source: :user
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
-  has_many :received_friends, through: :inverse_friendships, source: :user
+  has_many :received_friends, through: :inverse_friendships, source: :friend
+
+  has_many :received_friend_requests, class_name: 'FriendRequest', foreign_key: 'receiver_id'
 
   validates :password, length: { minimum: 8 }, if: :password
   validates :password, confirmation: true, if: :password
