@@ -12,7 +12,8 @@ describe TmdbMovie do
         title: params['title'],
         overview: params['overview'],
         release_date: params['release_date'],
-        poster_path: params['poster_path'],
+        poster_thumb: include(params['poster_path']),
+        poster_path: include(params['poster_path']),
         cast_members: include(a_kind_of(TmdbPerson)),
         crew_members: include(a_kind_of(TmdbPerson))
       )
@@ -27,7 +28,8 @@ describe TmdbMovie do
         id: params['id'],
         title: params['title'],
         release_date: params['release_date'],
-        poster_path: params['poster_path']
+        poster_thumb: include(params['poster_path']),
+        poster_path: include(params['poster_path'])
       )
     end
   end

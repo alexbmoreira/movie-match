@@ -8,7 +8,6 @@ module Api
           user = User.new(user_params)
           if user.save
             token = encode_token({ user_id: user.id })
-            persist_jwt_token(token)
           end
           respond_with user, serializer: versioned_class(UserAuthSerializer), token: token
         end
@@ -20,7 +19,6 @@ module Api
 
           if user&.authenticate(user_params[:password])
             token = encode_token({ user_id: user.id })
-            persist_jwt_token(token)
             respond_with user, serializer: versioned_class(UserAuthSerializer), token: token
           else
             failed_login_response
@@ -46,15 +44,6 @@ module Api
         ActiveModelSerializers::Deserialization.jsonapi_parse(
           params, only: [:email, :username, :password, :passwordConfirmation]
         )
-      end
-
-      def persist_jwt_token(token)
-        cookies.signed[:jwt] = {
-          value:  token,
-          httponly: true,
-          secure: Rails.env.production?,
-          same_site: :none
-        }
       end
     end
   end

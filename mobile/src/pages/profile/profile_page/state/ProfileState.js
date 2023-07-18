@@ -1,12 +1,11 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { deleteRequest, getRequest, postRequest } from 'api';
 // import { Icon, IconButton } from 'components/common';
 // import _ from 'lodash';
-import { action, makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable, computed } from 'mobx';
 import React from 'react';
 import { endpoints, types } from 'shared';
-import { User, WatchlistMovie } from 'stores';
-import { DomainStore } from 'shared/stores';
+import { User, WatchlistMovie, Friendship } from 'stores';
+import { authStore, DomainStore } from 'shared/stores';
 
 class ProfileState {
   store = new DomainStore();
@@ -16,12 +15,17 @@ class ProfileState {
   navigation;
 
   user = {};
+  watchlist = [];
+  friendships = [];
   bottomSheetRef;
 
   constructor() {
     makeObservable(this, {
       user: observable,
-      load: action.bound
+      watchlist: observable,
+      friendships: observable,
+      load: action.bound,
+      isCurrentUser: computed
     });
   }
 
@@ -38,7 +42,8 @@ class ProfileState {
   async load() {
     await this.store._compose([
       endpoints.USER.with(this.userId),
-      endpoints.WATCHLIST.FOR_USER.with(this.userId)
+      endpoints.WATCHLIST.FOR_USER.with(this.userId),
+      endpoints.FRIENDSHIPS.FOR_USER.with(this.userId)
     ]);
 
     this.user = new User(
@@ -46,6 +51,35 @@ class ProfileState {
     );
 
     this.watchlist = this.store._getAll(types.WATCHLIST_MOVIE, WatchlistMovie);
+    this.friendships = this.store._getAll(types.FRIENDSHIP, Friendship);
+  }
+
+  get profileListPages() {
+    const links = [
+      {
+        value: 'Friends',
+        navigate: 'ProfileFriendsList',
+        params: { userId: this.userId }
+      },
+      {
+        value: 'Watchlist',
+        navigate: 'Watchlist',
+        params: { userId: this.userId }
+      }
+    ];
+
+    if (this.isCurrentUser) {
+      links.push({
+        value: 'Friend Requests',
+        navigate: 'ProfileFriendRequestsList'
+      });
+    }
+
+    return links;
+  }
+
+  get isCurrentUser() {
+    return this.user.id === authStore.userId;
   }
 }
 

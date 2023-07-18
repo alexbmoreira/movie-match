@@ -7,6 +7,7 @@ module Api
         :title,
         :overview,
         :release_date,
+        :poster_thumb,
         :poster_path
 
       has_many :cast_members,

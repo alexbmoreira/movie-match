@@ -15,6 +15,13 @@ const endpoints = {
         return `/watchlist_movies/list_for_user/${userId}/`;
       }
     }
+  },
+  FRIENDSHIPS: {
+    FOR_USER: {
+      with(userId) {
+        return `/friendships/list_for_user/${userId}/`;
+      }
+    }
   }
 };
 

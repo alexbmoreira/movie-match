@@ -25,11 +25,11 @@ class ApplicationController < ActionController::API
   end
 
   def decoded_token
-    return unless cookies.signed[:jwt]
+    return unless request.headers['Authorization']
 
     begin
       JWT.decode(
-        cookies.signed[:jwt],
+        request.headers['Authorization'].split(' ').last,
         Rails.application.credentials[Rails.env.to_sym][:secret_key_base],
         true,
         algorithm: 'HS256'

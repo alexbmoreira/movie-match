@@ -33,10 +33,10 @@ module Backend
     config.api_only = true
 
     ActiveValidators.activate(:email)
+    
+    config.middleware.use OliveBranch::Middleware, inflection: 'camel'
 
-    Tmdb::Api.key(ENV['TMDB_API_KEY'])
-
-    Rails.application.routes.default_url_options[:protocol] = ENV['PROTOCOL']
-    Rails.application.routes.default_url_options[:host] = ENV['DOMAIN']
+    Rails.application.routes.default_url_options[:protocol] = Rails.application.credentials[Rails.env.to_sym][:protocol]
+    Rails.application.routes.default_url_options[:host] = Rails.application.credentials[Rails.env.to_sym][:domain]
   end
 end

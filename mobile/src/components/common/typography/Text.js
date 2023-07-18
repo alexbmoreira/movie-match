@@ -9,7 +9,7 @@ const _style = StyleSheet.create({
     fontSize: 16
   },
   soft: {
-    color: theme.colors.surface
+    opacity: 0.25
   },
   italic: {
     fontStyle: 'italic'

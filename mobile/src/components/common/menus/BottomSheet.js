@@ -1,28 +1,32 @@
 import React from 'react';
 import { View } from 'react-native';
-import Sheet from 'reanimated-bottom-sheet';
 import { theme } from 'shared';
+import Sheet from '@gorhom/bottom-sheet';
 
-const BottomSheet = ({ innerRef, children, snapPoints, ...rest }) => {
+const BottomSheet = ({ innerRef, children, snapPoint, ...rest }) => {
   return (
     <Sheet
       ref={innerRef}
-      renderContent={() => (
-        <View
-          style={{
-            height: snapPoints[0],
-            backgroundColor: theme.colors.backdrop,
-            padding: 16
-          }}
-        >
-          {children}
-        </View>
-      )}
-      snapPoints={snapPoints}
+      snapPoints={[snapPoint]}
       initialSnap={1}
       borderRadius={10}
+      enablePanDownToClose
+      animateOnMount={false}
+      handleIndicatorStyle={{ backgroundColor: theme.colors.screen }}
+      handleStyle={{ backgroundColor: theme.colors.backdrop }}
+      backgroundStyle={{ backgroundColor: theme.colors.backdrop }}
       {...rest}
-    />
+    >
+      <View
+        style={{
+          height: snapPoint,
+          backgroundColor: theme.colors.backdrop,
+          padding: 16
+        }}
+      >
+        {children}
+      </View>
+    </Sheet>
   );
 };
 

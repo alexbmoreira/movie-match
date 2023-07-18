@@ -26,7 +26,6 @@ const ProfilePage = observer(({ uiState }) => {
 
   return (
     <View>
-      <AvatarAndWatchlist uiState={uiState}/>
       <Table
         Header={() => <AvatarAndWatchlist uiState={uiState}/>}
         models={profileListPages}
@@ -35,7 +34,7 @@ const ProfilePage = observer(({ uiState }) => {
       {!uiState.isCurrentUser &&
         <BottomSheet
           innerRef={bottomSheetRef}
-          snapPoints={[150, 0]}
+          snapPoint={150}
         >
           <UserOptions uiState={uiState}/>
         </BottomSheet>}

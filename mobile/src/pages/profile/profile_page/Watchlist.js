@@ -16,7 +16,7 @@ const Movie = ({ model }) => {
 
   return (
     <Pressable onPress={() => navigate('MovieDetails', { movieId: movie.id, title: movie.title })}>
-      <Poster size='sm' title={movie.title} source={{ uri: movie.poster_link_sm }}/>
+      <Poster size='sm' title={movie.title} source={{ uri: movie.posterThumb }}/>
     </Pressable>
   );
 };
