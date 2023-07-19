@@ -21,6 +21,18 @@ const endpoints = {
   },
   FRIEND_REQUESTS: {
     ALL: '/friend_requests/'
+  },
+  TMDB: {
+    MOVIES: {
+      with(movieId) {
+        return `/movies/${movieId}/`;
+      }
+    }
+  },
+  WATCHLIST: {
+    with(movieId) {
+      return `/watchlist_movies/${movieId}/`;
+    }
   }
 };
 

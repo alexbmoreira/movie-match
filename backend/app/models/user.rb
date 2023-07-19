@@ -16,10 +16,10 @@ class User < ApplicationRecord
     blue_violet: 11
   }
 
-  has_many :friendships
-  has_many :initiated_friends, through: :friendships, source: :user
+  has_many :friendships, class_name: 'Friendship', foreign_key: 'user_id'
+  has_many :initiated_friends, through: :friendships, source: :friend
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
-  has_many :received_friends, through: :inverse_friendships, source: :friend
+  has_many :received_friends, through: :inverse_friendships, source: :user
   has_many :received_friend_requests, class_name: 'FriendRequest', foreign_key: 'receiver_id'
   has_many :watchlist_movies
 

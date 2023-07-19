@@ -23,14 +23,16 @@ const _style = StyleSheet.create({
   poster: {
     marginRight: 15
   },
-  iconRow: {
-    marginTop: 15
+  titleRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 });
 
 const YearAndRuntime = ({ movie }) => {
-  const year = movie.release_year || '';
-  const delimiter = (movie.release_year && movie.runtimeHours) ? ' • ' : '';
+  const year = movie.releaseYear || '';
+  const delimiter = (movie.releaseYear && movie.runtimeHours) ? ' • ' : '';
   const runtime = movie.runtimeHours || '';
   return (
     <Text soft>{year}{delimiter}{runtime}</Text>
@@ -43,24 +45,24 @@ const MovieDetails = observer(({ uiState }) => {
   return (
     <ScreenContainer scroll>
       <View style={_style.headingDetails}>
-        {movie.poster_link_md && <Poster style={_style.poster} source={{ uri: movie.poster_link_md }} size='md' title={movie.title}/>}
+        {movie.posterPath && <Poster style={_style.poster} source={{ uri: movie.posterPath }} size='md' title={movie.title}/>}
         <View style={_style.info}>
           <View>
-            <Title>{movie.title}</Title>
+            <View style={_style.titleRow}>
+              <Title>{movie.title}</Title>
+              <IconButton
+                icon={({ size, color }) => (
+                  <Icon name='add-to-watchlist' size={size} color={color} />
+                )}
+                onPress={() => uiState.editWatchlist(inWatchlist)}
+                color={inWatchlist ? theme.colors.primary : theme.colors.text}
+                size={'sm'}
+              />
+            </View>
             <YearAndRuntime movie={movie}/>
             {!_.isEmpty(movie.directors) && <DirectorList directors={movie.directors}/>}
           </View>
         </View>
-      </View>
-      <View style={_style.iconRow}>
-        <IconButton
-          icon={({ size, color }) => (
-            <Icon name='add-to-watchlist' size={size} color={color} />
-          )}
-          onPress={() => uiState.editWatchlist(inWatchlist)}
-          color={inWatchlist ? theme.colors.primary : theme.colors.text}
-          size={'sm'}
-        />
       </View>
       <Text style={_style.overview}>{movie.overview}</Text>
     </ScreenContainer>

@@ -57,7 +57,7 @@ class IconButton extends React.Component {
 
     return(
       <TouchableOpacity onPress={async (e) => this.onPress(e, onPress)} disabled={this.isDisabled}>
-        <View style={[style, _style.iconButton]} {...rest}>
+        <View style={[_style.iconButton, style]} {...rest}>
           <Icon color={color} size={iconSize}/>
         </View>
       </TouchableOpacity>

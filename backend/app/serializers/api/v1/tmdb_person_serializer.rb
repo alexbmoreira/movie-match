@@ -7,9 +7,6 @@ module Api
         :name,
         :known_for_department,
         :profile_path
-
-      has_many :known_for,
-        serializer: versioned_class(TmdbMovieSerializer)
     end
   end
 end

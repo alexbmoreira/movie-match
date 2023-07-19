@@ -3,8 +3,7 @@ module Api
     class WatchlistMoviesController < ApplicationController
       def show
         respond_with WatchlistMovies::Find.run!(params),
-          serializer: versioned_class(WatchlistMovieSerializer),
-          include: [:user]
+          serializer: versioned_class(WatchlistMovieSerializer)
       end
 
       def create

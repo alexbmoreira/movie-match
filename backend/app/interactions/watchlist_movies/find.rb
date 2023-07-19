@@ -3,7 +3,7 @@ module WatchlistMovies
     string :id
 
     def execute
-      policy_scope(WatchlistMovie).for_user(current_user).find(id)
+      current_user.watchlist.find_by(movie_id: id)
     end
   end
 end

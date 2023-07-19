@@ -50,6 +50,10 @@ class ProfileState {
     this.watchlist = this.store._getAll(types.WATCHLIST_MOVIE, WatchlistMovie);
   }
 
+  navigationConfig() {
+    this.navigation.setOptions({ title: this.user.username });
+  }
+
   get profileListPages() {
     const links = [
       {
@@ -75,7 +79,7 @@ class ProfileState {
   }
 
   get isCurrentUser() {
-    return this.user.id === authStore.userId;
+    return this.user.id === authStore.user.id;
   }
 }
 

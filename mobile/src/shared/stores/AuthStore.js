@@ -1,21 +1,18 @@
 import { makeAutoObservable } from 'mobx';
 
 class AuthStore {
-  userId = null;
-  username = null;
+  user = {};
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  login(userId, username) {
-    this.userId = userId;
-    this.username = username;
+  login(user) {
+    this.user = user;
   }
 
   logout() {
-    this.userId = null;
-    this.username = null;
+    this.user = {};
   }
 }
 
