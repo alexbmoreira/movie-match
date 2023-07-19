@@ -5,6 +5,10 @@ module Api
 
       attributes :created_at,
         :movie
+
+      def movie
+        TmdbMovieSerializer.new(object.movie)
+      end
     end
   end
 end

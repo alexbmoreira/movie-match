@@ -7,6 +7,8 @@ import { WatchlistMovie } from 'stores';
 
 const Movie = ({ model }) => {
   const { movie } = model;
+
+  console.log(movie);
   return (
     <TmdbListItem
       header={movie.title}
