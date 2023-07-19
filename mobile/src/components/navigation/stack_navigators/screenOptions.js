@@ -5,12 +5,12 @@ const screenOptions = {
     color: theme.colors.text,
   },
   headerStyle: {
-    backgroundColor: theme.colors.backdrop,
+    backgroundColor: 'transparent',
     borderColor: 'transparent',
     shadowRadius: 0,
     shadowOffset: {
       height: 0,
-    },
+    }
   },
   cardOverlayEnabled: true
 };
