@@ -4,7 +4,7 @@ module Users
 
     def execute
       user = policy_scope(User).find(id)
-      return [] unless user.present?
+      return [] if user.blank?
 
       user.watchlist
     end

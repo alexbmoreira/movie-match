@@ -29,7 +29,7 @@ class ApplicationController < ActionController::API
 
     begin
       JWT.decode(
-        request.headers['Authorization'].split(' ').last,
+        request.headers['Authorization'].split.last,
         Rails.application.credentials[Rails.env.to_sym][:secret_key_base],
         true,
         algorithm: 'HS256'

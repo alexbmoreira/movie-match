@@ -1,14 +1,13 @@
 module Api
   module V1
     class AuthenticationController < ApplicationController
-      skip_before_action :authorize, only: [:register, :login, :logout]
+      skip_before_action :authorize, only: [:register, :login]
 
       def register
         ActiveRecord::Base.transaction do
           user = User.new(user_params)
-          if user.save
-            token = encode_token({ user_id: user.id })
-          end
+          token = encode_token({ user_id: user.id }) if user.save
+
           respond_with user, serializer: versioned_class(UserAuthSerializer), token: token
         end
       end
