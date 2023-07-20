@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
+import { RefreshControl } from 'react-native';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Url, withState } from 'shared';
@@ -22,16 +23,19 @@ class InteractiveTableState {
     totalCount: 0
   };
   loading = false;
+  refreshing = false;
 
   constructor() {
     makeObservable(this, {
       models: observable,
       pagination: observable,
       loading: observable,
+      refreshing: observable,
       load: action.bound,
       fetchResults: action.bound,
       updateModels: action.bound,
-      nextPage: action.bound
+      nextPage: action.bound,
+      refresh: action.bound
     });
   }
 
@@ -62,7 +66,7 @@ class InteractiveTableState {
   }
 
   updateModels(data) {
-    if (!this.models.length) {
+    if (!this.models.length || this.refreshing) {
       this.models = data;
     } else {
       this.models = this.models.concat(data);
@@ -95,14 +99,38 @@ class InteractiveTableState {
     this.pagination.currentPage++;
     await this.fetchResults();
   }
+
+  async refresh() {
+    this.refreshing = true;
+    this.pagination = {
+      currentPage: 1,
+      nextPage: null,
+      previousPage: null,
+      totalPages: 1,
+      totalCount: 0
+    };
+    await this.load();
+    this.refreshing = false;
+  }
 }
 
 const InteractiveTable = observer(({ uiState, ...rest }) => {
-  const { models, loading } = uiState;
+  const { models, loading, refreshing } = uiState;
 
   return (
     <React.Fragment>
-      <Table models={models} loading={loading} onEndReached={() => uiState.nextPage()} {...rest}/>
+      <Table
+        models={models}
+        loading={loading}
+        refreshing={refreshing}
+        onEndReached={() => uiState.nextPage()}
+        refreshControl={
+          <RefreshControl
+            onRefresh={uiState.refresh}
+          />
+        }
+        {...rest}
+      />
     </React.Fragment>
   );
 });

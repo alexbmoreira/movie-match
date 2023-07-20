@@ -23,7 +23,8 @@ class ProfileState {
       user: observable,
       watchlist: observable,
       load: action.bound,
-      isCurrentUser: computed
+      isCurrentUser: computed,
+      isFocused: computed
     });
   }
 
@@ -80,6 +81,10 @@ class ProfileState {
 
   get isCurrentUser() {
     return this.user.id === authStore.user.id;
+  }
+
+  get isFocused() {
+    return this.navigation.isFocused();
   }
 }
 

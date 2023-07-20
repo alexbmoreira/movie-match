@@ -12,7 +12,7 @@ const screenOptions = {
       height: 0,
     }
   },
-  cardOverlayEnabled: true
+  cardShadowEnabled: true
 };
 
 export default screenOptions;
