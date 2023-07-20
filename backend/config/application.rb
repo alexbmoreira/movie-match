@@ -35,8 +35,5 @@ module Backend
     ActiveValidators.activate(:email)
     
     config.middleware.use OliveBranch::Middleware, inflection: 'camel'
-
-    Rails.application.routes.default_url_options[:protocol] = Rails.application.credentials[Rails.env.to_sym][:protocol]
-    Rails.application.routes.default_url_options[:host] = Rails.application.credentials[Rails.env.to_sym][:domain]
   end
 end
