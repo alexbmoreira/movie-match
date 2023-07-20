@@ -6,6 +6,8 @@ jobs:
   backend:
     name: Back-end
     runs-on: ubuntu-latest
+    env:
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
     services:
       postgres:
         image: postgres:12
