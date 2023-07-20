@@ -6,11 +6,7 @@ const screenOptions = {
   },
   headerStyle: {
     backgroundColor: 'transparent',
-    borderColor: 'transparent',
-    shadowRadius: 0,
-    shadowOffset: {
-      height: 0,
-    }
+    borderColor: 'transparent'
   },
   cardShadowEnabled: true
 };
