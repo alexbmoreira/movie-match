@@ -16,25 +16,30 @@ class User < ApplicationRecord
     blue_violet: 11
   }
 
-  has_many :friendships,
+  has_many :initiated_friendships,
     class_name: 'Friendship',
     inverse_of: :user,
     dependent: :destroy
   has_many :initiated_friends,
-    through: :friendships,
+    through: :initiated_friendships,
     source: :friend
-  has_many :inverse_friendships,
+  has_many :received_friendships,
     class_name: 'Friendship',
     foreign_key: 'friend_id',
     inverse_of: :friend,
     dependent: :destroy
   has_many :received_friends,
-    through: :inverse_friendships,
+    through: :received_friendships,
     source: :user
   has_many :received_friend_requests,
     class_name: 'FriendRequest',
     foreign_key: 'receiver_id',
     inverse_of: :receiver,
+    dependent: :destroy
+  has_many :sent_friend_requests,
+    class_name: 'FriendRequest',
+    foreign_key: 'creator_id',
+    inverse_of: :creator,
     dependent: :destroy
   has_many :watchlist_movies, dependent: :destroy
 
@@ -54,7 +59,15 @@ class User < ApplicationRecord
   validate :password_requirements, if: :password
 
   def friends
-    initiated_friends + received_friends
+    initiated_friends.or(received_friends)
+  end
+
+  def friendships
+    initiated_friendships.or(received_friendships)
+  end
+
+  def friend_requests
+    received_friend_requests.or(sent_friend_requests)
   end
 
   private

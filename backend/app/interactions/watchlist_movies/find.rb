@@ -1,9 +1,9 @@
 module WatchlistMovies
   class Find < ApplicationInteraction
-    string :id
+    string :movie_id
 
     def execute
-      current_user.watchlist.find_by(movie_id: id)
+      current_user.watchlist.find_by(movie_id:)
     end
   end
 end
