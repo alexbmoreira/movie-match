@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Search::Search do
+describe Searches::Search do
   wrap_user_context
 
   let(:params) {
@@ -16,7 +16,7 @@ describe Search::Search do
     let(:type) { 'movie' }
 
     it do
-      expect_any_instance_of(Search::Movie).to receive(:run)
+      expect_any_instance_of(Searches::Movie).to receive(:run)
       subject
     end
   end
@@ -25,7 +25,7 @@ describe Search::Search do
     let(:type) { 'person' }
 
     it do
-      expect_any_instance_of(Search::Person).to receive(:run)
+      expect_any_instance_of(Searches::Person).to receive(:run)
       subject
     end
   end
