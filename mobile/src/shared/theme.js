@@ -1,12 +1,12 @@
 import { DefaultTheme } from 'react-native-paper';
 
-const space = '#202139';
-const charcoal = '#384259';
-const slate = '#708090';
-const sky = '#87CEEB';
-const alice = '#F0F8FF';
-const forest = '#228B22';
-const firetruck = '#B22222';
+const space = '#12192D'; // bg
+const charcoal = '#2A3A57'; // secondary
+const slate = '#7A8B99'; // tertiary
+const sky = '#F2B705'; // action
+const alice = '#E6E6E6'; // text
+const forest = '#E63946'; // like
+const firetruck = '#2A9D8F'; // dislike
 
 const theme = {
   ...DefaultTheme,
