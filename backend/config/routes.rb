@@ -23,8 +23,10 @@ Rails.application.routes.draw do
           post :accept
         end
       end
-      resources :friendships, only: [:show, :index, :destroy]
-      resources :watchlist_movies, only: [:show, :create, :destroy]
+      resources :friendships, only: [:show, :destroy]
+      resources :watchlist_movies, only: [:create, :destroy] do
+        get '/:movie_id', on: :collection, action: :show, as: :show
+      end
 
       resources :matchlist_actions, only: [:show, :destroy]
       resources :matchlist_likes, only: [:show, :index, :create]

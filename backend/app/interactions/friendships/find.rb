@@ -1,9 +1,11 @@
 module Friendships
   class Find < ApplicationInteraction
-    string :id
+    string :user_id
 
     def execute
-      policy_scope(Friendship).for_user(current_user).find(id)
+      policy_scope(Friendship).where(user_id: user_id, friend_id: current_user.id).or(
+        policy_scope(Friendship).where(user_id: current_user.id, friend_id: user_id)
+      ).first
     end
   end
 end
