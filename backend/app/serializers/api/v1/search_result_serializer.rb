@@ -14,7 +14,7 @@ module Api
         end
       end
 
-      attribute(:args) do
+      attribute(:args) do # rubocop:disable Metrics/BlockLength
         case object
         when TmdbMovie
           {

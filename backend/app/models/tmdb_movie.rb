@@ -24,7 +24,7 @@ class TmdbMovie < ActiveModelSerializers::Model
   end
 
   def release_year
-    return unless release_date.present?
+    return if release_date.blank?
 
     Date.parse(release_date).year
   end
