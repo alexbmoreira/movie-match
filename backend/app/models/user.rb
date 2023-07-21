@@ -59,7 +59,11 @@ class User < ApplicationRecord
   validate :password_requirements, if: :password
 
   def friends
-    initiated_friends.or(received_friends)
+    initiated_friend_ids = initiated_friends.pluck(:id)
+    received_friend_ids = received_friends.pluck(:id)
+
+    friend_ids = received_friend_ids | initiated_friend_ids
+    User.where(id: friend_ids)
   end
 
   def friendships
