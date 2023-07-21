@@ -3,14 +3,7 @@ module Api
     class WatchlistMoviesController < ApplicationController
       def show
         respond_with WatchlistMovies::Find.run!(params),
-          serializer: versioned_class(WatchlistMovieSerializer),
-          include: [:user]
-      end
-
-      def index
-        respond_with WatchlistMovies::List.run!(params),
-          each_serializer: versioned_class(WatchlistMovieSerializer),
-          include: [:user]
+          serializer: versioned_class(WatchlistMovieSerializer)
       end
 
       def create
@@ -23,12 +16,6 @@ module Api
       def destroy
         respond_with WatchlistMovies::Destroy.run(watchlist_movie: find_watchlist_movie!),
           serializer: versioned_class(WatchlistMovieSerializer),
-          include: [:user]
-      end
-
-      def list_for_user
-        respond_with WatchlistMovies::ListForUser.run!(user: find_user!),
-          each_serializer: versioned_class(WatchlistMovieSerializer),
           include: [:user]
       end
 

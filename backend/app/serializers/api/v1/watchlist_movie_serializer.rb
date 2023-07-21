@@ -6,7 +6,9 @@ module Api
       attributes :created_at,
         :movie
 
-      belongs_to :user, serializer: versioned_class(UserSerializer)
+      def movie
+        TmdbMovieSerializer.new(object.movie)
+      end
     end
   end
 end

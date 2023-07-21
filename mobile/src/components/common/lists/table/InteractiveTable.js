@@ -1,14 +1,18 @@
-import { getRequest } from 'api';
 import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
+import { RefreshControl } from 'react-native';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Url, withState } from 'shared';
 import Table from './Table';
+import { DomainStore } from 'shared/stores';
 
 class InteractiveTableState {
-  endpoint;
   Model;
+  endpoint;
+  type;
+
+  store = new DomainStore();
 
   models = [];
   pagination = {
@@ -19,22 +23,26 @@ class InteractiveTableState {
     totalCount: 0
   };
   loading = false;
+  refreshing = false;
 
   constructor() {
     makeObservable(this, {
       models: observable,
       pagination: observable,
       loading: observable,
+      refreshing: observable,
       load: action.bound,
       fetchResults: action.bound,
       updateModels: action.bound,
-      nextPage: action.bound
+      nextPage: action.bound,
+      refresh: action.bound
     });
   }
 
-  receiveProps({ Model, endpoint }) {
+  receiveProps({ Model, endpoint, type }) {
     this.Model = Model;
     this.endpoint = endpoint;
+    this.type = type;
   }
 
   async load() {
@@ -43,16 +51,22 @@ class InteractiveTableState {
 
   async fetchResults() {
     this.loading = true;
-    const response = await getRequest(this.constructUrl(this.endpoint, this.pagination));
-    this.updateModels(_.map(response.results, model => new this.Model(model)));
+    
+    const composed = await this.store._compose([
+      this.constructUrl(this.endpoint, this.pagination)
+    ]);
+    const meta = composed[0].meta || {};
+    const data = composed[0].data || [];
 
-    this.pagination.currentPage = response.current;
-    this.pagination.nextPage = response.next;
-    this.pagination.previousPage = response.previous;
+    this.updateModels(_.map(this.__getModels(data)));
+
+    this.pagination.currentPage = meta.currentPage;
+    this.pagination.nextPage = meta.nextPage;
+    this.pagination.previousPage = meta.previousPage;
   }
 
   updateModels(data) {
-    if (!this.models.length) {
+    if (!this.models.length || this.refreshing) {
       this.models = data;
     } else {
       this.models = this.models.concat(data);
@@ -73,20 +87,50 @@ class InteractiveTableState {
     url.params['page'] = pagination.currentPage;
   }
 
+  __getModels(data) {
+    const filtered = _.filter(data, { _type: this.type });
+
+    return filtered.map(m => new this.Model(m));
+  }
+
   async nextPage() {
     if (!this.pagination.nextPage) return;
 
     this.pagination.currentPage++;
     await this.fetchResults();
   }
+
+  async refresh() {
+    this.refreshing = true;
+    this.pagination = {
+      currentPage: 1,
+      nextPage: null,
+      previousPage: null,
+      totalPages: 1,
+      totalCount: 0
+    };
+    await this.load();
+    this.refreshing = false;
+  }
 }
 
 const InteractiveTable = observer(({ uiState, ...rest }) => {
-  const { models, loading } = uiState;
+  const { models, loading, refreshing } = uiState;
 
   return (
     <React.Fragment>
-      <Table models={models} loading={loading} onEndReached={() => uiState.nextPage()} {...rest}/>
+      <Table
+        models={models}
+        loading={loading}
+        refreshing={refreshing}
+        onEndReached={() => uiState.nextPage()}
+        refreshControl={
+          <RefreshControl
+            onRefresh={uiState.refresh}
+          />
+        }
+        {...rest}
+      />
     </React.Fragment>
   );
 });

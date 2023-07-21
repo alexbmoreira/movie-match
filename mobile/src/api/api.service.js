@@ -9,9 +9,9 @@ const api = axios.create({
 
 api.interceptors.request.use(
   async (config) => {
-    const cookie = await AsyncStorage.getItem('token');
-    if (cookie) {
-      config.headers.Cookie = `${cookie}`;
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
@@ -37,17 +37,5 @@ api.interceptors.response.use(function (response) {
   }
   return Promise.reject(error);
 });
-
-export const postRequest = async (url, payload = {}) => {
-  return payload;
-};
-
-export const getRequest = async (url, params = {}) => {
-  return params;
-};
-
-export const deleteRequest = async (url) => {
-  return url;
-};
 
 export default api;

@@ -1,7 +1,7 @@
 import { InteractiveTable, UserListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { endpoints } from 'shared';
+import { types, endpoints } from 'shared';
 import { push } from 'shared/RootNavigation';
 import { User } from 'stores';
 
@@ -26,7 +26,7 @@ const LOCALIZATION = {
 
 const ProfileFriendsList = observer(({ route }) => {
   return (
-    <InteractiveTable Model={User} endpoint={endpoints.FRIENDS.with(route.params.userId)} columns={COLUMNS} localization={LOCALIZATION}/>
+    <InteractiveTable Model={User} endpoint={endpoints.USER.FRIENDS.with(route.params.userId)} type={types.USER} columns={COLUMNS} localization={LOCALIZATION}/>
   );
 });
 

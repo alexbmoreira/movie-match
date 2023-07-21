@@ -1,15 +1,13 @@
 module Api
   module V1
     class AuthenticationController < ApplicationController
-      skip_before_action :authorize, only: [:register, :login, :logout]
+      skip_before_action :authorize, only: [:register, :login]
 
       def register
         ActiveRecord::Base.transaction do
           user = User.new(user_params)
-          if user.save
-            token = encode_token({ user_id: user.id })
-            persist_jwt_token(token)
-          end
+          token = encode_token({ user_id: user.id }) if user.save
+
           respond_with user, serializer: versioned_class(UserAuthSerializer), token: token
         end
       end
@@ -20,17 +18,11 @@ module Api
 
           if user&.authenticate(user_params[:password])
             token = encode_token({ user_id: user.id })
-            persist_jwt_token(token)
             respond_with user, serializer: versioned_class(UserAuthSerializer), token: token
           else
             failed_login_response
           end
         end
-      end
-
-      def logout
-        cookies.delete(:jwt)
-        respond_with({ message: 'Logged out' })
       end
 
       private
@@ -44,17 +36,8 @@ module Api
 
       def user_params
         ActiveModelSerializers::Deserialization.jsonapi_parse(
-          params, only: [:email, :username, :password, :passwordConfirmation]
+          params, only: [:email, :username, :password, :password_confirmation]
         )
-      end
-
-      def persist_jwt_token(token)
-        cookies.signed[:jwt] = {
-          value:  token,
-          httponly: true,
-          secure: Rails.env.production?,
-          same_site: :none
-        }
       end
     end
   end

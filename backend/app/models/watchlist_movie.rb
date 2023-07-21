@@ -3,8 +3,6 @@ class WatchlistMovie < ApplicationRecord
 
   validates :user, uniqueness: { scope: :movie_id }
 
-  scope :for_user, ->(user) { where(user_id: user.id) }
-
   def movie
     TmdbMovie.new(Tmdb::Movie.detail(movie_id))
   end

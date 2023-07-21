@@ -11,7 +11,7 @@ const _style = StyleSheet.create({
 
 const DirectorName = ({ name, isTruncated }) => {
   return (
-    <Text bold large>{`${name}`}{isTruncated && <Text> ...</Text>}</Text>
+    <Text bold>{`${name}`}{isTruncated && <Text> ...</Text>}</Text>
   );
 };
 

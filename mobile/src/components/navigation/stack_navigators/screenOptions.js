@@ -5,13 +5,10 @@ const screenOptions = {
     color: theme.colors.text,
   },
   headerStyle: {
-    backgroundColor: theme.colors.backdrop,
-    borderColor: 'transparent',
-    shadowRadius: 0,
-    shadowOffset: {
-      height: 0,
-    },
-  }
+    backgroundColor: 'transparent',
+    borderColor: 'transparent'
+  },
+  cardShadowEnabled: true
 };
 
 export default screenOptions;

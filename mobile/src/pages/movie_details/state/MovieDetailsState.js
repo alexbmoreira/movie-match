@@ -1,25 +1,23 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { deleteRequest, getRequest, postRequest } from 'api';
+import { DomainStore } from 'shared/stores';
 import { action, computed, makeObservable, observable } from 'mobx';
-import { endpoints } from 'shared';
-import { Movie, TmdbMovie, User } from 'stores';
+import { endpoints, types } from 'shared';
+import { WatchlistMovie, TmdbMovie } from 'stores';
 
 class MovieDetailsState {
+  store = new DomainStore();
+
   movieId;
   route;
   navigation;
 
   movie = {};
-  user = {};
   watchlistMovie = {};
 
   constructor() {
     makeObservable(this, {
-      user: observable,
       movie: observable,
       watchlistMovie: observable,
       load: action.bound,
-      editWatchlist: action.bound,
       inWatchlist: computed
     });
   }
@@ -27,18 +25,17 @@ class MovieDetailsState {
   receiveProps({ route, navigation }) {
     this.route = route;
     this.navigation = navigation;
-    this.movieId = route.params.movieId;
+    this.movieId = route.params.movieId.toString();
   }
 
   async load() {
-    const storedUser = await AsyncStorage.getItem('user');
-    this.user = new User(JSON.parse(storedUser));
+    await this.store._compose([
+      endpoints.TMDB.MOVIES.with(this.movieId),
+      endpoints.WATCHLIST.with(this.movieId)
+    ]);
 
-    const movie = await getRequest(endpoints.TMDB.DATA.with('movie', this.movieId));
-    this.movie = new TmdbMovie(movie);
-
-    const watchlistMovie = await getRequest(endpoints.WATCHLIST.MOVIE.with(this.user.id, this.movieId));
-    this.watchlistMovie = new Movie(watchlistMovie);
+    this.movie = new TmdbMovie(this.store._getSingle(types.TMDB.MOVIE, { id: this.movieId }));
+    this.watchlistMovie = new WatchlistMovie(this.store._getSingle(types.WATCHLIST_MOVIE));
   }
 
   navigationConfig() {
@@ -46,18 +43,18 @@ class MovieDetailsState {
   }
 
   async editWatchlist() {
-    // TODO - Error handling
-    if(this.inWatchlist) {
-      await deleteRequest(endpoints.WATCHLIST.MOVIE.with(this.user.id, this.movieId));
-      this.watchlistMovie = null;
-    } else {
-      const watchlistMovie = await postRequest(endpoints.WATCHLIST.with(this.user.id), { movie: this.movie.id });
-      this.watchlistMovie = new Movie(watchlistMovie);
-    }
+  //   // TODO - Error handling
+  //   if(this.inWatchlist) {
+  //     await deleteRequest(endpoints.WATCHLIST.MOVIE.with(this.user.id, this.movieId));
+  //     this.watchlistMovie = null;
+  //   } else {
+  //     const watchlistMovie = await postRequest(endpoints.WATCHLIST.with(this.user.id), { movie: this.movie.id });
+  //     this.watchlistMovie = new Movie(watchlistMovie);
+  //   }
   }
 
   get inWatchlist() {
-    return this.watchlistMovie?.toJS().id;
+    return !!this.watchlistMovie.id;
   }
 }
 

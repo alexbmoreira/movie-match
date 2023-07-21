@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { Icon, IconButton } from 'components/common';
-// import { ProfileFriendRequestsList, ProfileFriendsList, Watchlist } from 'pages/lists';
-// import { MovieDetails } from 'pages/movie_details';
+import { ProfileFriendRequestsList, ProfileFriendsList, Watchlist } from 'pages/lists';
+import { MovieDetails } from 'pages/movie_details';
 import { ProfilePage, ProfileSettings } from 'pages/profile';
 import React from 'react';
 import { theme } from 'shared';
@@ -39,7 +39,7 @@ const ProfileStack = ({ route }) => {
         initialParams={route.params}
         options={{ title: 'Settings' }}
       />
-      {/* <ProfileNavigator.Screen
+      <ProfileNavigator.Screen
         name='OtherProfile'
         component={ProfilePage}
         initialParams={route.params}
@@ -67,7 +67,7 @@ const ProfileStack = ({ route }) => {
         name='MovieDetails'
         component={MovieDetails}
         options={{ title: '' }}
-      /> */}
+      />
     </ProfileNavigator.Navigator>
   );
 };

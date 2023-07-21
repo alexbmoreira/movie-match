@@ -1,13 +1,14 @@
 import { InteractiveTable, UserListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { endpoints, withState } from 'shared';
+import { types, endpoints, withState } from 'shared';
 import { push } from 'shared/RootNavigation';
 import { FriendRequest } from 'stores';
 import ProfileFriendRequestsListState from './state/ProfileFriendRequestsListState';
 
 const User = ({ model }) => {
   const { creator } = model;
+
   return (
     <UserListItem
       user={creator}
@@ -26,14 +27,14 @@ const LOCALIZATION = {
   emptyState: 'You have no incoming friend requests'
 };
 
-const ProfileFriendRequestsList = observer(({ uiState }) => {
+const ProfileFriendRequestsList = observer(() => {
   return (
     <InteractiveTable
       Model={FriendRequest}
-      endpoint={endpoints.FRIEND_REQUESTS.INCOMING}
+      endpoint={endpoints.FRIEND_REQUESTS.ALL}
+      type={types.FRIEND_REQUEST}
       columns={COLUMNS}
       localization={LOCALIZATION}
-      quickActions={uiState.quickActions}
     />
   );
 });

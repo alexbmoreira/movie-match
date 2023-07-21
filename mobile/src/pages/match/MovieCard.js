@@ -31,7 +31,7 @@ const MovieCard = observer(({ movie }) => {
   return (
     <View style={_style.movieCard}>
       <ImageBackground
-        source={{ uri: movie.poster_link_og }}
+        source={{ uri: movie.posterPath }}
         resizeMode="cover"
         style={_style.image} 
         imageStyle={{ borderRadius: theme.roundness }}

@@ -1,15 +1,18 @@
-import { Table, TmdbListItem } from 'components/common';
+import { InteractiveTable, TmdbListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { withState } from 'shared';
+import { withState, endpoints, types } from 'shared';
 import WatchlistState from './state/WatchlistState';
+import { WatchlistMovie } from 'stores';
 
 const Movie = ({ model }) => {
+  const { movie } = model;
+
   return (
     <TmdbListItem
-      header={model.title}
-      imageLink={model.poster_link_sm}
-      item={model}
+      header={movie.title}
+      imageLink={movie.posterThumb}
+      item={movie}
       type={'movie'}
     />
   );
@@ -26,9 +29,16 @@ const LOCALIZATION = {
 };
 
 const Watchlist = observer(({ uiState }) => {
-  const { watchlistMovies } = uiState;
+  const { userId } = uiState;
+
   return (
-    <Table models={watchlistMovies} columns={COLUMNS} localization={LOCALIZATION}/>
+    <InteractiveTable
+      Model={WatchlistMovie}
+      endpoint={endpoints.USER.WATCHLIST.with(userId)}
+      type={types.WATCHLIST_MOVIE}
+      columns={COLUMNS}
+      localization={LOCALIZATION}
+    />
   );
 });
 

@@ -7,29 +7,13 @@ module Api
           include: [:user, :friend]
       end
 
-      def index
-        respond_with Friendships::List.run!(params),
-          each_serializer: versioned_class(FriendshipSerializer),
-          include: [:user, :friend]
-      end
-
       def destroy
         respond_with Friendships::Destroy.run(friendship: find_friendship!),
           serializer: versioned_class(FriendshipSerializer),
           include: [:user, :friend]
       end
 
-      def list_for_user
-        respond_with Friendships::ListForUser.run!(user: find_user!),
-          each_serializer: versioned_class(FriendshipSerializer),
-          include: [:user, :friend]
-      end
-
       private
-
-      def find_user!
-        Users::Find.run!(id: params[:user_id])
-      end
 
       def find_friendship!
         Friendships::Find.run!(id: params[:id])

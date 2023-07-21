@@ -8,7 +8,7 @@ const Movie = ({ model }) => {
   return (
     <TmdbListItem
       header={model.title}
-      imageLink={model.poster_link_sm}
+      imageLink={model.posterPath}
       item={model}
       type={'movie'}
     />

@@ -1,7 +1,7 @@
 class FriendRequestPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      FriendRequest.for_user(user)
+      user.friend_requests
     end
   end
 end

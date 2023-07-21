@@ -27,7 +27,9 @@ const Table = ({
   localization,
   onEndReached,
   loading,
-  quickActions
+  refreshing,
+  quickActions,
+  refreshControl
 }) => {
   return (
     <View>
@@ -47,7 +49,7 @@ const Table = ({
           </View>
         )}
         ListHeaderComponent={Header}
-        ListFooterComponent={() => !_.isEmpty(models) && 
+        ListFooterComponent={() => !_.isEmpty(models) && !refreshing &&
           <View>
             <Divider offset={0}/>
             {loading && <Spinner/>}
@@ -57,6 +59,7 @@ const Table = ({
         shouldBounceOnMount={false}
         maxSwipeDistance={80 * _.size(quickActions)}
         renderQuickActions={({ item }) => quickActions && <QuickActionSet item={item} quickActions={quickActions}/>}
+        refreshControl={refreshControl}
       />
     </View>
   );

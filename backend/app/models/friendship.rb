@@ -6,8 +6,6 @@ class Friendship < ApplicationRecord
   validates :user, comparison: { other_than: :friend }
   validate :inverse_user_uniqueness
 
-  scope :for_user, ->(user) { where('user_id = ? OR friend_id = ?', user.id, user.id) }
-
   def self.between_users(user1, user2)
     where('user_id = ? AND friend_id = ?', user1.id, user2.id).or(
       where('user_id = ? AND friend_id = ?', user2.id, user1.id)

@@ -40,6 +40,10 @@ class DomainObject {
     }
   }
 
+  hasLink(linkName) {
+    return _.has(this.links, `${linkName}.href`);
+  }
+
   toJS() {
     return toJS(this);
   }

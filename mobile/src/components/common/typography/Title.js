@@ -7,8 +7,8 @@ const _style = StyleSheet.create({
   title: {
     color: theme.colors.text,
     fontSize: 22,
-    lineHeight: 30,
-    marginVertical: 2,
+    lineHeight: 22,
+    marginVertical: 0,
     letterSpacing: 0.15
   },
   italic: {

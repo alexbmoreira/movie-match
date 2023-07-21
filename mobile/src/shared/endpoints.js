@@ -7,13 +7,31 @@ const endpoints = {
   USER: {
     with(userId) {
       return `/users/${userId}/`;
+    },
+    FRIENDS: {
+      with(userId) {
+        return `/users/${userId}/friends/`;
+      }
+    },
+    WATCHLIST: {
+      with(userId) {
+        return `/users/${userId}/watchlist/`;
+      }
+    }
+  },
+  FRIEND_REQUESTS: {
+    ALL: '/friend_requests/'
+  },
+  TMDB: {
+    MOVIES: {
+      with(movieId) {
+        return `/movies/${movieId}/`;
+      }
     }
   },
   WATCHLIST: {
-    FOR_USER: {
-      with(userId) {
-        return `/watchlist_movies/list_for_user/${userId}/`;
-      }
+    with(movieId) {
+      return `/watchlist_movies/${movieId}/`;
     }
   }
 };

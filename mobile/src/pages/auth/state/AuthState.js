@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { action, makeObservable, observable } from 'mobx';
 import { endpoints, types } from 'shared';
 import { navigate } from 'shared/RootNavigation';
-import { DomainStore } from 'shared/stores';
+import { authStore, DomainStore } from 'shared/stores';
 import { UserAuth } from 'stores';
 
 class AuthState {
@@ -55,6 +55,7 @@ class AuthState {
     const token = await AsyncStorage.getItem('token');
     const user = await AsyncStorage.getItem('user');
     if (token && user) {
+      authStore.login(JSON.parse(user));
       navigate('Main', { userId: JSON.parse(user).id, username: JSON.parse(user).username });
     } else {
       navigate('Login');
@@ -64,6 +65,7 @@ class AuthState {
   async authSuccess(user) {
     await AsyncStorage.setItem('token', user.token);
     await AsyncStorage.setItem('user', JSON.stringify(user));
+    authStore.login(user);
     navigate('Main', { userId: user.id, username: user.username });
   }
 }

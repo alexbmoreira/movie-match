@@ -5,11 +5,15 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/register', to: 'authentication#register'
       post '/login', to: 'authentication#login'
-      delete '/logout', to: 'authentication#logout'
 
       resource :search, only: [:show]
 
-      resources :users, only: [:show]
+      resources :users, only: [:show] do
+        member do
+          get :friends
+          get :watchlist
+        end
+      end
 
       resources :tmdb_movies, path: '/movies', only: [:show]
       resources :tmdb_people, path: '/people', only: [:show]
@@ -19,16 +23,9 @@ Rails.application.routes.draw do
           post :accept
         end
       end
-      resources :friendships, only: [:show, :index, :destroy] do
-        collection do
-          get :list_for_user, path: '/list_for_user/:user_id'
-        end
-      end
-
-      resources :watchlist_movies, only: [:show, :index, :create, :destroy] do
-        collection do
-          get :list_for_user, path: '/list_for_user/:user_id'
-        end
+      resources :friendships, only: [:show, :destroy]
+      resources :watchlist_movies, only: [:create, :destroy] do
+        get '/:movie_id', on: :collection, action: :show, as: :show
       end
 
       resources :matchlist_actions, only: [:show, :destroy]
