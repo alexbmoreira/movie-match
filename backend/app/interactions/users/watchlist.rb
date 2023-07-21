@@ -6,7 +6,7 @@ module Users
       user = policy_scope(User).find(id)
       return [] if user.blank?
 
-      user.watchlist
+      user.watchlist.order(created_at: :desc)
     end
   end
 end
