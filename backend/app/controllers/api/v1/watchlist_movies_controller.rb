@@ -21,16 +21,12 @@ module Api
 
       private
 
-      def find_user!
-        Users::Find.run!(id: params[:user_id])
-      end
-
       def find_watchlist_movie!
         WatchlistMovies::Find.run!(id: params[:id])
       end
 
       def watchlist_movie_params
-        ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:movieId])
+        ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:movie_id])
       end
     end
   end
