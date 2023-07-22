@@ -1,31 +1,6 @@
-import { JsonApiDataStore, JsonApiDataStoreModel } from 'jsonapi-datastore';
+import { JsonApiDataStore, serialize } from './jsonapi_datastore';
 import { api } from 'api';
 import _ from 'lodash';
-
-function toModel(plainObject, type) {
-  if (_.isString(plainObject) || _.isNumber(plainObject)) return plainObject;
-  let model = new JsonApiDataStoreModel(type, plainObject.id || null);
-  _.forOwn(plainObject, (value, key) => {
-    if (key === 'id') return;
-    if (_.isArray(value)) {
-      model._relationships.push(key);
-      model[key] = value.map(toModel);
-    } else if (_.isObject(value) && value._type) {
-      model._relationships.push(key);
-      model[key] = toModel(value);
-    } else {
-      model._attributes.push(key);
-      model[key] = value;
-    }
-  });
-
-  return model;
-}
-
-function serialize(plainObject, type) {
-  const model = toModel(plainObject, type);
-  return model.serialize();
-}
 
 const getSingle = (response, type) => {
   const store = new JsonApiDataStore();
@@ -99,6 +74,11 @@ class DomainStore {
 
   async post(endpoint, type, model = {}) {
     return this.__request(endpoint, type, model, api.post);
+  }
+
+  async destroy(model) {
+    await api.delete(_.get(model, 'links.self.href'));
+    this._repository.destroy(model);
   }
 }
 

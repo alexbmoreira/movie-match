@@ -18,6 +18,7 @@ class MovieDetailsState {
       movie: observable,
       watchlistMovie: observable,
       load: action.bound,
+      editWatchlist: action,
       inWatchlist: computed
     });
   }
@@ -43,14 +44,18 @@ class MovieDetailsState {
   }
 
   async editWatchlist() {
-  //   // TODO - Error handling
-  //   if(this.inWatchlist) {
-  //     await deleteRequest(endpoints.WATCHLIST.MOVIE.with(this.user.id, this.movieId));
-  //     this.watchlistMovie = null;
-  //   } else {
-  //     const watchlistMovie = await postRequest(endpoints.WATCHLIST.with(this.user.id), { movie: this.movie.id });
-  //     this.watchlistMovie = new Movie(watchlistMovie);
-  //   }
+    // TODO - Error handling
+    if(this.inWatchlist) {
+      await this.store.destroy(this.watchlistMovie);
+      this.watchlistMovie = {};
+    } else {
+      const { model } = await this.store.post(
+        endpoints.WATCHLIST.ALL,
+        types.WATCHLIST_MOVIE,
+        { movieId: this.movie.id }
+      );
+      this.watchlistMovie = new WatchlistMovie(model);
+    }
   }
 
   get inWatchlist() {

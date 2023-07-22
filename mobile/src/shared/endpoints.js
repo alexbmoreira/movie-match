@@ -30,6 +30,7 @@ const endpoints = {
     }
   },
   WATCHLIST: {
+    ALL: '/watchlist_movies/',
     with(movieId) {
       return `/watchlist_movies/${movieId}/`;
     }
