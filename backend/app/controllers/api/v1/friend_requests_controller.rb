@@ -14,7 +14,7 @@ module Api
       end
 
       def create
-        respond_with FriendRequests::Create.run(receiver: find_receiver!),
+        respond_with FriendRequests::Create.run(friend_request_params),
           serializer: versioned_class(FriendRequestSerializer),
           include: [:creator, :receiver]
       end
@@ -34,15 +34,11 @@ module Api
       private
 
       def find_friend_request!
-        FriendRequests::Find.run!(id: params[:id])
-      end
-
-      def find_receiver!
-        Users::Find.run!(id: friend_request_params[:receiver_id])
+        FriendRequest.find(params[:id])
       end
 
       def friend_request_params
-        ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:receiverId])
+        ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:receiver_id])
       end
     end
   end

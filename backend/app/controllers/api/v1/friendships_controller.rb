@@ -16,7 +16,7 @@ module Api
       private
 
       def find_friendship!
-        Friendships::Find.run!(id: params[:id])
+        Friendship.find(params[:id])
       end
     end
   end

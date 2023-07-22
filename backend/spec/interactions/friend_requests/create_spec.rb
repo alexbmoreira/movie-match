@@ -5,7 +5,7 @@ describe FriendRequests::Create do
 
   let(:creator) { create(:user, username: 'hippopotamus') }
   let(:receiver) { create(:user, username: 'sardine') }
-  let(:params) { { receiver: } }
+  let(:params) { { receiver_id: receiver.id.to_s } }
 
   subject { described_class.run!(params) }
 

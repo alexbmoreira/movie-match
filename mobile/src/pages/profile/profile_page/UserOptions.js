@@ -25,12 +25,13 @@ const _style= StyleSheet.create({
 const FriendButton = observer(({ uiState }) => {
   const { user } = uiState;
 
-  if(uiState.userIsAFriend) {
+  console.log(uiState.friendship);
+  if(uiState.isFriend) {
     return (
-      <Button mode='contained' onPress={() => uiState.removeFriend()}>{`Unfriend ${user.username}`}</Button>
+      <Button mode='contained' onPress={() => uiState.unfriend()}>{`Unfriend ${user.username}`}</Button>
     );
   }
-  if(uiState.userRequested) {
+  if(uiState.hasReceivedFriendRequest) {
     return (
       <View>
         <Text large style={_style.friendRequestSubHeader}>Friend Request Sent!</Text>
@@ -38,7 +39,7 @@ const FriendButton = observer(({ uiState }) => {
       </View>
     );
   }
-  if(uiState.userRequesting) {
+  if(uiState.isRequestingFriendship) {
     return (
       <View>
         <Text large style={_style.friendRequestSubHeader}>{`${user.username} wants to be your friend!`}</Text>

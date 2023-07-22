@@ -18,12 +18,15 @@ Rails.application.routes.draw do
       resources :tmdb_movies, path: '/movies', only: [:show]
       resources :tmdb_people, path: '/people', only: [:show]
 
-      resources :friend_requests, only: [:show, :index, :create, :destroy] do
+      resources :friend_requests, only: [:index, :create, :destroy] do
+        get '/:user_id', on: :collection, action: :show, as: :show
         member do
           post :accept
         end
       end
-      resources :friendships, only: [:show, :destroy]
+      resources :friendships, only: [:destroy] do
+        get '/:user_id', on: :collection, action: :show, as: :show
+      end
       resources :watchlist_movies, only: [:create, :destroy] do
         get '/:movie_id', on: :collection, action: :show, as: :show
       end
