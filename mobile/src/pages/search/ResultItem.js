@@ -3,34 +3,43 @@ import React from 'react';
 import { push } from 'shared/RootNavigation';
 
 const ResultItem = ({ model }) => {
-  if(!model.type) {
-    return (
-      <UserListItem
-        user={model}
-        onPress={() => push('OtherProfile', { userId: model.id, username: model.username })}
-      />
-    );
-  }
+  if(model.isMovie) {
+    const { movie } = model;
 
-  if(model.type === 'movie') {
     return (
       <TmdbListItem
-        header={model.title}
-        imageLink={model.poster_link_sm}
-        item={model}
-        type={model.type}
+        itemId={model.id.slice(2)}
+        header={movie.title}
+        imageLink={movie.posterThumb}
+        item={movie}
+        type={model.resultType}
       />
     );
   }
 
-  return (
-    <TmdbListItem
-      header={model.name}
-      imageLink={model.profile_link_sm}
-      item={model}
-      type={model.type}
-    />
-  );
+  if(model.isPerson) {
+    const { person } = model;
+
+    return (
+      <TmdbListItem
+        header={person.name}
+        imageLink={person.profilePath}
+        item={person}
+        type={model.resultType}
+      />
+    );
+  }
+
+  if(model.isUser) {
+    const { user } = model;
+
+    return (
+      <UserListItem
+        user={user}
+        onPress={() => push('OtherProfile', { userId: model.id.slice(2), username: user.username })}
+      />
+    );
+  }
 };
 
 export default ResultItem;

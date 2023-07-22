@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { Url, withState } from 'shared';
 import Table from './Table';
+import SearchBar from './SearchBar';
 import { DomainStore } from 'shared/stores';
 
 class InteractiveTableState {
@@ -17,11 +18,10 @@ class InteractiveTableState {
   models = [];
   pagination = {
     currentPage: 1,
-    nextPage: null,
-    previousPage: null,
     totalPages: 1,
     totalCount: 0
   };
+  filter = {};
   loading = false;
   refreshing = false;
 
@@ -29,6 +29,7 @@ class InteractiveTableState {
     makeObservable(this, {
       models: observable,
       pagination: observable,
+      filter: observable,
       loading: observable,
       refreshing: observable,
       load: action.bound,
@@ -39,30 +40,31 @@ class InteractiveTableState {
     });
   }
 
-  receiveProps({ Model, endpoint, type }) {
+  receiveProps({ Model, endpoint, type, scopes, searchable }) {
     this.Model = Model;
     this.endpoint = endpoint;
     this.type = type;
+    this.scopes = scopes;
+    this.searchable = searchable;
   }
 
   async load() {
+    this.__setDefaultFilters();
     await this.fetchResults();
   }
 
   async fetchResults() {
     this.loading = true;
-    
+
     const composed = await this.store._compose([
-      this.constructUrl(this.endpoint, this.pagination)
+      this.constructUrl()
     ]);
     const meta = composed[0].meta || {};
     const data = composed[0].data || [];
 
-    this.updateModels(_.map(this.__getModels(data)));
+    this.updateModels(this.__getModels(data));
 
     this.pagination.currentPage = meta.currentPage;
-    this.pagination.nextPage = meta.nextPage;
-    this.pagination.previousPage = meta.previousPage;
   }
 
   updateModels(data) {
@@ -75,22 +77,38 @@ class InteractiveTableState {
     this.loading = false;
   }
 
-  constructUrl(endpoint, pagination) {
-    const url = new Url(endpoint);
+  updateFilter(filter) {
+    _.merge(this.filter, filter);
+  }
 
-    this.__addPaginationParams(url, pagination);
+  constructUrl() {
+    const url = new Url(this.endpoint);
+
+    this.__addPaginationParams(url);
+    this.__addFilterParams(url);
   
     return url.toString();
   }
 
-  __addPaginationParams(url, pagination) {
-    url.params['page'] = pagination.currentPage;
+  __addPaginationParams(url) {
+    url.params['page'] = this.pagination.currentPage;
+  }
+
+  __addFilterParams(url) {
+    _.forOwn(this.filter, (value, key) => {
+      url.params[key] = value;
+    });
   }
 
   __getModels(data) {
     const filtered = _.filter(data, { _type: this.type });
 
     return filtered.map(m => new this.Model(m));
+  }
+
+  __setDefaultFilters() {
+    if (this.searchable) this.filter.query = '';
+    if (!_.isEmpty(this.scopes)) this.filter.scope = this.scopes[0].value;
   }
 
   async nextPage() {
@@ -104,25 +122,25 @@ class InteractiveTableState {
     this.refreshing = true;
     this.pagination = {
       currentPage: 1,
-      nextPage: null,
-      previousPage: null,
       totalPages: 1,
       totalCount: 0
     };
-    await this.load();
+    await this.fetchResults();
     this.refreshing = false;
   }
 }
 
-const InteractiveTable = observer(({ uiState, ...rest }) => {
+const InteractiveTable = observer(({ uiState, searchable, showEmptyState, scopes, ...rest }) => {
   const { models, loading, refreshing } = uiState;
 
   return (
     <React.Fragment>
       <Table
+        Header={() => searchable && <SearchBar uiState={uiState} scopes={scopes}/>}
         models={models}
         loading={loading}
         refreshing={refreshing}
+        showEmptyState={showEmptyState}
         onEndReached={() => uiState.nextPage()}
         refreshControl={
           <RefreshControl
@@ -134,5 +152,10 @@ const InteractiveTable = observer(({ uiState, ...rest }) => {
     </React.Fragment>
   );
 });
+
+InteractiveTable.defaultProps = {
+  showEmptyState: true,
+  searchable: false
+};
 
 export default withState(InteractiveTable, InteractiveTableState);
