@@ -11,12 +11,12 @@ module Api
       opts = options.last
       action = opts[:action] if opts.kind_of?(Hash)
       url_helper = _cached_api_base + resource_name.to_s
-      url_helper << '_url'
+      url_helper << '_path'
       if action
         url_helper.prepend('_') if action
         url_helper.prepend(action.to_s) if action
       end
-      send(url_helper, *options)
+      send(url_helper, *options).sub('/api/v1', '')
     end
 
     def api_namespace

@@ -15,5 +15,9 @@ module Searches
     def users?
       true
     end
+
+    def user?
+      true
+    end
   end
 end

@@ -54,7 +54,7 @@ const MovieDetails = observer(({ uiState }) => {
                 icon={({ size, color }) => (
                   <Icon name='add-to-watchlist' size={size} color={color} />
                 )}
-                onPress={() => uiState.editWatchlist(inWatchlist)}
+                onPress={() => uiState.editWatchlist()}
                 color={inWatchlist ? theme.colors.primary : theme.colors.text}
                 size={'sm'}
               />

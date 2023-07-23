@@ -5,7 +5,7 @@ describe Searches::Movies do
 
   let(:params) {
     {
-      query: 'spiderman'
+      query: 'spider-man'
     }
   }
 
@@ -16,7 +16,7 @@ describe Searches::Movies do
   subject { described_class.run!(params) }
 
   it do
-    expect_any_instance_of(described_class).to receive(:tmdb_fetch)
+    expect_any_instance_of(described_class).to receive(:tmdb_fetch).and_return([])
     subject
   end
 end

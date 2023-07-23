@@ -5,7 +5,7 @@ describe Searches::People do
 
   let(:params) {
     {
-      query: 'spiderman'
+      query: 'brad pitt'
     }
   }
 
@@ -16,7 +16,7 @@ describe Searches::People do
   subject { described_class.run!(params) }
 
   it do
-    expect_any_instance_of(described_class).to receive(:tmdb_fetch)
+    expect_any_instance_of(described_class).to receive(:tmdb_fetch).and_return([])
     subject
   end
 end

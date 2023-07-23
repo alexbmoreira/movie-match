@@ -1,11 +1,11 @@
 module FriendRequests
   class Create < ApplicationInteraction
-    object :receiver, class: User
+    string :receiver_id
 
     def execute
       friend_request = FriendRequest.new(
         creator: current_user,
-        receiver: receiver
+        receiver_id: receiver_id
       )
 
       errors.merge!(friend_request.errors) unless friend_request.save

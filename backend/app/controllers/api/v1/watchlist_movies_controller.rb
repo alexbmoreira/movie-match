@@ -22,7 +22,7 @@ module Api
       private
 
       def find_watchlist_movie!
-        WatchlistMovies::Find.run!(id: params[:id])
+        WatchlistMovie.find(params[:id])
       end
 
       def watchlist_movie_params
