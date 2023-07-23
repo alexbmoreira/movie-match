@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// import _ from  'lodash';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from '../../../typography';

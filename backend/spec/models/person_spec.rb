@@ -12,7 +12,7 @@ describe TmdbPerson do
         name: params['name'],
         biography: params['biography'],
         known_for_department: params['known_for_department'],
-        profile_path: params['profile_path'],
+        profile_path: include(params['profile_path']),
         cast_credits: include(a_kind_of(TmdbMovie)),
         crew_credits: include(a_kind_of(TmdbMovie))
       )
@@ -27,7 +27,7 @@ describe TmdbPerson do
         id: params['id'],
         name: params['name'],
         known_for_department: params['known_for_department'],
-        profile_path: params['profile_path'],
+        profile_path: include(params['profile_path']),
         known_for: include(a_kind_of(TmdbMovie))
       )
     end

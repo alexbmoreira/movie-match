@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe Searches::Movie do
+describe Searches::Movies do
   wrap_user_context
 
   let(:params) {
     {
-      query: 'spiderman'
+      query: 'spider-man'
     }
   }
 
@@ -16,7 +16,7 @@ describe Searches::Movie do
   subject { described_class.run!(params) }
 
   it do
-    expect_any_instance_of(described_class).to receive(:tmdb_fetch)
+    expect_any_instance_of(described_class).to receive(:tmdb_fetch).and_return([])
     subject
   end
 end

@@ -4,11 +4,15 @@ module Searches
       true
     end
 
-    def movie?
+    def movies?
       true
     end
 
-    def person?
+    def people?
+      true
+    end
+
+    def users?
       true
     end
 
