@@ -11,11 +11,11 @@ module Searches
 
       case scope
       when 'movies'
-        compose(Movie, query:)
+        compose(Movies, query:)
       when 'people'
-        compose(Person, query:)
+        compose(People, query:)
       when 'users'
-        compose(User, query:)
+        compose(Users, query:)
       end
     end
   end
