@@ -1,4 +1,4 @@
-module Search
+module Searches
   class InteractionPolicy < ApplicationPolicy
     def search?
       true
@@ -9,6 +9,10 @@ module Search
     end
 
     def person?
+      true
+    end
+
+    def user?
       true
     end
   end

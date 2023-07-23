@@ -22,4 +22,10 @@ class TmdbMovie < ActiveModelSerializers::Model
       crew_members: object['crew']&.map { TmdbPerson.new(_1) }
     )
   end
+
+  def release_year
+    return if release_date.blank?
+
+    Date.parse(release_date).year
+  end
 end

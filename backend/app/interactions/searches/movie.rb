@@ -1,19 +1,21 @@
-module Search
-  class Person < ApplicationInteraction
+module Searches
+  class Movie < ApplicationInteraction
     string :query
 
     def execute
+      skip_policy_scope
+
       results = tmdb_fetch
 
       results.map do |result|
-        TmdbPerson.new(result)
+        TmdbMovie.new(result)
       end
     end
 
     private
 
     def tmdb_fetch
-      Tmdb::Search.new.resource('person').query(query).fetch
+      Tmdb::Search.new.query(query).fetch
     end
   end
 end

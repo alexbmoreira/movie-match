@@ -9,9 +9,8 @@ module Api
         :release_date,
         :runtime,
         :poster_thumb,
-        :poster_path
-
-      attribute(:release_year) { Date.parse(object.release_date).year }
+        :poster_path,
+        :release_year
 
       has_many :cast_members,
         serializer: versioned_class(TmdbPersonSerializer)
