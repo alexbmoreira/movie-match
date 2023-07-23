@@ -6,7 +6,7 @@ module Api
       attributes :created_at,
         :movie
 
-      link(:self) {
+      link(:self) do
         next unless object.id
 
         methods = []
@@ -18,7 +18,7 @@ module Api
             methods: methods
           }
         }
-      }
+      end
 
       def movie
         TmdbMovieSerializer.new(object.movie)
