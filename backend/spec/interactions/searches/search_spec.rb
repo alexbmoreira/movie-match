@@ -15,9 +15,9 @@ describe Searches::Search do
   subject { described_class.run!(params) }
 
   before do
-    allow_any_instance_of(Searches::Movie).to receive(:run).and_return(nil)
-    allow_any_instance_of(Searches::Person).to receive(:run).and_return(nil)
-    allow_any_instance_of(Searches::User).to receive(:run).and_return(nil)
+    allow_any_instance_of(Searches::Movies).to receive(:run).and_return(nil)
+    allow_any_instance_of(Searches::People).to receive(:run).and_return(nil)
+    allow_any_instance_of(Searches::Users).to receive(:run).and_return(nil)
   end
 
   context 'when no query is provided' do
@@ -30,7 +30,7 @@ describe Searches::Search do
     let(:scope) { 'movies' }
 
     it do
-      expect_any_instance_of(Searches::Movie).to receive(:run).and_return(nil)
+      expect_any_instance_of(Searches::Movies).to receive(:run).and_return(nil)
       subject
     end
   end
@@ -39,7 +39,7 @@ describe Searches::Search do
     let(:scope) { 'people' }
 
     it do
-      expect_any_instance_of(Searches::Person).to receive(:run)
+      expect_any_instance_of(Searches::People).to receive(:run)
       subject
     end
   end
@@ -48,7 +48,7 @@ describe Searches::Search do
     let(:scope) { 'users' }
 
     it do
-      expect_any_instance_of(Searches::User).to receive(:run)
+      expect_any_instance_of(Searches::Users).to receive(:run)
       subject
     end
   end

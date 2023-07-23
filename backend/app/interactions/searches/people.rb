@@ -1,5 +1,5 @@
 module Searches
-  class Person < ApplicationInteraction
+  class People < ApplicationInteraction
     string :query
 
     def execute

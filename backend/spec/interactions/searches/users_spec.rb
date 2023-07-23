@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Searches::User do
+describe Searches::Users do
   wrap_user_context
 
   let(:user) { create(:user, username: 'hippopotamus') }

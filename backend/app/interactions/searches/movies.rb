@@ -1,5 +1,5 @@
 module Searches
-  class Movie < ApplicationInteraction
+  class Movies < ApplicationInteraction
     string :query
 
     def execute
