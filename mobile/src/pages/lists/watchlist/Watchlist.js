@@ -10,6 +10,7 @@ const Movie = ({ model }) => {
 
   return (
     <TmdbListItem
+      itemId={movie.id}
       header={movie.title}
       imageLink={movie.posterThumb}
       item={movie}

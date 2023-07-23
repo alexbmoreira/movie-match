@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Icon } from 'components/common';
 import React from 'react';
 import { theme } from 'shared';
-import { ProfileStack } from './stack_navigators';
+import { ProfileStack, SearchStack } from './stack_navigators';
 // import { ProfileStack, SearchStack, MatchStack } from './stack_navigators';
 
 const Tab = createBottomTabNavigator();
@@ -33,7 +33,7 @@ const MainTabs = ({ route }) => {
       />
       <Tab.Screen
         name='SearchStack'
-        component={View}
+        component={SearchStack}
         options={{
           title: 'Search',
           tabBarIcon: ({ size, color }) => <Icon name='search' color={color} size={size}/>

@@ -33,7 +33,8 @@ const endpoints = {
     with(movieId) {
       return `/watchlist_movies/${movieId}/`;
     }
-  }
+  },
+  SEARCH: '/search/'
 };
 
 export default endpoints;

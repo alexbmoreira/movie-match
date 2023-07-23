@@ -5,27 +5,50 @@ describe Searches::Search do
 
   let(:params) {
     {
-      query: 'spiderman',
-      type: type
+      query: query,
+      scope: scope
     }
   }
+  let(:query) { 'spider-man' }
+  let(:scope) { 'movies' }
 
   subject { described_class.run!(params) }
 
-  context 'when the type is movie' do
-    let(:type) { 'movie' }
+  before do
+    allow_any_instance_of(Searches::Movies).to receive(:run).and_return(nil)
+    allow_any_instance_of(Searches::People).to receive(:run).and_return(nil)
+    allow_any_instance_of(Searches::Users).to receive(:run).and_return(nil)
+  end
+
+  context 'when no query is provided' do
+    let(:query) { nil }
+
+    it { is_expected.to eq([]) }
+  end
+
+  context 'when the scope is movies' do
+    let(:scope) { 'movies' }
 
     it do
-      expect_any_instance_of(Searches::Movie).to receive(:run)
+      expect_any_instance_of(Searches::Movies).to receive(:run).and_return(nil)
       subject
     end
   end
 
-  context 'when the type is person' do
-    let(:type) { 'person' }
+  context 'when the scope is people' do
+    let(:scope) { 'people' }
 
     it do
-      expect_any_instance_of(Searches::Person).to receive(:run)
+      expect_any_instance_of(Searches::People).to receive(:run)
+      subject
+    end
+  end
+
+  context 'when the scope is users' do
+    let(:scope) { 'users' }
+
+    it do
+      expect_any_instance_of(Searches::Users).to receive(:run)
       subject
     end
   end

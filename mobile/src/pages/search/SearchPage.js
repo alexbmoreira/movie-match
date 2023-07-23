@@ -1,11 +1,10 @@
-import { Spinner, Table } from 'components/common';
+import { InteractiveTable } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { View } from 'react-native';
-import { withState } from 'shared';
+import { types, endpoints } from 'shared';
 import ResultItem from './ResultItem';
-import SearchBar from './SearchBar';
-import SearchState from './state/SearchState';
+import { SearchResult } from 'stores';
 
 const COLUMNS = [
   {
@@ -17,21 +16,34 @@ const LOCALIZATION = {
   emptyState: 'No results found'
 };
 
-const SearchPage = observer(({ uiState }) => {
-  const { results, isLoading } = uiState;
+const SCOPES = [
+  {
+    label: 'Movies', value: 'movies'
+  },
+  {
+    label: 'People', value: 'people'
+  },
+  {
+    label: 'Users', value: 'users'
+  }
+];
+
+const SearchPage = observer(() => {
 
   return (
     <View>
-      {isLoading ?
-        <Spinner/> :
-        <Table
-          Header={() => <SearchBar uiState={uiState}/>}
-          models={results}
-          columns={COLUMNS}
-          localization={LOCALIZATION}
-        />}
+      <InteractiveTable
+        Model={SearchResult}
+        endpoint={endpoints.SEARCH}
+        type={types.SEARCH_RESULT}
+        searchable
+        showEmptyState={false}
+        columns={COLUMNS}
+        localization={LOCALIZATION}
+        scopes={SCOPES}
+      />
     </View>
   );
 });
 
-export default withState(SearchPage, SearchState);
+export default SearchPage;

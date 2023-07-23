@@ -24,6 +24,7 @@ const Table = ({
   models,
   columns,
   Header,
+  showEmptyState,
   localization,
   onEndReached,
   loading,
@@ -43,7 +44,7 @@ const Table = ({
         }}
         keyExtractor={(_, index) => index.toString()}
         ItemSeparatorComponent={Divider}
-        ListEmptyComponent={() => (
+        ListEmptyComponent={() => (showEmptyState &&
           <View style={_style.emptyState}>
             <EmptyState localization={localization}/>
           </View>
@@ -67,7 +68,8 @@ const Table = ({
 
 Table.defaultProps = {
   onEndReached: () => {},
-  loading: false
+  loading: false,
+  showEmptyState: true
 };
 
 export default observer(Table);

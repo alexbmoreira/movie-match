@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Searches::Movie do
+describe Searches::Movies do
   wrap_user_context
 
   let(:params) {

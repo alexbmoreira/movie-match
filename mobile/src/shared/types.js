@@ -5,7 +5,8 @@ const types = {
   FRIEND_REQUEST: 'friendRequests',
   TMDB: {
     MOVIE: 'tmdbMovies'
-  }
+  },
+  SEARCH_RESULT: 'searchResults'
 };
 
 export default types;

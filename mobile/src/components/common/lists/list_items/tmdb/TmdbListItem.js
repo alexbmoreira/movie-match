@@ -25,9 +25,9 @@ const _style = StyleSheet.create({
   }
 });
 
-const TmdbListItem = ({ header, imageLink, item, type }) => {
+const TmdbListItem = ({ itemId, header, imageLink, item, type }) => {
   return (
-    <TouchableHighlight onPress={() => type === 'movie' && navigate('MovieDetails', { movieId: item.id, title: item.title })}>
+    <TouchableHighlight onPress={() => type === 'movie' && navigate('MovieDetails', { movieId: itemId, title: item.title })}>
       <View style={_style.resultItem}>
         <Poster size='xs' title={header} source={{ uri: imageLink }}/>
         <View style={_style.info}>

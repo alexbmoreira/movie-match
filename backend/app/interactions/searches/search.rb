@@ -1,20 +1,21 @@
 module Searches
   class Search < ApplicationInteraction
-    string :query
-    string :type, default: 'movie'
+    string :query, default: nil
+    string :scope, default: 'movies'
 
-    validates :type, inclusion: { in: ['movie', 'person', 'user'], message: :invalid }
+    validates :scope, inclusion: { in: ['movies', 'people', 'users'], message: :invalid }
 
     def execute
       skip_policy_scope
+      return [] if query.blank?
 
-      case type
-      when 'movie'
-        compose(Movie, query:)
-      when 'person'
-        compose(Person, query:)
-      when 'user'
-        compose(User, query:)
+      case scope
+      when 'movies'
+        compose(Movies, query:)
+      when 'people'
+        compose(People, query:)
+      when 'users'
+        compose(Users, query:)
       end
     end
   end

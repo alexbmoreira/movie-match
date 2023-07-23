@@ -23,6 +23,8 @@ class ApplicationResponder < ActionController::Responder
   end
 
   def display(resource, given_options = {})
+    return if resource.nil?
+
     resource_to_render = resource.kind_of?(ActiveInteraction::Base) ? resource.result : resource
     scope = Api::SerializationScope.new(
       user: @user,
