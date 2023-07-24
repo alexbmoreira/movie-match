@@ -7,6 +7,10 @@ module Api
         :movie
 
       attribute(:action) { object.class.action }
+
+      def movie
+        TmdbMovieSerializer.new(object.movie)
+      end
     end
   end
 end

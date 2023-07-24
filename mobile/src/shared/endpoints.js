@@ -22,6 +22,11 @@ const endpoints = {
       with(userId) {
         return `/users/${userId}/joint_watchlist/`;
       }
+    },
+    MATCHLIST: {
+      with(userId) {
+        return `/users/${userId}/matchlist/`;
+      }
     }
   },
   FRIEND_REQUESTS: {
@@ -53,8 +58,22 @@ const endpoints = {
       return `/watchlist_movies/${movieId}/`;
     }
   },
-  MATCHLIST_LIKES: '/matchlist_likes/',
-  MATCHLIST_DISLIKES: '/matchlist_dislikes/',
+  MATCHLIST_LIKES: {
+    ALL: '/matchlist_likes/',
+    WITH_USER: {
+      with(userId) {
+        return `/matchlist_likes/with_user/${userId}`;
+      }
+    }
+  },
+  MATCHLIST_DISLIKES: {
+    ALL: '/matchlist_dislikes/',
+    WITH_USER: {
+      with(userId) {
+        return `/matchlist_dislikes/with_user/${userId}`;
+      }
+    }
+  },
   SEARCH: '/search/'
 };
 

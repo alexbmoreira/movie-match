@@ -70,7 +70,7 @@ class MatchScreenState {
 
   async likeMovie(movieIndex) {
     await this.store.post(
-      endpoints.MATCHLIST_LIKES,
+      endpoints.MATCHLIST_LIKES.ALL,
       types.MATCHLIST_ACTIONS,
       { friendId: this.friendId, movieId: this.jointWatchlist[movieIndex].id }
     );
@@ -78,7 +78,7 @@ class MatchScreenState {
 
   async dislikeMovie(movieIndex) {
     await this.store.post(
-      endpoints.MATCHLIST_DISLIKES,
+      endpoints.MATCHLIST_DISLIKES.ALL,
       types.MATCHLIST_ACTIONS,
       { friendId: this.friendId, movieId: this.jointWatchlist[movieIndex].id }
     );

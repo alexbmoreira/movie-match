@@ -7,8 +7,12 @@ module Api
           friend: find_friend!
         )
         respond_with MatchlistActions::CreateLike.run(inputs),
-          each_serializer: versioned_class(MatchlistActionSerializer),
-          include: [:user, :friend]
+          each_serializer: versioned_class(MatchlistActionSerializer)
+      end
+
+      def with_user
+        respond_with MatchlistActions::LikesWithUser.run(params),
+          each_serializer: versioned_class(MatchlistActionSerializer)
       end
 
       private

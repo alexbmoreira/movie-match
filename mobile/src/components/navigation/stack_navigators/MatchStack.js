@@ -19,18 +19,18 @@ const MatchStack = ({ route }) => {
           title: 'Friends'
         }}
       />
-      {/* <MatchNavigator.Screen
+      <MatchNavigator.Screen
         name='LikesList'
         component={LikesList}
         initialParams={route.params}
         options={{ title: 'Your Likes' }}
-      /> */}
-      {/* <MatchNavigator.Screen
+      />
+      <MatchNavigator.Screen
         name='DislikesList'
         component={DislikesList}
         initialParams={route.params}
         options={{ title: 'Your Dislikes' }}
-      /> */}
+      />
       {/* <MatchNavigator.Screen
         name='Matchlist'
         component={Matchlist}

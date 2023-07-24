@@ -4,11 +4,11 @@ module MatchlistActions
       true
     end
 
-    def list_likes?
+    def likes_with_user?
       true
     end
 
-    def list_dislikes?
+    def dislikes_with_user?
       true
     end
 
