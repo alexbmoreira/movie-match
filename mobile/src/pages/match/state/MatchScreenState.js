@@ -1,12 +1,13 @@
-import { getRequest, postRequest } from 'api';
 import { Icon, IconButton } from 'components/common';
-import _ from 'lodash';
 import { action, makeObservable, observable } from 'mobx';
 import React from 'react';
-import { endpoints, theme } from 'shared';
+import { types, endpoints, theme } from 'shared';
 import { TmdbMovie, User } from 'stores';
+import { DomainStore } from 'shared/stores';
 
 class MatchScreenState {
+  store = new DomainStore();
+
   route;
   navigation;
   friendId;
@@ -39,11 +40,13 @@ class MatchScreenState {
   }
 
   async load() {
-    const friend = await getRequest(endpoints.PROFILE.with(this.friendId));
-    this.friend = new User(friend);
+    await this.store._compose([
+      endpoints.USER.with(this.friendId),
+      endpoints.USER.JOINT_WATCHLIST.with(this.friendId)
+    ]);
 
-    const jointWatchlist = await getRequest(endpoints.JOINT_WATCHLIST.with(this.friendId));
-    this.jointWatchlist = await this.getJointWatchlistMetadata(jointWatchlist.results);
+    this.friend = new User(this.store._getSingle(types.USER, { id: this.friendId }));
+    this.jointWatchlist = this.store._getAll(types.TMDB.MOVIE, TmdbMovie);
   }
 
   navigationConfig() {
@@ -56,7 +59,7 @@ class MatchScreenState {
             <Icon name='menu' size={size} color={color} />
           )}
           onPress={() => {
-            this.bottomSheetRef.current?.snapTo(0);
+            this.bottomSheetRef.current?.expand();
           }}
           color={theme.colors.primary}
           size={'sm'}
@@ -65,24 +68,19 @@ class MatchScreenState {
     });
   }
 
-  async getJointWatchlistMetadata(jointWatchlist) {
-    return Promise.all(_.map(jointWatchlist, async (movie) => {
-      const jointWatchlistMovie = await getRequest(endpoints.TMDB.DATA.with('movie', movie.movie));
-      return new TmdbMovie(jointWatchlistMovie);
-    }));
-  }
-
   async likeMovie(movieIndex) {
-    await postRequest(
-      endpoints.MATCHLIST_LIKE.ALL.with(this.friendId),
-      { movie: this.jointWatchlist[movieIndex].id }
+    await this.store.post(
+      endpoints.MATCHLIST_LIKES.ALL,
+      types.MATCHLIST_ACTIONS,
+      { friendId: this.friendId, movieId: this.jointWatchlist[movieIndex].id }
     );
   }
 
   async dislikeMovie(movieIndex) {
-    await postRequest(
-      endpoints.MATCHLIST_DISLIKE.ALL.with(this.friendId),
-      { movie: this.jointWatchlist[movieIndex].id }
+    await this.store.post(
+      endpoints.MATCHLIST_DISLIKES.ALL,
+      types.MATCHLIST_ACTIONS,
+      { friendId: this.friendId, movieId: this.jointWatchlist[movieIndex].id }
     );
   }
 }

@@ -1,9 +1,10 @@
 import { InteractiveTable, UserListItem } from 'components/common';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { endpoints } from 'shared';
+import { endpoints, types } from 'shared';
 import { push } from 'shared/RootNavigation';
 import { User } from 'stores';
+import { authStore } from 'shared/stores';
 
 const Friend = ({ model }) => {
   return (
@@ -24,10 +25,10 @@ const LOCALIZATION = {
   emptyState: 'You have no friends'
 };
 
-const MatchScreenFriendsList = observer(({ route }) => {
+const MatchScreenFriendsList = observer(() => {
   return (
     <React.Fragment>
-      <InteractiveTable Model={User} endpoint={endpoints.FRIENDS.with(route.params.userId)} columns={COLUMNS} localization={LOCALIZATION}/>
+      <InteractiveTable Model={User} endpoint={endpoints.USER.FRIENDS.with(authStore.user.id)} type={types.USER} columns={COLUMNS} localization={LOCALIZATION}/>
     </React.Fragment>
   );
 });

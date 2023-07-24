@@ -1,20 +1,18 @@
 module Api
   module V1
     class MatchlistLikesController < ApplicationController
-      def index
-        respond_with MatchlistActions::ListLikes.run!(params),
-          each_serializer: versioned_class(MatchlistActionSerializer),
-          include: [:user, :friend]
-      end
-
       def create
         inputs = matchlist_like_params.merge!(
           user: @user,
           friend: find_friend!
         )
         respond_with MatchlistActions::CreateLike.run(inputs),
-          each_serializer: versioned_class(MatchlistActionSerializer),
-          include: [:user, :friend]
+          each_serializer: versioned_class(MatchlistActionSerializer)
+      end
+
+      def with_user
+        respond_with MatchlistActions::LikesWithUser.run(params),
+          each_serializer: versioned_class(MatchlistActionSerializer)
       end
 
       private
@@ -24,7 +22,7 @@ module Api
       end
 
       def matchlist_like_params
-        ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:friendId, :movieId])
+        ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:friend_id, :movie_id])
       end
     end
   end

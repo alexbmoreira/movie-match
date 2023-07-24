@@ -1,15 +1,18 @@
-import { Table, TmdbListItem } from 'components/common';
+import { InteractiveTable, TmdbListItem } from 'components/common';
+import { types, endpoints } from 'shared';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { withState } from 'shared';
-import DislikesListState from './state/DislikesListState';
+import { MatchlistAction } from 'stores';
 
 const Movie = ({ model }) => {
+  const { movie } = model;
+
   return (
     <TmdbListItem
-      header={model.title}
-      imageLink={model.posterPath}
-      item={model}
+      itemId={movie.id}
+      header={movie.title}
+      imageLink={movie.posterThumb}
+      item={movie}
       type={'movie'}
     />
   );
@@ -25,11 +28,18 @@ const LOCALIZATION = {
   emptyState: 'You haven\'t disliked any movies yet'
 };
 
-const DislikesList = observer(({ uiState }) => {
-  const { dislikes } = uiState;
+const DislikesList = observer(({ route }) => {
+  const { friendId } = route.params;
+
   return (
-    <Table models={dislikes} columns={COLUMNS} localization={LOCALIZATION}/>
+    <InteractiveTable
+      Model={MatchlistAction}
+      endpoint={endpoints.MATCHLIST_DISLIKES.WITH_USER.with(friendId)}
+      type={types.MATCHLIST_ACTION}
+      columns={COLUMNS}
+      localization={LOCALIZATION}
+    />
   );
 });
 
-export default withState(DislikesList, DislikesListState);
+export default DislikesList;

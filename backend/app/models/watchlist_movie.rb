@@ -4,7 +4,7 @@ class WatchlistMovie < ApplicationRecord
   validates :user, uniqueness: { scope: :movie_id }
 
   def movie
-    TmdbMovie.new(Tmdb::Movie.detail(movie_id))
+    @_movie ||= TmdbMovie.new(Tmdb::Movie.detail(movie_id))
   end
 end
 

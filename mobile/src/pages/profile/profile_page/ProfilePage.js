@@ -32,6 +32,7 @@ const ProfilePage = observer(({ uiState }) => {
       />
       {!uiState.isCurrentUser &&
         <BottomSheet
+          index={-1}
           innerRef={bottomSheetRef}
           snapPoint={150}
         >

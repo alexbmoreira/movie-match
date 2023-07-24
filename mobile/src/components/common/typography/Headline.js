@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text as Txt } from 'react-native-paper';
+import { theme } from 'shared';
 
 const _style = StyleSheet.create({
   headline: {
+    color: theme.colors.text,
     fontSize: 26,
     lineHeight: 32,
     marginVertical: 2,

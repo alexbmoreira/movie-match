@@ -1,6 +1,7 @@
 import { action, makeObservable, observable, computed } from 'mobx';
+import { Icon, IconButton } from 'components/common';
 import React from 'react';
-import { endpoints, types } from 'shared';
+import { endpoints, types, theme } from 'shared';
 import { User, WatchlistMovie, FriendRequest, Friendship } from 'stores';
 import { authStore, DomainStore } from 'shared/stores';
 import _ from 'lodash';
@@ -62,7 +63,22 @@ class ProfileState {
   }
 
   navigationConfig() {
-    this.navigation.setOptions({ title: this.user.username });
+    this.navigation.setOptions({
+      title: this.user.username,
+      headerRight: () => (
+        <IconButton
+          style={{ marginRight: 10 }}
+          icon={({ size, color }) => (
+            <Icon name='menu' size={size} color={color} />
+          )}
+          onPress={() => {
+            this.bottomSheetRef.current?.expand();
+          }}
+          color={theme.colors.primary}
+          size={'sm'}
+        />
+      )
+    });
   }
 
   async unfriend() {

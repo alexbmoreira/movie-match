@@ -12,6 +12,8 @@ Rails.application.routes.draw do
         member do
           get :friends
           get :watchlist
+          get :joint_watchlist
+          get :matchlist
         end
       end
 
@@ -19,21 +21,35 @@ Rails.application.routes.draw do
       resources :tmdb_people, path: '/people', only: [:show]
 
       resources :friend_requests, only: [:index, :create, :destroy] do
-        get '/:user_id', on: :collection, action: :show, as: :show
+        collection do
+          get '/:user_id', action: :show, as: :show
+        end
         member do
           post :accept
         end
       end
       resources :friendships, only: [:destroy] do
-        get '/:user_id', on: :collection, action: :show, as: :show
+        collection do
+          get '/:user_id', action: :show, as: :show
+        end
       end
       resources :watchlist_movies, only: [:create, :destroy] do
-        get '/:movie_id', on: :collection, action: :show, as: :show
+        collection do
+          get '/:movie_id', action: :show, as: :show
+        end
       end
 
       resources :matchlist_actions, only: [:show, :destroy]
-      resources :matchlist_likes, only: [:show, :index, :create]
-      resources :matchlist_dislikes, only: [:show, :index, :create]
+      resources :matchlist_likes, only: [:create] do
+        collection do
+          get '/with_user/:user_id', action: :with_user
+        end
+      end
+      resources :matchlist_dislikes, only: [:create] do
+        collection do
+          get '/with_user/:user_id', action: :with_user
+        end
+      end
     end
   end
 end

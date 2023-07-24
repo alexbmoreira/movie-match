@@ -8,8 +8,9 @@ module Api
 
       attribute(:action) { object.class.action }
 
-      belongs_to :user, serializer: versioned_class(UserDetailSerializer)
-      belongs_to :friend, serializer: versioned_class(UserDetailSerializer)
+      def movie
+        TmdbMovieSerializer.new(object.movie)
+      end
     end
   end
 end

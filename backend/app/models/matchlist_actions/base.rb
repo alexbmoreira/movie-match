@@ -8,7 +8,7 @@ module MatchlistActions
     validate :unique_movie_for_friend
 
     def movie
-      TmdbMovie.new(Tmdb::Movie.detail(movie_id))
+      @_movie ||= TmdbMovie.new(Tmdb::Movie.detail(movie_id))
     end
 
     def self.action

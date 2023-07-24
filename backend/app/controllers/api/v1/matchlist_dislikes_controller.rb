@@ -1,12 +1,6 @@
 module Api
   module V1
     class MatchlistDislikesController < ApplicationController
-      def index
-        respond_with MatchlistActions::ListDislikes.run!(params),
-          each_serializer: versioned_class(MatchlistActionSerializer),
-          include: [:user, :friend]
-      end
-
       def create
         inputs = matchlist_dislike_params.merge!(
           user: @user,
@@ -17,6 +11,11 @@ module Api
           include: [:user, :friend]
       end
 
+      def with_user
+        respond_with MatchlistActions::DislikesWithUser.run(params),
+          each_serializer: versioned_class(MatchlistActionSerializer)
+      end
+
       private
 
       def find_friend!
@@ -24,7 +23,7 @@ module Api
       end
 
       def matchlist_dislike_params
-        ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:friendId, :movieId])
+        ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:friend_id, :movie_id])
       end
     end
   end
