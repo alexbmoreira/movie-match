@@ -36,7 +36,7 @@ describe Users::JointWatchlist do
 
   context 'when the user has actioned a movie' do
     before do
-      matchlist_action = create(:matchlist_like, user:, movie_id: 489)
+      create(:matchlist_like, user:, movie_id: 489)
     end
 
     it {

@@ -20,7 +20,7 @@ module Users
       actioned_movies = MatchlistActions::Base.where(user_id: current_user.id).pluck(:movie_id)
       movies = movies.select { !_1.id.in?(actioned_movies) }
 
-      counts = movies.group_by { |obj| obj.id }.transform_values(&:size)
+      counts = movies.group_by(&:id).transform_values(&:size)
 
       duplicates = counts.select { |_movie_id, count| count > 1 }.keys
       non_duplicates = counts.select { |_element_id, count| count == 1 }.keys
