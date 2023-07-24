@@ -15,6 +15,11 @@ module Api
         respond_with Users::Watchlist.run!(params),
           each_serializer: versioned_class(WatchlistMovieSerializer)
       end
+
+      def joint_watchlist
+        respond_with Users::JointWatchlist.run!(params),
+          each_serializer: versioned_class(TmdbMovieSerializer)
+      end
     end
   end
 end

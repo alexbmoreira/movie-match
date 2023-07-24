@@ -7,9 +7,6 @@ module Api
         :movie
 
       attribute(:action) { object.class.action }
-
-      belongs_to :user, serializer: versioned_class(UserDetailSerializer)
-      belongs_to :friend, serializer: versioned_class(UserDetailSerializer)
     end
   end
 end

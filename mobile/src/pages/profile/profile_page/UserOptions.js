@@ -25,7 +25,6 @@ const _style= StyleSheet.create({
 const FriendButton = observer(({ uiState }) => {
   const { user } = uiState;
 
-  console.log(uiState.friendship);
   if(uiState.isFriend) {
     return (
       <Button mode='contained' onPress={() => uiState.unfriend()}>{`Unfriend ${user.username}`}</Button>

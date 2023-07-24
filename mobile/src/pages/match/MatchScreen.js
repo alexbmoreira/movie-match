@@ -87,8 +87,9 @@ const MatchScreen = observer(({ uiState }) => {
         </View>
       </ScreenContainer>
       <BottomSheet
+        index={-1}
         innerRef={bottomSheetRef}
-        snapPoints={[230, 0]}
+        snapPoint={230}
       >
         <UserOptions uiState={uiState}/>
       </BottomSheet>

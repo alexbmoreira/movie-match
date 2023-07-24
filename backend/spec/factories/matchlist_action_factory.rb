@@ -5,7 +5,9 @@ FactoryBot.define do
     movie_id { Faker::Number.number(digits: 3) }
   end
 
-  factory :matchlist_like, parent: :matchlist_action, class: MatchlistActions::MatchlistLike do; end
+  factory :matchlist_like,
+    parent: :matchlist_action,
+    class: MatchlistActions::MatchlistLike do; end
 
   factory :matchlist_dislike,
     parent: :matchlist_action,

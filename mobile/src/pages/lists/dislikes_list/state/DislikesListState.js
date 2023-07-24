@@ -28,7 +28,7 @@ class DislikesListState {
   }
 
   async load() {
-    const dislikes = await getRequest(endpoints.MATCHLIST_DISLIKE.ALL.with(this.friendId));
+    const dislikes = await getRequest(endpoints.MATCHLIST_DISLIKE.with(this.friendId));
     this.dislikes = await this.getDislikesListMetadata(dislikes.results);
   }
 

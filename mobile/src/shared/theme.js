@@ -5,8 +5,8 @@ const charcoal = '#2A3A57'; // secondary
 const slate = '#7A8B99'; // tertiary
 const sky = '#F2B705'; // action
 const alice = '#E6E6E6'; // text
-const forest = '#E63946'; // like
-const firetruck = '#2A9D8F'; // dislike
+const forest = '#2A9D8F'; // like
+const firetruck = '#E63946'; // dislike
 
 const theme = {
   ...DefaultTheme,

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
         member do
           get :friends
           get :watchlist
+          get :joint_watchlist
+          get :matchlist
+          get :matchlist_actions
         end
       end
 
@@ -32,8 +35,8 @@ Rails.application.routes.draw do
       end
 
       resources :matchlist_actions, only: [:show, :destroy]
-      resources :matchlist_likes, only: [:show, :index, :create]
-      resources :matchlist_dislikes, only: [:show, :index, :create]
+      resources :matchlist_likes, only: [:create]
+      resources :matchlist_dislikes, only: [:create]
     end
   end
 end

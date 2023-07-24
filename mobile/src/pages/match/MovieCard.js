@@ -17,6 +17,7 @@ const _style = StyleSheet.create({
     borderRadius: theme.roundness
   },
   details: {
+    color: theme.colors.text,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

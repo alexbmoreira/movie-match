@@ -28,7 +28,7 @@ class LikesListState {
   }
 
   async load() {
-    const likes = await getRequest(endpoints.MATCHLIST_LIKE.ALL.with(this.friendId));
+    const likes = await getRequest(endpoints.MATCHLIST_LIKE.with(this.friendId));
     this.likes = await this.getLikesListMetadata(likes.results);
   }
 

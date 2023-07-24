@@ -6,7 +6,8 @@ const types = {
   TMDB: {
     MOVIE: 'tmdbMovies'
   },
-  SEARCH_RESULT: 'searchResults'
+  SEARCH_RESULT: 'searchResults',
+  MATCHLIST_ACTION: 'matchlistActions'
 };
 
 export default types;

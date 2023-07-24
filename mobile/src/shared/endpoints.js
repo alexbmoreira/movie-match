@@ -17,6 +17,11 @@ const endpoints = {
       with(userId) {
         return `/users/${userId}/watchlist/`;
       }
+    },
+    JOINT_WATCHLIST: {
+      with(userId) {
+        return `/users/${userId}/joint_watchlist/`;
+      }
     }
   },
   FRIEND_REQUESTS: {
@@ -48,6 +53,8 @@ const endpoints = {
       return `/watchlist_movies/${movieId}/`;
     }
   },
+  MATCHLIST_LIKES: '/matchlist_likes/',
+  MATCHLIST_DISLIKES: '/matchlist_dislikes/',
   SEARCH: '/search/'
 };
 

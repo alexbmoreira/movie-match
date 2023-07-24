@@ -24,7 +24,7 @@ module Api
       end
 
       def matchlist_dislike_params
-        ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:friendId, :movieId])
+        ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:friend_id, :movie_id])
       end
     end
   end
