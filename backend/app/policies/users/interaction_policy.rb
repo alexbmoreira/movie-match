@@ -15,5 +15,9 @@ module Users
     def joint_watchlist?
       true
     end
+
+    def matchlist?
+      true
+    end
   end
 end

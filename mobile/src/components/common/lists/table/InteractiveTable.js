@@ -63,7 +63,6 @@ class InteractiveTableState {
     const data = composed[0].data || [];
 
     this.updateModels(this.__getModels(data));
-    console.log(data);
 
     this.pagination.currentPage = meta.currentPage;
   }
