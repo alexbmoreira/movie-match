@@ -4,9 +4,11 @@ import TextInput from '../../TextInput';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { theme } from 'shared';
 
 const _style = StyleSheet.create({
   searchBar: {
+    backgroundColor: theme.colors.background,
     paddingHorizontal: 10,
     paddingTop: 15
   }
