@@ -50,6 +50,7 @@ const Table = ({
           </View>
         )}
         ListHeaderComponent={Header}
+        stickyHeaderIndices={[0]}
         ListFooterComponent={() => !_.isEmpty(models) && !refreshing &&
           <View>
             <Divider offset={0}/>
